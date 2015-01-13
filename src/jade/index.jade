@@ -1,0 +1,79 @@
+doctype html
+html
+  head
+    meta(charset='UTF-8')
+    title= title
+
+    base(href='/')
+
+    - var cdn = '//maxcdn.bootstrapcdn.com'
+    link(rel='stylesheet' href=cdn + '/bootstrap/3.3.1/css/bootstrap.min.css')
+    link(rel='stylesheet'
+      href=cdn + '/font-awesome/4.2.0/css/font-awesome.min.css')
+
+    - cdn = '//cdn.jsdelivr.net'
+    link(rel='stylesheet' href=cdn + '/editor/0.1.0/editor.css')
+
+    link(rel='stylesheet' href='/css/style.css')
+
+  body(ng-controller='BodyCtrl')
+    #header.navbar.navbar-default(ng-switch on='user.authenticated')
+      include ./navbar.jade
+
+    #content(ng-controller='ContentCtrl' ng-cloak)
+      div(ng-switch on='page')
+        .home-page(ng-switch-when='home')
+          include ./home.jade
+
+        .explore-page(ng-switch-when='explore')
+          h2.page-title Explore
+          hr
+          bb-explore
+
+        .create-page(ng-switch-when='create')
+          h2.page-title Create a new thing
+          hr
+          include ./create.jade
+
+        .build-page(ng-switch-when='build')
+          h2.page-title Build
+          hr
+
+        .settings-page(ng-switch-when='settings')
+          h2.page-title Settings
+          hr
+
+        .user-page(ng-switch-when='profile')
+          bb-profile(ng-model='profile_data')
+
+        .thing-page(ng-switch-when='thing')
+          bb-thing(ng-model='thing_data')
+
+        .settings-page(ng-switch-when='404')
+          h2.page-title Page not found
+
+    #templates
+      include ../../build/templates.jade
+
+    - var cdn = '//cdnjs.cloudflare.com/ajax/libs'
+    script(src=cdn + '/jquery/1.11.1/jquery.js')
+    script(src=cdn + '/marked/0.3.2/marked.min.js')
+    script(src=cdn + '/moment.js/2.8.4/moment.min.js')
+
+    - var ngVersion = '1.3.7'
+    - var ngCDN = cdn + '/angular.js/' + ngVersion
+    script(src=ngCDN + '/angular.js')
+    script(src=ngCDN + '/angular-route.js')
+    script(src=ngCDN + '/angular-cookies.js')
+    script(src=ngCDN + '/angular-sanitize.js')
+    script(src=ngCDN + '/angular-touch.js')
+
+    script(src=cdn + '/angular-ui-bootstrap/0.12.0/ui-bootstrap-tpls.min.js')
+
+    script(src='//cdn.jsdelivr.net/editor/0.1.0/editor.js')
+
+    script(src='js/modernizr.custom.js')
+    script(src='js/plupload.full.min.js')
+    script(src='js/source-map.js')
+
+    script(src='js/assets.js')

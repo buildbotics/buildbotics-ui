@@ -1,0 +1,5 @@
+script(type='text/ng-template', id='stars.html')
+  a.stars(title="{{starred ? 'Unstar' : 'Star'}} this thing",
+    ng-click="onToggle()")
+    span.fa.fa-star(ng-class="starred ? 'user-stars' : ''")
+    | &nbsp;{{stars}}

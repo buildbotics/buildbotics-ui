@@ -1,0 +1,6 @@
+script(type='text/ng-template', id='modal.html')
+  .bb-modal
+    .header
+      span.fa.fa-close(ng-click="show=false")
+      h3 {{title}}
+    .body(ng-transclude)

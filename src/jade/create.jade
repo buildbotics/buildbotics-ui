@@ -1,0 +1,41 @@
+ng-form#create(ng-controller='CreateCtrl' name='create')
+  table(ng-init='init()')
+    tr
+      th: h3 Owner
+      th
+      th: h3 Thing name
+    tr
+      td {{user.name}}
+      td /
+      td.name.input-group-sm(
+        ng-class="{'has-error': create.name.$error.thingname}")
+        span.fa.fa-check(ng-show='create.name.$valid')
+        input.form-control(type='text' name='name' ng-model='thing.name'
+          ng-model-options='{debounce: 500}' thingname required)
+      td
+        span.error(ng-show='create.name.$error.available')
+          | This name is already in use.&nbsp;
+        span.error(ng-show='create.name.$error.shortName')
+          | Name is too short.  Must be at least 2 characters long.&nbsp;
+        span.error(ng-show='create.name.$error.longName')
+          | Name is too long.  Must be less than 64 characters long.&nbsp;
+        span.error(ng-show='create.name.$error.validChars')
+          | Name contains invalid characters.&nbsp;
+        span(ng-show='create.name.$error.required')
+          | Choose a name for your thing.
+
+  div
+    | Names may contain numbers, letters, underscores or periods and must be
+    | from 2 to 64 characters in length.
+
+  p
+    h3
+      | Title
+      span.weak &nbsp;(optional)
+
+    .input-group-sm
+      input.form-control(type='text' name='title' ng-model='thing.title')
+
+  p
+    button.btn.btn-primary(ng-click='ok()' ng-disabled='create.$invalid')
+      | Create thing

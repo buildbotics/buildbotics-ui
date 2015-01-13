@@ -1,0 +1,17 @@
+script(type='text/ng-template', id='field-editor.html')
+  ng-form(role='form')
+    .edit-row.not-editing(ng-class='{edit: canEdit}' ng-click="edit()"
+      ng-show='!editing')
+      a.fa.fa-edit(tooltip='Edit {{displayName}}' ng-show='canEdit')
+      h3 {{DisplayName}}
+
+    .edit-row.editing(ng-class='{edit: canEdit}' ng-click="cancel()"
+      ng-show='editing')
+      a.fa.fa-edit(tooltip='Edit {{displayName}}' ng-show='canEdit')
+      h3 {{DisplayName}}
+
+    .edit-mode(ng-show='editing')
+    .view-mode(ng-show='!editing') {{field}}
+    .weak(ng-show='!editing && !field') ({{DisplayName}} unset)
+
+  ng-transclude

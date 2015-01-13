@@ -1,0 +1,20 @@
+script(type='text/ng-template', id='text-area-editor.html')
+  bb-field-editor(ng-model='field' on-save="onSave({value: value})"
+    can-edit='canEdit')
+
+    ng-form(role='form')
+
+      .edit-row(ng-class='{edit: canEdit}' ng-show='!editing'
+        ng-click="edit()")
+        a.fa.fa-edit(tooltip='Edit {{$parent.displayName}}' ng-show='canEdit')
+        h3 {{$parent.DisplayName}}
+
+      .edit-row(ng-show='editing')
+        .btn-group
+          button.btn(ng-click="cancel()") Cancel
+          button.btn.btn-primary(ng-click="save()") Save
+        h3 {{$parent.DisplayName}}
+
+      markdowneditor(ng-show='editing' ng-model='field')
+      markdown(ng-show='!editing' ng-model='field')
+      .weak(ng-show='!editing && !field') ({{$parent.DisplayName}} unset)

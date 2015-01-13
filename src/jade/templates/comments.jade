@@ -1,0 +1,46 @@
+script(type='text/ng-template', id='comments.html')
+  .comments
+    h3 Comments
+    h3.weak(ng-show='!comments.length') (No comments)
+
+    .comment(ng-controller='CommentCtrl' ng-repeat='comment in comments')
+      a(ng-href='/{{comment.owner}}')
+        img.avatar(ng-src='{{comment.avatar}}')
+
+      .comment-wrapper
+        .comment-header
+          a.owner(ng-href='/{{comment.owner}}') {{comment.owner}}
+          span {{' '}}commented {{comment.created | TimeSince}}.
+
+          .actions(ng-show='!editing')
+            a.fa.fa-edit(tooltip='Edit comment' ng-show='is_owner'
+              ng-click="edit()")
+            a.fa.fa-trash-o(tooltip='Delete comment' ng-show='is_owner'
+              ng-click="askRemove()")
+
+          .actions.btn-group(ng-show='editing')
+            button.btn(ng-click="cancel()") Cancel
+            button.btn.btn-primary(ng-click="save()") Save
+
+          bb-modal(title='Delete comment?' show='show_modal_remove')
+            .footer
+              .btn-group
+                button.btn(ng-click='cancelRemove()') Cancel
+                button.btn.btn-primary(ng-click='remove()') Delete
+
+        .comment-content
+          markdown(ng-show='!editing' ng-model='comment.text')
+          markdowneditor(ng-show='editing' ng-model='comment.text')
+
+    .comment(ng-show='user.authenticated')
+      img.avatar(ng-src='{{user.avatar}}')
+
+      .comment-wrapper
+        .comment-header
+          .actions.btn-group
+            button.btn.btn-primary(ng-click="comment()") Post Comment
+
+        .comment-content
+          markdowneditor(ng-model='text')
+
+    h3.weak(ng-show='!user.authenticated') Login to comment

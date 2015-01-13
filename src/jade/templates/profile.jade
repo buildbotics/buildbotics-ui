@@ -1,0 +1,53 @@
+script(type='text/ng-template', id='profile.html')
+  .profile
+    .header
+      h3.username {{profile.name}}
+    hr
+
+    .content
+      img.picture(ng-src='{{profile.avatar}}')
+
+      bb-text-area-editor(ng-model='profile.bio' on-save="save('bio', value)"
+        can-edit='is_owner()' display-name='bio')
+      hr
+
+      h3 Things
+      bb-things(ng-model='things')
+      hr
+
+      h3 Starred Things
+      bb-things(ng-model='starred')
+      hr
+
+      h3 Badges
+      hr
+
+    .sidebar
+      h3 Info
+      .joined
+        | Joined {{profile.joined | TimeSince}}.
+      .lastseen
+        | Last seen {{profile.lastseen | TimeSince}}.
+      hr
+
+      bb-text-field-editor.fullname(ng-model='profile.fullname'
+        on-save="save('fullname', value)" can-edit='is_owner()'
+        display-name='full name')
+      hr
+
+      bb-text-field-editor.location(ng-model='profile.location'
+        on-save="save('location', value)" can-edit='is_owner()'
+        display-name='location')
+      hr
+
+      bb-text-field-editor.url(ng-model='profile.url'
+        on-save="save('url', value)" can-edit='is_owner()'
+        display-name='homepage')
+        a(ng-href='{{field}}' target='_blank') {{field}}
+      hr
+
+      h3 Followers
+      hr
+
+      h3 Following
+      hr

@@ -1,0 +1,51 @@
+script(type='text/ng-template', id='file-manager.html')
+  .file-manager
+    upload(data-url="'/'"
+      on-file-added='fileAdded(file)'
+      on-before-upload='beforeUpload(file, done)'
+      on-upload-progress='uploadProgress(file)'
+      on-file-uploaded='fileUploaded(file)')
+      table.table.table-striped
+        thead
+          tr
+            th.preview Preview
+            th.name Name
+            th.size Size
+            th.downloads Downloads
+            th.actions Actions
+        tbody
+          tr(ng-repeat='file in files' ng-controller='FileCtrl')
+            td.preview(ng-switch='showThumb(file)')
+              img(ng-switch-when='true' ng-src='{{file.src || file.url}}')
+              .fa(ng-switch-default ng-class='getFileIcon(file)'
+                tooltip='{{file.type}} file')
+            td.name
+              a(ng-href='{{file.url}}' target='_blank' tooltip='Download file'
+                ng-click='downloadFile(file)') {{file.name}}
+            td.size
+              progressbar(ng-show='0 < file.percent && file.percent < 100'
+                value='file.percent')
+                span {{file.percent}}%
+              span(ng-show='!file.percent || file.percent == 100')
+                | {{(file.size | HumanSize) || 'unknown'}}
+            td.downloads {{(file.downloads | HumanNumber) || 0}}
+            td.actions
+              a.fa.fa-trash-o(ng-click='askDeleteFile(file)' ng-show='canEdit'
+                tooltip='Delete file')
+              a.fa.fa-download(ng-click='downloadFile(file)' target='_blank'
+                href='{{file.url}}' tooltip='Download file')
+
+              bb-modal(title='Delete {{file.name}}?' show='show_modal_delete')
+                .footer.btn-group
+                  button.btn(ng-click='cancelDelete(file)') Cancel
+                  button.btn.btn-primary(ng-click='deleteFile(file)') Delete
+
+      .file-manager-footer
+        div(ng-show='canEdit')
+          span Click to&nbsp;
+          button.btn.browse
+            .fa.fa-plus
+            | &nbsp;Add files
+
+          span &nbsp;or drag and drop.
+

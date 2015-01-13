@@ -1,0 +1,179 @@
+script(type='text/ng-template', id='thing.html')
+  .thing
+    .header
+      bb-stars(ng-model='thing.stars' starred='starred'
+        on-toggle='toggleStarThing()')
+
+      //- include ./children.jade
+
+      .path
+        a(href='/{{thing.owner}}') {{thing.owner}}
+        | &nbsp;/&nbsp;
+        a(href='/{{thing.owner}}/{{thing.name}}') {{thing.name}}
+    hr
+
+    .content
+      .title
+        .title-view.edit-row(ng-show='!edit.title')
+          a.fa.fa-edit(tooltip='Edit title' ng-show='is_owner()'
+            ng-click="edit('title')")
+
+          h1(ng-class='{weak: !thing.title}') {{thing.title || '(No title)'}}
+
+        ng-form.title-edit.input-group(ng-show='edit.title')
+          input.form-control(type='text' name='title' ng-model='thing.title'
+            on-enter="save('title')")
+          span.input-group-btn
+            button.btn(ng-click="cancel('title')") Cancel
+            button.btn.btn-primary(ng-click="save('title')") Save
+      hr
+
+      .images
+        .edit-row
+          a.fa.fa-edit(tooltip='Edit media' ng-show='!edit.images && is_owner()'
+            ng-click="edit('images')")
+          .btn-group
+            button.btn.btn-primary(ng-show='edit.images'
+              ng-click="save('images'); images_control.reload()") Done
+          h3 Gallery
+        h3.weak(ng-show='!images.length && !edit.images') (No media)
+        carousel(ng-show='!edit.images')
+          slide(ng-repeat='image in images' ng-if='image.url')
+            img(ng-src='{{image.url}}')
+        bb-file-manager(ng-show='edit.images' ng-model='images'
+          can-edit='is_owner()'
+          on-delete='deleteFile(file, done)'
+          on-upload='uploadFile(file, true, done)')
+      hr
+
+      ng-form(name='description' role='form')
+        .edit-row
+          .btn-group
+            button.btn(ng-show='edit.description'
+              ng-click="cancel('description')") Cancel
+            button.btn.btn-primary(ng-show='edit.description'
+              ng-click="save('description')") Save
+          a.fa.fa-edit(tooltip='Edit description' ng-click="edit('description')"
+            ng-show='!edit.description && is_owner()')
+          h3 Instructions
+        markdowneditor(ng-show='edit.description' ng-model='thing.description')
+        markdown(ng-show='!edit.description' ng-model='thing.description')
+      hr
+
+      .files
+        .edit-row
+          h3 Files
+        bb-file-manager(ng-model='files' can-edit='is_owner()'
+          on-delete='deleteFile(file, done)'
+          on-upload='uploadFile(file, false, done)')
+      hr
+
+      //-
+        .copies
+          h3 Copies
+        hr
+
+      bb-comments(ng-model='comments' data-thing='thing')
+
+
+    .sidebar
+      .publish(ng-show='is_owner() && !thing.published')
+        button.btn.btn-primary(ng-click='publish(true)') Publish
+        hr
+
+      h3 Info
+      .created
+        | Created {{thing.created | TimeSince}}.
+      .modified
+        | Last modified {{thing.modified | TimeSince}}.
+      hr
+
+      .parent(ng-show='thing.parent')
+        h3 Parent
+        div
+          a(href='/{{thing.parent}}') {{thing.parent}}
+
+
+      bb-field-editor.license(ng-model='thing.license'
+        on-save="save('license', value)" can-edit='is_owner()')
+
+        .edit-row(ng-class='{edit: canEdit}' ng-click="toggleEdit()")
+          a.fa.fa-edit(tooltip='Edit license' ng-show='canEdit')
+          h3 License
+
+        div(ng-show='editing')
+          .help Choose a license.
+          form.input-group.input-group-sm
+            select.form-control(ng-model='field' on-enter="save()")
+              option(ng-repeat='license in $parent.licenses'
+                value='{{license.name}}'
+                ng-selected='{{license.name == field}}') {{license.name}}
+            .input-group-btn
+              button.btn.btn-primary(ng-click="save()") Save
+
+        div(ng-show='!edditing && field')
+          | Permission to use{{' '}}
+          em.title {{$parent.thing.title}}
+          | {{' '}}is granted by{{' '}}
+          a(ng-href='/{{$parent.thing.owner}}') {{$parent.thing.owner}}
+          | {{' '}}under the terms of the{{' '}}
+          a(ng-href='{{$parent.thing.license_url}}' target='_blank') {{field}}
+          | .
+
+         div(ng-show='!editing && !field')
+          em.title {{$parent.thing.title}}
+          | {{' '}}is placed into the public domain by{{' '}}
+          a(ng-href='/{{$parent.thing.owner}}') {{$parent.thing.owner}}
+          | .
+
+        hr
+
+      // URL
+      bb-text-field-editor.url(ng-model='thing.url'
+        on-save="save('url', value)" can-edit='is_owner()' display-name='link')
+        a(ng-href='{{field}}' target='_blank') {{field}}
+      hr
+
+      // Tags
+      bb-field-editor.tags(ng-model='new_tags'
+        on-save="addTags(value)" can-edit="is_owner()")
+
+        .edit-row.edit(ng-click="toggleEdit()")
+          a.fa.fa-edit(tooltip='Edit tags' ng-show='canEdit')
+          h3 Tags
+
+        div(ng-show='editing')
+          p.help Add tags.  Multiple tags can be separated with commas.
+          form.input-group.input-group-sm(name='form'
+            ng-class="{'has-error': form.tags.$invalid}")
+            input.form-control(bb-tags name='tags' type='text'
+              on-enter="save()" ng-model='field' placeholder='Enter tags')
+            .input-group-btn
+              button.btn.btn-primary(ng-click="save()") Add
+          p.help-block.error(ng-show='form.tags.$error.validChars')
+            | Invalid characters.  Tags can contain only letters, numbers
+            | and underscores.
+          p.help-block.error(ng-show='form.tags.$error.startChars')
+            | Invalid start character.  Tags must start with a letter.
+          p.help-block.error(ng-show='form.tags.$error.noSpaces')
+            | Tags cannot contain spaces.
+
+        span.tag(ng-repeat='tag in thing.tags')
+          a(ng-href='/tags/{{tag}}') {{tag}}
+          a.fa.fa-close(ng-show='editing && canEdit'
+            ng-click="removeTag('{{tag}}')"
+            tooltip='Remove tag `{{tag}}`')
+          | {{$last ? '' : ', '}}
+
+        .help(ng-show='!thing.tags.length && !editing')
+          | Be the first to <a href='#' ng-click="edit()">tag this thing</a>.
+      hr
+
+      .stars
+        div: h3 Stars
+        a(ng-repeat='star in stars' ng-href='/{{star.profile}}'
+          tooltip='{{star.profile}}')
+          img.avatar(ng-src='{{star.avatar}}')
+        .help(ng-show='!stars.length')
+          | Be the first to&nbsp;
+          a(href='#' ng-click='starThing()') star this thing.

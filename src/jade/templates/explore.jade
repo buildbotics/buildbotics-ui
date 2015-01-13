@@ -1,0 +1,10 @@
+script(type='text/ng-template', id='explore.html')
+  .explore
+    ng-form.search
+      .input-group
+        input.form-control(type='text' name='title' ng-model='query'
+          on-enter="search()")
+        span.input-group-btn
+          button.btn.btn-primary(ng-click="search()") Search
+
+    bb-things(ng-model='obj.things')

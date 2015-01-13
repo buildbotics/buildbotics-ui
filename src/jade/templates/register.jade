@@ -1,0 +1,26 @@
+script(type='text/ng-template', id='register.html')
+  #register
+    .modal-header
+      h1 New User Registration
+
+    .modal-body
+      ng-form(name='username', novalidate, role='form')
+        .form-group.input-group-lg
+          label.control-label User name:
+          input.form-control(type='text' name='username' ng-model='user.name'
+            required username ng-keyup='hitEnter($event)'
+            ng-model-options='{debounce: 1000}')
+
+          span.help-block Please choose a user name.  Here are some suggestions:
+
+          button.btn.suggestion(ng-repeat='suggestion in user.suggestions'
+            ng-click='user.name = suggestion') {{suggestion}}
+
+          div(ng-show='username.username.$pending')
+            | Checking if this name is available ...
+          div.taken(ng-show='username.username.$error.username')
+            | This user name is already taken!
+
+    .modal-footer
+      button.btn.btn-primary(ng-click='ok()' ng-disabled='username.$invalid') OK
+      button.btn.btn-warning(ng-click='cancel()') Cancel

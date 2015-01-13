@@ -1,0 +1,11 @@
+script(type='text/ng-template', id='notify.html')
+  #notify
+    .modal-header
+      h1 {{title}}
+
+    .modal-body
+      span.fa(ng-class="'fa-' + icon + ' ' + type")
+      span {{message}}
+
+    .modal-footer
+      button.btn.btn-primary(ng-click='ok()') OK

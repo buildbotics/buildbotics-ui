@@ -1,0 +1,21 @@
+script(type='text/ng-template', id='things.html')
+  ul.things
+    li.thing-preview(ng-repeat='thing in things')
+      a(href='/{{thing.owner}}/{{thing.thing}}')
+        .title {{thing.title || thing.thing}}
+
+        img.image(ng-if='thing.image' ng-src='{{thing.image}}')
+        .image.missing(ng-if='!thing.image')
+          .fa.fa-image
+
+      .info
+        a.owner(href='/{{thing.owner}}',
+          title="View {{thing.owner}}'s profile")
+          | by <span>{{thing.owner}}</span>
+
+        bb-stars(ng-model='thing.stars' starred='' on-toggle='star_toggle()')
+
+        a.comments(href='{{thing.owner}}/{{thing.thing}}#comments',
+          title='View comments')
+          span.fa.fa-comments
+          | &nbsp;{{thing.comments}}
