@@ -8,7 +8,7 @@ UGLIFY    := $(NODE_MODS)/uglify-js/bin/uglifyjs
 
 HTTP_DIR := http
 
-HTML   := index notfound
+HTML   := index test
 HTML   := $(patsubst %,$(HTTP_DIR)/%.html,$(HTML))
 CSS    := $(wildcard src/stylus/*.styl)
 CSS    := $(patsubst src/stylus/%.styl,$(HTTP_DIR)/css/%.css,$(CSS))
@@ -63,8 +63,10 @@ dirs:
 
 watch:
 	@clear
-	@while inotifywait -qr -e modify -e create -e delete \
-	  --exclude .*~ --exclude \#.* $(WATCH); do \
+	$(MAKE)
+	@while sleep 1; do \
+	  inotifywait -qr -e modify -e create -e delete \
+		--exclude .*~ --exclude \#.* $(WATCH); \
 	  clear; \
 	  $(MAKE); \
 	done

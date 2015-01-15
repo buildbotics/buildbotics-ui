@@ -1,46 +1,46 @@
 script(type='text/ng-template', id='comments.html')
   .comments
     h3 Comments
-    h3.weak(ng-show='!comments.length') (No comments)
+    h3.weak(v-show='!comments.length') (No comments)
 
     .comment(ng-controller='CommentCtrl' ng-repeat='comment in comments')
-      a(ng-href='/{{comment.owner}}')
-        img.avatar(ng-src='{{comment.avatar}}')
+      a(href='/{{comment.owner}}')
+        img.avatar(v-attr="src:comment.avatar")
 
       .comment-wrapper
         .comment-header
-          a.owner(ng-href='/{{comment.owner}}') {{comment.owner}}
+          a.owner(href='/{{comment.owner}}') {{comment.owner}}
           span {{' '}}commented {{comment.created | TimeSince}}.
 
-          .actions(ng-show='!editing')
-            a.fa.fa-edit(tooltip='Edit comment' ng-show='is_owner'
-              ng-click="edit()")
-            a.fa.fa-trash-o(tooltip='Delete comment' ng-show='is_owner'
-              ng-click="askRemove()")
+          .actions(v-show='!editing')
+            a.fa.fa-edit(tooltip='Edit comment' v-show='is_owner'
+              v-on="click:edit()")
+            a.fa.fa-trash-o(tooltip='Delete comment' v-show='is_owner'
+              v-on="click:askRemove()")
 
-          .actions.btn-group(ng-show='editing')
-            button.btn(ng-click="cancel()") Cancel
-            button.btn.btn-primary(ng-click="save()") Save
+          .actions.btn-group(v-show='editing')
+            button.btn(v-on="click:cancel()") Cancel
+            button.btn.btn-primary(v-on="click:save()") Save
 
           bb-modal(title='Delete comment?' show='show_modal_remove')
             .footer
               .btn-group
-                button.btn(ng-click='cancelRemove()') Cancel
-                button.btn.btn-primary(ng-click='remove()') Delete
+                button.btn(v-on="click:cancelRemove()") Cancel
+                button.btn.btn-primary(v-on="click:remove()") Delete
 
         .comment-content
-          markdown(ng-show='!editing' ng-model='comment.text')
-          markdowneditor(ng-show='editing' ng-model='comment.text')
+          markdown(v-show='!editing' v-model='comment.text')
+          markdowneditor(v-show='editing' v-model='comment.text')
 
-    .comment(ng-show='user.authenticated')
-      img.avatar(ng-src='{{user.avatar}}')
+    .comment(v-show='user.authenticated')
+      img.avatar(v-attr="src:user.avatar")
 
       .comment-wrapper
         .comment-header
           .actions.btn-group
-            button.btn.btn-primary(ng-click="comment()") Post Comment
+            button.btn.btn-primary(v-on="click:comment()") Post Comment
 
         .comment-content
-          markdowneditor(ng-model='text')
+          markdowneditor(v-model='text')
 
-    h3.weak(ng-show='!user.authenticated') Login to comment
+    h3.weak(v-show='!user.authenticated') Login to comment

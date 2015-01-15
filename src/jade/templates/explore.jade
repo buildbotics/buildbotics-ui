@@ -1,10 +1,11 @@
-script(type='text/ng-template', id='explore.html')
-  .explore
-    ng-form.search
-      .input-group
-        input.form-control(type='text' name='title' ng-model='query'
-          on-enter="search()")
-        span.input-group-btn
-          button.btn.btn-primary(ng-click="search()") Search
+script#explore-template(type="text/x-template")
+  h1 Explore
 
-    bb-things(ng-model='obj.things')
+  .search
+    .input-group
+      input.form-control(type='text' v-model='query'
+        v-on="keyup:search() | enter")
+      span.input-group-btn
+        button.btn.btn-primary(v-on="click:search()") Search
+
+  bb-things(v-with='things:things')

@@ -26,700 +26,717 @@ content_width = 700px
 sidebar_width = 230px
 gallery_width = content_width * 0.8
 
-[ng\:cloak], [ng-cloak], .ng-cloak
-  display: none !important
-
 a, a:visited
-  color: link_color
+  color link_color
 
 a.fa, a.fa:visited
-  color: light_text_color
+  color light_text_color
 
 a:hover, a:focus
-  text-decoration: underline
-  text-decoration-color: border_color
+  text-decoration underline
+  text-decoration-color border_color
 
 a:hover
-  color: link_hover_color !important
+  color link_hover_color !important
 
 a.fa:hover
-  text-decoration: none
-  cursor: pointer
+  text-decoration none
+  cursor pointer
+
+h1
+  font-size 28px
 
 .error
-  color: red
+  color red
 
 .warning
-  color: #fd0
+  color #fd0
+
+.success
+  color green
 
 .weak
-  font-size: 80%
-  color: light_text_color
+  font-size 80%
+  color light_text_color
 
 body
-  background-color: page_color
-  overflow-y: scroll
+  background-color page_color
+  overflow-y scroll
 
 #header
-  background-color: header_bg
-  box-shadow: pane_shadow
-  border: 0
-  border-radius: 0
-  padding: 1em
+  background-color header_bg
+  box-shadow pane_shadow
+  border 0
+  border-radius 0
+  padding 1em
+
+  &.navbar-default
+    background-image none
 
   .banner
-    height: 52px
-    margin: 0
+    height 52px
+    margin 0
 
   .title, a:hover.title, a:focus.title
-    background-color: inherit
+    background-color inherit
     padding 0
 
   .navbar-contents
-    max-width: page_width
-    padding: 0 15px
-    margin: auto
+    max-width page_width
+    padding 0 15px
+    margin auto
 
   .navbar-text
-    margin: 15px 6px
+    margin 15px 6px
 
   a
-    text-decoration: none
-    outline: 0
-    color: header_color
+    text-decoration none
+    outline 0
+    color header_color
 
   .nav, .navbar-nav
-    margin-left: 0
-
-    .open > a:focus, .open > a
-      background-color: inherit
+    margin-left 0
 
   .navbar-header > li > a
-    border-radius: 3px
+    border-radius 3px
 
   .navbar-nav, .navbar-header
     > li > a:hover
-      color: header_hover_color
-      background-color: inherit
+      color header_hover_color
+      background-color inherit
 
   .nav-pills > li > a
-    line-height: 1em
-    padding-right: 10px
-    padding-left: 10px
+    line-height 1em
+    padding-right 10px
+    padding-left 10px
 
   .navbar-collapse
-    padding-left: 0
-    padding-right: 14px
+    padding-left 0
+    padding-right 14px
 
   .navbar-nav .dropdown > a
-    padding-top: 10px
-    padding-bottom: 10px
+    padding-top 10px
+    padding-bottom 10px
 
   .dropdown.open a
-    color: header_hover_color
+    color header_hover_color
+    background-image: none
+    box-shadow: none
+    background-color: transparent
 
   .navbar-header
-    font-size: 14pt
+    font-size 14pt
 
   .navbar-right li > a.icon
-    padding-top: 8px
+    padding-top 8px
 
   .navbar-form
-    line-height: 2.5em
-    padding: 0 0 0 15px
+    line-height 2.5em
+    padding 0 0 0 15px
 
     .form-control
-      width: 95%
+      width 95%
 
   .dropdown-toggle
-    margin-left: 0
-    border-left: 1px solid header_border_color
-    border-right: 1px solid header_border_color
-    height: 54px
+    margin-left 0
+    border-left 1px solid header_border_color
+    border-right 1px solid header_border_color
+    height 54px
 
   .dropdown
-    cursor: pointer
+    cursor pointer
 
     a
-      padding-right: 0
+      padding-right 0
 
     .fa
-      font-size: 16pt
-      margin-right: 0.3em
-      width: 24px
+      font-size 16pt
+      margin-right 0.3em
+      width 24px
 
     .avatar, .user-info, .marker
-      float: left
+      float left
 
     .avatar
-      margin-top: 4px
+      margin-top 4px
 
     .user-info
-      margin-top: -2px
-      text-align: center
+      margin-top -2px
+      text-align center
 
     .marker
-      float: right
-      margin-top: 20px
-      margin-right: 0
+      float right
+      margin-top 20px
+      margin-right 0
 
     .badges, .points
-      margin: 0 0.3em
+      margin 0 0.3em
 
     .badges, .badges .fa, .points, .points .fa
-      width: auto
-      font-size: 10pt
+      width auto
+      font-size 10pt
 
     .badges .fa, .points .fa
-      color: highlight_color
+      color highlight_color
 
   .dropdown-menu > li > a:hover
-    background-color: header_hover_bg
+    background-color header_hover_bg
 
-  .login-dropdown
-    font-weight: bold
+  #unauthenticated-menu
+    font-weight bold
 
     a.dropdown-toggle
-      padding-top: 15px
+      padding-top 15px
 
     .marker
-       margin-top: 15px
+       margin-top 15px
 
   .login-menu
     .fa
-      font-size: 24pt
-      margin-left: 6px
-      vertical-align: middle
+      font-size 24pt
+      margin-left 6px
+      vertical-align middle
 
     a.login
-      margin-top: 6px
-      padding: 5px 0
+      margin-top 6px
+      padding 5px 0
 
     a.google
-      color: #cc3d2d
+      color #cc3d2d
 
     a.facebook
-      color: #2b3990
+      color #2b3990
 
     a.twitter
-      color: #27aae1
+      color #27aae1
 
     a.github
-      color: #1c75bc
+      color #1c75bc
 
   .form-control, .btn-default
-    background-color: page_color
+    background-color page_color
 
   .form-control
-    border-radius: 20px
-    height: 30px
+    border-radius 20px
+    height 30px
 
   .avatar
-    display: inline-block
-    margin-right: nav_padding
+    display inline-block
+    margin-right nav_padding
 
 
 .avatar
-  border-radius: 5px
-  width: header_button_size
-  height: header_button_size
+  border-radius 5px
+  width header_button_size
+  height header_button_size
 
 #content
-  max-width: page_width
-  padding: 0 15px
-  margin: 0.75em auto auto
+  max-width page_width
+  padding 0 15px
+  margin 0.75em auto auto
 
 .page-title
-  font-size: 22pt
-  color: light_text_color
+  font-size 22pt
+  color light_text_color
 
 .home-page
   .actions
-    max-width: 600px
-    margin: auto
-    margin-top: 3em
+    max-width 600px
+    margin auto
+    margin-top 3em
 
     .panel
-      float: left
-      width: 180px
-      height: 180px
-      margin: 10px
+      float left
+      width 180px
+      height 180px
+      margin 10px
 
     .panel-heading
-      text-align: center
-      font-weight: bold
-      font-size: 150%
+      text-align center
+      font-weight bold
+      font-size 150%
+
+.register-page
+  .form-control
+    display: inline
+    width: 32em
+
+  .fa
+    margin: 0 0.5em 0 1em
+
+  span
+    white-space nowrap
 
 a.stars, a.children
-  color: light_text_color
-  cursor: pointer
+  color light_text_color
+  cursor pointer
 
 .stars .user-stars
-  color: highlight_color
+  color highlight_color
 
 
 thing_width = 300px
 
 .things
-  list-style: none
-  padding: 0
+  list-style none
+  padding 0
 
   .thing-preview
-    position: relative
-    display: inline-block
-    margin: 0 8px 1em 8px
-    width: thing_width
-    overflow: hidden
-    cursor: pointer
-    font-family: "Times New Roman", Times, serif
-    font-size: 18pt
+    position relative
+    display inline-block
+    margin 0 8px 1em 8px
+    width thing_width
+    overflow hidden
+    cursor pointer
+    font-family "Times New Roman", Times, serif
+    font-size 18pt
 
     .image
-      width: thing_width
-      height: ((thing_width) / 1.618)
-      border-radius: 6px
-      border: 1px solid #ddd
+      width thing_width
+      height ((thing_width) / 1.618)
+      border-radius 6px
+      border 1px solid #ddd
 
       &.missing
-        background-color: #eee
-        text-align: center
-        padding-top: 50px
+        background-color #eee
+        text-align center
+        padding-top 50px
 
         .fa
-          font-size: 64pt
+          font-size 64pt
 
     a:hover
       .image
-        border: 1px solid border_color
+        border 1px solid border_color
 
     .info
-      margin: 0 0.2em
+      margin 0 0.2em
 
     .owner
-      white-space: nowrap
-      color: text_color
+      white-space nowrap
+      color text_color
 
       span
-        color: link_color
+        color link_color
 
     .title, .owner, .stars, .comments
-      display: block
-      white-space: nowrap
+      display block
+      white-space nowrap
 
     .stars, .comments
-      font-size: 12pt
-      margin: 0 0.1em 0 0.5em
-      color: light_text_color
+      font-size 12pt
+      margin 0 0.1em 0 0.5em
+      color light_text_color
 
       &:hover
-        color: text_color
+        color text_color
 
     .fa
-      font-size: 11pt
+      font-size 11pt
 
     .owner
-      font-size: 12pt
-      float: left
+      font-size 12pt
+      float left
 
     .stars
-      float: right
+      float right
 
     .comments
-      float: right
+      float right
 
     .title
-      margin: 0 0.2em
-      clear: both
-      color: text_color
+      margin 0 0.2em
+      clear both
+      color text_color
 
 .thing, .profile
   .path
-    font-size: 18pt
+    font-size 18pt
 
   .edit
-    cursor: pointer
+    cursor pointer
 
     &:hover, &:hover h3, &:hover a
-      color: link_hover_color
+      color link_hover_color
 
   .edit-row
     > .btn-group, > .fa
-      float: right
+      float right
 
   h3
-    font-size: 14pt
+    font-size 14pt
 
   .title
-    margin-bottom: 1em
-    height: 2em
+    margin-bottom 1em
+    height 2em
 
     h1
-      margin: 0
-      font-size: 22pt
+      margin 0
+      font-size 22pt
 
   .header
     .stars, .children
-      margin-top: 0.5em
-      margin-left: 1em
-      float: right
+      margin-top 0.5em
+      margin-left 1em
+      float right
 
   .owner
-    margin: 1em 0
+    margin 1em 0
 
   .content
-    float: left
-    width: 100%
-    max-width: content_width
+    float left
+    width 100%
+    max-width content_width
 
     .edit-row
-      height: 2.5em
-      margin: 1em 0
+      height 2.5em
+      margin 1em 0
 
       h3
-        font-size: 16pt
-        margin: none
+        font-size 16pt
+        margin none
 
       > .fa
-        margin: 1em
+        margin 1em
 
   .sidebar
-    position: relative
-    border-radius: 3px
-    border: pane_border
-    padding: 1em
-    float: right
-    width: sidebar_width
-    color: #888
-    font-size: 80%
+    position relative
+    border-radius 3px
+    border pane_border
+    padding 1em
+    float right
+    width sidebar_width
+    color #888
+    font-size 80%
 
     .fa-edit
-      font-size: 14pt
+      font-size 14pt
 
     h1, h2, h3
-      margin-top: 0
+      margin-top 0
 
     h2
-      font-size: 16pt
-      color: text_color
+      font-size 16pt
+      color text_color
 
     h3
-      font-size: 12pt
-      font-weight: bold
-      color: medium_text_color
+      font-size 12pt
+      font-weight bold
+      color medium_text_color
 
     .license .title
-      color: medium_text_color
+      color medium_text_color
 
     .url a,
-      display: block
-      white-space: nowrap
-      text-overflow: ellipsis
-      overflow: hidden
+      display block
+      white-space nowrap
+      text-overflow ellipsis
+      overflow hidden
 
     .tag .fa
-      vertical-align: super
-      font-size: smaller
-      margin: 2px
+      vertical-align super
+      font-size smaller
+      margin 2px
 
   .input-group
-    margin: 1em 0
-    width: 100%
+    margin 1em 0
+    width 100%
 
     .input-group-addon
-      text-align: left
-      width: 6em
+      text-align left
+      width 6em
 
   .brief .CodeMirror
-    height: 6em
+    height 6em
 
   .description .CodeMirror
-    height: 20em
+    height 20em
 
 .comment
-  margin: 2em 0
+  margin 2em 0
 
   .avatar
-    display: block
-    position: absolute
-    width: header_button_size * 1.25
-    height: header_button_size * 1.25
+    display block
+    position absolute
+    width header_button_size * 1.25
+    height header_button_size * 1.25
 
   .comment-wrapper
-    border-radius: 3px
-    border: pane_border
-    margin-left: header_button_size * 1.75
-    position: relative
+    border-radius 3px
+    border pane_border
+    margin-left header_button_size * 1.75
+    position relative
 
     &:before, &:after
-      width: 0
-      height: 0
-      content: ' '
-      display: block
-      border-color: transparent
-      border-style: solid solid outset
-      position: absolute
-      top: 12px
-      left: -16px
+      width 0
+      height 0
+      content ' '
+      display block
+      border-color transparent
+      border-style solid solid outset
+      position absolute
+      top 12px
+      left -16px
 
     &:before
-      border-right-color: #ddd
-      border-width: 8px
+      border-right-color #ddd
+      border-width 8px
 
     &:after
-      border-right-color: #f3f3f3
-      border-width: 8px
-      margin-left: 1px
+      border-right-color #f3f3f3
+      border-width 8px
+      margin-left 1px
 
   .markdowneditor
-    box-shadow: none
-    border: none
-    border-radius: 0
+    box-shadow none
+    border none
+    border-radius 0
 
     .CodeMirror
-      height: 200px
+      height 200px
 
   .comment-header
-    border-radius: 3px
-    height: 4em
-    padding: 0.5em
-    background: #f3f3f3
-    color: light_text_color
-    font-size: 80%
+    border-radius 3px
+    height 4em
+    padding 0.5em
+    background #f3f3f3
+    color light_text_color
+    font-size 80%
 
     .owner
-      color: text_color
-      font-weight: bold
+      color text_color
+      font-weight bold
 
     .actions
-      float: right
-      white-space: nowrap
+      float right
+      white-space nowrap
 
       .fa
-        margin-left: 0.5em
-        font-size: 12pt
+        margin-left 0.5em
+        font-size 12pt
 
   .comment-content
-    max-height: 150em
-    overflow: auto
+    max-height 150em
+    overflow auto
 
     .markdown
-      padding: 0.5em
+      padding 0.5em
 
-#register
+.register-page
   .suggestion
-    margin: 0.25em
+    margin 0.25em
 
   .taken
-    color: red
+    color red
 
 .profile
   .picture
-    width: 200px
-    height: 200px
-    border-radius: 3px
+    width 200px
+    height 200px
+    border-radius 3px
 
   .name
-    font-weight: bold
+    font-weight bold
 
 #create
   td, th
-    padding: 0.25em 1em 0.25em 0
+    padding 0.25em 1em 0.25em 0
 
     h3
-      margin: 0
+      margin 0
 
   h3
-    font-size: 16pt
+    font-size 16pt
 
   p
-    margin: 2em 0
+    margin 2em 0
 
   .name
-    position: relative
+    position relative
 
     .fa-check
-      color: green
-      position: absolute
-      right: 1.5em
-      top: 1em
+      color green
+      position absolute
+      right 1.5em
+      top 1em
 
     input
-      padding-right: 2em
+      padding-right 2em
 
 #dialogs
-  display: none
+  display none
 
 #notify
   .fa
-    padding: 0.5em
-    vertical-align: middle
-    font-size: 24pt
+    padding 0.5em
+    vertical-align middle
+    font-size 24pt
 
 .markdowneditor
-  border: pane_border
-  border-radius: 3px
-  overflow: hidden
+  border pane_border
+  border-radius 3px
+  overflow hidden
 
   .editor-toolbar
-    background: #f3f3f3
-    padding: 0.5em 0
-    opacity: inherit
+    background #f3f3f3
+    padding 0.5em 0
+    opacity inherit
 
     &:hover
-      background: #f3f3f3
-      opacity: inherit
-      color: inherit
+      background #f3f3f3
+      opacity inherit
+      color inherit
 
     &:after, &:before
-      height: 0
-      margin: 0
+      height 0
+      margin 0
 
     a
-      color: light_text_color !important
-      border: none
+      color light_text_color !important
+      border none
 
       &:hover
-        background: inherit
-        border: none
+        background inherit
+        border none
 
   .editor-preview
-    padding: 6px 12px
-    background-color: #fafafa
+    padding 6px 12px
+    background-color #fafafa
 
   .CodeMirror
-    padding: 6px 12px
-    background-color: #fff
-    border: 1px solid #fff
-    resize: vertical;
-    height: 300px
+    padding 6px 12px
+    background-color #fff
+    border 1px solid #fff
+    resize vertical;
+    height 300px
 
   .CodeMirror-focused
-    border: 1px solid rgba(82, 168, 236, 0.8)
-    box-shadow: 0 0 8px rgba(82, 168, 236, 0.6)
-    outline: thin dotted \9
+    border 1px solid rgba(82, 168, 236, 0.8)
+    box-shadow 0 0 8px rgba(82, 168, 236, 0.6)
+    outline thin dotted \9
 
 .bb-modal
-  right: -1px
-  box-shadow: pane_shadow
-  border-radius: 3px
-  border: 1px solid #ccc
-  background: #fff
-  min-width: 300px
+  right -1px
+  box-shadow pane_shadow
+  border-radius 3px
+  border 1px solid #ccc
+  background #fff
+  min-width 300px
 
   .header, .body
-    padding: 0.5em 1em
+    padding 0.5em 1em
 
   .header
-    border-bottom: 1px solid #ddd
-    color: light_text_color
-    white-space: nowrap
-    padding-right: 3em
+    border-bottom 1px solid #ddd
+    color light_text_color
+    white-space nowrap
+    padding-right 3em
 
     .fa-close
-      float: right
-      cursor: pointer
-      margin-right: -2em
+      float right
+      cursor pointer
+      margin-right -2em
 
     h3
-      margin: 0
+      margin 0
 
   .footer
-    text-align: right
+    text-align right
 
 
 .file-manager
-  border: pane_border
-  border-radius: 3px
+  border pane_border
+  border-radius 3px
 
   .file-manager-footer
-    padding: 1em
+    padding 1em
 
   .preview img
-      width: 32px
-      height: 32px
-      border-radius: 3px
+      width 32px
+      height 32px
+      border-radius 3px
 
   .progress-bar
-    color: text_color
+    color text_color
 
   .bb-modal .body
-    text-align: right
+    text-align right
 
   td, th
-    text-align: center
-    white-space: nowrap
-    font-size: 10pt
+    text-align center
+    white-space nowrap
+    font-size 10pt
 
   td.preview .fa
-    font-size: 16pt
-    color: light_text_color
+    font-size 16pt
+    color light_text_color
 
   th.name, td.name
-    width: 100%
-    text-align: left
+    width 100%
+    text-align left
 
     a
-      color: text_color
+      color text_color
 
   th.size, td.size
-    min-width: 6em
-    text-align: right
+    min-width 6em
+    text-align right
 
   td.actions
     a
-      color: light_text_color
-      margin: 0.5em
+      color light_text_color
+      margin 0.5em
 
 .table
   th
     .fa-caret-up, .fa-caret-down
-      display: none
+      display none
 
     .fa
-      width: 1em
+      width 1em
 
   th.st-sort-ascent, th.st-sort-descent
     .fa-caret-right
-      display: none
+      display none
 
   th.st-sort-ascent .fa-caret-up
-    display: inline-block
+    display inline-block
 
   th.st-sort-descent .fa-caret-down
-    display: inline-block
+    display inline-block
 
 .table-striped > tbody
   > tr:nth-child(odd) > td
-    background-color: page_color
+    background-color page_color
 
   > tr:nth-child(even) > td
-    background-color: page_highlight_color
+    background-color page_highlight_color
 
   > tr:hover > td
-    background-color: page_hover_color
+    background-color page_hover_color
 
 .tooltip
-  white-space: nowrap
+  white-space nowrap
 
   .tooltip-inner
-    background-color: rgba(0, 0, 0, 0.8)
+    background-color rgba(0, 0, 0, 0.8)
 
   &.top .tooltip-arrow
-    border-top: 5px solid rgba(0, 0, 0, 0.8)
+    border-top 5px solid rgba(0, 0, 0, 0.8)
 
 .carousel
-  border: pane_border
-  border-radius: 3px
-  margin: auto
-  overflow: hidden
-  max-width: gallery_width
-  max-height: (gallery_width / 16 * 9)
-  background: header_color
+  border pane_border
+  border-radius 3px
+  margin auto
+  overflow hidden
+  max-width gallery_width
+  max-height (gallery_width / 16 * 9)
+  background header_color
 
   .item
     img
-      display: block
-      margin: auto
-      max-width: gallery_width
-      max-height: (gallery_width / 16 * 9)
-      background: white
+      display block
+      margin auto
+      max-width gallery_width
+      max-height (gallery_width / 16 * 9)
+      background white

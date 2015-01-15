@@ -1,11 +1,11 @@
-script(type='text/ng-template', id='things.html')
+script#things-template(type="text/x-template")
   ul.things
-    li.thing-preview(ng-repeat='thing in things')
+    li.thing-preview(v-repeat='thing:things')
       a(href='/{{thing.owner}}/{{thing.thing}}')
         .title {{thing.title || thing.thing}}
 
-        img.image(ng-if='thing.image' ng-src='{{thing.image}}')
-        .image.missing(ng-if='!thing.image')
+        img.image(v-if='thing.image' v-attr='src:thing.image')
+        .image.missing(v-if='!thing.image')
           .fa.fa-image
 
       .info
@@ -13,7 +13,7 @@ script(type='text/ng-template', id='things.html')
           title="View {{thing.owner}}'s profile")
           | by <span>{{thing.owner}}</span>
 
-        bb-stars(ng-model='thing.stars' starred='' on-toggle='star_toggle()')
+        bb-stars(v-model='thing.stars' starred='' on-toggle='toggleStar()')
 
         a.comments(href='{{thing.owner}}/{{thing.thing}}#comments',
           title='View comments')

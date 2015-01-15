@@ -8,4 +8,4 @@ script(type='text/ng-template', id='notify.html')
       span {{message}}
 
     .modal-footer
-      button.btn.btn-primary(ng-click='ok()') OK
+      button.btn.btn-primary(v-on="click:ok()") OK

@@ -1,19 +1,22 @@
-.navbar-contents(ng-cloak)
+.navbar-contents
   ul.nav.navbar-header
     li: a.title(href='/')
       img.banner(src='/images/buildbotics_banner.png',
-        alt='Buildbotics logo, expore, create, build')
+        alt='Buildbotics logo, expore, learn, create')
+
   ul.nav.navbar-nav.navbar-header.nav-pills
     li: a(href='/explore') explore
+    li: a(href='/learn') learn
     li: a(href='/create') create
-    li: a(href='/build') build
 
   .navbar-collapse.navbar-right
     ul.nav.navbar-nav
-      li.dropdown(ng-switch-when='true' dropdown)
-        a.dropdown-toggle(dropdown-toggle)
+
+      // Authenticated menu
+      li#authenticated-menu.dropdown(v-show='user.authenticated')
+        a(data-toggle="dropdown")
           .marker.fa.fa-caret-down
-          img.avatar(ng-src='{{user.avatar}}')
+          img.avatar(v-attr='src:user.avatar')
           .user-info
             .user-name(title='Your account name.') {{user.name}}
             .user-points
@@ -23,6 +26,7 @@
               span.badges(title='Your badges.')
                 span.fa.fa-shield
                 | {{user.badges}}
+
         ul.dropdown-menu(role='menu')
           li: a.profile(href='/{{user.name}}')
             span.fa.fa-user
@@ -36,19 +40,20 @@
           li: a.settings.icon(href='/settings')
             span.fa.fa-gear
             | Edit Settings
-          li: a.logout.icon(href='#', ng-click='logout($event)')
+          li: a.logout.icon(href='#', v-on='click:logout() | preventDefault')
             span.fa.fa-sign-out
             | Sign out
 
-      li.dropdown.login-dropdown(ng-switch-default dropdown)
-        a.dropdown-toggle(dropdown-toggle)
+      // Unauthenticated menu
+      li#unauthenticated-menu.dropdown(v-show='!user.authenticated')
+        a(data-toggle="dropdown")
           .marker.fa.fa-caret-down
           | Login or register
 
         ul.dropdown-menu.login-menu(role='menu')
           each provider in 'google facebook github'.split(' ')
             - var url = "/api/auth/" + provider
-            li: a.login(class=provider href=url)
+            li: a.login(class=provider href=url rel="external")
               - var klass = (provider == 'google') ? 'google-plus' : provider
               span.fa(class='fa-' + klass + '-square')
               | with #{provider}

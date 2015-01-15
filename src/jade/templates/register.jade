@@ -1,26 +1,35 @@
-script(type='text/ng-template', id='register.html')
-  #register
-    .modal-header
-      h1 New User Registration
+script#register-template(type="text/x-template")
+  h1 New User Registration
 
-    .modal-body
-      ng-form(name='username', novalidate, role='form')
-        .form-group.input-group-lg
-          label.control-label User name:
-          input.form-control(type='text' name='username' ng-model='user.name'
-            required username ng-keyup='hitEnter($event)'
-            ng-model-options='{debounce: 1000}')
+  .form-group.input-group-sm
+    p Please choose a user name.
 
-          span.help-block Please choose a user name.  Here are some suggestions:
+    input.form-control(type="text" v-model="name | nameValidator"
+      v-on="keyup:submit() | key 13 | preventDefault"
+      maxlength="64" placeholder="Enter a user name")
 
-          button.btn.suggestion(ng-repeat='suggestion in user.suggestions'
-            ng-click='user.name = suggestion') {{suggestion}}
+    span(v-show="checking")
+      .fa.fa-spin.fa-spinner
+      | Checking name availability. . .
+    span.success(v-show="valid.valid")
+      .fa.fa-check
+      | This name is available.
+    span.error(v-show="!valid.available && !checking")
+      .fa.fa-close
+      | Sorry, this name is already taken!
+    span.error(v-show="!valid.chars")
+      .fa.fa-close
+      | Names can only contain numbers, letters, underscores and periods.
+    span.error(v-show="!valid.start")
+      .fa.fa-close
+      | Names must start with a letter or number.
+    span.error(v-show="!valid.loggedout")
+      .fa.fa-close
+      | You are already logged in.
 
-          div(ng-show='username.username.$pending')
-            | Checking if this name is available ...
-          div.taken(ng-show='username.username.$error.username')
-            | This user name is already taken!
+    span.help-block Here are some suggestions:
+    a.suggestion(v-repeat="suggestion:suggestions" href="#"
+      v-on="click:setName(suggestion, true) | preventDefault") {{suggestion}}
 
-    .modal-footer
-      button.btn.btn-primary(ng-click='ok()' ng-disabled='username.$invalid') OK
-      button.btn.btn-warning(ng-click='cancel()') Cancel
+  button.btn.btn-primary(v-on="click:submit() | preventDefault"
+    v-disable="!valid.valid") Register
