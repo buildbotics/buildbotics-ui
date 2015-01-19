@@ -1,5 +1,5 @@
-script(type='text/ng-template', id='stars.html')
+script#stars-template(type="text/x-template")
   a.stars(title="{{starred ? 'Unstar' : 'Star'}} this thing",
-    v-on="click:onToggle()")
-    span.fa.fa-star(ng-class="starred ? 'user-stars' : ''")
-    | &nbsp;{{stars}}
+    v-on="click:toggle()")
+    span.fa.fa-star(v-class="user-starred: starred")
+    | &nbsp;{{thing.stars}}

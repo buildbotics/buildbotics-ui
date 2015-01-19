@@ -1,14 +1,15 @@
 DIR := $(shell dirname $(lastword $(MAKEFILE_LIST)))
 
-NODE_MODS := $(DIR)/node_modules
-JADE      := $(NODE_MODS)/jade/bin/jade.js
-STYLUS    := $(NODE_MODS)/stylus/bin/stylus
-AP        := $(NODE_MODS)/autoprefixer/autoprefixer
-UGLIFY    := $(NODE_MODS)/uglify-js/bin/uglifyjs
+NODE_MODS  := $(DIR)/node_modules
+JADE       := $(NODE_MODS)/jade/bin/jade.js
+STYLUS     := $(NODE_MODS)/stylus/bin/stylus
+AP         := $(NODE_MODS)/autoprefixer/autoprefixer
+UGLIFY     := $(NODE_MODS)/uglify-js/bin/uglifyjs
+BROWSERIFY := $(NODE_MODS)/browserify/bin/cmd.js
 
 HTTP_DIR := http
 
-HTML   := index test
+HTML   := index
 HTML   := $(patsubst %,$(HTTP_DIR)/%.html,$(HTML))
 CSS    := $(wildcard src/stylus/*.styl)
 CSS    := $(patsubst src/stylus/%.styl,$(HTTP_DIR)/css/%.css,$(CSS))
@@ -39,7 +40,9 @@ build/templates.jade: $(TEMPLS)
 $(HTTP_DIR)/index.html: build/templates.jade
 
 $(JS_ASSETS): $(JS) node_modules
-	$(UGLIFY) $(JS) -o $@ --source-map $@.map --source-map-root /js/ \
+	NODE_PATH=./static/js $(BROWSERIFY) src/js/main.js -s main -o $@ || \
+	(rm -f $@; exit 1)
+#	$(UGLIFY) $(JS) -o $@ --source-map $@.map --source-map-root /js/ \
 	  --source-map-url $(shell basename $@).map -c -p 2
 
 node_modules:
@@ -52,10 +55,10 @@ $(HTTP_DIR)/%: static/%
 	install -D $< $@
 
 $(HTTP_DIR)/%.html: src/jade/%.jade $(wildcard src/jade/*.jade) node_modules
-	$(JADE) $< -o $(HTTP_DIR) || (rm $@; exit 1)
+	$(JADE) $< -o $(HTTP_DIR) || (rm -f $@; exit 1)
 
 $(HTTP_DIR)/css/%.css: src/stylus/%.styl node_modules
-	$(STYLUS) -I styles < $< | $(AP) -b "> 1%" >$@ || (rm $@; exit 1)
+	$(STYLUS) -I styles < $< | $(AP) -b "> 1%" >$@ || (rm -f $@; exit 1)
 
 dirs:
 	@mkdir -p $(HTTP_DIR)/css

@@ -1,10 +1,8 @@
 script#thing-template(type="text/x-template")
   .thing
     .header
-      bb-stars(v-model="thing.stars" starred="starred"
-        on-toggle="toggleStarThing()")
-
-      //- include ./children.jade
+      bb-stars(thing="{{thing}}")
+      //bb-children(v-with="thing")
 
       .path
         a(href="/{{thing.owner}}") {{thing.owner}}
@@ -85,9 +83,9 @@ script#thing-template(type="text/x-template")
 
       h3 Info
       .created
-        | Created {{thing.created | TimeSince}}.
+        | Created {{thing.created | timeSince}}.
       .modified
-        | Last modified {{thing.modified | TimeSince}}.
+        | Last modified {{thing.modified | timeSince}}.
       hr
 
       .parent(v-show="thing.parent")

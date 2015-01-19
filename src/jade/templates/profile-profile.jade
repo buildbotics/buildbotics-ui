@@ -1,0 +1,25 @@
+script#profile-profile-template(type="text/x-template")
+  img.picture(v-attr="src:profile.avatar")
+
+  button.edit(v-show="isOwner()") Edit Profile
+
+  table
+    tr
+      th Full name
+      td {{profile.fullname}}
+    tr
+      th Location
+      td {{profile.location}}
+    tr
+      th Homepage
+      td {{profile.url}}
+    tr
+      th Joined
+      td {{profile.joined | timeSince}}
+    tr
+      th Last seen
+      td {{profile.lastseen | timeSince}}
+
+  .bio
+    h3 Bio
+    div(v-markdown="profile.bio")

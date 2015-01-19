@@ -1,0 +1,28 @@
+#header
+  #header-content
+    a(href="#")
+      img.logo(src="/images/buildbotics_banner.png"
+        alt="Buildbotics logo, expore, learn, create")
+
+    ul#main-header-nav
+      li: a.header-nav(href="/explore") Explore
+      li: a.header-nav(href="/learn") Learn
+      li: a.header-nav(href="/create") Create
+
+    ul#context-header-nav
+      li: a.header-nav.sign-in(href="#login") Login or Register
+
+      li: a.header-nav.user(href="/{{user.name}}")
+        img.avatar(v-attr="src:user.avatar")
+        .user-info
+          .name {{user.name}}
+          .points
+            .fa.fa-certificate
+            | {{user.points}}
+
+      li: a.header-nav.sign-out(href="#" v-on="click:logout() | preventDefault"
+        title="Sign Out")
+        span.text Sign Out
+        .fa.fa-sign-out
+
+    .clear

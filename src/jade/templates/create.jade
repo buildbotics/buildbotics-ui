@@ -1,7 +1,7 @@
 script#create-template(type="text/x-template")
   h1 Create
 
-  table(ng-init='init()')
+  table
     tr
       th: h3 Owner
       th
@@ -9,21 +9,19 @@ script#create-template(type="text/x-template")
     tr
       td {{user.name}}
       td /
-      td.name.input-group-sm(
-        ng-class="{'has-error': create.name.$error.thingname}")
-        span.fa.fa-check(v-show='create.name.$valid')
-        input.form-control(type='text' name='name' v-model='thing.name'
-          v-model-options='{debounce: 500}' thingname required)
       td
-        span.error(v-show='create.name.$error.available')
+        span.fa.fa-check(v-show="create.name.$valid")
+        input(type="text" v-model="thing.name" placeholder="Choose a name")
+      td
+        span.error(v-show="create.name.$error.available")
           | This name is already in use.&nbsp;
-        span.error(v-show='create.name.$error.shortName')
+        span.error(v-show="create.name.$error.shortName")
           | Name is too short.  Must be at least 2 characters long.&nbsp;
-        span.error(v-show='create.name.$error.longName')
+        span.error(v-show="create.name.$error.longName")
           | Name is too long.  Must be less than 64 characters long.&nbsp;
-        span.error(v-show='create.name.$error.validChars')
+        span.error(v-show="create.name.$error.validChars")
           | Name contains invalid characters.&nbsp;
-        span(v-show='create.name.$error.required')
+        span(v-show="create.name.$error.required")
           | Choose a name for your thing.
 
   div
@@ -36,8 +34,7 @@ script#create-template(type="text/x-template")
       span.weak &nbsp;(optional)
 
     .input-group-sm
-      input.form-control(type='text' name='title' v-model='thing.title')
+      input.form-control(type="text" name="title" v-model="thing.title")
 
   p
-    button.btn.btn-primary(v-on="click:ok()" ng-disabled='create.$invalid')
-      | Create thing
+    button.btn.btn-primary(v-on="click:ok()") Create thing

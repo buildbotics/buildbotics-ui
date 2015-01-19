@@ -1,0 +1,24 @@
+script#license-editor-template(type="text/x-template")
+  .license
+    .edit-row(v-class="edit:isOwner" v-on="click:toggle()")
+      a.fa.fa-edit(tooltip="Edit license" v-show="isOwner")
+      h3 License
+
+    div(v-show="editing")
+      .help Choose a license.
+      .input-group.input-group-sm
+        select.form-control(v-model="thing.license" v-on="keyup:save() | enter")
+          option(v-repeat="license:licenses" value="{{license.name}}"
+            v-attr="selected:license.name == thing.license") {{license.name}}
+        .input-group-btn
+          button.btn.btn-primary(v-on="click:save() | preventDefault") Save
+
+    div(v-show="!editing && thing.license")
+      | Permission to use <em class="title">{{thing.title}}</em>
+      | is granted by <a href="/{{thing.owner}}">{{thing.owner}}</a>
+      | under the terms of the
+      | <a href="{{thing.license_url}}" target="_blank">{{thing.license}}</a>.
+
+     div(v-show="!editing && !thing.license")
+      | <em class="title">{{thing.title}}</em> is placed into the public
+      | domain by <a href="/{{thing.owner}}">{{$parent.thing.owner}}</a>.
