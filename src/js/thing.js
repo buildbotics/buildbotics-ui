@@ -1,82 +1,50 @@
-var mixin = {
-  data: function () {
-    return {
-      editing: {},
-      backup: {}
-    }
-  },
+'use strict'
 
-  methods: {
-    get: function (field) {
-      return this.$get(this.edit_prefix + field);
-    },
-
-    edit: function (field) {
-      if (this.editing[field]) return;
-      this.$set('editing.' + field, true);
-      this.backup[field] = this.get(field);
-    },
-
-    save: function (field) {
-      if (!this.editing[field]) return;
-      this.$set('editing.' + field, false);
-      if (this.get(field) != this.backup[field])
-        this.onSave(field, this.get(field));
-    },
-
-    cancel: function (field) {
-      if (!this.editing[field]) return;
-      this.$set('editing.' + field, false);
-      this.$set(this.edit_prefix + field, this.backup[field]);
-    }
-  }
-}
+var subsections = 'overview files comments';
+var fields = 'title url license tags description';
 
 
 module.exports = {
   template: '#thing-template',
 
-  data: function () {
-    return {
-      edit_prefix: 'thing.',
-      thing: {},
-      images: [],
-      stars: [],
-      tags: []
-    }
-  },
 
-  compiled: function () {
+  created: function () {
     var self = this;
-    var data = require('./app').thingData;
+    var app = require('./app');
 
-    $.each(data, function (key, value) {self.$set(key, value);});
+    // Import thing data
+    $.each(app.thingData, function (key, value) {self.$set(key, value);});
 
+    // Get licenses
+    this.$set('licenses', app.licenses);
+
+    // Split tags
     if (this.thing.tags)
       this.tags = this.thing.tags.split(',')
       .filter(function (e) {return e})
-
-    this.url = 'profiles/' + this.thing.owner + '/things/' + this.thing.name;
   },
 
-  computed: {
-    isOwner: function () {
-      return this.thing && require('./app').isUser(this.thing.owner);
-    }
-  },
 
   methods: {
-    onSave: function (field, value) {
-      var data = {};
-      data[field] = value;
+    isOwner: function () {
+      return require('./app').isUser(this.thing.owner);
+    },
 
-      $bb.put(this.url, data)
-        .error(function (data, status) {
-          console.error('Save failed', 'Failed to save ' + field +
-                        '\n' + status)
-        });
+
+    onSave: function (fields, accept) {
+      var $bb = require('./buildbotics');
+      $bb.put(this.getAPIURL(), fields).success(accept);
+    },
+
+
+    getAPIURL: function () {
+      return 'profiles/' + this.thing.owner + '/things/' + this.thing.name;
     }
   },
 
-  mixins: [mixin]
+
+  mixins: [
+    require('./subsections')('thing', subsections),
+    require('./field-editor')('thing', fields)
+  ]
 }

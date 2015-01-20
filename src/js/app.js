@@ -6,6 +6,7 @@ var $bb = require('./buildbotics');
 module.exports = new Vue({
   el: 'body',
 
+
   data: {
     user: {},
     currentPage: 'loading',
@@ -15,6 +16,7 @@ module.exports = new Vue({
     licenses: [],
     starred: {}
   },
+
 
   components: {
     'loading-page': {template: '#loading-template'},
@@ -29,18 +31,22 @@ module.exports = new Vue({
 
     'bb-things': require('./things'),
     'bb-stars': require('./stars'),
+    'bb-comment': require('./comment'),
+    'bb-comments': require('./comments'),
 
     'markdown-editor': require('./markdown')
   },
 
+
   directives: {
     disable: function (value) {this.el.disabled = !!value},
+
     markdown: function (value) {
+      $(this.el).addClass('markdown');
       this.el.innerHTML = value ? marked(value) : '';
     }
-
-    //'markdown-editor': require('./markdown')
   },
+
 
   filters: {
     preventDefault: function (handler) {
@@ -51,6 +57,7 @@ module.exports = new Vue({
         e.preventDefault();
       }
     },
+
 
     enter: function (handler) {
       if (!handler) return;
@@ -63,10 +70,12 @@ module.exports = new Vue({
       }
     },
 
+
     timeSince: function (time) {
       return moment(time).fromNow();
     }
   },
+
 
   compiled: function () {
     var self = this;
@@ -78,6 +87,7 @@ module.exports = new Vue({
 
     this.login(false);
   },
+
 
   methods: {
     loggedIn: function (user_data) {
@@ -100,6 +110,7 @@ module.exports = new Vue({
       this.$broadcast('logged-in', this);
     },
 
+
     loggedOut: function () {
       console.debug('loggedOut()');
       $.removeCookie('buildbotics.sid');
@@ -110,30 +121,42 @@ module.exports = new Vue({
       this.$broadcast('logged-out', this);
     },
 
+
+    isAuthenticated: function() {
+      return this.user.authenticated;
+    },
+
+
     isUser: function(name) {
       return this.user.name == name;
     },
+
 
     getUser: function () {
       return this.user;
     },
 
+
     getUserData: function () {
       return this.user_data;
     },
+
 
     isStarred: function (owner, thing) {
       return this.starred[owner + '/' + thing];
     },
 
+
     setStarred: function (owner, thing, starred) {
       this.starred[owner + '/' + thing] = starred;
     },
+
 
     logout: function () {
       var self = this;
       $bb.get('auth/logout').success(self.loggedOut);
     },
+
 
     login: function (register) {
       var self = this;

@@ -1,8 +1,28 @@
 'use strict'
 
+function throttle(func, threshold) {
+  var timeout;
+  var self;
+  var args;
+
+  return function debounced() {
+    self = this;
+    args = arguments;
+
+    function delayed () {
+      func.apply(self, args);
+      timeout = null;
+    }
+
+    if (!timeout) timeout = setTimeout(delayed, threshold || 100);
+  }
+}
+
+
 module.exports = {
   template: '#markdown-editor-template',
-  paramAttributes: ['field'],
+  paramAttributes: ['field', 'placeholder'],
+
 
   data: function () {
     return {
@@ -13,24 +33,34 @@ module.exports = {
     }
   },
 
+
   compiled: function () {
     var self = this;
+    var target = $(this.$el).find('.markdown-content');
 
-    this.editor = CodeMirror($(this.$el).find('.markdown-content')[0], {
+    this.editor = CodeMirror(target[0], {
+      placeholder: this.placeholder,
       lineWrapping: true,
       tabSize: 2,
       mode: 'gfm',
-      value: this.$parent[this.field],
+      value: this.$parent.$get(this.field),
     })
 
     // Bind editor changes to component
     this.handler = function (editor) {
-      this.$parent[this.field] = editor.getValue();
+      this.$parent.$set(this.field, editor.getValue());
     }.bind(this);
 
     this.editor.on('change', this.handler);
 
     Vue.nextTick(function () {self.editor.refresh()});
+
+    // Listen for reset signal
+    this.$on('markdown-editor.reset', function () {
+      self.edit();
+      self.editor.setValue(self.$parent.$get(self.field));
+      Vue.nextTick(function () {self.editor.refresh()});
+    })
   },
 
 

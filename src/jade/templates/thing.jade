@@ -1,149 +1,19 @@
 script#thing-template(type="text/x-template")
   .thing
     .header
-      bb-stars(thing="{{thing}}")
-      //bb-children(v-with="thing")
+      .header-content
+        .widgets
+          bb-stars(thing="{{thing}}")
+          //bb-children(v-with="thing")
 
-      .path
-        a(href="/{{thing.owner}}") {{thing.owner}}
-        | &nbsp;/&nbsp;
-        a(href="/{{thing.owner}}/{{thing.name}}") {{thing.name}}
-    hr
+        .path
+          .fa.fa-cubes(title="Creations")
+          | <a href="/{{thing.owner}}">{{thing.owner}}</a> /
+          | <a href="/{{thing.owner}}/{{thing.name}}">{{thing.name}}</a>
 
-    .content
-      .title
-        .title-view.edit-row(v-show="!editing.title")
-          a.fa.fa-edit(tooltip="Edit title" v-show="isOwner"
-            v-on="click:edit('title')")
+    .page-content
+      ul.menu
+        li(v-repeat="subsection:subsections")
+          a(v-attr="href:'#' + subsection") {{subsection}}
 
-          h1(v-class="weak:!thing.title") {{thing.title || '(No title)'}}
-
-        .title-edit.input-group(v-show="editing.title")
-          input.form-control(type="text" name="title" v-model="thing.title"
-            v-on="keyup:save('title') | enter")
-          span.input-group-btn
-            button.btn(v-on="click:cancel('title')") Cancel
-            button.btn.btn-primary(v-on="click:save('title')") Save
-      hr
-
-      .images
-        .edit-row
-          a.fa.fa-edit(tooltip="Edit media"
-            v-show="!editing.images && isOwner"
-            v-on="click:edit('images')")
-          .btn-group
-            button.btn.btn-primary(v-show="editing.images"
-              v-on="click:save('images'); images_control.reload()") Done
-          h3 Gallery
-        h3.weak(v-show="!images.length && !editing.images") (No media)
-        carousel(v-show="!editing.images")
-          slide(v-repeat="image:images" v-show="image.url")
-            img(v-attr="src:image.url")
-        bb-file-manager(v-show="editing.images" v-model="images"
-          can-edit="isOwner"
-          on-delete="deleteFile(file, done)"
-          on-upload="uploadFile(file, true, done)")
-      hr
-
-      .form(name="description" role="form")
-        .edit-row
-          .btn-group
-            button.btn(v-show="editing.description"
-              v-on="click:cancel('description')") Cancel
-            button.btn.btn-primary(v-show="editing.description"
-              v-on="click:save('description')") Save
-          a.fa.fa-edit(tooltip="Edit description"
-            v-on="click:edit('description')"
-            v-show="!editing.description && isOwner")
-          h3 Instructions
-        markdowneditor(v-show="editing.description" v-model="thing.description")
-        markdown(v-show="!editing.description" v-model="thing.description")
-      hr
-
-      .files
-        .edit-row
-          h3 Files
-        bb-file-manager(v-model="files" can-edit="isOwner"
-          on-delete="deleteFile(file, done)"
-          on-upload="uploadFile(file, false, done)")
-      hr
-
-      //-
-        .copies
-          h3 Copies
-        hr
-
-      bb-comments(v-model="comments" data-thing="thing")
-
-
-    .sidebar
-      .publish(v-show="isOwner && !thing.published")
-        button.btn.btn-primary(v-on="click:publish(true)") Publish
-        hr
-
-      h3 Info
-      .created
-        | Created {{thing.created | timeSince}}.
-      .modified
-        | Last modified {{thing.modified | timeSince}}.
-      hr
-
-      .parent(v-show="thing.parent")
-        h3 Parent
-        div
-          a(href="/{{thing.parent}}") {{thing.parent}}
-
-      // License
-      bb-license-editor
-      hr
-
-      // URL
-      bb-text-field-editor.url(v-model="thing.url"
-        on-save="save('url', value)" can-edit="isOwner" display-name="link")
-        a(href="{{field}}" target="_blank") {{field}}
-      hr
-
-      // Tags
-      bb-field-editor.tags(v-model="new_tags"
-        on-save="addTags(value)" can-edit="isOwner")
-
-        .edit-row.edit(v-on="click:toggleEdit()")
-          a.fa.fa-edit(tooltip="Edit tags" v-show="canEdit")
-          h3 Tags
-
-        div(v-show="editing")
-          p.help Add tags.  Multiple tags can be separated with commas.
-          form.input-group.input-group-sm(name="form"
-            v-class="has-error:form.tags.$invalid")
-            input.form-control(bb-tags name="tags" type="text"
-              v-on="keyup:save() | enter" v-model="field"
-              placeholder="Enter tags")
-            .input-group-btn
-              button.btn.btn-primary(v-on="click:save()") Add
-          p.help-block.error(v-show="form.tags.$error.validChars")
-            | Invalid characters.  Tags can contain only letters, numbers
-            | and underscores.
-          p.help-block.error(v-show="form.tags.$error.startChars")
-            | Invalid start character.  Tags must start with a letter.
-          p.help-block.error(v-show="form.tags.$error.noSpaces")
-            | Tags cannot contain spaces.
-
-        span.tag(v-repeat="tag:tags")
-          | {{$index ? ', ' : ''}}
-          a(href="/tags/{{tag}}") {{tag}}
-          a.fa.fa-close(v-show="editing && canEdit"
-            v-on="click:removeTag('{{tag}}')"
-            tooltip="Remove tag `{{tag}}`")
-
-        .help(v-show="!tags.length && !editing")
-          | Be the first to <a href="#" v-on="click:edit()">tag this thing</a>.
-      hr
-
-      .stars
-        div: h3 Stars
-        a(v-repeat="star:stars" href="/{{star.profile}}"
-          tooltip="{{star.profile}}")
-          img.avatar(v-attr="src:star.avatar")
-        .help(v-show="!stars.length")
-          | Be the first to&nbsp;
-          a(href="#" v-on="click:starThing()") star this thing.
+      .section(v-component="thing-{{subsection}}")

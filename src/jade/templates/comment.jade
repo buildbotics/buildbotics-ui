@@ -1,0 +1,31 @@
+script#comment-template(type="text/x-template")
+  .comment
+    a(href="/{{comment.owner}}")
+      img.avatar(v-attr="src:comment.avatar")
+
+    .comment-wrapper
+      .comment-header
+        | <a href="/{{comment.owner}}">{{comment.owner}}</a>
+        | commented {{comment.created | timeSince}}.
+
+        .actions(v-show="!editing")
+          a.fa.fa-edit(title="Edit comment" v-show="isOwner()"
+            v-on="click:edit()")
+          a.fa.fa-trash-o(tooltip="Delete comment" v-show="isOwner()"
+            v-on="click:askRemove()")
+
+          .modal.callout-top-right(v-show="showAskRemove")
+            .modal-wrapper
+              .modal-header Delete this comment?
+              .modal-footer
+                button(v-on="click:cancelRemove()") Cancel
+                button(v-on="click:remove()") Delete
+
+
+        .actions(v-show="editing")
+          button(v-on="click:cancel()") Cancel
+          button(v-on="click:save()") Save
+
+      .comment-content
+        div(v-markdown="comment.text" v-show="!editing")
+        markdown-editor(field="edit_text" v-if="editing")

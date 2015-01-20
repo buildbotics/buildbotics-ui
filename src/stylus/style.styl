@@ -1,6 +1,7 @@
 page_width = 960px
 min_page_width = 200px
 header_height = 60px
+avatar_size = 40px
 
 link_color = #e5aa3d
 link_hover_color = #428bca
@@ -8,7 +9,12 @@ text_color = #344
 medium_text_color = #666
 light_text_color = #888
 highlight_color = #fdaa4d
-border_color = #ccc
+border_color = #ddd
+
+header_color = #ededed
+header_border_color = border_color
+secondary_header_color = #fafafa
+secondary_header_border_color = #f1f1f1
 
 thing_width = 300px
 thing_height = ((thing_width) / 1.618)
@@ -18,15 +24,19 @@ thing_height = ((thing_width) / 1.618)
 a, a:visited
   color link_color
   text-decoration none
-
-a.fa, a.fa:visited
-  color light_text_color
+  cursor pointer
 
 a:hover, a:focus
   text-decoration underline
 
 a:hover
   color link_hover_color !important
+
+a.fa, a.fa:visited
+  color light_text_color
+
+  &:hover
+    text-decoration none
 
 // Buttons
 button
@@ -36,10 +46,16 @@ button
   background-image linear-gradient(#fcfcfc, #eee)
   padding 4px
   color link_color
-  cursor: pointer
+  cursor pointer
 
   &:hover
     color link_hover_color
+
+// HR
+hr
+  border none
+  border-bottom 1px solid border_color
+  height 1px
 
 // Code
 code
@@ -74,8 +90,8 @@ body
 
 #page
   #header
-    background-color #e1e1e1
-    border-bottom 1px solid #878787
+    background-color header_color
+    border-bottom 1px solid header_border_color
 
     #header-content
       min-width min_page_width
@@ -110,7 +126,7 @@ body
       a.header-nav
         text-transform uppercase
         font-size 18pt
-        line-height: header_height - 20px
+        line-height header_height - 20px
 
     #context-header-nav
       float right
@@ -124,7 +140,7 @@ body
       font-size 12pt
 
       &:hover
-        color: #f0ac48
+        color #f0ac48
         background-color #f7f9f7
 
     a.user
@@ -140,11 +156,12 @@ body
       .avatar
         float left
         border-radius 5px
-        width 40px
+        width avatar_size
+        height avatar_size
         margin 4px 4px 0 0
 
       .points .fa
-        color: #f0ac48
+        color #f0ac48
         margin-right 5px
 
     a.sign-out
@@ -186,8 +203,17 @@ body
       margin 0 6px
 
 // Stars
-.stars .user-starred
-  color highlight_color
+.stars
+  color medium_text_color
+
+  .user-starred
+    color highlight_color
+
+  &:hover
+    text-decoration none
+
+    .user-starred
+      color link_hover_color
 
 // Things
 .things
@@ -216,7 +242,7 @@ body
 
         .fa
           font-size 64pt
-          line-height: thing_height
+          line-height thing_height
 
     a:hover
       .image
@@ -262,11 +288,34 @@ body
       clear both
       color text_color
 
-// Profile
-.profile
+// Thing & Profile common
+#page #content
+  &.thing-page, &.profile-page
+    max-width 100%
+
+.thing, .profile
+  .header-content, .page-content
+    max-width page_width
+    margin auto
+
+  .header
+    font-size 18pt
+    margin 0 0 0.25em 0
+    padding 0.5em 0
+    background-color secondary_header_color
+    border-bottom 1px solid secondary_header_border_color
+    color medium_text_color
+
+    .widgets
+      float right
+
+    .path .fa
+      width 1.25em
+      margin-right 0.5em
+
   .menu
     list-style none
-    margin 0 0 1em 0
+    margin 1em 0 1em 0
     padding 0
     border-bottom 1px solid border_color
 
@@ -280,6 +329,9 @@ body
       border-top-left-radius 5px
       border-top-right-radius 5px
       transition 0.5s
+
+      &:first-of-type
+        padding-left 0
 
       &:before
         content "|"
@@ -297,6 +349,36 @@ body
         text-decoration none
         outline none
 
+  .section > button
+    float right
+    margin-left 1em
+    margin-bottom 1em
+
+  .section > .info
+    max-width 30em
+
+    th, td
+      padding 0.25em
+
+    th
+      text-align right
+      color medium_text_color
+      white-space nowrap
+      vertical-align top
+
+  .markdown
+    padding 0 1em
+    background #fff
+    border 1px solid border_color
+    border-radius 3px
+
+
+// Thing
+.thing
+ // afdasdf
+
+// Profile
+.profile
   .picture
     max-width 200px
     max-height 200px
@@ -305,35 +387,84 @@ body
     margin-bottom 1em
     float left
 
-  button
-    float right
-    margin-left 1em
-    margin-bottom 1em
-
-  th, td
-    padding 0.25em
-
-  th
-    text-align right
-    color medium_text_color
-
   .bio
     clear left
 
-    > h1
-      margin 0.25em 0
+// Comments
+.comment
+  margin 2em 0
 
-    .bio-content
-      padding 0 1em
-      background #fff
-      border 1px solid border_color
-      border-radius 3px
+  .avatar
+    border-radius 3px
+    display block
+    position absolute
+    width avatar_size
+    height avatar_size
+
+  .comment-wrapper
+    border-radius 3px
+    border 1px solid border_color
+    margin-left avatar_size + 15px
+    position relative
+
+    &:before, &:after
+      width 0
+      height 0
+      content ' '
+      display block
+      border-color transparent
+      border-style solid solid outset
+      position absolute
+      top 12px
+      left -16px
+
+    &:before
+      border-right-color border_color
+      border-width 8px
+
+    &:after
+      border-right-color header_color
+      border-width 8px
+      margin-left 1px
+
+  .comment-header
+    border-top-left-radius 3px
+    border-top-right-radius 3px
+    border-bottom 1px solid border_color
+    padding 0.5em
+    background header_color
+    color light_text_color
+    font-size 80%
+    height 2.5em
+    line-height 2.5em
+
+    > a
+      color text_color
+      font-weight bold
+
+    .actions
+      float right
+      white-space nowrap
+
+      .fa
+        margin-left 0.5em
+        font-size 12pt
+
+  .comment-content
+    max-height 60em
+
+    .markdown
+      padding 0.5em
+      border none
+
+    .markdown-editor
+      border none
 
 // Markdown
-.CodeMirror, input, textarea, select
+input, textarea, select
   border 1px inset border_color
   border-radius 3px
-  padding: 4px
+  padding 4px
 
 .CodeMirror-focused, input:focus, textarea:focus, select:focus
   border 1px solid rgba(82, 168, 236, 0.8)
@@ -343,12 +474,13 @@ body
 .markdown-editor
   border-radius 3px
   background #fff
+  border 1px solid border_color
 
   .markdown-menu
+    background-color #f3f3f3
+    border-bottom 1px solid border_color
     border-top-left-radius 3px
     border-top-right-radius 3px
-    background-color #f3f3f3
-    border 1px solid border_color
     padding 0.25em 0.25em 0 0.25em
 
     a
@@ -360,17 +492,12 @@ body
       border 1px solid border_color
       padding 0.25em
       margin-left 0.25em
-      cursor pointer
 
       &.active
         border-bottom 1px solid #fff
 
       &:hover
         text-decoration none
-
-  .markdown-toolbar, .markdown-help
-    border-left 1px solid border_color
-    border-right 1px solid border_color
 
   .markdown-toolbar
     .button-group
@@ -384,7 +511,6 @@ body
         border-right none
         background-color #eee
         background-image linear-gradient(#fcfcfc, #eee)
-        cursor pointer
 
         &:hover
           text-decoration none
@@ -405,18 +531,20 @@ body
 
     .markdown-help-menu, .markdown-help-submenu
       float left
-      height: 13em
-      width: 12em
+      height 13em
+      width 12em
       transition 0.5s
 
       a
         display block
         padding 0.25em 0.5em
-        margin 2px 0
-        cursor pointer
+        margin 0
         border-top 1px solid transparent
         border-bottom 1px solid transparent
         transition 0.5s
+
+        &:first-of-type
+          margin-top 0.75em
 
         &:hover
           text-decoration none
@@ -445,18 +573,72 @@ body
       p:first-of-type
         margin-top 0
 
+  .markdown-content
+    border-top 1px solid border_color
+
   .markdown-preview
-    border 1px solid border_color
-    border-top none
-    border-bottom-left-radius 3px
-    border-bottom-right-radius 3px
     padding 0 1em
     overflow auto
+    border-bottom-left-radius 3px
+    border-bottom-right-radius 3px
+    min-height 20em
 
   .CodeMirror
-    border-top-left-radius 0
-    border-top-right-radius 0
-    border: 1px solid border_color
+    border-bottom-left-radius 3px
+    border-bottom-right-radius 3px
+    border none
+
+  .CodeMirror-empty
+    color light_text_color
+    font-size 100%
+
+// Modal
+.modal
+  position absolute
+  right -10px
+  background #fff
+  border-radius 3px
+  border 1px solid border_color
+  box-shadow 0 1px 2px #f0f0f0
+  z-index 10
+
+  .modal-header, .modal-content, .modal-footer
+    padding 0.25em 0.5em
+
+  .modal-header
+    font-weight bold
+    background-color secondary_header_color
+    border-bottom 1px solid border_color
+    border-top-left-radius 3px
+    border-top-right-radius 3px
+
+  .modal-footer
+    text-align right
+
+    button
+      margin-left 0.5em
+
+// Callouts
+.callout-top-right
+  &:before, &:after
+    width 0
+    height 0
+    content ' '
+    display block
+    border-color transparent
+    border-style solid solid solid
+    position absolute
+    right 12px
+    top -15px
+
+  &:before
+    border-bottom-color border_color
+    border-width 8px
+
+  &:after
+    border-bottom-color secondary_header_color
+    border-width 8px
+    margin-top 1px
 
 // Sign in
 #page #header a.header-nav
@@ -472,13 +654,13 @@ body
 
 
 // Responsive
-@media (max-width: 730px)
+@media (max-width 730px)
   #page #header #context-header-nav
     a.header-nav
       float none
       width 100%
 
-@media (max-width: 400px)
+@media (max-width 400px)
   #page #header
     #main-header-nav, #context-header-nav
       float none

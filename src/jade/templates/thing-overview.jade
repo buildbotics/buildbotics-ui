@@ -1,0 +1,65 @@
+script#thing-overview-template(type="text/x-template")
+  button.edit(v-show="isOwner() && !editing" v-on="click:edit()") Edit Thing
+  button.save(v-show="editing" v-on="click:save()") Save Thing
+  button.cancel(v-show="editing" v-on="click:cancel()") Cancel Edit
+  button.publish(v-show="editing" v-on="click:publish()") Publish Thing
+
+  bb-media(media="{{images}}")
+
+  table.info
+    tr
+      th Title
+      td
+        span(v-show="!editing") {{thing.title || '(No title)'}}
+        input(v-show="editing" v-model="edit_title")
+
+    tr(v-show="thing.parent")
+      th Parent
+      td
+        a(href="{{thing.parent}}") {{thing.parent}}
+
+    tr
+      th Link
+      td
+        a(v-show="!editing" href="{{thing.url}}" target="_blank")
+          | {{thing.url}}
+        input(v-show="editing" v-model="edit_url")
+
+    tr
+      th License
+      td
+        div(v-show="!editing")
+          | Permission to use "<em>{{thing.title}}</em>" is granted by
+          | <a href="/{{thing.owner}}">{{thing.owner}}</a> under the terms
+          | of the <a href="{{thing.license_url}}">{{thing.license}}</a>.
+
+        select(v-show="editing" v-model="edit_license")
+          option(v-repeat="license:licenses" value="{{license.name}}"
+            v-attr="selected:license.name == license") {{license.name}}
+
+    tr
+      th Tags
+      td
+        span(v-show="!editing && thing.tags") {{thing.tags}}
+        span(v-show="!editing && !thing.tags")
+          | Be the first to <a href="#" v-on="click:tag()">tag this thing</a>.
+
+    tr
+      th Stars
+      td
+        bb-profiles(v-show="stars.length")
+        span(v-show="!stars.length")
+          | Be the first to <a v-on="click:star()" star this thing</a>.
+
+    tr
+      th Created
+      td {{thing.created | timeSince}}
+
+    tr
+      th Last modified
+      td {{thing.modified | timeSince}}
+
+  .description
+    h1 Description
+    div(v-markdown="thing.description" v-show="!editing")
+    markdown-editor(field="edit_description" v-if="editing")

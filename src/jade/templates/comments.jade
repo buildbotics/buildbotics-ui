@@ -1,0 +1,18 @@
+script#comments-template(type="text/x-template")
+  .comments
+    div(v-repeat="comment:comments")
+      bb-comment(comment="{{comment}}")
+
+    hr
+
+    .comment(v-show="isAuthenticated()")
+      img.avatar(v-attr="src:getAvatar()")
+
+      .comment-wrapper
+        .comment-header
+          .actions
+            button(v-on="click:comment()") Post Comment
+        .comment-content
+          markdown-editor(field="text" placeholder="Leave a comment here.")
+
+    h3(v-show="!isAuthenticated()") <a href="#login">Login</a> to comment.

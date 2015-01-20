@@ -1,10 +1,18 @@
 script#profile-template(type="text/x-template")
   .profile
     .header
-      h3 {{profile.name}}
+      .header-content
+        .widgets
+          //bb-points(v-with="profile")
+          //bb-followers(v-with="profile")
 
-    ul.menu
-      li(v-repeat="section:sections")
-        a(v-attr="href:'#' + section") {{section}}
+        .path
+          .fa.fa-users(title="Profiles")
+          a(href="/{{profile.name}}") {{profile.name}}
 
-    .section(v-component="profile-{{subsection}}")
+    .page-content
+      ul.menu
+        li(v-repeat="subsection:subsections")
+          a(v-attr="href:'#' + subsection") {{subsection}}
+
+      .section(v-component="profile-{{subsection}}")
