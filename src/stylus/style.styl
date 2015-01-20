@@ -8,7 +8,7 @@ text_color = #344
 medium_text_color = #666
 light_text_color = #888
 highlight_color = #fdaa4d
-border_color = #aaa
+border_color = #ccc
 
 thing_width = 300px
 thing_height = ((thing_width) / 1.618)
@@ -24,12 +24,48 @@ a.fa, a.fa:visited
 
 a:hover, a:focus
   text-decoration underline
-  text-decoration-color border_color
 
 a:hover
   color link_hover_color !important
 
+// Buttons
+button
+  border 1px solid border_color
+  border-radius 3px
+  background-color #eee
+  background-image linear-gradient(#fcfcfc, #eee)
+  padding 4px
+  color link_color
+  cursor: pointer
 
+  &:hover
+    color link_hover_color
+
+// Code
+code
+  background-color rgba(200, 200, 200, 0.3)
+  font-size 110%
+  padding 2px
+  border-radius 3px
+  overflow-x auto
+  white-space nowrap
+
+pre code
+  padding 0.5em 1em
+  border-left 5px solid #bbb
+  display block
+
+// Headings
+h1, h2, h3, h4
+  color medium_text_color
+  margin-top 0.5em
+  margin-bottom 0.25em
+
+h1
+  font-size 22pt
+  font-weight normal
+
+// Body
 body
   background-image url(/images/grid.png)
   margin 0
@@ -269,8 +305,9 @@ body
     margin-bottom 1em
     float left
 
-  button.edit
+  button
     float right
+    margin-left 1em
     margin-bottom 1em
 
   th, td
@@ -278,9 +315,148 @@ body
 
   th
     text-align right
+    color medium_text_color
 
   .bio
     clear left
+
+    > h1
+      margin 0.25em 0
+
+    .bio-content
+      padding 0 1em
+      background #fff
+      border 1px solid border_color
+      border-radius 3px
+
+// Markdown
+.CodeMirror, input, textarea, select
+  border 1px inset border_color
+  border-radius 3px
+  padding: 4px
+
+.CodeMirror-focused, input:focus, textarea:focus, select:focus
+  border 1px solid rgba(82, 168, 236, 0.8)
+  box-shadow 0 0 8px rgba(82, 168, 236, 0.6)
+  outline thin dotted \9
+
+.markdown-editor
+  border-radius 3px
+  background #fff
+
+  .markdown-menu
+    border-top-left-radius 3px
+    border-top-right-radius 3px
+    background-color #f3f3f3
+    border 1px solid border_color
+    padding 0.25em 0.25em 0 0.25em
+
+    a
+      display inline-block
+      background-color #fff
+      margin-bottom -1px
+      border-top-left-radius 3px
+      border-top-right-radius 3px
+      border 1px solid border_color
+      padding 0.25em
+      margin-left 0.25em
+      cursor pointer
+
+      &.active
+        border-bottom 1px solid #fff
+
+      &:hover
+        text-decoration none
+
+  .markdown-toolbar, .markdown-help
+    border-left 1px solid border_color
+    border-right 1px solid border_color
+
+  .markdown-toolbar
+    .button-group
+      display inline-block
+      margin 0.25em 1em 0.25em 0.25em
+
+      a
+        display inline-block
+        border 1px solid border_color
+        padding 0.125em 0.25em
+        border-right none
+        background-color #eee
+        background-image linear-gradient(#fcfcfc, #eee)
+        cursor pointer
+
+        &:hover
+          text-decoration none
+
+        &:first-of-type
+          border-top-left-radius 3px
+          border-bottom-left-radius 3px
+
+        &:last-of-type
+          border-top-right-radius 3px
+          border-bottom-right-radius 3px
+          border-right 1px solid border_color
+
+  .markdown-help
+    border-top 1px solid border_color
+    overflow auto
+    font-size 90%
+
+    .markdown-help-menu, .markdown-help-submenu
+      float left
+      height: 13em
+      width: 12em
+      transition 0.5s
+
+      a
+        display block
+        padding 0.25em 0.5em
+        margin 2px 0
+        cursor pointer
+        border-top 1px solid transparent
+        border-bottom 1px solid transparent
+        transition 0.5s
+
+        &:hover
+          text-decoration none
+          box-shadow 0 1px 2px #f0f0f0
+          background-color #fff
+
+        &.active, &.active:hover
+          box-shadow 0 1px 2px #f0f0f0
+          background-color #fff
+          color text_color !important
+          border-top 1px solid border_color
+          border-bottom 1px solid border_color
+
+    .markdown-help-submenu
+      background-color #f3f3f3
+      margin-right 0.5em
+      border-right 1px solid border_color
+      border-left 1px solid border_color
+
+    .markdown-help-content
+      padding 0.25em
+      font-size 95%
+      color medium_text_color
+      transition 0.5s
+
+      p:first-of-type
+        margin-top 0
+
+  .markdown-preview
+    border 1px solid border_color
+    border-top none
+    border-bottom-left-radius 3px
+    border-bottom-right-radius 3px
+    padding 0 1em
+    overflow auto
+
+  .CodeMirror
+    border-top-left-radius 0
+    border-top-right-radius 0
+    border: 1px solid border_color
 
 // Sign in
 #page #header a.header-nav

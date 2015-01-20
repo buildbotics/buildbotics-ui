@@ -1,5 +1,5 @@
 var sections = 'profile creations starred badges followers'.split(' ');
-
+var fields = 'fullname location url bio'.split(' ');
 
 function make_components() {
   components = {};
@@ -20,7 +20,12 @@ module.exports = {
   data: function () {
     return {
       sections: sections,
-      subsection: 'profile'
+      subsection: 'profile',
+      editing: false,
+      fullname: '',
+      location: '',
+      url: '',
+      bio: ''
     }
   },
 
@@ -59,6 +64,44 @@ module.exports = {
           $(this).addClass('active');
         else $(this).removeClass('active');
       })
+    },
+
+    edit: function () {
+      for (var i = 0; i < fields.length; i++)
+        this[fields[i]] = this.profile[fields[i]];
+
+      this.editing = true;
+    },
+
+    save: function () {
+      var $bb = require('./buildbotics');
+
+      var data = {}
+      var send = false;
+      for (var i = 0; i < fields.length; i++)
+        if (this[fields[i]] != this.profile[fields[i]]) {
+          data[fields[i]] = this[fields[i]];
+          send = true;
+        }
+
+      if (!send) {
+        this.editing = false;
+        return;
+      }
+
+      var self = this;
+
+      $bb.put('profiles/' + this.profile.name, data)
+        .success(function () {
+          for (var i = 0; i < fields.length; i++)
+            self.profile[fields[i]] = self[fields[i]];
+
+          self.editing = false;
+        });
+    },
+
+    cancel: function () {
+      this.editing = false;
     }
   }
 }

@@ -7,11 +7,14 @@ html
     link(rel='stylesheet'
       href=cdn + '/font-awesome/4.2.0/css/font-awesome.min.css')
 
+    link(rel='stylesheet'
+      href=cdn + '/codemirror/4.11.0/codemirror.min.css')
+
     link(href='//fonts.googleapis.com/css?family=Roboto+Slab'
       rel='stylesheet' type='text/css')
 
     - cdn = '//cdn.jsdelivr.net'
-    link(rel='stylesheet' href=cdn + '/editor/0.1.0/editor.css')
+    //link(rel='stylesheet' href=cdn + '/editor/0.1.0/editor.css')
 
     link(rel='stylesheet' href='/css/style.css')
 
@@ -31,6 +34,12 @@ html
     script(src=cdn + '/marked/0.3.2/marked.min.js')
     script(src=cdn + '/moment.js/2.9.0/moment.min.js')
     script(src=cdn + '/vue/0.11.4/vue.js')
+    script(src=cdn + '/codemirror/4.11.0/codemirror.js')
+    script(src=cdn + '/codemirror/4.11.0/addon/mode/overlay.min.js')
+    script(src=cdn + '/codemirror/4.11.0/mode/markdown/markdown.min.js')
+    script(src=cdn + '/codemirror/4.11.0/mode/gfm/gfm.min.js')
+
+    script(src='//cdn.jsdelivr.net/editor/0.1.0/editor.js')
 
     script(src='/js/modernizr.custom.js')
 

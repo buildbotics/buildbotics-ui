@@ -28,7 +28,9 @@ module.exports = new Vue({
     'not-found-page': {template: '#not-found-template'},
 
     'bb-things': require('./things'),
-    'bb-stars': require('./stars')
+    'bb-stars': require('./stars'),
+
+    'markdown-editor': require('./markdown')
   },
 
   directives: {
@@ -36,6 +38,8 @@ module.exports = new Vue({
     markdown: function (value) {
       this.el.innerHTML = value ? marked(value) : '';
     }
+
+    //'markdown-editor': require('./markdown')
   },
 
   filters: {

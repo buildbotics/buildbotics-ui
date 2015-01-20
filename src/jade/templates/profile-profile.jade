@@ -1,18 +1,27 @@
 script#profile-profile-template(type="text/x-template")
   img.picture(v-attr="src:profile.avatar")
 
-  button.edit(v-show="isOwner()") Edit Profile
+  button.edit(v-show="isOwner() && !editing" v-on="click:edit()") Edit Profile
+  button.save(v-show="editing" v-on="click:save()") Save Profile
+  button.cancel(v-show="editing" v-on="click:cancel()") Cancel Edit
 
   table
     tr
       th Full name
-      td {{profile.fullname}}
+      td
+        span(v-show="!editing") {{profile.fullname}}
+        input(v-show="editing" v-model="fullname")
     tr
       th Location
-      td {{profile.location}}
+      td
+        span(v-show="!editing") {{profile.location}}
+        input(v-show="editing" v-model="location")
     tr
       th Homepage
-      td {{profile.url}}
+      td
+        a(v-show="!editing" href="{{profile.url}}" target="_blank")
+          | {{profile.url}}
+        input(v-show="editing" v-model="url")
     tr
       th Joined
       td {{profile.joined | timeSince}}
@@ -21,5 +30,6 @@ script#profile-profile-template(type="text/x-template")
       td {{profile.lastseen | timeSince}}
 
   .bio
-    h3 Bio
-    div(v-markdown="profile.bio")
+    h1 Bio
+    div.bio-content(v-markdown="profile.bio" v-show="!editing")
+    div(v-component="markdown-editor" field="bio" v-if="editing")
