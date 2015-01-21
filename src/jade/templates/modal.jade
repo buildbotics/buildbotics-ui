@@ -1,0 +1,9 @@
+script#modal-template(type="text/x-template")
+  .modal(v-show="show")
+    .modal-wrapper
+      content(select=".modal-header")
+      content(select=".modal-content")
+      content(select=".modal-footer")
+        .modal-footer
+          button(v-repeat="button:buttons" v-on="click:response(button)")
+            | {{button}}

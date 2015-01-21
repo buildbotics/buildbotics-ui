@@ -1,0 +1,29 @@
+script#file-template(type="text/x-template")
+  td.preview
+    img(v-if="showThumb()" v-attr="src:file.src || file.url")
+    .fa(v-if="!showThumb()" v-class="getIcon()" title="{{file.type}} file")
+
+  td.name
+    a(href="{{file.url}}" target="_blank" title="Download file"
+      v-on="click:download()") {{file.name}}
+
+  td.size
+    div(v-progressbar="file.percent"
+      v-show="0 < file.percent && file.percent < 100")
+      span {{file.percent}}%
+
+    span(v-show="!file.percent || file.percent == 100")
+      | {{file.size | humanSize}}
+
+  td.downloads {{file.downloads | humanNumber}}
+
+  td.actions
+    .delete
+      a.fa.fa-trash-o(v-on="click:askDelete()" v-show="canEdit"
+        title="Delete file")
+
+      bb-modal(ref="delete" buttons="cancel delete" callout="top-right")
+        .modal-header Delete this file?
+
+    a.fa.fa-download(v-on="click:download()" target="_blank"
+      href="{{file.url}}" title="Download file")

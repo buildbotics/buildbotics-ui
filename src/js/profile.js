@@ -23,6 +23,11 @@ module.exports = {
     },
 
 
+    onEdit: function () {
+      location.hash = '#profile';
+    },
+
+
     onSave: function (fields, accept) {
       var $bb = require('./buildbotics');
       $bb.put('profiles/' + this.profile.name, fields).success(accept);

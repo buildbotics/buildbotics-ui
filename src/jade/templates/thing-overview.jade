@@ -1,10 +1,5 @@
 script#thing-overview-template(type="text/x-template")
-  button.edit(v-show="isOwner() && !editing" v-on="click:edit()") Edit Thing
-  button.save(v-show="editing" v-on="click:save()") Save Thing
-  button.cancel(v-show="editing" v-on="click:cancel()") Cancel Edit
-  button.publish(v-show="editing" v-on="click:publish()") Publish Thing
-
-  bb-media(media="{{images}}")
+  bb-carousel(media="{{images}}")
 
   table.info
     tr
@@ -49,7 +44,7 @@ script#thing-overview-template(type="text/x-template")
       td
         bb-profiles(v-show="stars.length")
         span(v-show="!stars.length")
-          | Be the first to <a v-on="click:star()" star this thing</a>.
+          | Be the first to <a v-on="click:star()"> star this thing</a>.
 
     tr
       th Created
@@ -58,8 +53,3 @@ script#thing-overview-template(type="text/x-template")
     tr
       th Last modified
       td {{thing.modified | timeSince}}
-
-  .description
-    h1 Description
-    div(v-markdown="thing.description" v-show="!editing")
-    markdown-editor(field="edit_description" v-if="editing")

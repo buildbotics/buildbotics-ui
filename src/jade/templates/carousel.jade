@@ -1,0 +1,4 @@
+script#carousel-template(type="text/x-template")
+  .carousel
+    .carousel-media(v-repeat="media")
+      img(v-if="isImage(type)" data-lazy="{{url}}")

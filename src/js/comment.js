@@ -9,10 +9,12 @@ module.exports = {
   paramAttributes: ['comment'],
 
 
-  data: function () {
-    return {
-      showAskRemove: false
-    }
+  created: function () {
+    var self = this;
+    this.$on('modal-response', function (button) {
+      if (button == 'delete') self.remove();
+      return false; // Cancel event propagation
+    })
   },
 
 
@@ -29,12 +31,7 @@ module.exports = {
 
 
     askRemove: function () {
-      this.showAskRemove = true;
-    },
- 
-
-    cancelRemove: function () {
-      this.showAskRemove = false;
+      this.$broadcast('modal-show-delete');
     },
  
 
@@ -42,7 +39,6 @@ module.exports = {
       var self = this;
 
       $bb.delete(this.getAPIURL()).success(function () {
-        self.showAskRemove = false;
         self.$remove();
 
         Vue.nextTick(function () {

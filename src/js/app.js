@@ -34,6 +34,10 @@ module.exports = new Vue({
     'bb-comment': require('./comment'),
     'bb-comments': require('./comments'),
 
+    'bb-modal': require('./modal'),
+    'bb-carousel': require('./carousel'),
+
+    'file-manager': require('./file-manager'),
     'markdown-editor': require('./markdown')
   },
 
@@ -41,9 +45,29 @@ module.exports = new Vue({
   directives: {
     disable: function (value) {this.el.disabled = !!value},
 
+
     markdown: function (value) {
       $(this.el).addClass('markdown');
       this.el.innerHTML = value ? marked(value) : '';
+    },
+
+
+    progressbar: {
+      bind: function () {
+        var el = $(this.el);
+
+        $('<div>')
+          .append(el.children().detach())
+          .width(0)
+          .appendTo(el);
+
+        el.addClass('progressbar');
+      },
+
+
+      update: function (value) {
+        $(this.el).find('> div').width(value + '%');
+      }
     }
   },
 
@@ -71,6 +95,32 @@ module.exports = new Vue({
     },
 
 
+    humanSize: function (bytes, precision) {
+      if (typeof bytes != 'number' || isNaN(bytes)) return 'unknown';
+      if (typeof precision == 'undefined') precision = 1;
+
+      var i;
+      for (i = 0; 1024 < bytes && i < 4; i++) bytes /= 1024;
+
+      bytes = bytes.toFixed(precision);
+
+      return Number(bytes) + ' ' + ['Bytes', 'KB', 'MB', 'GB', 'TB'][i];
+    },
+
+
+    humanNumber: function (bytes, precision) {
+      if (typeof bytes != 'number' || isNaN(bytes)) return 'unknown';
+      if (typeof precision == 'undefined') precision = 0;
+
+      var i;
+      for (i = 0; 1024 < bytes && i < 4; i++) bytes /= 1024;
+
+      bytes = bytes.toFixed(precision);
+
+      return Number(bytes) + ['', 'K', 'M', 'B', 'T'][i];
+    },
+
+
     timeSince: function (time) {
       return moment(time).fromNow();
     }
@@ -90,6 +140,28 @@ module.exports = new Vue({
 
 
   methods: {
+    message: function (msg, obj) {
+      if (obj) msg += '\n' + JSON.stringify(obj);
+      alert(msg);
+      // TODO use a dialog instead
+    },
+
+
+    error: function (msg, obj) {
+      this.message('ERROR: ' + msg, obj);
+    },
+
+
+    warn: function (msg, obj) {
+      this.message('WARNING: ' + msg, obj);
+    },
+
+
+    info: function (msg, obj) {
+      this.message('INFO: ' + msg, obj);
+    },
+
+
     loggedIn: function (user_data) {
       var user = user_data.profile;
       console.debug('Logged in as ' + user.name);

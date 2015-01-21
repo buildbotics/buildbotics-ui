@@ -1,10 +1,6 @@
 script#profile-profile-template(type="text/x-template")
   img.picture(v-attr="src:profile.avatar")
 
-  button.edit(v-show="isOwner() && !editing" v-on="click:edit()") Edit Profile
-  button.save(v-show="editing" v-on="click:save()") Save Profile
-  button.cancel(v-show="editing" v-on="click:cancel()") Cancel Edit
-
   table.info
     tr
       th Full name

@@ -1,0 +1,17 @@
+script#file-manager-template(type="text/x-template")
+  .file-manager
+    .dropzone
+      table.table.table-striped
+        tr
+          th.preview Preview
+          th.name Name
+          th.size Size
+          th.downloads Downloads
+          th.actions Actions
+
+        tr(v-repeat="file:files" v-component="bb-file")
+
+      .file-manager-footer(v-show="canEdit")
+        | Click to <button class="browse"><div class="fa fa-plus"></div> Add
+        | files</button> or drag and drop.
+

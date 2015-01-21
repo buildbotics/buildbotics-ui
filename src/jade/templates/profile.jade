@@ -11,6 +11,11 @@ script#profile-template(type="text/x-template")
           a(href="/{{profile.name}}") {{profile.name}}
 
     .page-content
+      button.edit(v-show="isOwner() && !editing" v-on="click:edit()")
+        | Edit Profile
+      button.save(v-show="editing" v-on="click:save()") Save
+      button.cancel(v-show="editing" v-on="click:cancel()") Cancel Edit
+
       ul.menu
         li(v-repeat="subsection:subsections")
           a(v-attr="href:'#' + subsection") {{subsection}}

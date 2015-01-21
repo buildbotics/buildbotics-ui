@@ -1,0 +1,3 @@
+script#thing-instructions-template(type="text/x-template")
+  div(v-markdown="thing.description" v-show="!editing")
+  markdown-editor(field="edit_description" v-if="editing")

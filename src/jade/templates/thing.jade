@@ -12,6 +12,12 @@ script#thing-template(type="text/x-template")
           | <a href="/{{thing.owner}}/{{thing.name}}">{{thing.name}}</a>
 
     .page-content
+      button.edit(v-show="isOwner() && !editing" v-on="click:edit()") Edit
+      button.save(v-show="editing" v-on="click:save()") Save
+      button.cancel(v-show="editing" v-on="click:cancel()") Cancel Edit
+      button.publish(v-show="isOwner && !editing && !thing.published"
+        v-on="click:publish()") Publish
+
       ul.menu
         li(v-repeat="subsection:subsections")
           a(v-attr="href:'#' + subsection") {{subsection}}

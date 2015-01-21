@@ -21,20 +21,16 @@ module.exports = function (prefix, subsections) {
   return {
     components: makeComponents(),
 
+
     created: function () {
       this.$set('subsections', subsections);
-      this.$set('subsection', subsections[0]);
+      this.setSubsection(subsections[0]);
 
       // Watch subsection changes
       var app = require('./app');
       var self = this;
       this.unwatch = app.$watch('subsection', function (value) {
-        value = value.trim();
-
-        if (!value || subsections.indexOf(value) == -1)
-          self.setSubsection(subsections[0]);
-        else self.setSubsection(value);
-
+        self.setSubsection(value);
       }, false, true)
     },
 
@@ -46,13 +42,22 @@ module.exports = function (prefix, subsections) {
 
     methods: {
       setSubsection: function (subsection) {
-        this.subsection = subsection;
+        subsection = subsection.trim();
+
+        if (!subsection || subsections.indexOf(subsection) == -1)
+          subsection = subsections[0]; // Choose first by default
+
+        if (this.subsection == subsection) return;
+        this.$set('subsection', subsection);
 
         // Set menu item active
-        $(this.$el).find('.menu li').each(function () {
-          if ($(this).find('a').text() == subsection)
-            $(this).addClass('active');
-          else $(this).removeClass('active');
+        var self = this;
+        Vue.nextTick(function () {
+          $(self.$el).find('.menu li').each(function () {
+            var text = $(this).find('a').text();
+            if (text == subsection) $(this).addClass('active');
+            else $(this).removeClass('active');
+          });
         });
       }
     }

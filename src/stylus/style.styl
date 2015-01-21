@@ -2,6 +2,8 @@ page_width = 960px
 min_page_width = 200px
 header_height = 60px
 avatar_size = 40px
+carousel_width = 500px
+carousel_height = carousel_width / 1.6180339887498948482
 
 link_color = #e5aa3d
 link_hover_color = #428bca
@@ -16,6 +18,11 @@ header_border_color = border_color
 secondary_header_color = #fafafa
 secondary_header_border_color = #f1f1f1
 
+table_header_color = #fff
+table_odd_color = secondary_header_color
+table_even_color = header_color
+table_hover_color = #d8d8d8
+
 thing_width = 300px
 thing_height = ((thing_width) / 1.618)
 
@@ -28,6 +35,7 @@ a, a:visited
 
 a:hover, a:focus
   text-decoration underline
+  outline 0
 
 a:hover
   color link_hover_color !important
@@ -37,6 +45,7 @@ a.fa, a.fa:visited
 
   &:hover
     text-decoration none
+
 
 // Buttons
 button
@@ -48,14 +57,19 @@ button
   color link_color
   cursor pointer
 
+  &::-moz-focus-inner
+    border none
+
   &:hover
     color link_hover_color
+
 
 // HR
 hr
   border none
   border-bottom 1px solid border_color
   height 1px
+
 
 // Code
 code
@@ -71,6 +85,7 @@ pre code
   border-left 5px solid #bbb
   display block
 
+
 // Headings
 h1, h2, h3, h4
   color medium_text_color
@@ -81,126 +96,137 @@ h1
   font-size 22pt
   font-weight normal
 
+
 // Body
 body
   background-image url(/images/grid.png)
   margin 0
   font-family 'Roboto Slab', serif
+  overflow-y scroll
 
 
+// Layout
 #page
-  #header
-    background-color header_color
-    border-bottom 1px solid header_border_color
-
-    #header-content
-      min-width min_page_width
-      max-width page_width
-      min-height header_height
-      margin 0 auto
-      overflow hidden
-
-    a
-      text-decoration none
-      color #666
-
-    .logo
-      height header_height - 10px
-      margin 5px 20px 0 5px
-      vertical-align top
-      display inline-block
-      float left
-
-    #main-header-nav, #context-header-nav
-      list-style none
-      padding 0
-      margin 0
-      white-space nowrap
-
-      > li
-        display inline-block
-
-    #main-header-nav
-      float left
-
-      a.header-nav
-        text-transform uppercase
-        font-size 18pt
-        line-height header_height - 20px
-
-    #context-header-nav
-      float right
-
-    a.header-nav
-      line-height header_height - 20px
-      height header_height - 20px
-      padding 10px
-      display inline-block
-      transition 0.25s
-      font-size 12pt
-
-      &:hover
-        color #f0ac48
-        background-color #f7f9f7
-
-    a.user
-      width 150px
-      height header_height - 12px
-      padding 6px
-      font-size 10pt
-      line-height 24px
-      text-align center
-      vertical-align middle
-      margin-top -9px
-
-      .avatar
-        float left
-        border-radius 5px
-        width avatar_size
-        height avatar_size
-        margin 4px 4px 0 0
-
-      .points .fa
-        color #f0ac48
-        margin-right 5px
-
-    a.sign-out
-      font-size 18pt
-
-      .text
-        display none
-
-      .fa
-        margin-left 10px
-
-    .clear
-      height 1px
-      margin-bottom -1px
-      clear both
+  #header-content
+    min-width min_page_width
+    max-width page_width
+    min-height header_height
+    margin 0 auto
+    overflow hidden
 
   #content
     margin auto
     min-width min_page_width
     max-width page_width
-    min-height 1200px
-    margin-bottom 2em
+    margin-bottom 4em
 
   #footer
+    position fixed
+    bottom 0
     width 100%
+
+  #footer-content
     min-height 1.5em
-    background-color #e1e1e1
-    border-top 1px solid #878787
+    min-width min_page_width
+    max-width page_width
+    margin auto
 
-    #footer-content
-      min-width min_page_width
-      max-width page_width
-      margin auto
 
-    .copyright
-      margin-right 10px
+// Header
+#header
+  border-bottom 1px solid header_border_color
+  background-color header_color
 
-    .footer-nav
-      margin 0 6px
+  a
+    text-decoration none
+    color #666
+
+  .logo
+    height header_height - 10px
+    margin 5px 20px 0 5px
+    vertical-align top
+    display inline-block
+    float left
+
+  #main-header-nav, #context-header-nav
+    list-style none
+    padding 0
+    margin 0
+    white-space nowrap
+
+    > li
+      display inline-block
+
+  #main-header-nav
+    float left
+
+    a.header-nav
+      text-transform uppercase
+      font-size 18pt
+      line-height header_height - 20px
+
+  #context-header-nav
+    float right
+
+  a.header-nav
+    line-height header_height - 20px
+    height header_height - 20px
+    padding 10px
+    display inline-block
+    transition 0.25s
+    font-size 12pt
+
+    &:hover
+      color #f0ac48
+      background-color #f7f9f7
+
+  a.user
+    width 150px
+    height header_height - 12px
+    padding 6px
+    font-size 10pt
+    line-height 24px
+    text-align center
+    vertical-align middle
+    margin-top -11px
+
+    .avatar
+      float left
+      border-radius 5px
+      width avatar_size
+      height avatar_size
+      margin 4px 4px 0 0
+
+    .points .fa
+      color #f0ac48
+      margin-right 5px
+
+  a.sign-out
+    font-size 18pt
+
+    .text
+      display none
+
+    .fa
+      margin-left 10px
+
+  .clear
+    height 1px
+    margin-bottom -1px
+    clear both
+
+
+// Footer
+#footer
+  background-color #e1e1e1
+  border-top 1px solid #878787
+
+  .copyright
+    margin-right 10px
+
+  .footer-nav
+    margin 0 6px
+
 
 // Stars
 .stars
@@ -214,6 +240,7 @@ body
 
     .user-starred
       color link_hover_color
+
 
 // Things
 .things
@@ -288,6 +315,7 @@ body
       clear both
       color text_color
 
+
 // Thing & Profile common
 #page #content
   &.thing-page, &.profile-page
@@ -349,10 +377,14 @@ body
         text-decoration none
         outline none
 
-  .section > button
+  .page-content > button
     float right
     margin-left 1em
-    margin-bottom 1em
+    margin-top 0.25em
+
+  .section > .carousel
+    float left
+    margin-right 1em
 
   .section > .info
     max-width 30em
@@ -377,6 +409,7 @@ body
 .thing
  // afdasdf
 
+
 // Profile
 .profile
   .picture
@@ -389,6 +422,7 @@ body
 
   .bio
     clear left
+
 
 // Comments
 .comment
@@ -459,6 +493,7 @@ body
 
     .markdown-editor
       border none
+
 
 // Markdown
 input, textarea, select
@@ -592,6 +627,21 @@ input, textarea, select
     color light_text_color
     font-size 100%
 
+
+// Progressbar
+.progressbar
+  background-color #f5f5f5
+  border-radius 3px
+  box-shadow 0 1px 2px rgba(0, 0, 0, 0.1) inset
+  text-align center
+  overflow hidden
+
+  > div
+    background-color link_hover_color
+    height 2em
+    line-height 2em
+
+
 // Modal
 .modal
   position absolute
@@ -599,8 +649,7 @@ input, textarea, select
   background #fff
   border-radius 3px
   border 1px solid border_color
-  box-shadow 0 1px 2px #f0f0f0
-  z-index 10
+  z-index 110
 
   .modal-header, .modal-content, .modal-footer
     padding 0.25em 0.5em
@@ -617,6 +666,17 @@ input, textarea, select
 
     button
       margin-left 0.5em
+      text-transform capitalize
+
+.modal-overlay
+  z-index 100
+  position fixed
+  top 0
+  left 0
+  width 100%
+  height 100%;
+  background-color: rgba(0, 0, 0, 0.1)
+
 
 // Callouts
 .callout-top-right
@@ -639,6 +699,138 @@ input, textarea, select
     border-bottom-color secondary_header_color
     border-width 8px
     margin-top 1px
+
+
+// File manager
+.file-manager
+  border 1px solid border_color
+  border-radius 3px
+  background-color #fff
+
+  .file-manager-footer
+    padding 1em
+    border-top 1px solid border_color
+
+  .preview img
+    width 32px
+    height 32px
+    border-radius 3px
+    vertical-align middle
+
+  .progress-bar
+    color text_color
+
+  .bb-modal .body
+    text-align right
+
+  td, th
+    text-align center
+    white-space nowrap
+    font-size 10pt
+    border-right 1px solid border_color
+    padding 0.25em 0.5em
+
+    &:last-child
+      border-right none
+
+  th
+    border-bottom 1px solid border_color
+    padding 0.5em
+
+  td.preview .fa
+    font-size 16pt
+    color light_text_color
+
+  th.name, td.name
+    width 100%
+    text-align left
+
+    a
+      color text_color
+
+  th.size, td.size, th.downloads, td.downloads
+    min-width 6em
+    text-align right
+
+  td.actions
+    .delete
+      position relative
+      display inline-block
+
+    a
+      color light_text_color
+      margin 0.5em
+
+
+// Table
+.table
+  border-collapse collapse
+
+  th
+    .fa-caret-up, .fa-caret-down
+      display none
+
+    .fa
+      width 1em
+
+  th.st-sort-ascent, th.st-sort-descent
+    .fa-caret-right
+      display none
+
+  th.st-sort-ascent .fa-caret-up
+    display inline-block
+
+  th.st-sort-descent .fa-caret-down
+    display inline-block
+
+.table-striped > thead
+  > tr:first-child > th
+    background-color table_header_color
+
+.table-striped > tbody
+  > tr:nth-child(odd) > td
+    background-color table_odd_color
+
+  > tr:nth-child(even) > td
+    background-color table_even_color
+
+  > tr:hover > td
+    background-color table_hover_color
+
+.modal-active .table-striped > tbody
+  > tr:nth-child(odd):hover > td
+    background-color table_odd_color
+
+  > tr:nth-child(even):hover > td
+    background-color table_even_color
+
+
+// Carousel
+.carousel
+  text-align center
+  width carousel_width
+  height carousel_height
+
+  .slick-list
+    border-radius 3px
+    border 1px solid border_color
+    background-color header_color
+
+  img
+    max-width carousel_width
+    height carousel_height
+    display inline-block
+    background-color #fff
+    vertical-align middle
+
+  .slick-prev, .slick-next
+    width 40px
+    height 40px
+
+    &:before
+      color medium_text_color
+      font-size 24pt
+      line-height 40px
 
 // Sign in
 #page #header a.header-nav

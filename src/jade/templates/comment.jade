@@ -14,13 +14,8 @@ script#comment-template(type="text/x-template")
           a.fa.fa-trash-o(tooltip="Delete comment" v-show="isOwner()"
             v-on="click:askRemove()")
 
-          .modal.callout-top-right(v-show="showAskRemove")
-            .modal-wrapper
-              .modal-header Delete this comment?
-              .modal-footer
-                button(v-on="click:cancelRemove()") Cancel
-                button(v-on="click:remove()") Delete
-
+          bb-modal(ref="delete" buttons="cancel delete" callout="top-right")
+            .modal-header Delete this comment?
 
         .actions(v-show="editing")
           button(v-on="click:cancel()") Cancel
