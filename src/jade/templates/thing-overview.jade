@@ -1,55 +1,63 @@
 script#thing-overview-template(type="text/x-template")
   bb-carousel(media="{{images}}")
 
-  table.info
-    tr
-      th Title
-      td
-        span(v-show="!editing") {{thing.title || '(No title)'}}
-        input(v-show="editing" v-model="edit_title")
+  .info
+    table
+      tr
+        th Title
+        td
+          span(v-show="!editing") {{thing.title || '(No title)'}}
+          input(v-show="editing" v-model="edit_title")
 
-    tr(v-show="thing.parent")
-      th Parent
-      td
-        a(href="{{thing.parent}}") {{thing.parent}}
+      tr(v-show="thing.parent")
+        th Parent
+        td
+          a(href="{{thing.parent}}") {{thing.parent}}
 
-    tr
-      th Link
-      td
-        a(v-show="!editing" href="{{thing.url}}" target="_blank")
-          | {{thing.url}}
-        input(v-show="editing" v-model="edit_url")
+      tr
+        th Link
+        td
+          a(v-show="!editing" href="{{thing.url}}" target="_blank")
+            | {{thing.url}}
+          input(v-show="editing" v-model="edit_url")
 
-    tr
-      th License
-      td
-        div(v-show="!editing")
-          | Permission to use "<em>{{thing.title}}</em>" is granted by
-          | <a href="/{{thing.owner}}">{{thing.owner}}</a> under the terms
-          | of the <a href="{{thing.license_url}}">{{thing.license}}</a>.
+      tr
+        th Created
+        td {{thing.created | timeSince}}
 
-        select(v-show="editing" v-model="edit_license")
-          option(v-repeat="license:licenses" value="{{license.name}}"
-            v-attr="selected:license.name == license") {{license.name}}
+      tr
+        th Modified
+        td {{thing.modified | timeSince}}
 
-    tr
-      th Tags
-      td
-        span(v-show="!editing && thing.tags") {{thing.tags}}
-        span(v-show="!editing && !thing.tags")
-          | Be the first to <a href="#" v-on="click:tag()">tag this thing</a>.
+      tr
+        th License
+        td
+          div(v-show="!editing")
+            | Permission to use "<em>{{thing.title}}</em>" is granted by
+            | <a href="/{{thing.owner}}">{{thing.owner}}</a> under the terms
+            | of the <a href="{{thing.license_url}}">{{thing.license}}</a>.
 
-    tr
-      th Stars
-      td
-        bb-profiles(v-show="stars.length")
-        span(v-show="!stars.length")
-          | Be the first to <a v-on="click:star()"> star this thing</a>.
+          select(v-show="editing" v-model="edit_license")
+            option(v-repeat="license:licenses" value="{{license.name}}"
+              v-attr="selected:license.name == license") {{license.name}}
 
-    tr
-      th Created
-      td {{thing.created | timeSince}}
+      tr
+        th Tags
+        td
+          .tags
+            span.tag(v-show="!editing && thing.tags" v-repeat="tag:thing.tags")
+              a(v-attr="href:'/explore#' + tag") {{tag}}
+              = ' '
 
-    tr
-      th Last modified
-      td {{thing.modified | timeSince}}
+          span(v-if="!editing && !thing.tags")
+            | Be the first to <a href="#" v-on="click:tag()">tag this thing</a>.
+
+          span(v-show="editing"): tag-editor(tags="{{edit_tags}}")
+
+  .clear
+  h1 Stars
+
+  bb-profiles(profiles="{{stars}}")
+
+  span(v-show="!stars.length")
+    | Be the first to <a v-on="click:star()"> star this thing</a>.

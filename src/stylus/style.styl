@@ -1,9 +1,10 @@
+golden_ratio = 1.6180339887498948482
 page_width = 960px
 min_page_width = 200px
 header_height = 60px
 avatar_size = 40px
 carousel_width = 500px
-carousel_height = carousel_width / 1.6180339887498948482
+carousel_height = carousel_width / golden_ratio
 
 link_color = #e5aa3d
 link_hover_color = #428bca
@@ -64,7 +65,22 @@ button
     color link_hover_color
 
 
-// HR
+// Inputs
+.CodeMirror-focused, .tag-editor-focused, input:focus, textarea:focus,
+  select:focus
+  border 1px solid rgba(82, 168, 236, 0.8)
+  box-shadow 0 0 8px rgba(82, 168, 236, 0.6)
+  outline thin dotted \9
+
+
+// Clear
+.clear
+  height 1px
+  margin-bottom -1px
+  clear both
+
+
+// hr
 hr
   border none
   border-bottom 1px solid border_color
@@ -95,6 +111,11 @@ h1, h2, h3, h4
 h1
   font-size 22pt
   font-weight normal
+
+
+// em
+em
+  color medium_text_color
 
 
 // Body
@@ -192,10 +213,6 @@ body
 
     .avatar
       float left
-      border-radius 5px
-      width avatar_size
-      height avatar_size
-      margin 4px 4px 0 0
 
     .points .fa
       color #f0ac48
@@ -210,11 +227,6 @@ body
     .fa
       margin-left 10px
 
-  .clear
-    height 1px
-    margin-bottom -1px
-    clear both
-
 
 // Footer
 #footer
@@ -226,6 +238,14 @@ body
 
   .footer-nav
     margin 0 6px
+
+
+// Avatar
+.avatar
+  border-radius 3px
+  width avatar_size
+  height avatar_size
+  margin 4px 4px 0 0
 
 
 // Stars
@@ -342,52 +362,47 @@ body
       margin-right 0.5em
 
   .menu
-    list-style none
-    margin 1em 0 1em 0
-    padding 0
-    border-bottom 1px solid border_color
+    background-color #f3f3f3
+    border 1px solid border_color
+    border-top-left-radius 3px
+    border-top-right-radius 3px
+    margin 1em 0 2em 0
+    padding 0.5em 0.25em 0 0.25em
 
-    li
+    a
       display inline-block
       text-transform capitalize
-      padding 0.25em
-      font-size 18pt
-      margin-right 5px
-      margin-bottom -3px
-      border-top-left-radius 5px
-      border-top-right-radius 5px
-      transition 0.5s
-
-      &:first-of-type
-        padding-left 0
-
-      &:before
-        content "|"
-        margin-right 1em
-        color medium_text_color
-
-      &:first-of-type:before
-        display none
+      font-size 16pt
+      background-color #fff
+      border-top-left-radius 3px
+      border-top-right-radius 3px
+      border 1px solid border_color
+      padding 0.125em 0.25em
+      margin-left 0.25em
+      margin-bottom -1px
 
       &.active
-        a, a:hover
-          color medium_text_color !important
+        border-bottom 1px solid #fff
+        color medium_text_color !important
 
-      a, a:active, a:visited, a:hover
+      &:active, &:visited, &:hover, &:focus
         text-decoration none
-        outline none
 
   .page-content > button
     float right
-    margin-left 1em
-    margin-top 0.25em
+    margin 0.5em
 
   .section > .carousel
     float left
     margin-right 1em
 
   .section > .info
-    max-width 30em
+    float right
+    max-width 24em
+    padding 0.5em
+    border 1px solid border_color
+    border-radius 3px
+    background-color #fff
 
     th, td
       padding 0.25em
@@ -398,6 +413,12 @@ body
       white-space nowrap
       vertical-align top
 
+    select
+      width 18.75em
+
+    input, .tag-editor
+      width 18em
+
   .markdown
     padding 0 1em
     background #fff
@@ -405,10 +426,19 @@ body
     border-radius 3px
 
 
-// Thing
-.thing
- // afdasdf
+// Profiles
+.profiles
+  > a
+    display inline-block
+    margin 0.5em
+    text-align center
 
+    .avatar
+      width avatar_size * golden_ratio
+      height avatar_size * golden_ratio
+      display block
+      margin auto
+      vertical-align middle
 
 // Profile
 .profile
@@ -429,11 +459,7 @@ body
   margin 2em 0
 
   .avatar
-    border-radius 3px
-    display block
     position absolute
-    width avatar_size
-    height avatar_size
 
   .comment-wrapper
     border-radius 3px
@@ -495,16 +521,79 @@ body
       border none
 
 
+// Tags
+.tags
+  line-height 2em
+
+  .tag
+    border-radius 3px
+    background-color link_color
+    margin 0.25em
+    padding 0.125em 0.25em
+
+    &:hover
+      background-color link_hover_color
+
+    a
+      color #000
+
+      &:hover
+        text-decoration none
+        color #000 !important
+
+
+// Tag Editor
+.tag-editor
+  display inline-block
+  border 1px inset border_color
+  border-radius 3px
+
+  .tag-editor-wrapper
+    overflow hidden
+
+  &.tag-editor-focused
+    border 1px solid rgba(82, 168, 236, 0.8)
+
+  .tag-editor-tag
+    border-radius 3px
+    background link_color
+    margin 4px
+    padding 2px 4px
+    display inline-block
+
+  .tag-editor-text
+    font-size 14px
+    display inline-block
+
+  .tag-editor-delete
+    color medium_text_color
+    font-weight bold
+    text-decoration none
+    cursor pointer
+    margin-left 6px
+    display inline-block
+
+  .tag-editor-input
+    font-size 14px
+    padding 2px 4px
+    border none
+    outline none
+    width 100%
+
+    &:focus
+      box-shadow none
+
+  .tag-editor-measure
+    position absolute
+    left -999px
+
+
 // Markdown
 input, textarea, select
   border 1px inset border_color
   border-radius 3px
   padding 4px
-
-.CodeMirror-focused, input:focus, textarea:focus, select:focus
-  border 1px solid rgba(82, 168, 236, 0.8)
-  box-shadow 0 0 8px rgba(82, 168, 236, 0.6)
-  outline thin dotted \9
+  background-color #fff
 
 .markdown-editor
   border-radius 3px
@@ -621,7 +710,10 @@ input, textarea, select
   .CodeMirror
     border-bottom-left-radius 3px
     border-bottom-right-radius 3px
-    border none
+    border 1px solid #fff
+
+    &.CodeMirror-focused
+      border 1px solid rgba(82, 168, 236, 0.8)
 
   .CodeMirror-empty
     color light_text_color
@@ -674,8 +766,8 @@ input, textarea, select
   top 0
   left 0
   width 100%
-  height 100%;
-  background-color: rgba(0, 0, 0, 0.1)
+  height 100%
+  background-color rgba(0, 0, 0, 0.1)
 
 
 // Callouts

@@ -53,8 +53,8 @@ module.exports = function (prefix, subsections) {
         // Set menu item active
         var self = this;
         Vue.nextTick(function () {
-          $(self.$el).find('.menu li').each(function () {
-            var text = $(this).find('a').text();
+          $(self.$el).find('.menu > a').each(function () {
+            var text = $(this).text();
             if (text == subsection) $(this).addClass('active');
             else $(this).removeClass('active');
           });

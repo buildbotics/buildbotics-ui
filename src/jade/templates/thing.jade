@@ -18,8 +18,8 @@ script#thing-template(type="text/x-template")
       button.publish(v-show="isOwner && !editing && !thing.published"
         v-on="click:publish()") Publish
 
-      ul.menu
-        li(v-repeat="subsection:subsections")
-          a(v-attr="href:'#' + subsection") {{subsection}}
+      .menu
+        a(v-repeat="subsection:subsections" v-attr="href:'#' + subsection")
+          | {{subsection}}
 
       .section(v-component="thing-{{subsection}}")

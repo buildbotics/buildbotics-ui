@@ -25,8 +25,9 @@ module.exports = {
 
     // Split tags
     if (this.thing.tags)
-      this.tags = this.thing.tags.split(',')
-      .filter(function (e) {return e})
+      this.thing.tags = this.thing.tags.split(',')
+      .filter(function (tag) {return tag})
+      .map(function (tag) {return tag.replace(/^#/, '')})
 
     // Listen file manager events
     this.$on('file-manager-before-upload', function (file, done) {
@@ -46,6 +47,7 @@ module.exports = {
 
       return false; // Cancel event propagation
     });
+
 
     this.$on('file-manager-delete', function (file, done) {
       $bb.delete(this.getAPIURL() + '/files/' + file.name)
@@ -82,8 +84,44 @@ module.exports = {
     },
 
 
-    onSave: function (fields, accept) {
-      $bb.put(this.getAPIURL(), fields).success(accept);
+    saveTags: function (tags) {
+      var promises = [];
+
+      // Find added tags
+      var tag = [];
+      for (var i = 0; i < tags.length; i++)
+        if (this.thing.tags.indexOf(tags[i]) == -1)
+          tag.push(tags[i]);
+
+      if (tag.length)
+        promises.push($bb.put(this.getAPIURL() + '/tags/' + tag.join()));
+
+      // Find removed tags
+      var untag = [];
+      for (var i = 0; i < this.thing.tags.length; i++)
+        if (tags.indexOf(this.thing.tags[i]) == -1)
+          untag.push(this.thing.tags[i]);
+
+      if (untag.length)
+        promises.push($bb.delete(this.getAPIURL() + '/tags/' + untag.join()));
+
+      return promises;
+    },
+
+
+    onSave: function (fields) {
+      var promises = [];
+
+      // Save any tags
+      if (fields.tags) {
+        promises.push(this.saveTags(fields.tags));
+        fields.tags = undefined;
+      }
+
+      // Save other fields
+      promises.push($bb.put(this.getAPIURL(), fields));
+
+      return promises;
     },
 
 

@@ -16,8 +16,8 @@ script#profile-template(type="text/x-template")
       button.save(v-show="editing" v-on="click:save()") Save
       button.cancel(v-show="editing" v-on="click:cancel()") Cancel Edit
 
-      ul.menu
-        li(v-repeat="subsection:subsections")
-          a(v-attr="href:'#' + subsection") {{subsection}}
+      .menu
+        a(v-repeat="subsection:subsections" v-attr="href:'#' + subsection")
+          | {{subsection}}
 
       .section(v-component="profile-{{subsection}}")

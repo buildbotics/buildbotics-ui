@@ -28,9 +28,9 @@ module.exports = {
     },
 
 
-    onSave: function (fields, accept) {
+    onSave: function (fields) {
       var $bb = require('./buildbotics');
-      $bb.put('profiles/' + this.profile.name, fields).success(accept);
+      return $bb.put('profiles/' + this.profile.name, fields);
     }
   },
 

@@ -29,6 +29,7 @@ module.exports = new Vue({
     'profile-page': require('./profile'),
     'not-found-page': {template: '#not-found-template'},
 
+    'bb-profiles': require('./profiles'),
     'bb-things': require('./things'),
     'bb-stars': require('./stars'),
     'bb-comment': require('./comment'),
@@ -38,7 +39,8 @@ module.exports = new Vue({
     'bb-carousel': require('./carousel'),
 
     'file-manager': require('./file-manager'),
-    'markdown-editor': require('./markdown')
+    'markdown-editor': require('./markdown'),
+    'tag-editor': require('./tag-editor')
   },
 
 

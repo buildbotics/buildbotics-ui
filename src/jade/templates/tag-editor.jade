@@ -1,0 +1,20 @@
+script#tag-editor-tag-measure-template(type="text/x-template")
+  .tag-editor-tag.tag-editor-measure
+    .tag-editor-text(v-text="text")
+
+
+script#tag-editor-input-template(type="text/x-template")
+  input.tag-editor-input(v-model="value" v-style="width:width + 'px'"
+    v-on="keydown:deleteLastTag | key 8, keyup:onKeyup, blur:onBlur")
+
+
+script#tag-editor-template(type="text/x-template")
+  .tag-editor(v-on="click:refocus" tabindex="-1")
+    .tag-editor-wrapper
+      tag-editer-tag-measure(v-ref="tagMeasure")
+
+      .tag-editor-tag(v-repeat="tags")
+        .tag-editor-text {{$value}}
+        a.fa.fa-close.tag-editor-delete(v-on="click:delete")
+
+      tag-editor-input(v-ref="input")
