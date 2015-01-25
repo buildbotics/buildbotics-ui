@@ -1,4 +1,8 @@
 script#carousel-template(type="text/x-template")
-  .carousel
+  .carousel(v-on="keyup:fullscreen(false) | key 27")
+    .carousel-empty.weak(v-if="!media.length")
+      content (No media)
+    a.expand(v-show="media.length" v-on="click:fullscreen()")
+      .fa.fa-arrows-alt
     .carousel-media(v-repeat="media")
       img(v-if="isImage(type)" data-lazy="{{url}}")

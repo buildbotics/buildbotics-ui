@@ -48,6 +48,23 @@ a.fa, a.fa:visited
     text-decoration none
 
 
+// Special text
+.error
+  color red
+
+.warn
+  color #fff000
+
+.success
+  color green
+
+.weak
+  font-weight normal
+  color light_text_color
+
+.help
+  color medium_text_color
+
 // Buttons
 button
   border 1px solid border_color
@@ -63,6 +80,20 @@ button
 
   &:hover
     color link_hover_color
+
+  &.success
+    background #5cb85c
+    border-color #4cae4c
+    color #fff
+
+    &:hover
+      background #449d44
+      border-color #398439
+
+  &:disabled, &:hover:disabled
+    background-color header_color
+    color light_text_color !important
+    border-color border_color
 
 
 // Inputs
@@ -202,7 +233,7 @@ body
       background-color #f7f9f7
 
   a.user
-    width 150px
+    max-width 150px
     height header_height - 12px
     padding 6px
     font-size 10pt
@@ -212,7 +243,12 @@ body
     margin-top -11px
 
     .avatar
-      float left
+      display inline-block
+      margin-right 0.5em
+
+    .user-info
+      display inline-block
+      text-align center
 
     .points .fa
       color #f0ac48
@@ -223,9 +259,6 @@ body
 
     .text
       display none
-
-    .fa
-      margin-left 10px
 
 
 // Footer
@@ -239,6 +272,107 @@ body
   .footer-nav
     margin 0 6px
 
+
+// Login
+.login-page
+  ul
+    list-style none
+    padding 0
+    margin 0
+
+    li
+      font-size 20pt
+      margin 1em
+
+      .fa
+        font-size 24pt
+        width 1.5em
+        color #fff
+        border-radius 20px
+        height 40px
+        width 40px
+        line-height 42px
+        text-align center
+        margin-right 0.25em
+
+
+      &.google a
+        color #cc3d2d
+        .fa
+          background-color #cc3d2d
+
+      &.facebook a
+        color #2b3990
+        .fa
+          background-color #2b3990
+
+      &.twitter a
+        color #27aae1
+        .fa
+          background-color #27aae1
+
+      &.github a
+        color #1c75bc
+        .fa
+          background-color #1c75bc
+
+
+// Register
+.register-page
+  p
+    margin 1em 0
+
+  .fa
+    margin 0 0.5em
+
+  .suggestion
+    margin 0.5em
+
+
+// Home
+.home-page
+  text-align center
+
+
+// Create
+.create-page
+  .fa
+    margin-right 0.5em
+
+  th
+    text-align left
+
+  td > span
+    margin 0 0.5em
+
+  input[name=name]
+    width 20em
+
+  input[name=title]
+    width 25em
+
+
+// Panels
+.panel
+  border 1px solid border_color
+  border-radius 3px
+  display inline-block
+  margin 1em
+  background-color white
+  text-align center
+  width 15em
+  vertical-align top
+
+  .panel-heading
+    background-color header_color
+    border-bottom 1px solid border_color
+    padding 0.25em 1em
+    font-size 140%
+    padding 0
+    margin 0
+
+  .panel-body
+    padding 0.25em 1em
 
 // Avatar
 .avatar
@@ -427,18 +561,28 @@ body
 
 
 // Profiles
-.profiles
-  > a
-    display inline-block
-    margin 0.5em
-    text-align center
+.profiles > a
+  display inline-block
+  margin 0 0.5em 0.5em 0
+  text-align center
 
-    .avatar
-      width avatar_size * golden_ratio
-      height avatar_size * golden_ratio
-      display block
-      margin auto
-      vertical-align middle
+  .avatar
+    width avatar_size * golden_ratio
+    height avatar_size * golden_ratio
+    display block
+    margin auto
+    vertical-align middle
+
+.profiles-small > .profiles > a
+  margin 0 0.25em 0.25em 0
+
+  .avatar
+    width avatar_size
+    height avatar_size
+
+  .name
+    display none
+
 
 // Profile
 .profile
@@ -451,7 +595,7 @@ body
     float left
 
   .bio
-    clear left
+    clear both
 
 
 // Comments
@@ -528,7 +672,7 @@ body
   .tag
     border-radius 3px
     background-color link_color
-    margin 0.25em
+    margin 0 0.25em 0.25em 0
     padding 0.125em 0.25em
 
     &:hover
@@ -689,7 +833,7 @@ input, textarea, select
       border-left 1px solid border_color
 
     .markdown-help-content
-      padding 0.25em
+      padding 0.5em
       font-size 95%
       color medium_text_color
       transition 0.5s
@@ -699,6 +843,7 @@ input, textarea, select
 
   .markdown-content
     border-top 1px solid border_color
+    padding 0.25em
 
   .markdown-preview
     padding 0 1em
@@ -902,11 +1047,38 @@ input, textarea, select
   text-align center
   width carousel_width
   height carousel_height
+  position relative
+
+  .expand
+    position absolute
+    right -0.75em
+    z-index 10
+    margin-right 1em
+    font-size 24pt
+    color medium_text_color
+    opacity 0.75
+
+    &:hover
+      opacity 1
+
+      .fa
+        color medium_text_color
+
+  .carousel-empty
+    height carousel_height
+    line-height carousel_height
+    font-size 150%
 
   .slick-list
     border-radius 3px
     border 1px solid border_color
     background-color header_color
+    background-image url('/images/spinner.gif')
+    background-repeat no-repeat
+    background-position center
+
+  &.changing .slick-list
+    background-image none
 
   img
     max-width carousel_width
@@ -923,6 +1095,41 @@ input, textarea, select
       color medium_text_color
       font-size 24pt
       line-height 40px
+
+  &.fullscreen
+    position: fixed
+    top 0
+    left 0
+    width 100%
+    height 100%
+
+    .slick-list
+      background-image url('/images/spinner-black.gif')
+
+    &.changing .slick-list
+      background-image none
+
+    .slick-list
+      background-color #000
+      height 100%
+
+    .slick-prev
+      left 10px
+
+    .slick-next
+      right 10px
+
+    .slick-track
+      height 100%
+      line-height 100%
+
+    .carousel-media
+      img
+        height 80%
+        width initial
+        max-width 80%
+        margin 4%
+
 
 // Sign in
 #page #header a.header-nav

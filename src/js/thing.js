@@ -17,8 +17,8 @@ module.exports = {
     // Import thing data
     $.each(app.thingData, function (key, value) {self.$set(key, value);});
 
-    // Get images
-    this.images = this.files.filter(function (file) {return file.display});
+    // Instructions
+    this.$set('thing.description', this.thing.description || '');
 
     // Get licenses
     this.$set('licenses', app.licenses);
@@ -28,6 +28,7 @@ module.exports = {
       this.thing.tags = this.thing.tags.split(',')
       .filter(function (tag) {return tag})
       .map(function (tag) {return tag.replace(/^#/, '')})
+    else this.thing.tags = []
 
     // Listen file manager events
     this.$on('file-manager-before-upload', function (file, done) {
@@ -63,6 +64,13 @@ module.exports = {
   },
 
 
+  computed: {
+    media: function () {
+      return this.files.filter(function (file) {return file.display});
+    }
+  },
+
+
   methods: {
     isOwner: function () {
       return require('./app').isUser(this.thing.owner);
@@ -70,7 +78,9 @@ module.exports = {
 
 
     publish: function () {
-      alert('TODO');
+      var self = this;
+      $bb.put(this.getAPIURL(), {publish: true})
+        .success(function () {self.thing.published = true})
     },
 
 

@@ -1,5 +1,8 @@
 'use strict'
 
+
+var page = require('page.min');
+
 var subsections = 'profile creations starred badges followers';
 var fields = 'fullname location url bio';
 
@@ -14,12 +17,28 @@ module.exports = {
 
     // Import profile data
     $.each(app.profileData, function (key, value) {self.$add(key, value)});
+
+    // Init bio
+    this.$set('profile.bio', this.profile.bio || '');
   },
 
 
   methods: {
     isOwner: function () {
       return require('./app').isUser(this.profile.name);
+    },
+
+
+    getPicture: function () {
+      var avatar = this.profile.avatar;
+      avatar = avatar.replace(/\?sz=\d+$/, '?sz=200'); // Google
+      avatar = avatar.replace(/\?type=small$/, '?type=large'); // Facebook
+      return avatar;
+    },
+
+
+    create: function () {
+      page('/create');
     },
 
 

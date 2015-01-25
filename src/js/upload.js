@@ -52,8 +52,8 @@ module.exports = function (url) {
 
 
       function handleInit(uploader, params) {
-        console.debug('Uploader initialized');
-        console.debug('Drag-drop supported:', !!uploader.features.dragdrop);
+        //console.debug('Uploader initialized');
+        //console.debug('Drag-drop supported:', !!uploader.features.dragdrop);
       }
 
 

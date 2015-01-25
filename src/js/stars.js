@@ -17,18 +17,22 @@ module.exports = {
   template: '#stars-template',
   paramAttributes: ['thing'],
 
+
   data: function () {
     return {
       starred: false
     }
   },
 
+
   created: function () {
     this.$on('logged-in', function () {this.starred = is_starred(this.thing)})
     this.$on('logged-out', function () {this.starred = false})
   },
 
+
   ready: function () {this.starred = is_starred(this.thing)},
+
 
   methods: {
     toggle: function () {

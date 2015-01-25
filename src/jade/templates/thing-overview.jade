@@ -1,12 +1,13 @@
 script#thing-overview-template(type="text/x-template")
-  bb-carousel(media="{{images}}")
+  bb-carousel(media="{{media}}")
+    | Select <a href="#files">Files</a> to add media.
 
   .info
     table
       tr
         th Title
         td
-          span(v-show="!editing") {{thing.title || '(No title)'}}
+          span(v-show="!editing") {{thing.title || thing.name}}
           input(v-show="editing" v-model="edit_title")
 
       tr(v-show="thing.parent")
@@ -17,7 +18,8 @@ script#thing-overview-template(type="text/x-template")
       tr
         th Link
         td
-          a(v-show="!editing" href="{{thing.url}}" target="_blank")
+          span.weak(v-show="!editing && !thing.url") (No link)
+          a(v-show="!editing && thing.url" href="{{thing.url}}" target="_blank")
             | {{thing.url}}
           input(v-show="editing" v-model="edit_url")
 
@@ -33,9 +35,9 @@ script#thing-overview-template(type="text/x-template")
         th License
         td
           div(v-show="!editing")
-            | Permission to use "<em>{{thing.title}}</em>" is granted by
-            | <a href="/{{thing.owner}}">{{thing.owner}}</a> under the terms
-            | of the <a href="{{thing.license_url}}">{{thing.license}}</a>.
+            | Permission to use the contents of this project is granted by
+            | <a href="/{{thing.owner}}">{{thing.owner}}</a> under the terms of
+            | the <a href="{{thing.license_url}}">{{thing.license}}</a>.
 
           select(v-show="editing" v-model="edit_license")
             option(v-repeat="license:licenses" value="{{license.name}}"
@@ -44,20 +46,18 @@ script#thing-overview-template(type="text/x-template")
       tr
         th Tags
         td
+          span.weak(v-show="!editing && !thing.tags.length") (No tags)
+
           .tags
             span.tag(v-show="!editing && thing.tags" v-repeat="tag:thing.tags")
               a(v-attr="href:'/explore#' + tag") {{tag}}
               = ' '
 
-          span(v-if="!editing && !thing.tags")
-            | Be the first to <a href="#" v-on="click:tag()">tag this thing</a>.
-
           span(v-show="editing"): tag-editor(tags="{{edit_tags}}")
 
-  .clear
-  h1 Stars
-
-  bb-profiles(profiles="{{stars}}")
-
-  span(v-show="!stars.length")
-    | Be the first to <a v-on="click:star()"> star this thing</a>.
+      tr
+        th Stars
+        td
+          span.weak(v-show="!stars.length")
+            | Be the first to <a v-on="click:star()"> star this thing</a>.
+          bb-profiles.profiles-small(profiles="{{stars}}")

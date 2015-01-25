@@ -1,40 +1,34 @@
 script#create-template(type="text/x-template")
-  h1 Create
+  h1 Create a new project
 
   table
-    tr
-      th: h3 Owner
-      th
-      th: h3 Thing name
     tr
       td {{user.name}}
       td /
       td
-        span.fa.fa-check(v-show="create.name.$valid")
-        input(type="text" v-model="thing.name" placeholder="Choose a name")
+        input(type="text" name="name" v-model="name | nameValidator"
+          maxlength="32" placeholder="Choose a name")
       td
-        span.error(v-show="create.name.$error.available")
-          | This name is already in use.&nbsp;
-        span.error(v-show="create.name.$error.shortName")
-          | Name is too short.  Must be at least 2 characters long.&nbsp;
-        span.error(v-show="create.name.$error.longName")
-          | Name is too long.  Must be less than 64 characters long.&nbsp;
-        span.error(v-show="create.name.$error.validChars")
-          | Name contains invalid characters.&nbsp;
-        span(v-show="create.name.$error.required")
+        span.fa.fa-check.success(v-show="valid")
+        span(v-show="checking")
+          .fa.fa-spin.fa-spinner
+          | Checking name availability. . .
+        span.error(v-show="!available")
+          | This name is already in use.
+        span.error(v-show="shortName")
+          | Name is too short.  Must be at least 2 characters long.
+        span.error(v-show="spaces")
+          | Names cannot contain spaces.
+        span.error(v-show="invalidChars")
+          | Names can only contain letters, numbers, underscores and periods.
+        span(v-show="required")
           | Choose a name for your thing.
 
-  div
-    | Names may contain numbers, letters, underscores or periods and must be
-    | from 2 to 64 characters in length.
+  p
+    h3 Title <span class="weak">(optional)</span>
+
+    input(type="text" name="title" v-model="title"
+      placeholder="Choose a title")
 
   p
-    h3
-      | Title
-      span.weak &nbsp;(optional)
-
-    .input-group-sm
-      input.form-control(type="text" name="title" v-model="thing.title")
-
-  p
-    button.btn.btn-primary(v-on="click:ok()") Create thing
+    button.success(v-on="click:submit" v-disable="!valid") Create

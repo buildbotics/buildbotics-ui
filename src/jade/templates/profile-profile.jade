@@ -1,20 +1,23 @@
 script#profile-profile-template(type="text/x-template")
-  img.picture(v-attr="src:profile.avatar")
+  img.picture(v-attr="src:getPicture()")
 
   table.info
     tr
       th Full name
       td
+        span.weak(v-show="!editing && !profile.fullname") (Not set)
         span(v-show="!editing") {{profile.fullname}}
         input(v-show="editing" v-model="edit_fullname")
     tr
       th Location
       td
+        span.weak(v-show="!editing && !profile.location") (Not set)
         span(v-show="!editing") {{profile.location}}
         input(v-show="editing" v-model="edit_location")
     tr
       th Homepage
       td
+        span.weak(v-show="!editing && !profile.url") (Not set)
         a(v-show="!editing" href="{{profile.url}}" target="_blank")
           | {{profile.url}}
         input(v-show="editing" v-model="edit_url")
@@ -27,5 +30,9 @@ script#profile-profile-template(type="text/x-template")
 
   .bio
     h1 Bio
-    div(v-markdown="profile.bio" v-show="!editing")
+    .weak(v-show="!editing && !profile.bio && !isOwner()") (Bio empty)
+    div(v-show="!editing && !profile.bio && isOwner()")
+      | Click <button v-on="click:edit" class="success">Edit</button> to add
+      | a bio.
+    div(v-markdown="profile.bio" v-show="!editing && profile.bio")
     markdown-editor(field="edit_bio" v-if="editing")

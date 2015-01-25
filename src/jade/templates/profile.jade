@@ -8,13 +8,13 @@ script#profile-template(type="text/x-template")
 
         .path
           .fa.fa-users(title="Profiles")
-          a(href="/{{profile.name}}") {{profile.name}}
+          a(href="/{{profile.name}}#creations") {{profile.name}}
 
     .page-content
-      button.edit(v-show="isOwner() && !editing" v-on="click:edit()")
+      button.success(v-show="isOwner() && !editing" v-on="click:edit()")
         | Edit Profile
-      button.save(v-show="editing" v-on="click:save()") Save
-      button.cancel(v-show="editing" v-on="click:cancel()") Cancel Edit
+      button.success(v-show="editing" v-on="click:save()") Save
+      button(v-show="editing" v-on="click:cancel()") Cancel Edit
 
       .menu
         a(v-repeat="subsection:subsections" v-attr="href:'#' + subsection")

@@ -1,6 +1,7 @@
 'use strict'
 
 var $bb = require('./buildbotics');
+var page = require('page.min');
 
 
 module.exports = new Vue({
@@ -20,11 +21,12 @@ module.exports = new Vue({
 
   components: {
     'loading-page': {template: '#loading-template'},
+    'login-page': {template: '#login-template'},
     'register-page': require('./register'),
     'home-page': {template: '#home-template'},
     'explore-page': require('./explore'),
     'learn-page': {template: '#learn-template'},
-    'create-page': {template: '#create-template'},
+    'create-page': require('./create'),
     'thing-page': require('./thing'),
     'profile-page': require('./profile'),
     'not-found-page': {template: '#not-found-template'},
@@ -137,7 +139,7 @@ module.exports = new Vue({
         self.licenses.push(data[i]);
     })
 
-    this.login(false);
+    this.login();
   },
 
 
@@ -232,7 +234,7 @@ module.exports = new Vue({
     },
 
 
-    login: function (register) {
+    login: function () {
       var self = this;
 
       $bb.get('auth/user').success(function (data) {
@@ -242,7 +244,7 @@ module.exports = new Vue({
             return;
 
           } else if (typeof data.profile.name != 'undefined') {
-            if (register) page('/register');
+            page('/register');
             return;
           }
         }

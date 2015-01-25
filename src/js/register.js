@@ -1,20 +1,29 @@
+'use strict'
+
+
+var debounce = require('./debounce');
+var $bb = require('./buildbotics');
+var page = require('page.min');
+
+
 module.exports = {
   template: '#register-template',
+
 
   data: function () {
     return {
       name: '',
       suggestions: [],
-      valid: {
-        chars: true,
-        start: true,
-        available: true,
-        loggedout: !$bb.user.authenticated,
-        valid: false
-      },
+      spaces: false,
+      shortName: false,
+      invalidChars: false,
+      available: true,
+      loggedOut: true,
+      valid: false,
       checking: false
     }
   },
+
 
   compiled: function () {
     var self = this;
@@ -23,60 +32,102 @@ module.exports = {
       .success(function (suggestions) {
         self.suggestions = suggestions;
         if (!self.name && suggestions.length)
-          self.setName(suggestions[0], true);
+          self.setName(suggestions[0]);
+      })
+      .error(function (status) {
+        page('/login');
       })
   },
 
+
   methods: {
     submit: function () {
+      var self = this;
+      var name = this.name.trim();
+
+      $bb.put('profiles/' + name + '/register')
+        .success(function () {
+          require('./app').login();
+          page('/' + name + '#profile');
+        })
+        .error(function (status) {
+          require('./app').error('Failed to register "' + name + '"', status);
+        })
     },
 
-    setName: function (name, available) {
-      this.name = this.validateName(name, available);
+
+    setName: function (name) {
+      this.name = name;
+      this.valid = this.isValid(name);
+      this.checking = false;
     },
 
-    validateName: function (orig, available) {
-      var name = orig.trim();
 
-      this.valid.chars = !name || /^[\w.]*$/.test(name);
-      this.valid.start = !name || /^[a-zA-Z0-9]/.test(name);
-      this.valid.available = true;
-      this.valid.valid = !!name && this.valid.chars && this.valid.start &&
-        this.valid.loggedout;
+    isValid: function (name) {
+      var name = name.trim();
+      var user = require('./app').getUser();
 
-      // Clear old timeout
-      if (this._valid_timeout) clearInterval(this._valid_timeout);
+      this.spaces = !/^[^ ]*$/.test(name);
+      this.invalidChars = !this.spaces && !/^[\w.]*$/.test(name);
+      this.shortName = !this.spaces && !this.invalidChars && name.length == 1;
+      this.loggedOut = !user.authenticated;
 
-      // Check if name is available
-      if (this.valid.valid && !available) {
-        var self = this;
+      return name &&
+        !this.spaces &&
+        !this.invalidChars &&
+        !this.shortName &&
+        this.loggedOut;
+    },
 
-        this._valid_timeout = setTimeout(function () {
-          delete this._valid_timeout;
 
-          $bb.get('profiles/' + name + '/available')
-            .success(function (result) {
-              self.valid.valid = self.valid.available = result;
-              self.checking = false;
+    validate: debounce(250, function (name) {
+      this.valid = false;
 
-            }).error(function () {
-              self.valid.available = false;
-              self.checking = false;
-            })
-        }, 1000);
-
-        this.valid.valid = false;
+      if (this.isValid(name)) {
         this.checking = true;
+        this.checkName();
 
       } else this.checking = false;
+    }),
 
-      return orig
-    }
+
+    checkName: debounce(1000, function () {
+      if (!this.isValid(this.name)) {
+        this.checking = false;
+        return;
+      }
+
+      var self = this;
+
+      $bb.get('profiles/' + this.name.trim() + '/available')
+        .success(function (data) {self.available = data})
+
+        .error(function (data, status) {
+          require('./app').error('Failed to check name availability', status);
+          self.available = true;
+        })
+
+        .always(function () {
+          self.checking = false;
+          self.valid = self.isValid(self.name) && self.available;
+        })
+    })
   },
+
 
   filters: {
     nameValidator: {
-      write: function (name) {return this.validateName(name)}
+      write: function (name) {
+        name = name.trim();
+
+        if (name != this.name) {
+          this.available = true;
+          this.valid = false;
+          this.validate(name);
+        }
+
+        return name;
+      }
     }
   }
 }

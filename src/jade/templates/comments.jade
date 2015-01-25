@@ -11,7 +11,7 @@ script#comments-template(type="text/x-template")
       .comment-wrapper
         .comment-header
           .actions
-            button(v-on="click:comment()") Post Comment
+            button.success(v-on="click:comment()") Post Comment
         .comment-content
           markdown-editor(field="text" placeholder="Leave a comment here.")
 

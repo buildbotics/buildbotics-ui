@@ -8,13 +8,34 @@ module.exports = {
 
 
   ready: function () {
-    $(this.$el).slick({dots: true});
+    var el = $(this.$el);
+
+    this.slick = $(this.$el).slick({
+      dots: true,
+
+      onBeforeChange: function () {
+        el.addClass('changing');
+      },
+
+      onAfterChange: function () {
+        el.removeClass('changing');
+      }
+    });
   },
 
 
   methods: {
     isImage: function (type) {
       return /^image\//.test(type);
+    },
+
+
+    fullscreen: function (enable) {
+      if (typeof enable == 'undefined') $(this.$el).toggleClass('fullscreen');
+      else if (enable) $(this.$el).addClass('fullscreen');
+      else $(this.$el).removeClass('fullscreen');
+
+      $(this.$el).slickSetOption('dots', true, true);
     }
   }
 }

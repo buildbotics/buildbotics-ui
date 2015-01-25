@@ -1,5 +1,6 @@
 script#profiles-template(type="text/x-template")
-  .profiles
-    a(v-repeat="profiles" v-attr="href:'/' + profile")
-      img.avatar(v-attr="src:avatar")
-      | {{profile}}
+  div
+    .profiles
+      a(v-repeat="profiles" v-attr="href:'/' + profile")
+        img.avatar(v-attr="src:avatar")
+        .name {{profile}}
