@@ -31,9 +31,12 @@ module.exports = function (target, fields) {
 
 
     created: function () {
+      var self = this;
+
       // Add editor variables
-      for (var field in fields)
-        this.$set(prefix + field, '');
+      fields.forEach(function (field) {
+        self.$set(prefix + field, '');
+      })
     },
 
 
@@ -44,15 +47,21 @@ module.exports = function (target, fields) {
 
 
       initFields: function () {
-        for (var field in fields)
-          this.$set(target + '.' + field, this[target][field] || '');
+        var self = this;
+
+        fields.forEach(function (field) {
+          self.$set(target + '.' + field, self[target][field] || '');
+        })
       },
 
 
       edit: function () {
+        var self = this;
+
         // Set editor variables
-        for (var field in fields)
-          this.$set(prefix + field, copy(this[target][field]));
+        fields.forEach(function (field) {
+          self.$set(prefix + field, copy(self[target][field]));
+        })
 
         this.onEdit();
         this.editing = true;
@@ -60,15 +69,18 @@ module.exports = function (target, fields) {
 
 
       save: function () {
+        var self = this;
+
         // Find Changes
         var changes = {};
         var changed = false;
 
-        for (var field in fields)
-          if (!equal(this[prefix + field], this[target][field])) {
-            changes[field] = copy(this[prefix + field]);
+        fields.forEach(function (field) {
+          if (!equal(self[prefix + field], self[target][field])) {
+            changes[field] = copy(self[prefix + field]);
             changed = true;
           }
+        })
 
         // Abort if nothing changed
         if (!changed) {
@@ -79,8 +91,9 @@ module.exports = function (target, fields) {
         // Do save callback
         var self = this;
         $.when(this.onSave(changes)).then(function () {
-          for (var field in fields)
+          fields.forEach(function (field) {
             self[target][field] = copy(self[prefix + field]);
+          })
 
           self.editing = false;
         });
