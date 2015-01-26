@@ -6,6 +6,11 @@ var subsections = 'overview instructions files comments';
 var fields = 'title url license tags description';
 
 
+function isImage(type) {
+  return /^image\/((png)|(gif)|(jpeg)|(svg)|(bmp))/.test(type);
+}
+
+
 module.exports = {
   template: '#thing-template',
 
@@ -33,7 +38,7 @@ module.exports = {
       var data = {
         type: file.type,
         size: file.size,
-        display: /^image\//.test(file.type)
+        display: isImage(file.type)
       }
 
       $bb.put(this.getAPIURL() + '/files/' + file.name, data)
@@ -64,7 +69,9 @@ module.exports = {
 
   computed: {
     media: function () {
-      return this.files.filter(function (file) {return file.display});
+      return this.files.filter(function (file) {
+        return file.display && isImage(file.type);
+      });
     }
   },
 
