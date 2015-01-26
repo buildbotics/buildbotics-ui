@@ -31,9 +31,13 @@ module.exports = function (target, fields) {
 
 
     created: function () {
+      // Init fields
+      for (field in fields)
+        this.$set(target + '.' + field, this[target][field] || '');
+
       // Add editor variables
-      for (var i = 0; i < fields.length; i++)
-        this.$set(prefix + fields[i], '');
+      for (field in fields)
+        this.$set(prefix + field, '');
     },
 
 
@@ -45,8 +49,8 @@ module.exports = function (target, fields) {
 
       edit: function () {
         // Set editor variables
-        for (var i = 0; i < fields.length; i++)
-          this.$set(prefix + fields[i], copy(this[target][fields[i]]));
+        for (field in fields)
+          this.$set(prefix + field, copy(this[target][field]));
 
         this.onEdit();
         this.editing = true;
@@ -58,9 +62,9 @@ module.exports = function (target, fields) {
         var changes = {};
         var changed = false;
 
-        for (var i = 0; i < fields.length; i++)
-          if (!equal(this[prefix + fields[i]], this[target][fields[i]])) {
-            changes[fields[i]] = copy(this[prefix + fields[i]]);
+        for (field in fields)
+          if (!equal(this[prefix + field], this[target][field])) {
+            changes[field] = copy(this[prefix + field]);
             changed = true;
           }
 
@@ -73,8 +77,8 @@ module.exports = function (target, fields) {
         // Do save callback
         var self = this;
         $.when(this.onSave(changes)).then(function () {
-          for (var i = 0; i < fields.length; i++)
-            self[target][fields[i]] = copy(self[prefix + fields[i]]);
+          for (field in fields)
+            self[target][field] = copy(self[prefix + field]);
 
           self.editing = false;
         });

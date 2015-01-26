@@ -17,9 +17,6 @@ module.exports = {
     // Import thing data
     $.each(app.thingData, function (key, value) {self.$set(key, value);});
 
-    // Instructions
-    this.$set('thing.description', this.thing.description || '');
-
     // Get licenses
     this.$set('licenses', app.licenses);
 
