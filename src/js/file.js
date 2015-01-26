@@ -1,6 +1,11 @@
 'use strict'
 
 
+function isImage(file) {
+  return /^image\/((png)|(gif)|(jpeg)|(svg)|(bmp))/.test(file.type);
+}
+
+
 module.exports = {
   inherit: true,
   template: '#file-template',
@@ -42,7 +47,7 @@ module.exports = {
 
 
     showThumb: function () {
-      return !!(this.file.type.indexOf('image/') == 0 &&
+      return !!(isImage(this.file.type) &&
                 (!this.file.uploading || this.file.src));
     },
 

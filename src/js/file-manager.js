@@ -1,6 +1,11 @@
 'use strict'
 
 
+function isImage(file) {
+  return /^image\/((png)|(gif)|(jpeg)|(svg)|(bmp))/.test(file.type);
+}
+
+
 module.exports = {
   template: '#file-manager-template',
   paramAttributes: ['files', 'canEdit'],
@@ -8,11 +13,6 @@ module.exports = {
 
 
   methods: {
-    isImage: function (file) {
-      return /^image\/((png)|(gif)|(jpeg)|(svg)|(bmp))/.test(file.type);
-    },
-
-
     removeFile: function (file) {
       this.files.splice(this.files.indexOf(file), 1);
     },
@@ -44,7 +44,7 @@ module.exports = {
       this.files.push(file);
 
       // Preload thumbnail
-      if (this.isImage(file)) {
+      if (isImage(file)) {
         var preloader = new mOxie.Image();
 
         preloader.onload = function () {
