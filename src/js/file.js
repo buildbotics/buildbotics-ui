@@ -1,8 +1,8 @@
 'use strict'
 
 
-function isImage(file) {
-  return /^image\/((png)|(gif)|(jpeg)|(svg)|(bmp))/.test(file.type);
+function isImage(type) {
+  return /^image\/((png)|(gif)|(jpeg)|(svg)|(bmp))$/.test(type);
 }
 
 
