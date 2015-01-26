@@ -47,8 +47,8 @@ module.exports = {
 
 
     showThumb: function () {
-      return !!(isImage(this.file.type) &&
-                (!this.file.uploading || this.file.src));
+      return isImage(this.file.type) &&
+        (!this.file.uploading || this.file.src);
     },
 
 

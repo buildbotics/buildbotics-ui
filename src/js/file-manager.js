@@ -2,7 +2,7 @@
 
 
 function isImage(file) {
-  return /^image\/((png)|(gif)|(jpeg)|(svg)|(bmp))/.test(file.type);
+  return /^image\/((png)|(gif)|(jpeg)|(svg)|(bmp))$/.test(file.type);
 }
 
 
