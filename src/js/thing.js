@@ -16,6 +16,7 @@ module.exports = {
 
     // Import thing data
     $.each(app.thingData, function (key, value) {self.$set(key, value);});
+    this.initFields();
 
     // Get licenses
     this.$set('licenses', app.licenses);

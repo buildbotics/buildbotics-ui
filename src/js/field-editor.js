@@ -31,12 +31,8 @@ module.exports = function (target, fields) {
 
 
     created: function () {
-      // Init fields
-      for (field in fields)
-        this.$set(target + '.' + field, this[target][field] || '');
-
       // Add editor variables
-      for (field in fields)
+      for (var field in fields)
         this.$set(prefix + field, '');
     },
 
@@ -47,9 +43,15 @@ module.exports = function (target, fields) {
       onCancel: function () {},
 
 
+      initFields: function () {
+        for (var field in fields)
+          this.$set(target + '.' + field, this[target][field] || '');
+      },
+
+
       edit: function () {
         // Set editor variables
-        for (field in fields)
+        for (var field in fields)
           this.$set(prefix + field, copy(this[target][field]));
 
         this.onEdit();
@@ -62,7 +64,7 @@ module.exports = function (target, fields) {
         var changes = {};
         var changed = false;
 
-        for (field in fields)
+        for (var field in fields)
           if (!equal(this[prefix + field], this[target][field])) {
             changes[field] = copy(this[prefix + field]);
             changed = true;
@@ -77,7 +79,7 @@ module.exports = function (target, fields) {
         // Do save callback
         var self = this;
         $.when(this.onSave(changes)).then(function () {
-          for (field in fields)
+          for (var field in fields)
             self[target][field] = copy(self[prefix + field]);
 
           self.editing = false;
