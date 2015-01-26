@@ -26,7 +26,7 @@ module.exports = {
 
   methods: {
     isImage: function (type) {
-      return /^image\//.test(type);
+      return /^image\/((png)|(gif)|(jpeg)|(svg)|(bmp))/.test(type);
     },
 
 

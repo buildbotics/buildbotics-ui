@@ -8,6 +8,11 @@ module.exports = {
 
 
   methods: {
+    isImage: function (file) {
+      return /^image\/((png)|(gif)|(jpeg)|(svg)|(bmp))/.test(file.type);
+    },
+
+
     removeFile: function (file) {
       this.files.splice(this.files.indexOf(file), 1);
     },
@@ -39,7 +44,7 @@ module.exports = {
       this.files.push(file);
 
       // Preload thumbnail
-      if (file.type.indexOf('image/') == 0) {
+      if (this.isImage(file)) {
         var preloader = new mOxie.Image();
 
         preloader.onload = function () {
