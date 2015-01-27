@@ -1,6 +1,9 @@
 'use strict'
 
 
+var page = require('page.min');
+
+
 module.exports = {
   template: '#comments-template',
   paramAttributes: ['comments'],
@@ -16,6 +19,11 @@ module.exports = {
   methods: {
     isAuthenticated: function () {
       return require('./app').isAuthenticated();
+    },
+
+
+    login: function () {
+      require('./app').initiateLogin();
     },
 
 

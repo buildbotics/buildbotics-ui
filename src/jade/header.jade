@@ -10,7 +10,7 @@
       li: a.header-nav(href="/create") Create
 
     ul#context-header-nav
-      li: a.header-nav.sign-in(href="/login") Login or Register
+      li: a.header-nav.sign-in(v-on="click:initiateLogin") Login or Register
 
       li: a.header-nav.user(href="/{{user.name}}#profile")
         img.avatar(v-attr="src:user.avatar")

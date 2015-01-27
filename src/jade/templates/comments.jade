@@ -15,4 +15,5 @@ script#comments-template(type="text/x-template")
         .comment-content
           markdown-editor(field="text" placeholder="Leave a comment here.")
 
-    h3(v-show="!isAuthenticated()") <a href="#login">Login</a> to comment.
+    h3(v-show="!isAuthenticated()")
+      | <button class="success" v-on="click:login">Login</button> to comment.

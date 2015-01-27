@@ -1,34 +1,40 @@
 script#create-template(type="text/x-template")
   h1 Create a new project
 
-  table
-    tr
-      td {{user.name}}
-      td /
-      td
-        input(type="text" name="name" v-model="name | nameValidator"
-          maxlength="32" placeholder="Choose a name")
-      td
-        span.fa.fa-check.success(v-show="valid")
-        span(v-show="checking")
-          .fa.fa-spin.fa-spinner
-          | Checking name availability. . .
-        span.error(v-show="!available")
-          | This name is already in use.
-        span.error(v-show="shortName")
-          | Name is too short.  Must be at least 2 characters long.
-        span.error(v-show="spaces")
-          | Names cannot contain spaces.
-        span.error(v-show="invalidChars")
-          | Names can only contain letters, numbers, underscores and periods.
-        span(v-show="required")
-          | Choose a name for your thing.
+  div(v-if="!isAuthenticated()")
+    p
+      | You must <button class="success" v-on="click:login">login</button> to
+      | create projects.
 
-  p
-    h3 Title <span class="weak">(optional)</span>
+  div(v-if="isAuthenticated()")
+    table
+      tr
+        td {{user.name}}
+        td /
+        td
+          input(type="text" name="name" v-model="name | nameValidator"
+            maxlength="32" placeholder="Choose a name")
+        td
+          span.fa.fa-check.success(v-show="valid")
+          span(v-show="checking")
+            .fa.fa-spin.fa-spinner
+            | Checking name availability. . .
+          span.error(v-show="!available")
+            | This name is already in use.
+          span.error(v-show="shortName")
+            | Name is too short.  Must be at least 2 characters long.
+          span.error(v-show="spaces")
+            | Names cannot contain spaces.
+          span.error(v-show="invalidChars")
+            | Names can only contain letters, numbers, underscores and periods.
+          span(v-show="required")
+            | Choose a name for your thing.
 
-    input(type="text" name="title" v-model="title"
-      placeholder="Choose a title")
+    p
+      h3 Title <span class="weak">(optional)</span>
 
-  p
-    button.success(v-on="click:submit" v-disable="!valid") Create
+      input(type="text" name="title" v-model="title"
+        placeholder="Choose a title")
+
+    p
+      button.success(v-on="click:submit" v-disable="!valid") Create

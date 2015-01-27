@@ -26,16 +26,30 @@ module.exports = {
 
 
   created: function () {
-    this.$on('logged-in', function () {this.starred = is_starred(this.thing)})
-    this.$on('logged-out', function () {this.starred = false})
+    var self = this;
+
+    this.$on('logged-in', function () {
+      self.$set('starred', is_starred(self.thing))
+    })
+    this.$on('logged-out', function () {self.$set('starred', false)})
+
+    this.$on('modal-response', function (button) {
+      if (button == 'login') require('./app').initiateLogin();
+      return false; // Cancel event propagation
+    })
   },
 
 
-  ready: function () {this.starred = is_starred(this.thing)},
+  ready: function () {this.$set('starred', is_starred(this.thing))},
 
 
   methods: {
     toggle: function () {
+      if (!require('./app').isAuthenticated()) {
+        this.$broadcast('modal-show-login');
+        return;
+      }
+
       var thing = this.thing;
       var url = 'profiles/' + thing.owner + '/things/' + thing.name + '/star';
       var self = this;

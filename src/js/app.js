@@ -18,7 +18,6 @@ module.exports = new Vue({
     starred: {}
   },
 
-
   components: {
     'loading-page': {template: '#loading-template'},
     'login-page': {template: '#login-template'},
@@ -182,6 +181,11 @@ module.exports = new Vue({
       this.user.authenticated = true;
       $('body').addClass('authorized');
 
+      // Redirect
+      var path = $.cookie('buildbotics.login-path');
+      $.removeCookie('buildbotics.login-path');
+      if (path) page(path);
+
       // Event
       this.$broadcast('logged-in', this);
     },
@@ -191,6 +195,7 @@ module.exports = new Vue({
       console.debug('loggedOut()');
       $.removeCookie('buildbotics.sid');
       this.user = {}
+      this.starred = {}
       $('body').removeClass('authorized');
 
       // Event
@@ -204,7 +209,7 @@ module.exports = new Vue({
 
 
     isUser: function(name) {
-      return this.user.name == name;
+      return this.user && this.user.name == name;
     },
 
 
@@ -230,7 +235,16 @@ module.exports = new Vue({
 
     logout: function () {
       var self = this;
-      $bb.get('auth/logout').success(self.loggedOut);
+
+      var currentPage = this.currentPage;
+      var subsection = this.subsection;
+      this.currentPage = 'loading';
+
+      $bb.get('auth/logout').success(function () {
+        self.loggedOut()
+        self.currentPage = currentPage;
+        self.subsection = subsection;
+      });
     },
 
 
@@ -251,6 +265,16 @@ module.exports = new Vue({
 
         self.loggedOut();
       });
+    },
+
+
+    initiateLogin: function () {
+      var path = location.pathname;
+      if (location.hash) path += location.hash;
+      $.removeCookie('buildbotics.login-path');
+      $.cookie('buildbotics.login-path', path, {path: '/'});
+
+      page('/login');
     }
   }
 })

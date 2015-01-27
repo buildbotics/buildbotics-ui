@@ -25,6 +25,16 @@ module.exports = {
 
 
   methods: {
+    isAuthenticated: function () {
+      return require('./app').isAuthenticated();
+    },
+
+
+    login: function () {
+      require('./app').initiateLogin();
+    },
+
+
     submit: function () {
       var thing = this.getThingPath();
 

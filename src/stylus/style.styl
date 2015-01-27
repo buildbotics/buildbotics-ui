@@ -176,6 +176,7 @@ body
     position fixed
     bottom 0
     width 100%
+    z-index 5
 
   #footer-content
     min-height 1.5em
@@ -384,16 +385,22 @@ body
 
 // Stars
 .stars
-  color medium_text_color
+  position relative
 
-  .user-starred
-    color highlight_color
+  .modal
+    white-space nowrap
 
-  &:hover
-    text-decoration none
+  > a
+    color medium_text_color
 
     .user-starred
-      color link_hover_color
+      color highlight_color
+
+    &:hover
+      text-decoration none
+
+      .user-starred
+        color link_hover_color
 
 
 // Things

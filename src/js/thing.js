@@ -27,11 +27,12 @@ module.exports = {
     this.$set('licenses', app.licenses);
 
     // Split tags
-    if (this.thing.tags)
+    if (typeof this.thing.tags == 'string')
       this.thing.tags = this.thing.tags.split(',')
       .filter(function (tag) {return tag})
       .map(function (tag) {return tag.replace(/^#/, '')})
-    else this.thing.tags = []
+
+    else if (!this.thing.tags) this.thing.tags = []
 
     // Listen file manager events
     this.$on('file-manager-before-upload', function (file, done) {
