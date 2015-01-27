@@ -1,10 +1,8 @@
+'use strict'
+
+
 module.exports = {
+  replace: true,
   template: '#things-template',
-
-  data: function () {
-    return {}
-  },
-
-  methods: {
-  }
+  paramAttributes: ['things'],
 }

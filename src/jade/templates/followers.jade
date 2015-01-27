@@ -1,0 +1,9 @@
+script#followers-template(type="text/x-template")
+  .followers
+    a(v-on="click:toggle"
+      title="{{active ? 'Unf' : 'F'}}ollow {{profile.name}}")
+      .fa.fa-users(v-class="active:active")
+      | {{profile.followers | humanNumber}}
+
+    bb-modal(ref="login" buttons="cancel login" callout="top-right")
+      .modal-content You must login to follow someone.

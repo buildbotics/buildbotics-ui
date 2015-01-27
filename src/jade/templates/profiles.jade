@@ -1,6 +1,7 @@
 script#profiles-template(type="text/x-template")
   div
     .profiles
-      a(v-repeat="profiles" v-attr="href:'/' + profile")
-        img.avatar(v-attr="src:avatar")
-        .name {{profile}}
+      a(v-repeat="profile:profiles" v-attr="href:'/' + profile.name")
+        img.picture(v-attr="src:getPicture(profile)")
+        bb-points(points="{{profile.points}}")
+        .name {{profile.name}}

@@ -1,9 +1,8 @@
 script#stars-template(type="text/x-template")
   .stars
-    a(title="{{starred ? 'Unstar' : 'Star'}} this thing",
-      v-on="click:toggle()")
-      span.fa.fa-star(v-class="user-starred: starred")
-      | &nbsp;{{thing.stars}}
+    a(title="{{active ? 'Unstar' : 'Star'}} this project", v-on="click:toggle")
+      .fa.fa-star(v-class="active:active")
+      | {{thing.stars || humanNumber}}
 
     bb-modal(ref="login" buttons="cancel login" callout="top-right")
-      .modal-content You must login to star a project?
+      .modal-content You must login to star a project.

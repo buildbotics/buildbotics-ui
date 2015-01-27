@@ -2,10 +2,17 @@ script#explore-template(type="text/x-template")
   h1 Explore
 
   .search
-    .input-group
-      input.form-control(type='text' v-model='query'
-        v-on="keyup:search() | enter")
-      span.input-group-btn
-        button.btn.btn-primary(v-on="click:search()") Search
+    button.success(v-on="click:search") Search
 
-  bb-things(v-with='things:things')
+    select(v-on="change:search" v-model="type")
+      option(value="things" v-attr="selected:type == 'things'") Creations
+      option(value="profiles" v-attr="selected:type == 'profiles'") People
+
+    div
+      input(type="text" v-model="query" v-on="keyup:search | enter"
+        placeholder="Enter search terms" maxlength="256")
+
+    .fa.fa-spinner.fa-spin(v-show="loading")
+
+  bb-profiles(profiles="{{profiles}}")
+  bb-things(things="{{things}}")

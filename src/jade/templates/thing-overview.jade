@@ -60,4 +60,4 @@ script#thing-overview-template(type="text/x-template")
         td
           span.weak(v-show="!stars.length")
             | Be the first to <a v-on="click:star()"> star this thing</a>.
-          bb-profiles.profiles-small(profiles="{{stars}}")
+          bb-profiles(profiles="{{stars}}" small="true")

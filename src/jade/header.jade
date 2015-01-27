@@ -16,9 +16,7 @@
         img.avatar(v-attr="src:user.avatar")
         .user-info
           .name {{user.name}}
-          .points
-            .fa.fa-certificate
-            | {{user.points}}
+          bb-points(points="{{user.points}}")
 
       li: a.header-nav.sign-out(href="#" v-on="click:logout() | preventDefault"
         title="Sign Out")

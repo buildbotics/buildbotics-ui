@@ -1,6 +1,6 @@
 script#things-template(type="text/x-template")
-  ul.things
-    li.thing-preview(v-repeat="thing:things")
+  .things
+    .thing-preview(v-repeat="thing:things")
       a(href="/{{thing.owner}}/{{thing.name}}")
         .title {{thing.title || thing.name}}
 

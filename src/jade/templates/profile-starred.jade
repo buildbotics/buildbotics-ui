@@ -1,4 +1,4 @@
 script#profile-starred-template(type="text/x-template")
-  bb-things(v-with='things:starred')
+  bb-things(things="{{starred}}")
   .weak(v-show="!starred.length")
     | (This user has not yet starred any projects)

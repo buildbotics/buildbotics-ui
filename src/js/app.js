@@ -15,6 +15,7 @@ module.exports = new Vue({
     profileData: {},
     thingData: {},
     licenses: [],
+    following: {},
     starred: {}
   },
 
@@ -35,6 +36,8 @@ module.exports = new Vue({
     'bb-stars': require('./stars'),
     'bb-comment': require('./comment'),
     'bb-comments': require('./comments'),
+    'bb-points': require('./points'),
+    'bb-followers': require('./followers'),
 
     'bb-modal': require('./modal'),
     'bb-carousel': require('./carousel'),
@@ -169,6 +172,13 @@ module.exports = new Vue({
       var user = user_data.profile;
       console.debug('Logged in as ' + user.name);
 
+      // Following
+      this.following = {}
+      for (var i = 0; i < user_data.following.length; i++) {
+        var profile = user_data.following[i].name;
+        this.following[profile] = true;
+      }
+
       // Starred things
       this.starred = {}
       for (var i = 0; i < user_data.starred.length; i++) {
@@ -195,6 +205,7 @@ module.exports = new Vue({
       console.debug('loggedOut()');
       $.removeCookie('buildbotics.sid');
       this.user = {}
+      this.following = {}
       this.starred = {}
       $('body').removeClass('authorized');
 
@@ -220,6 +231,16 @@ module.exports = new Vue({
 
     getUserData: function () {
       return this.user_data;
+    },
+
+
+    isFollowing: function (profile) {
+      return this.following[profile];
+    },
+
+
+    setFollowing: function (profile, following) {
+      this.following[profile] = following;
     },
 
 

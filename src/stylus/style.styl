@@ -251,10 +251,6 @@ body
       display inline-block
       text-align center
 
-    .points .fa
-      color #f0ac48
-      margin-right 5px
-
   a.sign-out
     font-size 18pt
 
@@ -335,6 +331,22 @@ body
   text-align center
 
 
+// Explore
+.explore-page
+  .search
+    margin-bottom 1em
+
+    > div
+      margin-right 13em
+      input
+        width 100%
+
+    button, select
+      float right
+
+    select
+      margin-right 0.5em
+
 // Create
 .create-page
   .fa
@@ -383,9 +395,13 @@ body
   margin 4px 4px 0 0
 
 
-// Stars
-.stars
+// Points, followers, stars
+.points, .followers, .stars
   position relative
+
+  .fa
+    margin-right 5px
+    color link_color
 
   .modal
     white-space nowrap
@@ -393,36 +409,38 @@ body
   > a
     color medium_text_color
 
-    .user-starred
-      color highlight_color
+    .fa
+      color medium_text_color
+
+    .active
+      color link_color
 
     &:hover
       text-decoration none
 
-      .user-starred
+      .active
         color link_hover_color
 
 
 // Things
 .things
-  list-style none
-  padding 0
+  a:hover
+    text-decoration none
 
   .thing-preview
-    position relative
     display inline-block
-    margin 0 8px 1em 8px
+    margin 1em 10px 1em 10px
     width thing_width
     overflow hidden
     cursor pointer
     font-family "Times New Roman", Times, serif
-    font-size 18pt
 
     .image
+      background #fff
       width thing_width - 2px
       height thing_height
       border-radius 6px
-      border 1px solid #ddd
+      border 1px solid border_color
 
       &.missing
         background-color #eee
@@ -432,9 +450,8 @@ body
           font-size 64pt
           line-height thing_height
 
-    a:hover
-      .image
-        border 1px solid border_color
+    a:hover .image
+      border 1px solid #aaa
 
     .info
       margin 0 0.2em
@@ -442,9 +459,14 @@ body
     .owner
       white-space nowrap
       color text_color
+      font-size 12pt
+      float left
 
       span
         color link_color
+
+      &:hover span
+        color link_hover_color
 
     .title, .owner, .stars, .comments
       display block
@@ -461,10 +483,6 @@ body
     .fa
       font-size 11pt
 
-    .owner
-      font-size 12pt
-      float left
-
     .stars
       float right
 
@@ -472,6 +490,7 @@ body
       float right
 
     .title
+      font-size 18pt
       margin 0 0.2em
       clear both
       color text_color
@@ -498,9 +517,16 @@ body
     .widgets
       float right
 
-    .path .fa
-      width 1.25em
-      margin-right 0.5em
+      > div
+        display inline-block
+        margin-left 1em
+
+    .path
+      > *
+        margin-right 0.25em
+
+      .fa
+        width 1.25em
 
   .menu
     background-color #f3f3f3
@@ -560,6 +586,9 @@ body
     input, .tag-editor
       width 18em
 
+  .section > .things
+    margin-top -1.5em
+
   .markdown
     padding 0 1em
     background #fff
@@ -570,24 +599,42 @@ body
 // Profiles
 .profiles > a
   display inline-block
-  margin 0 0.5em 0.5em 0
-  text-align center
+  color text_color
 
-  .avatar
-    width avatar_size * golden_ratio
-    height avatar_size * golden_ratio
+  &:hover, a:hover
+    text-decoration none
+    color link_hover_color
+
+  .picture
     display block
+    border-radius 4px
     margin auto
     vertical-align middle
 
-.profiles-small > .profiles > a
-  margin 0 0.25em 0.25em 0
+  .points
+    float right
 
-  .avatar
+.profiles-large .profiles > a
+  width 150px
+  margin 1em 1em 1em 0
+
+  .picture
+    width 150px
+    height 150px
+    border 1px solid border_color
+
+  &:hover .picture
+    border 1px solid #444
+
+.profiles-small .profiles > a
+  margin 0 0.25em 0.25em 0
+  text-align center
+
+  .picture
     width avatar_size
     height avatar_size
 
-  .name
+  .name, .points
     display none
 
 

@@ -3,11 +3,12 @@ script#profile-template(type="text/x-template")
     .header
       .header-content
         .widgets
-          //bb-points(v-with="profile")
-          //bb-followers(v-with="profile")
+          bb-points(points="{{profile.points}}")
+          bb-followers(profile="{{profile}}")
 
         .path
-          .fa.fa-users(title="Profiles")
+          a(href="/explore#people"): .fa.fa-users(title="Profiles")
+          span /
           a(href="/{{profile.name}}#creations") {{profile.name}}
 
     .page-content

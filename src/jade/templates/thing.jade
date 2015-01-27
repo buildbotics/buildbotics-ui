@@ -4,12 +4,14 @@ script#thing-template(type="text/x-template")
       .header-content
         .widgets
           bb-stars(thing="{{thing}}")
-          //bb-children(v-with="thing")
+          //bb-children(children="{{thing.children}}")
 
         .path
-          .fa.fa-cubes(title="Creations")
-          | <a href="/{{thing.owner}}#creations">{{thing.owner}}</a> /
-          | <a href="/{{thing.owner}}/{{thing.name}}">{{thing.name}}</a>
+          a(href="/explore#creations"): .fa.fa-cubes(title="Creations")
+          span /
+          a(href="/{{thing.owner}}#creations") {{thing.owner}}
+          span /
+          a(href="/{{thing.owner}}/{{thing.name}}") {{thing.name}}
 
     .page-content
       button.success(v-show="isOwner() && !editing" v-on="click:edit()") Edit
