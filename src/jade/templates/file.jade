@@ -4,7 +4,7 @@ script#file-template(type="text/x-template")
     .fa(v-if="!showThumb()" v-class="getIcon()" title="{{file.type}} file")
 
   td.name
-    a(href="{{file.url}}" target="_blank" title="Download file"
+    a(href="{{file.url}}?count=1" target="_blank" title="Download file"
       v-on="click:download()") {{file.name}}
 
   td.size
@@ -26,4 +26,4 @@ script#file-template(type="text/x-template")
         .modal-header Delete this file?
 
     a.fa.fa-download(v-on="click:download()" target="_blank"
-      href="{{file.url}}" title="Download file")
+      href="{{file.url}}?count=1" title="Download file")
