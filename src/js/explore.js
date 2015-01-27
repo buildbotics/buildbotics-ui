@@ -27,12 +27,11 @@ module.exports = {
 
       location.hash = type == 'things' ? 'creations' : 'people';
       this.loading = true;
+      this.profiles = [];
+      this.things = [];
 
       $bb.get(type, {data: {query: this.query}})
         .success(function (data) {
-          self.profiles = [];
-          self.things = [];
-
           if (type == 'things') self.things = data;
           else self.profiles = data;
         })
