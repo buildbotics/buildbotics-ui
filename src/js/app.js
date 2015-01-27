@@ -140,9 +140,10 @@ module.exports = new Vue({
       for (var i = 0; i < data.length; i++)
         self.licenses.push(data[i]);
     })
-
-    this.login();
   },
+
+
+  ready: function () {this.login()},
 
 
   methods: {
@@ -197,7 +198,7 @@ module.exports = new Vue({
       if (path) page(path);
 
       // Event
-      this.$broadcast('logged-in', this);
+      this.$broadcast('logged-in', user, this);
     },
 
 

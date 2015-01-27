@@ -65,6 +65,12 @@ module.exports = {
 
       return false; // Cancel event propagation
     });
+
+
+    // Listen to is-owner events
+    this.$on('is-owner', function (isOwner) {
+      this.$broadcast('file-manager-can-edit', isOwner);
+    })
   },
 
 
@@ -78,8 +84,9 @@ module.exports = {
 
 
   methods: {
-    isOwner: function () {
-      return require('./app').isUser(this.thing.owner);
+    // From login-listener
+    getOwner: function () {
+      return this.thing.owner;
     },
 
 
@@ -149,6 +156,7 @@ module.exports = {
 
   mixins: [
     require('./subsections')('thing', subsections),
-    require('./field-editor')('thing', fields)
+    require('./field-editor')('thing', fields),
+    require('./login-listener')
   ]
 }

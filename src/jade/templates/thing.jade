@@ -14,10 +14,10 @@ script#thing-template(type="text/x-template")
           a(href="/{{thing.owner}}/{{thing.name}}") {{thing.name}}
 
     .page-content
-      button.success(v-show="isOwner() && !editing" v-on="click:edit()") Edit
+      button.success(v-show="isOwner && !editing" v-on="click:edit()") Edit
       button.success(v-show="editing" v-on="click:save()") Save
       button(v-show="editing" v-on="click:cancel()") Cancel Edit
-      button(v-show="isOwner() && !editing && !thing.published"
+      button(v-show="isOwner && !editing && !thing.published"
         v-on="click:publish()") Publish
 
       .menu

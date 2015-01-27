@@ -12,6 +12,20 @@ module.exports = {
   components: {'bb-file': require('./file')},
 
 
+  data: function () {
+    return {
+      canEdit: false
+    }
+  },
+
+
+  created: function () {
+    this.$on('file-manager-can-edit', function (canEdit) {
+      this.$set('canEdit', canEdit);
+    })
+  },
+
+
   methods: {
     removeFile: function (file) {
       this.files.splice(this.files.indexOf(file), 1);
