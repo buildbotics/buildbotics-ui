@@ -9,16 +9,12 @@ module.exports = {
   },
 
 
-  created: function () {
-    var self = this;
+  events: {
+    'logged-in': function (user) {
+      this.setIsOwner(user.name == this.getOwner())
+    },
 
-    this.$on('logged-in', function (user) {
-      this.setIsOwner(user.name == self.getOwner())
-    })
-
-    this.$on('logged-out', function () {
-      this.setIsOwner(false)
-    })
+    'logged-out': function () {this.setIsOwner(false)}
   },
 
 

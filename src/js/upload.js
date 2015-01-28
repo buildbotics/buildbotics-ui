@@ -15,8 +15,14 @@ module.exports = function (url) {
       // Set IDs
       var element = $(this.$el);
       element.children().first().attr('id', uploadID)
-      element.find('.dropzone').attr('id', dropzoneID);
-      element.find('.browse').attr('id', browseID);
+
+      var dropzone = element.find('.dropzone');
+      if (dropzone.length) dropzone.attr('id', dropzoneID);
+      else dropzoneID = undefined;
+
+      var browse = element.find('.browse');
+      if (browse.length) browse.attr('id', browseID);
+      else browseID = undefined;
 
       // Configure plupload
       this.uploader = new plupload.Uploader({

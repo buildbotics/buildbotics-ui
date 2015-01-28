@@ -19,16 +19,25 @@ module.exports = {
   },
 
 
-  created: function () {
-    this.$on('file-manager-can-edit', function (canEdit) {
+  events: {
+    'file-manager-can-edit': function (canEdit) {
       this.$set('canEdit', canEdit);
-    })
+    }
   },
 
 
   methods: {
     removeFile: function (file) {
       this.files.splice(this.files.indexOf(file), 1);
+    },
+
+
+    fileUpdated: function (file) {
+      // HACK Remove and readd file to force it to reload
+      var self = this;
+      var index = this.files.indexOf(file);
+      this.files.splice(index, 1);
+      Vue.nextTick(function () {self.files.splice(index, 0, file)})
     },
 
 
@@ -75,6 +84,7 @@ module.exports = {
       file.state = 'ok';
       file.uploading = false;
       file.url = file.future_url;
+      this.fileUpdated(file);
     },
 
 

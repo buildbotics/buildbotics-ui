@@ -9,12 +9,11 @@ module.exports = {
   paramAttributes: ['comment'],
 
 
-  created: function () {
-    var self = this;
-    this.$on('modal-response', function (button) {
-      if (button == 'delete') self.remove();
+  events: {
+    'modal-response': function (button) {
+      if (button == 'delete') this.remove();
       return false; // Cancel event propagation
-    })
+    }
   },
 
 

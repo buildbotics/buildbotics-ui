@@ -34,6 +34,16 @@ module.exports = {
   },
 
 
+  events: {
+    // Listen for reset signal
+    'markdown-editor.reset': function () {
+      this.edit();
+      this.editor.setValue(this.$parent.$get(this.field));
+      Vue.nextTick(function () {this.editor.refresh()});
+    }
+  },
+
+
   compiled: function () {
     var self = this;
     var target = $(this.$el).find('.markdown-content');
@@ -55,13 +65,6 @@ module.exports = {
     this.editor.on('change', this.handler);
 
     Vue.nextTick(function () {self.editor.refresh()});
-
-    // Listen for reset signal
-    this.$on('markdown-editor.reset', function () {
-      self.edit();
-      self.editor.setValue(self.$parent.$get(self.field));
-      Vue.nextTick(function () {self.editor.refresh()});
-    })
   },
 
 

@@ -14,19 +14,18 @@ module.exports = {
   },
 
 
-  ready: function () {
-    var self = this;
-
-    // Inject modal overlay
-    this.$watch('show', function (show) {
+  watch: {
+    'show': function (show) {
       if (show) this.open();
       else this.close();
-    })
+    }
+  },
 
+
+  ready: function () {
     // Listen to events
-    var self = this;
-    this.$on('modal-show-' + this.ref, function () {self.open()});
-    this.$on('modal-hide-' + this.ref, function () {self.close()});
+    this.$on('modal-show-' + this.ref, function () {this.open()});
+    this.$on('modal-hide-' + this.ref, function () {this.close()});
 
     // Split buttons
     this.buttons = this.buttons.split(' ');
@@ -38,6 +37,8 @@ module.exports = {
 
   methods: {
     open: function () {
+      // Inject modal overlay
+      var self = this;
       this.overlay = $('<div>')
         .addClass('modal-overlay')
         .click(function () {self.response('cancel')})

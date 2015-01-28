@@ -9,16 +9,14 @@ module.exports = {
   },
 
 
-  created: function () {
-    var self = this;
+  events: {
+    'logged-in': function () {this.update()},
+    'logged-out': function () {this.$set('active', false)},
 
-    this.$on('logged-in', function () {self.update()})
-    this.$on('logged-out', function () {self.$set('active', false)})
-
-    this.$on('modal-response', function (button) {
+    'modal-response': function (button) {
       if (button == 'login') require('./app').initiateLogin();
       return false; // Cancel event propagation
-    })
+    }
   },
 
 

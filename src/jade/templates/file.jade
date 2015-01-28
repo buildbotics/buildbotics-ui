@@ -4,8 +4,9 @@ script#file-template(type="text/x-template")
     .fa(v-if="!showThumb()" v-class="getIcon()" title="{{file.type}} file")
 
   td.name
-    a(href="{{file.url}}?count=1" target="_blank" title="Download file"
-      v-on="click:download()") {{file.name}}
+    span(v-show="!file.url") {{file.name}}
+    a(v-show="file.url" href="{{file.url}}?count=1" target="_blank"
+      title="Download file" v-on="click:download()") {{file.name}}
 
   td.size
     div(v-progressbar="file.percent"
@@ -25,5 +26,5 @@ script#file-template(type="text/x-template")
       bb-modal(ref="delete" buttons="cancel delete" callout="top-right")
         .modal-header Delete this file?
 
-    a.fa.fa-download(v-on="click:download()" target="_blank"
+    a.fa.fa-download(v-show="file.url" v-on="click:download()" target="_blank"
       href="{{file.url}}?count=1" title="Download file")

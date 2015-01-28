@@ -15,6 +15,47 @@ module.exports = {
   template: '#thing-template',
 
 
+  events: {
+    // Listen file manager events
+    'file-manager-before-upload': function (file, done) {
+      var data = {
+        type: file.type,
+        size: file.size,
+        display: isImage(file.type)
+      }
+
+      $bb.put(this.getAPIURL() + '/files/' + file.name, data)
+        .success(function (data) {done(true, data);})
+
+        .error(function (data, status) {
+          app.error('Failed to upload file ' + file.name, status);
+          done(false);
+        })
+
+      return false; // Cancel event propagation
+    },
+
+
+    'file-manager-delete': function (file, done) {
+      $bb.delete(this.getAPIURL() + '/files/' + file.name)
+        .success(function () {done(true)})
+
+        .error(function (data, status) {
+          app.error('Failed to delete file ' + file.name, status)
+          done(false);
+        });
+
+      return false; // Cancel event propagation
+    },
+
+
+    // Listen to is-owner events
+    'is-owner': function (isOwner) {
+      this.$broadcast('file-manager-can-edit', isOwner);
+    }
+  },
+
+
   created: function () {
     var self = this;
     var app = require('./app');
@@ -33,44 +74,6 @@ module.exports = {
       .map(function (tag) {return tag.replace(/^#/, '')})
 
     else if (!this.thing.tags) this.thing.tags = []
-
-    // Listen file manager events
-    this.$on('file-manager-before-upload', function (file, done) {
-      var data = {
-        type: file.type,
-        size: file.size,
-        display: isImage(file.type)
-      }
-
-      $bb.put(this.getAPIURL() + '/files/' + file.name, data)
-        .success(function (data) {done(true, data);})
-
-        .error(function (data, status) {
-          app.error('Failed to upload file ' + file.name, status);
-          done(false);
-        })
-
-      return false; // Cancel event propagation
-    });
-
-
-    this.$on('file-manager-delete', function (file, done) {
-      $bb.delete(this.getAPIURL() + '/files/' + file.name)
-        .success(function () {done(true)})
-
-        .error(function (data, status) {
-          app.error('Failed to delete file ' + file.name, status)
-          done(false);
-        });
-
-      return false; // Cancel event propagation
-    });
-
-
-    // Listen to is-owner events
-    this.$on('is-owner', function (isOwner) {
-      this.$broadcast('file-manager-can-edit', isOwner);
-    })
   },
 
 

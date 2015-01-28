@@ -11,12 +11,11 @@ module.exports = {
   template: '#file-template',
 
 
-  created: function () {
-    var self = this;
-    this.$on('modal-response', function (button) {
-      if (button == 'delete') self.delete();
+  events: {
+    'modal-response': function (button) {
+      if (button == 'delete') this.delete();
       return false; // Cancel event propagation
-    })
+    }
   },
 
 
