@@ -42,6 +42,7 @@ module.exports = {
       placeholder: this.placeholder,
       lineWrapping: true,
       tabSize: 2,
+      dragDrop: false,
       mode: 'gfm',
       value: this.$parent.$get(this.field),
     })
