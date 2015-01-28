@@ -573,12 +573,17 @@ body
 
     th, td
       padding 0.25em
+      text-overflow ellipsis
+      overflow hidden
 
     th
       text-align right
       color medium_text_color
       white-space nowrap
       vertical-align top
+
+    td
+      max-width 19em
 
     select
       width 18.75em
@@ -594,6 +599,13 @@ body
     background #fff
     border 1px solid border_color
     border-radius 3px
+    text-overflow ellipsis
+    overflow hidden
+
+    p
+      text-overflow ellipsis
+      overflow hidden
+
 
 
 // Profiles
