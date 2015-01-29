@@ -126,9 +126,11 @@ module.exports = function (url) {
 
 
     beforeDestroy: function () {
-      $(window).off('resize', this.resizeHandler);
-      this.uploader.destroy();
-      console.debug('uploader destroyed');
+      if (this.uploader) {
+        $(window).off('resize', this.resizeHandler);
+        this.uploader.destroy();
+        console.debug('uploader destroyed');
+      }
     },
 
 
