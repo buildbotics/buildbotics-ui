@@ -12,7 +12,7 @@ module.exports = {
   },
 
 
-  ready: function () {
+  compiled: function () {
     // Stretch images which are close to our aspect ratio
     var element = $(this.$el);
     var mediaAspect = element.width() / element.height();
