@@ -8,33 +8,42 @@ module.exports = {
 
 
   ready: function () {
-    var el = $(this.$el);
+    var element = $(this.$el);
 
-    this.slick = $(this.$el).slick({
+    // Changing class
+    this.slick = element.slick({
       dots: true,
 
       onBeforeChange: function () {
-        el.addClass('changing');
+        element.addClass('changing');
       },
 
       onAfterChange: function () {
-        el.removeClass('changing');
+        element.removeClass('changing');
       }
     });
+
+
+    // Stretch images which are close to our aspect ratio
+    var list = element.find('.slick-list');
+    var carouselAspect = list.width() / list.height();
+    element.find('.carousel-media img').one('load', function () {
+      var aspect = this.width / this.height;
+      var diff = Math.abs(1 - aspect / carouselAspect);
+
+      if (0.001 < diff && diff < 0.18) $(this).addClass('stretch');
+      else $(this).removeClass('stretch');
+
+    }).each(function () {
+      // Make sure we get the load signal even for cached images
+      if (this.complete) $(this).load()
+    })
   },
 
 
   methods: {
     isImage: function (type) {
       return /^image\/((png)|(gif)|(jpeg)|(svg)|(bmp))/.test(type);
-    },
-
-
-    stretchImage: function (image) {
-      console.debug('stretch ' + image.name);
-      if (!this.isImage(image.type)) return false;
-
-      return /^art_/.test(image.name)
     },
 
 
