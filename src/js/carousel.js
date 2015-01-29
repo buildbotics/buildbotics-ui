@@ -24,15 +24,22 @@ module.exports = {
     });
 
 
+    // Hide images before they are loaded
+    var images = element.find('.carousel-media img');
+    images.css('opacity', 0);
+
     // Stretch images which are close to our aspect ratio
     var list = element.find('.slick-list');
     var carouselAspect = list.width() / list.height();
-    element.find('.carousel-media img').one('load', function () {
+    images.one('load', function () {
       var aspect = this.width / this.height;
       var diff = Math.abs(1 - aspect / carouselAspect);
 
       if (0.001 < diff && diff < 0.18) $(this).addClass('stretch');
       else $(this).removeClass('stretch');
+
+      // Make visible
+      images.css('opacity', 1);
 
     }).each(function () {
       // Make sure we get the load signal even for cached images
