@@ -6,6 +6,13 @@ module.exports = function (url) {
     ready: function () {
       var self = this;
 
+      // Find targets
+      var element = $(this.$el);
+      var dropzone = element.find('.dropzone');
+      var browse = element.find('.browse');
+
+      if (!dropzone.length && !browse.length) return; // Uploads disabled
+
       // Add IDs needed by plupload to HTML
       var id = Math.random();
       var uploadID = 'upload-' + id;
@@ -13,14 +20,11 @@ module.exports = function (url) {
       var browseID = 'upload-browse-' + id;
 
       // Set IDs
-      var element = $(this.$el);
       element.children().first().attr('id', uploadID)
 
-      var dropzone = element.find('.dropzone');
       if (dropzone.length) dropzone.attr('id', dropzoneID);
       else dropzoneID = undefined;
 
-      var browse = element.find('.browse');
       if (browse.length) browse.attr('id', browseID);
       else browseID = undefined;
 
@@ -124,12 +128,17 @@ module.exports = function (url) {
     beforeDestroy: function () {
       $(window).off('resize', this.resizeHandler);
       this.uploader.destroy();
+      console.debug('uploader destroyed');
     },
 
 
     methods: {
       onBeforeUpload: function (file, done) {done()},
-      onUploadProgress: function (file) {},
+
+
+      onUploadProgress: function (file) {
+        console.debug('Uploaded ' + file.percent + '% of ' + file.name);
+      },
 
 
       onFilesAdded: function (files) {
