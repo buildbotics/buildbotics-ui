@@ -39,7 +39,7 @@ module.exports = {
       else $(this).removeClass('stretch');
 
       // Make visible
-      images.css('opacity', 1);
+      $(this).css('opacity', 1);
 
     }).each(function () {
       // Make sure we get the load signal even for cached images
