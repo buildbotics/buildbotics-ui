@@ -26,7 +26,7 @@ module.exports = {
 
     // Hide images before they are loaded
     var images = element.find('.carousel-media img');
-    images.css('opacity', 0);
+    images.hide();
 
     // Stretch images which are close to our aspect ratio
     var list = element.find('.slick-list');
@@ -39,7 +39,7 @@ module.exports = {
       else $(this).removeClass('stretch');
 
       // Make visible
-      $(this).css('opacity', 1);
+      $(this).fadeIn(500);
 
     }).each(function () {
       // Make sure we get the load signal even for cached images
