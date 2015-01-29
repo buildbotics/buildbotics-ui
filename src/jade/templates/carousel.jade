@@ -4,5 +4,4 @@ script#carousel-template(type="text/x-template")
       content (No media)
     a.expand(v-show="media.length" v-on="click:fullscreen()")
       .fa.fa-arrows-alt
-    .carousel-media(v-repeat="media")
-      img(v-if="isImage(type)" data-lazy="{{url}}")
+    bb-media.carousel-media(v-repeat="media")

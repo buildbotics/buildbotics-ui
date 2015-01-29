@@ -30,6 +30,14 @@ module.exports = {
     },
 
 
+    stretchImage: function (image) {
+      console.debug('stretch ' + image.name);
+      if (!this.isImage(image.type)) return false;
+
+      return /^art_/.test(image.name)
+    },
+
+
     fullscreen: function (enable) {
       if (typeof enable == 'undefined') $(this.$el).toggleClass('fullscreen');
       else if (enable) $(this.$el).addClass('fullscreen');

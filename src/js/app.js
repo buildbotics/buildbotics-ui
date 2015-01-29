@@ -41,6 +41,7 @@ module.exports = new Vue({
 
     'bb-modal': require('./modal'),
     'bb-carousel': require('./carousel'),
+    'bb-media': require('./media'),
 
     'file-manager': require('./file-manager'),
     'markdown-editor': require('./markdown'),

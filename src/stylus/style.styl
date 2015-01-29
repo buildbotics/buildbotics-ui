@@ -1117,8 +1117,8 @@ input, textarea, select
 // Carousel
 .carousel
   text-align center
-  width carousel_width
-  height carousel_height
+  width carousel_width + 2px // Account for border
+  height carousel_height + 2px // Account for border
   position relative
 
   .expand
@@ -1147,11 +1147,14 @@ input, textarea, select
     background-image none
 
   img
-    width carousel_width
+    max-width carousel_width
     height carousel_height
     display inline-block
     background-color #fff
     vertical-align middle
+
+  .stretch
+    width carousel_width
 
   .slick-prev, .slick-next
     width 40px
