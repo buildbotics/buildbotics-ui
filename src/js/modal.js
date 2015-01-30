@@ -38,24 +38,28 @@ module.exports = {
   methods: {
     overlayClick: function () {this.response('cancel')},
 
+
     open: function () {
-      this.addOverlay();
-      $('body').addClass('modal-active');
-      this.show = true;
+      if (!this.show) {
+        this.addOverlay();
+        $('body').addClass('modal-active');
+        this.show = true;
+      }
     },
 
 
     close: function () {
-      this.removeOverlay();
-      $('body').removeClass('modal-active');
-      this.show = false;
+      if (this.show) {
+        this.removeOverlay();
+        $('body').removeClass('modal-active');
+        this.show = false;
+      }
     },
 
 
     response: function (button) {
-      var self = this;
       this.close();
-      self.$dispatch('modal-response', button, self.ref, self.context);
+      this.$dispatch('modal-response', button, this.ref, this.context);
     }
   },
 

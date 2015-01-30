@@ -3,6 +3,11 @@
 
 module.exports = function (klass) {
   return {
+    beforeDestroy: function () {
+      this.removeOverlay();
+    },
+
+
     methods: {
       overlayClick: function () {},
 
@@ -10,7 +15,8 @@ module.exports = function (klass) {
       addOverlay: function () {
         var self = this;
 
-        this.overlay = $('<div>')
+        if (typeof this.overlay == 'undefined')
+          this.overlay = $('<div>')
           .addClass('overlay ' + klass)
           .click(function () {self.overlayClick()})
           .appendTo('body');
@@ -18,7 +24,7 @@ module.exports = function (klass) {
 
 
       removeOverlay: function () {
-        if (this.overlay) {
+        if (typeof this.overlay != 'undefined') {
           this.overlay.remove();
           delete this.overlay;
         }
