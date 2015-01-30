@@ -50,7 +50,7 @@ script#thing-overview-template(type="text/x-template")
 
           .tags
             span.tag(v-show="!editing && thing.tags" v-repeat="tag:thing.tags")
-              a(v-attr="href:'/explore#' + tag") {{tag}}
+              a(v-attr="href:'/tags/' + tag") {{tag}}
               = ' '
 
           span(v-show="editing"): tag-editor(tags="{{edit_tags}}")

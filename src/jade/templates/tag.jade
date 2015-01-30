@@ -1,0 +1,16 @@
+script#tag-template(type="text/x-template")
+  div
+    .header
+      .header-content
+        .path
+          a(href="/explore/tags"): .fa.fa-tags(title="Tag cloud")
+          span /
+          a(href="/tags/{{tag}}") {{tag}}
+
+    .page-content
+      bb-things(things="{{things}}")
+
+      .fa.fa-spinner.fa-spin(v-show="!loaded")
+
+      .weak(v-show="loaded && !things.length")
+        | No projects with tag {{tag}} found.

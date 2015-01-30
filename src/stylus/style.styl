@@ -218,6 +218,25 @@ body
       font-size 18pt
       line-height header_height - 20px
 
+  #explore-nav
+    display none
+    z-index 110
+    position absolute
+    list-style none
+    padding 0
+    margin 0
+    background header_color
+    border 1px solid border_color
+    border-top none
+    border-bottom-left-radius 3px
+    border-bottom-right-radius 3px
+
+    > li, > li a.header-nav
+      font-size 16pt
+      display block
+      line-height normal
+      height auto
+
   #context-header-nav
     float right
 
@@ -332,25 +351,24 @@ body
 
 
 // Explore
-.explore-page
+.explore-page .page-content
   .search
     margin-bottom 1em
+    text-align center
 
-    > div
-      margin-right 13em
-      input
-        width 100%
-
-    button, select
-      float right
-
-    select
+    input
+      width 20em
       margin-right 0.5em
 
-    .fa
-      font-size 18pt
-      margin 0.25em
-      position absolute
+  > .fa
+    font-size 18pt
+    margin 0.25em
+    position absolute
+
+  .tag-cloud
+    margin 1em auto
+    width page_width * 0.8
+    height (page_width * 0.8 / golden_ratio)
 
 
 // Create
@@ -517,10 +535,10 @@ body
 
 // Thing & Profile common
 #page #content
-  &.thing-page, &.profile-page
+  &.thing-page, &.profile-page, &.tag-page, &.tags-page, &.explore-page
     max-width 100%
 
-.thing, .profile
+.thing, .profile, .tag-page, .tags-page, .explore-page
   .header-content, .page-content
     max-width page_width
     margin auto
@@ -539,13 +557,12 @@ body
       > div
         display inline-block
         margin-left 1em
-
     .path
       > *
         margin-right 0.25em
 
       .fa
-        width 1.25em
+        width 1.5em
 
   .menu
     background-color #f3f3f3
@@ -771,6 +788,65 @@ body
         color #000 !important
 
 
+// Tag cloud
+.tag-cloud
+  font-size 10pt
+  line-height normal
+  color #e5aa3d
+  overflow hidden
+  position relative
+  width page_width
+  height (page_width / golden_ratio)
+
+  a
+    font-size inherit
+    text-decoration none
+    color inherit
+
+  span
+    padding 0
+
+  .w9
+    font-size 352%
+    color #e5aa3d
+
+  .w8
+    font-size 206%
+    color #e0ab4b
+
+  .w7
+    font-size 266%
+    color #dbad59
+
+  .w6
+    font-size 231%
+    color #d7af67
+
+  .w5
+    font-size 201%
+    color #d2b175
+
+  .w4
+    font-size 175%
+    color #cdb383
+
+  .w3
+    font-size 152%
+    color #c9b591
+
+  .w2
+    font-size 132%
+    color #c4b79f
+
+  .w1
+    font-size 115%
+    color #bfb9ad
+
+  .w0
+    font-size 100%
+    color #bbbbbb
+
+
 // Tag Editor
 .tag-editor
   display inline-block
@@ -990,13 +1066,15 @@ input, textarea, select
       margin-left 0.5em
       text-transform capitalize
 
-.modal-overlay
+.overlay
   z-index 100
   position fixed
   top 0
   left 0
   width 100%
   height 100%
+
+.modal-overlay
   background-color rgba(0, 0, 0, 0.1)
 
 
@@ -1193,7 +1271,7 @@ input, textarea, select
     background header_color
 
   &.fullscreen
-    position: fixed
+    position fixed
     top 0
     left 0
     width 100%

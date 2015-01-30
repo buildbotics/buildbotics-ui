@@ -36,22 +36,17 @@ module.exports = {
 
 
   methods: {
+    overlayClick: function () {this.response('cancel')},
+
     open: function () {
-      // Inject modal overlay
-      var self = this;
-      this.overlay = $('<div>')
-        .addClass('modal-overlay')
-        .click(function () {self.response('cancel')})
-        .appendTo('body');
-
+      this.addOverlay();
       $('body').addClass('modal-active');
-
       this.show = true;
     },
 
 
     close: function () {
-      $('body > .modal-overlay').remove();
+      this.removeOverlay();
       $('body').removeClass('modal-active');
       this.show = false;
     },
@@ -62,5 +57,8 @@ module.exports = {
       this.close();
       self.$dispatch('modal-response', button, self.ref, self.context);
     }
-  }
+  },
+
+
+  mixins: [require('./overlay')('modal-overlay')]
 }

@@ -29,6 +29,7 @@ module.exports = new Vue({
     'create-page': require('./create'),
     'thing-page': require('./thing'),
     'profile-page': require('./profile'),
+    'tag-page': require('./tag'),
     'not-found-page': {template: '#not-found-template'},
 
     'bb-profiles': require('./profiles'),
@@ -38,6 +39,7 @@ module.exports = new Vue({
     'bb-comments': require('./comments'),
     'bb-points': require('./points'),
     'bb-followers': require('./followers'),
+    'bb-tags': require('./tags'),
 
     'bb-modal': require('./modal'),
     'bb-carousel': require('./carousel'),
@@ -298,6 +300,26 @@ module.exports = new Vue({
       $.cookie('buildbotics.login-path', path, {path: '/'});
 
       page('/login');
+    },
+
+
+    overlayClick: function () {
+      this.closeExplore();
+    },
+
+
+    openExplore: function () {
+      $('#explore-nav').show();
+      this.addOverlay();
+    },
+
+
+    closeExplore: function () {
+      $('#explore-nav').hide();
+      this.removeOverlay();
     }
-  }
+  },
+
+
+  mixins: [require('./overlay')('menu-overlay')]
 })

@@ -1,18 +1,29 @@
 script#explore-template(type="text/x-template")
-  h1 Explore
+  div
+    .header
+      .header-content
+        .path
+          a(v-show="type=='profiles'" href="/explore/people")
+            .fa.fa-users(title="People")
+            | People
 
-  .search
-    button.success(v-on="click:search") Search
+          a(v-show="type=='things'" href="/explore/creations")
+            .fa.fa-cubes(title="Creations")
+            | Creations
 
-    select(v-on="change:search" v-model="type")
-      option(value="things" v-attr="selected:type == 'things'") Creations
-      option(value="profiles" v-attr="selected:type == 'profiles'") People
+          a(v-show="type=='tags'" href="/explore/tags")
+            .fa.fa-tags(title="Tags")
+            | Tags
 
-    div
-      input(type="text" v-model="query" v-on="keyup:search | enter"
-        placeholder="Enter search terms" maxlength="256")
+    .page-content
+      .search(v-show="type!='tags'")
+        input(type="text" v-model="query" v-on="keyup:search | enter"
+          placeholder="Enter search terms" maxlength="256")
 
-    .fa.fa-spinner.fa-spin(v-show="loading")
+        button.success(v-on="click:search") Search
 
-  bb-profiles(profiles="{{profiles}}")
-  bb-things(things="{{things}}")
+      .fa.fa-spinner.fa-spin(v-show="loading")
+
+      bb-profiles(v-if="type=='profiles'" profiles="{{profiles}}")
+      bb-things(v-if="type=='things'" things="{{things}}")
+      bb-tags(v-if="type=='tags'" tags="{{tags}}")

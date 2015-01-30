@@ -11,6 +11,18 @@ function page_debug(ctx, next) {
 }
 
 
+function explore_page(ctx) {
+  app.currentPage = 'explore';
+  app.$set('exploreType', ctx.params.type);
+}
+
+
+function tag_page(ctx) {
+  app.currentPage = 'tag';
+  app.tag = ctx.params.tag;
+}
+
+
 function profile_page(ctx) {
   var profile = ctx.params.profile;
   console.debug('/' + profile + '#' + ctx.hash);
@@ -62,11 +74,12 @@ function thing_page(ctx) {
 
 //page('*', page_debug);
 page('/', function () {app.currentPage = 'home'});
-page('/explore', function () {app.currentPage = 'explore'});
+page('/explore/:type', explore_page);
 page('/learn', function () {app.currentPage = 'learn'});
 page('/create', function () {app.currentPage = 'create'});
 page('/login', function () {app.currentPage = 'login'});
 page('/register', function () {app.currentPage = 'register'});
+page('/tags/:tag', tag_page);
 page('/:profile', profile_page);
 page('/:profile/:thing', thing_page);
 page(function () {app.currentPage = 'not-found'});

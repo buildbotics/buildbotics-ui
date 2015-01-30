@@ -5,7 +5,16 @@
         alt="Buildbotics logo, expore, learn, create")
 
     ul#main-header-nav
-      li: a.header-nav(href="/explore") Explore
+      li
+        a.header-nav(v-on="click:openExplore") Explore
+        ul#explore-nav
+          li: a.header-nav(v-on="click:closeExplore" href="/explore/creations")
+            | Creations
+          li: a.header-nav(v-on="click:closeExplore" href="/explore/people")
+            | People
+          li: a.header-nav(v-on="click:closeExplore" href="/explore/tags")
+            | Tags
+
       li: a.header-nav(href="/learn") Learn
       li: a.header-nav(href="/create") Create
 

@@ -1,7 +1,9 @@
 $bb = require('./buildbotics');
 
 module.exports = {
+  inherit: true,
   template: '#explore-template',
+
 
   data: function () {
     return {
@@ -9,13 +11,18 @@ module.exports = {
       type: 'things',
       loading: false,
       things: [],
-      profiles: []
+      profiles: [],
+      tags: [],
     }
   },
 
 
+  watch: {
+    exploreType: function (value) {this.search();}
+  },
+
+
   compiled: function () {
-    this.type = location.hash == '#people' ? 'profiles' : 'things';
     this.search();
   },
 
@@ -23,22 +30,23 @@ module.exports = {
   methods: {
     search: function () {
       var self = this;
-      var type = this.type;
+      var exploreType = require('./app').exploreType;
+      var type;
 
-      location.hash = type == 'things' ? 'creations' : 'people';
+      switch (exploreType) {
+      case 'creations': type = 'things'; break;
+      case 'people': type = 'profiles'; break;
+      default: type = exploreType; break;
+      }
+
+      this.type = type;
       this.loading = true;
       this.profiles = [];
       this.things = [];
 
-      $bb.get(type, {data: {query: this.query}})
-        .success(function (data) {
-          if (type == 'things') self.things = data;
-          else self.profiles = data;
-        })
-
-        .always(function () {
-          self.loading = false;
-        })
+      $bb.get(type, {data: {query: this.query, limit: 100}})
+        .success(function (data) {self.$set(type, data)})
+        .always(function () {self.loading = false})
     }
   }
 }
