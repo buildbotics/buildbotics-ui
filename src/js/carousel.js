@@ -26,7 +26,9 @@ module.exports = {
 
     // Hide images before they are loaded
     var images = element.find('.carousel-media img');
-    images.hide();
+    images.each(function () {
+      if (!this.complete) $(this).hide();
+    })
 
     // Stretch images which are close to our aspect ratio
     var list = element.find('.slick-list');
