@@ -4,9 +4,10 @@ script#things-template(type="text/x-template")
       a(href="/{{thing.owner}}/{{thing.name}}")
         .title {{thing.title || thing.name}}
 
-        img.image(v-if="thing.image" v-attr="src:thing.image")
-        .image.missing(v-if="!thing.image")
-          .fa.fa-image
+        .image
+          img(v-if="thing.image" v-attr="src:thing.image")
+          .missing(v-if="!thing.image")
+            .fa.fa-image
 
       .info
         a.owner(href="/{{thing.owner}}",

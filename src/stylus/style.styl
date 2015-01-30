@@ -347,6 +347,12 @@ body
     select
       margin-right 0.5em
 
+    .fa
+      font-size 18pt
+      margin 0.25em
+      position absolute
+
+
 // Create
 .create-page
   .fa
@@ -436,13 +442,22 @@ body
     font-family "Times New Roman", Times, serif
 
     .image
-      background #fff
       width thing_width - 2px
-      height thing_height
+      height thing_height - 2px
       border-radius 6px
       border 1px solid border_color
+      background header_color
+      background-image url('/images/spinner.gif')
+      background-repeat no-repeat
+      background-position center
 
-      &.missing
+      img
+        background #fff
+        width thing_width - 2px
+        height thing_height - 2px
+        border-radius 6px
+
+      .missing
         background-color #eee
         text-align center
 
