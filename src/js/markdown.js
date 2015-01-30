@@ -37,9 +37,10 @@ module.exports = {
   events: {
     // Listen for reset signal
     'markdown-editor.reset': function () {
+      var self = this;
       this.edit();
       this.editor.setValue(this.$parent.$get(this.field));
-      Vue.nextTick(function () {this.editor.refresh()});
+      Vue.nextTick(function () {self.editor.refresh()});
     }
   },
 
