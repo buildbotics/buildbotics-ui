@@ -6,9 +6,9 @@ script#thing-overview-template(type="text/x-template")
     table
       tr
         th Title
-        td
+        td(title="{{thing.title || thing.name}}")
           span(v-show="!editing") {{thing.title || thing.name}}
-          input(v-show="editing" v-model="edit_title")
+          input(v-show="editing" v-model="edit_title" maxlength="128")
 
       tr(v-show="thing.parent")
         th Parent
@@ -21,7 +21,7 @@ script#thing-overview-template(type="text/x-template")
           span.weak(v-show="!editing && !thing.url") (No link)
           a(v-show="!editing && thing.url" href="{{thing.url}}" target="_blank")
             | {{thing.url}}
-          input(v-show="editing" v-model="edit_url")
+          input(v-show="editing" v-model="edit_url" maxlength="256")
 
       tr
         th Created

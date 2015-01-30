@@ -1,7 +1,8 @@
 script#things-template(type="text/x-template")
   .things
     .thing-preview(v-repeat="thing:things")
-      a(href="/{{thing.owner}}/{{thing.name}}")
+      a(href="/{{thing.owner}}/{{thing.name}}"
+        title="{{thing.title || thing.name}}")
         .title {{thing.title || thing.name}}
 
         .image
