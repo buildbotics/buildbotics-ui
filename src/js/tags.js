@@ -28,6 +28,7 @@ module.exports = {
         })
       }
 
+      $(this.$el).html('');
 
       cloud(this.$el, words, {
         width: $(this.$el).width(),
