@@ -17,7 +17,7 @@ script#things-template(type="text/x-template")
 
         bb-stars(thing="{{thing}}")
 
-        a.comments(href="{{thing.owner}}/{{thing.name}}#comments",
+        a.comments(href="/{{thing.owner}}/{{thing.name}}#comments",
           title="View comments")
           span.fa.fa-comments
           | &nbsp;{{thing.comments}}
