@@ -315,9 +315,8 @@ module.exports = new Vue({
       $('#main-header-nav .explore-item').blur();
 
       setTimeout(function () {
-        console.debug('clear');
-        $('#explore-nav')[0].style.visibility = '';
-      }, 300); // Must be longer than the CSS transition
+        $('#explore-nav').css('visibility', '')
+      }, 500); // Must be longer than the CSS transition
     }
   },
 
