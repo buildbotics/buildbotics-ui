@@ -311,7 +311,9 @@ module.exports = new Vue({
 
     closeExplore: function () {
       // Hide menu
-      $('#explore-nav').css('visibility', 'hidden');
+      $('#explore-nav')
+        .css('visibility', 'hidden')
+        .blur();
 
       setTimeout(function () {
         console.debug('clear');
