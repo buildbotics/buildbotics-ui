@@ -18,7 +18,8 @@ module.exports = {
       avatar = avatar.replace(/\?sz=\d+$/, '?sz=150'); // Google
       avatar =
         avatar.replace(/\?type=small$/, '?width=150&height=150'); // Facebook
-      return avatar;
+
+      return avatar.replace(/^https?:/, '');
     }
   }
 }

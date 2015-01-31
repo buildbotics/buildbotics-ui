@@ -309,14 +309,15 @@ module.exports = new Vue({
     },
 
 
-    closeExplore: function () {
-      // Hide menu
-      $('#explore-nav').css('visibility', 'hidden')
-      $('#main-header-nav .explore-item').blur();
+    openExplore: function () {
+      $('#explore-nav').show();
+      this.addOverlay();
+    },
 
-      setTimeout(function () {
-        $('#explore-nav').css('visibility', '')
-      }, 500); // Must be longer than the CSS transition
+
+    closeExplore: function () {
+      $('#explore-nav').hide();
+      this.removeOverlay();
     }
   },
 
