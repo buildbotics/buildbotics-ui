@@ -219,7 +219,8 @@ body
       line-height header_height - 20px
 
   #explore-nav
-    display none
+    visibility hidden
+    transition-delay 0.25s
     z-index 110
     position absolute
     list-style none
@@ -232,10 +233,16 @@ body
     border-bottom-right-radius 3px
 
     > li, > li a.header-nav
-      font-size 16pt
+      font-size 14pt
       display block
       line-height normal
       height auto
+
+  #main-header-nav
+    > .explore-item
+      &:hover #explore-nav, #explore-nav:hover,
+      &:focus #explore-nav, #explore-nav:focus
+        visibility visible
 
   #context-header-nav
     float right

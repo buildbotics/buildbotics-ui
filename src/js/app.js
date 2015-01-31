@@ -2,6 +2,7 @@
 
 var $bb = require('./buildbotics');
 var page = require('page.min');
+var debounce = require('./debounce');
 
 
 module.exports = new Vue({
@@ -308,15 +309,14 @@ module.exports = new Vue({
     },
 
 
-    openExplore: function () {
-      $('#explore-nav').show();
-      this.addOverlay();
-    },
-
-
     closeExplore: function () {
-      $('#explore-nav').hide();
-      this.removeOverlay();
+      // Hide menu
+      $('#explore-nav').css('visibility', 'hidden');
+
+      setTimeout(function () {
+        console.debug('clear');
+        $('#explore-nav')[0].style.visibility = '';
+      }, 300); // Must be longer than the CSS transition
     }
   },
 

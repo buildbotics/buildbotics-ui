@@ -13,7 +13,7 @@
 
 var throttle = require('./throttle');
 
-// Arguments:
+// Arguments: (<delay> [, <at_begin>], <callback>)
 //
 //  delay - (Number) A zero-or-greater delay in milliseconds. For event
 //    callbacks, values around 100 or 250 (or even higher) are most useful.
