@@ -101,7 +101,7 @@ module.exports = {
     publish: function () {
       var self = this;
       $bb.put(this.getAPIURL(), {publish: true})
-        .success(function () {self.thing.published = true})
+        .success(function () {self.$set('thing.published', true)})
     },
 
 
