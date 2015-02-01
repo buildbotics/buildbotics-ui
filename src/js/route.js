@@ -64,7 +64,9 @@ function thing_page(ctx) {
     .success(function (data) {
       app.thingData = data;
       app.currentPage = 'thing';
-      app.subsection = ctx.hash;
+
+      if (/comment-\d+/.test(ctx.hash)) app.subsection = 'comments';
+      else app.subsection = ctx.hash;
 
     }).error(function (data) {
       app.currentPage = 'not-found';
