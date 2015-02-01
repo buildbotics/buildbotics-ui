@@ -77,6 +77,11 @@ module.exports = {
   },
 
 
+  ready: function () {
+    if (/#?comment-\d+/.test(location.hash)) location.hash = location.hash;
+  },
+
+
   computed: {
     media: function () {
       return this.files.filter(function (file) {
