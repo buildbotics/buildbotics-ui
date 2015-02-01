@@ -1,8 +1,9 @@
 'use strict'
 
 var $bb = require('./buildbotics');
+var page = require('page.min');
 
-var subsections = 'overview instructions files comments';
+var subsections = 'overview instructions files comments maintenance';
 var fields = 'title url license tags instructions';
 
 
@@ -13,6 +14,14 @@ function isImage(type) {
 
 module.exports = {
   template: '#thing-template',
+
+
+  data: function  () {
+    return {
+      newName: '',
+      nameIsValid: false
+    }
+  },
 
 
   events: {
@@ -52,6 +61,19 @@ module.exports = {
     // Listen to is-owner events
     'is-owner': function (isOwner) {
       this.$broadcast('file-manager-can-edit', isOwner);
+    },
+
+
+    'modal-response': function (button) {
+      if (button == 'delete') this.delete();
+      if (button == 'rename') this.rename();
+      return false; // Cancel event propagation
+    },
+
+
+    'thing-name-valid': function (valid, name) {
+      this.nameIsValid = valid;
+      this.newName = name;
     }
   },
 
@@ -158,6 +180,41 @@ module.exports = {
 
     getAPIURL: function () {
       return 'profiles/' + this.thing.owner + '/things/' + this.thing.name;
+    },
+
+
+    askRename: function () {
+      this.$broadcast('modal-show-rename-thing');
+    },
+
+
+    rename: function () {
+      var self = this;
+      var app = require('./app');
+      var starred = app.isStarred(this.thing.owner, this.thing.name);
+
+      $bb.put(this.getAPIURL() + '/rename', {name: this.newName})
+        .success(function () {
+          app.setStarred(self.thing.owner, self.newName, starred);
+          page('/' + self.thing.owner + '/' + self.newName);
+
+        }).error(function () {
+          require('./app').error('Failed to rename project');
+        })
+    },
+
+
+    askDelete: function () {
+      this.$broadcast('modal-show-delete-thing');
+    },
+
+
+    delete: function () {
+      var self = this;
+
+      $bb.delete(this.getAPIURL()).success(function () {
+        page('/' + self.thing.owner);
+      })
     }
   },
 

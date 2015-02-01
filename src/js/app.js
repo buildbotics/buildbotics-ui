@@ -52,7 +52,8 @@ module.exports = new Vue({
 
     'file-manager': require('./file-manager'),
     'markdown-editor': require('./markdown'),
-    'tag-editor': require('./tag-editor')
+    'tag-editor': require('./tag-editor'),
+    'thing-name-validator': require('./thing-name-validator')
   },
 
 

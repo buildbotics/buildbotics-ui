@@ -20,7 +20,8 @@ script#thing-template(type="text/x-template")
         v-on="click:publish()") Publish
 
       .menu
-        a(v-repeat="subsection:subsections" v-attr="href:'#' + subsection")
+        a(v-repeat="subsection:subsections" v-attr="href:'#' + subsection"
+          v-show="subsection != 'maintenance' || isOwner")
           | {{subsection}}
 
       .section(v-component="thing-{{subsection}}")

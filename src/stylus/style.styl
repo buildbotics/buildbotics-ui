@@ -642,6 +642,30 @@ body
       overflow hidden
 
 
+// Thing
+.thing-page
+  input
+    margin-right 0.25em
+
+  .delete-thing, .rename-thing
+    display inline-block
+    position relative
+
+    .modal
+      min-width 20em
+
+
+.thing-maintenance
+  input
+    width 20em
+
+  button
+    margin 0.5em 0
+
+// Thing name validator
+.thing-name-validator .fa
+  margin 0 0.5em
+
 
 // Profiles
 .profiles > a
@@ -1061,14 +1085,19 @@ input, textarea, select
 // Modal
 .modal
   position absolute
-  right -10px
   background #fff
   border-radius 3px
   border 1px solid border_color
   z-index 110
 
+  &.callout-top-right
+    right: -10px
+
   .modal-header, .modal-content, .modal-footer
     padding 0.25em 0.5em
+
+  .modal-header, .modal-footer
+    white-space nowrap
 
   .modal-header
     font-weight bold
@@ -1097,7 +1126,7 @@ input, textarea, select
 
 
 // Callouts
-.callout-top-right
+.callout-top-right, .callout-top-left
   &:before, &:after
     width 0
     height 0
@@ -1117,6 +1146,14 @@ input, textarea, select
     border-bottom-color secondary_header_color
     border-width 8px
     margin-top 1px
+
+.callout-top-right
+  &:before, &:after
+    right 12px
+
+.callout-top-left
+  &:before, &:after
+    left 12px
 
 
 // File manager

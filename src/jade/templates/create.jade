@@ -18,24 +18,7 @@ script#create-template(type="text/x-template")
             td {{user.name}}
             td /
             td
-              input(type="text" name="name" v-model="name | nameValidator"
-                maxlength="32" placeholder="Choose a name")
-            td
-              span.fa.fa-check.success(v-show="valid")
-              span(v-show="checking")
-                .fa.fa-spin.fa-spinner
-                | Checking name availability. . .
-              span.error(v-show="!available")
-                | This name is already in use.
-              span.error(v-show="shortName")
-                | Name is too short.  Must be at least 2 characters long.
-              span.error(v-show="spaces")
-                | Names cannot contain spaces.
-              span.error(v-show="invalidChars")
-                | Names can only contain letters, numbers, underscores and
-                | periods.
-              span(v-show="required")
-                | Choose a name for your thing.
+              thing-name-validator(owner="{{getUserName()}}")
 
         p
           h3 Title <span class="weak">(optional)</span>

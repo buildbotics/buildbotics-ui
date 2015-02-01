@@ -1,0 +1,24 @@
+script#thing-maintenance-template(type="text/x-template")
+  div(v-if="isOwner")
+    h1.error Danger Zone
+
+    h2 Rename this project
+    thing-name-validator(owner="{{thing.owner}}")
+    .rename-thing
+      button(v-on="click:askRename" v-disable="!nameIsValid") Rename
+      bb-modal(ref="rename-thing" buttons="cancel rename" callout="top-left")
+        .modal-header Rename this project?
+        .modal-content
+          | External links to this project may be broken.
+
+    h2 Delete this project
+    .delete-thing
+      button(v-on="click:askDelete") Delete
+      bb-modal(ref="delete-thing" buttons="cancel delete" callout="top-left")
+        .modal-header Delete this project?
+        .modal-content
+          | It is not possible to undelete a project.  All information will be
+          | lost.
+
+
+
