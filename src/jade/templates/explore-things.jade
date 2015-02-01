@@ -1,0 +1,18 @@
+script#explore-things-template(type="text/x-template")
+  page-layout
+    .header-content
+      .breadcrumbs
+        a(href="/explore/creations")
+          .fa.fa-cubes(title="Creations")
+          | Creations
+
+    .page-content
+      .search
+        input(type="text" v-model="query" v-on="keyup:search | enter"
+          placeholder="Enter search terms" maxlength="256")
+
+        button.success(v-on="click:search") Search
+
+      .fa.fa-spinner.fa-spin(v-show="loading")
+
+      bb-things(things="{{things}}")

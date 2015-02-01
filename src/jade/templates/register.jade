@@ -1,37 +1,40 @@
 script#register-template(type="text/x-template")
-  h1 New user registration
+  page-layout
+    .header-content
+      | New user registration
 
-  p Please choose a user name.
+    .page-content
+      p Please choose a user name.
 
-  input(type="text" v-model="name | nameValidator"
-    v-on="keyup:submit() | key 13 | preventDefault"
-    maxlength="32" placeholder="Enter a user name")
+      input(type="text" v-model="name | nameValidator"
+        v-on="keyup:submit() | key 13 | preventDefault"
+        maxlength="32" placeholder="Enter a user name")
 
-  span(v-show="checking")
-    .fa.fa-spin.fa-spinner
-    | Checking name availability. . .
-  span.success(v-show="valid")
-    .fa.fa-check
-    | This name is available.
-  span.error(v-show="!available && !checking")
-    .fa.fa-close
-    | Sorry, this name is already taken!
-  span.error(v-show="spaces")
-    .fa.fa-close
-    | Names cannot contain spaces.
-  span.error(v-show="invalidChars")
-    .fa.fa-close
-    | Names can only contain numbers, letters, underscores and periods.
-  span.error(v-show="shortName")
-    .fa.fa-close
-    | Names must be at least 2 characters long.
-  span.error(v-show="!loggedOut")
-    .fa.fa-close
-    | You are already logged in.
+      span(v-show="checking")
+        .fa.fa-spin.fa-spinner
+        | Checking name availability. . .
+      span.success(v-show="valid")
+        .fa.fa-check
+        | This name is available.
+      span.error(v-show="!available && !checking")
+        .fa.fa-close
+        | Sorry, this name is already taken!
+      span.error(v-show="spaces")
+        .fa.fa-close
+        | Names cannot contain spaces.
+      span.error(v-show="invalidChars")
+        .fa.fa-close
+        | Names can only contain numbers, letters, underscores and periods.
+      span.error(v-show="shortName")
+        .fa.fa-close
+        | Names must be at least 2 characters long.
+      span.error(v-show="!loggedOut")
+        .fa.fa-close
+        | You are already logged in.
 
-  p.help Here are some suggestions:
-  p
-    button.suggestion(v-repeat="suggestion:suggestions" href="#"
-      v-on="click:setName(suggestion) | preventDefault") {{suggestion}}
+      p.help Here are some suggestions:
+      p
+        button.suggestion(v-repeat="suggestion:suggestions" href="#"
+          v-on="click:setName(suggestion) | preventDefault") {{suggestion}}
 
-  button.success(v-on="click:submit()" v-disable="!valid") Register
+      button.success(v-on="click:submit()" v-disable="!valid") Register

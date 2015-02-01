@@ -1,0 +1,12 @@
+script#explore-tags-template(type="text/x-template")
+  page-layout
+    .header-content
+      .breadcrumbs
+        a(href="/explore/tags")
+          .fa.fa-tags(title="Tags")
+          | Tags
+
+    .page-content
+      .fa.fa-spinner.fa-spin(v-show="loading")
+
+      bb-tags(tags="{{tags}}")

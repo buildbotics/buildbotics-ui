@@ -1,0 +1,22 @@
+script#events-template(type="text/x-template")
+  .events
+    .event(v-repeat="events")
+      .icon.fa(v-class="'fa-' + getIcon(action)" title="{{action}}")
+
+      .content
+        .when {{ts | timeSince}}
+
+        a.subject(href="/{{subject}}")
+          img.avatar(v-attr="src:'/api/profiles/' + subject + '/avatar'")
+          | {{subject}}
+
+        span.action {{describeAction(action)}}
+
+        a.object(href="/{{path}}")
+          img.avatar(v-if="action=='follow'"
+            v-attr="src:'/api/profiles/' + path + '/avatar'")
+          | {{describeObject(action, path)}}
+
+        | .
+
+

@@ -1,14 +1,18 @@
 script#login-template(type="text/x-template")
-  h1 Login or Register with:
-  ul
-    li.google: a(href="/api/auth/google" target="_top")
-      .fa.fa-google
-      | Google
+  page-layout
+    .header-content
+      | Login or Register with:
 
-    li.facebook: a(href="/api/auth/facebook" target="_top")
-      .fa.fa-facebook
-      | Facebook
+    .page-content
+      ul
+        li.google: a(href="/api/auth/google" target="_top")
+          .fa.fa-google
+          | Google
 
-    li.github: a(href="/api/auth/github" target="_top")
-      .fa.fa-github
-      | GitHub
+        li.facebook: a(href="/api/auth/facebook" target="_top")
+          .fa.fa-facebook
+          | Facebook
+
+        li.github: a(href="/api/auth/github" target="_top")
+          .fa.fa-github
+          | GitHub

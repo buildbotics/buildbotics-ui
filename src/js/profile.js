@@ -3,7 +3,7 @@
 
 var page = require('page.min');
 
-var subsections = 'profile creations starred badges followers';
+var subsections = 'profile creations starred badges followers activity';
 var fields = 'fullname location url bio';
 
 

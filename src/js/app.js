@@ -44,6 +44,7 @@ module.exports = new Vue({
     'bb-points': require('./points'),
     'bb-followers': require('./followers'),
     'bb-tags': require('./tags'),
+    'bb-events': require('./events'),
 
     'bb-modal': require('./modal'),
     'bb-carousel': require('./carousel'),

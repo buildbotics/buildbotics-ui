@@ -1,8 +1,26 @@
 $bb = require('./buildbotics');
 
+
+var subsections = 'profiles things tags events'.split(' ');
+
+
+function makeComponents() {
+  var components = {};
+
+  for (var i = 0; i < subsections.length; i++)
+    components['explore-' + subsections[i]] = {
+      inherit: true,
+      template: '#explore-' + subsections[i] + '-template'
+    }
+
+  return components;
+}
+
+
 module.exports = {
   inherit: true,
   template: '#explore-template',
+  components: makeComponents(),
 
 
   data: function () {
@@ -13,6 +31,7 @@ module.exports = {
       things: [],
       profiles: [],
       tags: [],
+      events: []
     }
   },
 
@@ -36,6 +55,7 @@ module.exports = {
       switch (exploreType) {
       case 'creations': type = 'things'; break;
       case 'people': type = 'profiles'; break;
+      case 'activity': type = 'events'; break;
       default: type = exploreType; break;
       }
 
@@ -43,6 +63,8 @@ module.exports = {
       this.loading = true;
       this.profiles = [];
       this.things = [];
+      this.tags = [];
+      this.events = [];
 
       $bb.get(type, {data: {query: this.query, limit: 100}})
         .success(function (data) {self.$set(type, data)})

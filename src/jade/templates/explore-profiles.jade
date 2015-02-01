@@ -1,0 +1,18 @@
+script#explore-profiles-template(type="text/x-template")
+  page-layout
+    .header-content
+      .breadcrumbs
+        a(href="/explore/people")
+          .fa.fa-users(title="People")
+          | People
+
+    .page-content
+      .search
+        input(type="text" v-model="query" v-on="keyup:search | enter"
+          placeholder="Enter search terms" maxlength="256")
+
+        button.success(v-on="click:search") Search
+
+      .fa.fa-spinner.fa-spin(v-show="loading")
+
+      bb-profiles(profiles="{{profiles}}")

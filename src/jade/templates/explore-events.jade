@@ -1,0 +1,12 @@
+script#explore-events-template(type="text/x-template")
+  page-layout
+    .header-content
+      .breadcrumbs
+        a(href="/explore/activity")
+          .fa.fa-heartbeat(title="Activity")
+          | Activity
+
+    .page-content
+      .fa.fa-spinner.fa-spin(v-show="loading")
+
+      bb-events(events="{{events}}")

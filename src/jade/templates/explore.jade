@@ -1,28 +1,2 @@
 script#explore-template(type="text/x-template")
-  page-layout
-    .header-content
-      .breadcrumbs
-        a(v-show="type=='profiles'" href="/explore/people")
-          .fa.fa-users(title="People")
-          | People
-
-        a(v-show="type=='things'" href="/explore/creations")
-          .fa.fa-cubes(title="Creations")
-          | Creations
-
-        a(v-show="type=='tags'" href="/explore/tags")
-          .fa.fa-tags(title="Tags")
-          | Tags
-
-    .page-content
-      .search(v-show="type!='tags'")
-        input(type="text" v-model="query" v-on="keyup:search | enter"
-          placeholder="Enter search terms" maxlength="256")
-
-        button.success(v-on="click:search") Search
-
-      .fa.fa-spinner.fa-spin(v-show="loading")
-
-      bb-profiles(v-if="type=='profiles'" profiles="{{profiles}}")
-      bb-things(v-if="type=='things'" things="{{things}}")
-      bb-tags(v-if="type=='tags'" tags="{{tags}}")
+  div(v-component="explore-{{type}}")
