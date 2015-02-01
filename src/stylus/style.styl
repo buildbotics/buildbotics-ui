@@ -169,8 +169,11 @@ body
   #content
     margin auto
     min-width min_page_width
-    max-width page_width
     margin-bottom 4em
+
+    .header-content, .page-content
+      max-width page_width
+      margin auto
 
   #footer
     position fixed
@@ -233,7 +236,7 @@ body
     border-bottom-right-radius 3px
 
     > li, > li a.header-nav
-      font-size 14pt
+      font-size 12pt
       display block
       line-height normal
       height auto
@@ -276,6 +279,30 @@ body
 
     .text
       display none
+
+
+// Page header
+#page #content .page-header
+  font-size 18pt
+  margin 0 0 0.25em 0
+  padding 0.5em 0
+  background-color secondary_header_color
+  border-bottom 1px solid secondary_header_border_color
+  color medium_text_color
+
+  .widgets
+    float right
+
+    > div
+      display inline-block
+      margin-left 1em
+
+  .breadcrumbs
+    > *
+      margin-right 0.25em
+
+    .fa
+      width 1.5em
 
 
 // Footer
@@ -374,7 +401,7 @@ body
 
 // Create
 .create-page
-  .fa
+  .page-content .fa
     margin-right 0.5em
 
   th
@@ -535,36 +562,7 @@ body
 
 
 // Thing & Profile common
-#page #content
-  &.thing-page, &.profile-page, &.tag-page, &.tags-page, &.explore-page
-    max-width 100%
-
-.thing, .profile, .tag-page, .tags-page, .explore-page
-  .header-content, .page-content
-    max-width page_width
-    margin auto
-
-  .header
-    font-size 18pt
-    margin 0 0 0.25em 0
-    padding 0.5em 0
-    background-color secondary_header_color
-    border-bottom 1px solid secondary_header_border_color
-    color medium_text_color
-
-    .widgets
-      float right
-
-      > div
-        display inline-block
-        margin-left 1em
-    .path
-      > *
-        margin-right 0.25em
-
-      .fa
-        width 1.5em
-
+.thing-page, .profile-page
   .menu
     background-color #f3f3f3
     border 1px solid border_color

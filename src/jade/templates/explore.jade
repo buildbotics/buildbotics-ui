@@ -1,19 +1,18 @@
 script#explore-template(type="text/x-template")
-  div
-    .header
-      .header-content
-        .path
-          a(v-show="type=='profiles'" href="/explore/people")
-            .fa.fa-users(title="People")
-            | People
+  page-layout
+    .header-content
+      .breadcrumbs
+        a(v-show="type=='profiles'" href="/explore/people")
+          .fa.fa-users(title="People")
+          | People
 
-          a(v-show="type=='things'" href="/explore/creations")
-            .fa.fa-cubes(title="Creations")
-            | Creations
+        a(v-show="type=='things'" href="/explore/creations")
+          .fa.fa-cubes(title="Creations")
+          | Creations
 
-          a(v-show="type=='tags'" href="/explore/tags")
-            .fa.fa-tags(title="Tags")
-            | Tags
+        a(v-show="type=='tags'" href="/explore/tags")
+          .fa.fa-tags(title="Tags")
+          | Tags
 
     .page-content
       .search(v-show="type!='tags'")

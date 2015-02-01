@@ -20,6 +20,7 @@ module.exports = new Vue({
     starred: {}
   },
 
+
   components: {
     'loading-page': {template: '#loading-template'},
     'login-page': {template: '#login-template'},
@@ -32,6 +33,8 @@ module.exports = new Vue({
     'profile-page': require('./profile'),
     'tag-page': require('./tag'),
     'not-found-page': {template: '#not-found-template'},
+
+    'page-layout': {replace: true, template: '#page-layout-template'},
 
     'bb-profiles': require('./profiles'),
     'bb-things': require('./things'),

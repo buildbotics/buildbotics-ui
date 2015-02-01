@@ -1,17 +1,16 @@
 script#thing-template(type="text/x-template")
-  .thing
-    .header
-      .header-content
-        .widgets
-          bb-stars(thing="{{thing}}")
-          //bb-children(children="{{thing.children}}")
+  page-layout
+    .header-content
+      .widgets
+        bb-stars(thing="{{thing}}")
+        //bb-children(children="{{thing.children}}")
 
-        .path
-          a(href="/explore/creations"): .fa.fa-cubes(title="Creations")
-          span /
-          a(href="/{{thing.owner}}#creations") {{thing.owner}}
-          span /
-          a(href="/{{thing.owner}}/{{thing.name}}") {{thing.name}}
+      .breadcrumbs
+        a(href="/explore/creations"): .fa.fa-cubes(title="Creations")
+        span /
+        a(href="/{{thing.owner}}#creations") {{thing.owner}}
+        span /
+        a(href="/{{thing.owner}}/{{thing.name}}") {{thing.name}}
 
     .page-content
       button.success(v-show="isOwner && !editing" v-on="click:edit()") Edit

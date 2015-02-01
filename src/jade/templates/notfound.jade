@@ -1,3 +1,9 @@
 script#not-found-template(type="text/x-template")
-  h1 Sorry page not found
-  a(href='/') Return to site
+  page-layout
+    .header-content
+      .breadcrumbs
+        .fa.fa-exclamation-triangle.error
+        | Sorry, page not found
+
+    .page-content
+      a(href='/') Return to site

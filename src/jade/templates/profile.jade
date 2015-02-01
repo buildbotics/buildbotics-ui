@@ -1,15 +1,14 @@
 script#profile-template(type="text/x-template")
-  .profile
-    .header
-      .header-content
-        .widgets
-          bb-points(points="{{profile.points}}")
-          bb-followers(profile="{{profile}}")
+  page-layout
+    .header-content
+      .widgets
+        bb-points(points="{{profile.points}}")
+        bb-followers(profile="{{profile}}")
 
-        .path
-          a(href="/explore/people"): .fa.fa-users(title="Profiles")
-          span /
-          a(href="/{{profile.name}}#creations") {{profile.name}}
+      .breadcrumbs
+        a(href="/explore/people"): .fa.fa-users(title="Profiles")
+        span /
+        a(href="/{{profile.name}}#creations") {{profile.name}}
 
     .page-content
       button.success(v-show="isOwner() && !editing" v-on="click:edit()")
