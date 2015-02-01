@@ -3,7 +3,7 @@
 var $bb = require('./buildbotics');
 
 var subsections = 'overview instructions files comments';
-var fields = 'title url license tags description';
+var fields = 'title url license tags instructions';
 
 
 function isImage(type) {
