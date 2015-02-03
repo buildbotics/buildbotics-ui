@@ -1,7 +1,7 @@
 golden_ratio = 1.6180339887498948482
 page_width = 960px
 min_page_width = 200px
-header_height = 60px
+header_height = 50px
 avatar_size = 40px
 carousel_width = 500px
 carousel_height = carousel_width / golden_ratio
@@ -176,16 +176,11 @@ body
       margin auto
 
   #footer
-    position fixed
-    bottom 0
-    width 100%
-    z-index 5
-
-  #footer-content
+    color light_text_color
     min-height 1.5em
     min-width min_page_width
     max-width page_width
-    margin auto
+    margin 2em auto 0 auto
 
 
 // Header
@@ -195,38 +190,41 @@ body
 
   a
     text-decoration none
-    color #666
+    color medium_text_color
 
   .logo
-    height header_height - 10px
-    margin 5px 20px 0 5px
-    vertical-align top
-    display inline-block
     float left
+    margin-right 1em
+    padding 5px 0 0 0
+
+    img
+      height header_height - 10px
+      vertical-align middle
 
   #main-header-nav, #context-header-nav
-    list-style none
-    padding 0
-    margin 0
     white-space nowrap
 
-    > li
+    > *
       display inline-block
+
+    a.header-nav > .fa-caret-down
+      font-size 10pt
+      line-height 10px
+      margin-left 0.25em
+      margin-right 0
 
   #main-header-nav
     float left
 
     a.header-nav
       text-transform uppercase
-      font-size 18pt
-      line-height header_height - 20px
+      font-size 16pt
 
-  #explore-nav
+  #explore-nav, #user-nav
     display none
     transition-delay 0.25s
     z-index 110
     position absolute
-    list-style none
     padding 0
     margin 0
     background header_color
@@ -235,11 +233,14 @@ body
     border-bottom-left-radius 3px
     border-bottom-right-radius 3px
 
-    > li, > li a.header-nav
+    > a.header-nav
       font-size 12pt
       display block
       line-height normal
       height auto
+
+      .fa
+        width 1.75em
 
   #context-header-nav
     float right
@@ -250,35 +251,29 @@ body
     padding 10px
     display inline-block
     transition 0.25s
-    font-size 12pt
 
     &:hover
       color #f0ac48
       background-color #f7f9f7
 
   a.user
-    max-width 150px
-    height header_height - 12px
-    padding 6px
-    font-size 10pt
-    line-height 24px
-    text-align center
-    vertical-align middle
-    margin-top -11px
+    position relative
+    line-height header_height - 4px
+    height header_height - 4px
+    padding 2px 5px
 
-    .avatar
+    > *
       display inline-block
       margin-right 0.5em
+      height header_height - 20px
 
-    .user-info
-      display inline-block
-      text-align center
+    .fa-caret-down
+      margin-left 0
 
-  a.sign-out
-    font-size 18pt
-
-    .text
-      display none
+    .avatar
+      vertical-align -10px
+      width header_height - 20px
+      height header_height - 20px
 
 
 // Page header
@@ -307,14 +302,15 @@ body
 
 // Footer
 #footer
-  background-color #e1e1e1
-  border-top 1px solid #878787
+  font-size 10pt
+  border-top 1px solid border_color
+  padding 2em 0 1em 0
 
   .copyright
-    margin-right 10px
+    margin-right 1em
 
   .footer-nav
-    margin 0 6px
+    margin 0 0.5em
 
 
 // Login
@@ -576,7 +572,7 @@ body
     a
       display inline-block
       text-transform capitalize
-      font-size 16pt
+      font-size 14pt
       background-color #fff
       border-top-left-radius 3px
       border-top-right-radius 3px
@@ -656,6 +652,11 @@ body
     .modal
       min-width 20em
 
+.thing-overview
+  .title
+    margin 0 0 1em 0
+    color medium_text_color
+    font-size 16pt
 
 .thing-maintenance
   input

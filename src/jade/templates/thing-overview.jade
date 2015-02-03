@@ -1,15 +1,13 @@
 script#thing-overview-template(type="text/x-template")
+  .title
+    span(v-show="!editing") {{thing.title || thing.name}}
+    input(v-show="editing" v-model="edit_title" maxlength="128")
+
   bb-carousel(media="{{media}}")
     | Select <a href="#files">Files</a> to add media.
 
   .info
     table
-      tr
-        th Title
-        td(title="{{thing.title || thing.name}}")
-          span(v-show="!editing") {{thing.title || thing.name}}
-          input(v-show="editing" v-model="edit_title" maxlength="128")
-
       tr(v-show="thing.parent")
         th Parent
         td

@@ -8,18 +8,19 @@ module.exports = function (prefix, subsections) {
   function makeComponents() {
     var components = {};
 
-    for (var i = 0; i < subsections.length; i++) {
-      var subsection = subsections[i];
-
-      components[prefix + '-' + subsection] = {
-        template: '#' + prefix + '-' + subsection + '-template',
+    for (var i = 0; i < subsections.length; i++)
+      components[prefix + '-' + subsections[i]] = {
+        template: '#' + prefix + '-' + subsections[i] + '-template',
         inherit: true,
 
         ready: function () {
-          $(this.$el).addClass(prefix + '-' + subsection);
-        }
+          var subsection = subsections[i];
+
+          return function () {
+            $(this.$el).addClass(prefix + '-' + subsection);
+          }
+        }()
       }
-    }
 
     return components;
   }

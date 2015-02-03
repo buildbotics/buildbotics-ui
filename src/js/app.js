@@ -310,18 +310,31 @@ module.exports = new Vue({
 
 
     overlayClick: function () {
-      this.closeExplore();
+      this.closeExploreNav();
+      this.closeUserNav();
     },
 
 
-    openExplore: function () {
+    openExploreNav: function () {
       $('#explore-nav').show();
       this.addOverlay();
     },
 
 
-    closeExplore: function () {
+    closeExploreNav: function () {
       $('#explore-nav').hide();
+      this.removeOverlay();
+    },
+
+
+    openUserNav: function () {
+      $('#user-nav').show();
+      this.addOverlay();
+    },
+
+
+    closeUserNav: function () {
+      $('#user-nav').hide();
       this.removeOverlay();
     }
   },
