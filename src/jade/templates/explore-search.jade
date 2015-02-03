@@ -1,0 +1,7 @@
+script#explore-search-template(type="text/x-template")
+  .search
+    input(type="text" v-model="query" v-on="keyup:search | enter"
+      placeholder="Enter search terms" maxlength="256")
+
+    button(v-on="click:clear") Clear
+    button.success(v-on="click:search") Search

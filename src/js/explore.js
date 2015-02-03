@@ -13,6 +13,12 @@ function makeComponents() {
       template: '#explore-' + subsections[i] + '-template'
     }
 
+  components['explore-search'] = {
+    inherit: true,
+    replace: true,
+    template: '#explore-search-template'
+  }
+
   return components;
 }
 
@@ -47,6 +53,12 @@ module.exports = {
 
 
   methods: {
+    clear: function () {
+      this.query = '';
+      this.search();
+    },
+
+
     search: function () {
       var self = this;
       var exploreType = require('./app').exploreType;

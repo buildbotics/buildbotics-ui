@@ -7,12 +7,7 @@ script#explore-things-template(type="text/x-template")
           | Creations
 
     .page-content
-      .search
-        input(type="text" v-model="query" v-on="keyup:search | enter"
-          placeholder="Enter search terms" maxlength="256")
-
-        button.success(v-on="click:search") Search
-
+      explore-search
       .fa.fa-spinner.fa-spin(v-show="loading")
 
       bb-things(things="{{things}}")
