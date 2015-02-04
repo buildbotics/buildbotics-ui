@@ -20,23 +20,20 @@ function api_cb(method, url, data, config) {
     config.headers = $.extend({Authorization: auth}, config.headers);
   }
 
-  var error_cb = function () {};
+  var d = $.Deferred();
 
-  var promise = $.ajax(config)
-    .error(function (xhr, status, error) {
-      try {
-        error_cb($.parseJSON(xhr.responseText), xhr, status, error);
-      } catch(e) {
-        error_cb(undefined, xhr, status, error);
-      }
-    })
+  $.ajax(config).success(function (data, status, xhr) {
+    d.resolve(data, status, xhr);
 
-  promise.error = function (cb) {
-    error_cb = cb || error_cb;
-    return promise;
-  }
+  }).error(function (xhr, status, error) {
+    try {
+      d.reject($.parseJSON(xhr.responseText), xhr, status, error);
+    } catch(e) {
+      d.reject(undefined, xhr, status, error);
+    }
+  })
 
-  return promise;
+  return d.promise();
 }
 
 

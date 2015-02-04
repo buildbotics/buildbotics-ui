@@ -8,20 +8,26 @@ script#thing-template(type="text/x-template")
       .breadcrumbs
         a(href="/explore/creations"): .fa.fa-cubes(title="Creations")
         span /
-        a(href="/{{thing.owner}}#creations") {{thing.owner}}
+        a(href="/{{thing.owner}}") {{thing.owner}}
         span /
         a(href="/{{thing.owner}}/{{thing.name}}") {{thing.name}}
 
     .page-content
-      button.success(v-show="isOwner && !editing" v-on="click:edit()") Edit
-      button.success(v-show="editing" v-on="click:save()") Save
-      button(v-show="editing" v-on="click:cancel()") Cancel Edit
-      button(v-show="isOwner && !editing && !thing.published"
-        v-on="click:publish()") Publish
+      .actions
+        button.success(v-show="isOwner && subsection == 'view'"
+          v-on="click:startEditing") Edit
+        button.success(v-show="isOwner && !thing.published"
+          v-on="click:publish") Publish
 
-      .menu
-        a(v-repeat="subsection:subsections" v-attr="href:'#' + subsection"
-          v-show="subsection != 'maintenance' || isOwner")
-          | {{subsection}}
+      .section(v-component="thing-view"
+        v-if="!isOwner || subsection == 'view'")
 
-      .section(v-component="thing-{{subsection}}")
+      .section(v-show="isOwner && subsection != 'view'")
+        .edit-menu
+          a(v-repeat="getEditSubsections()" href="#{{$value}}"
+            v-class="'subsection-item-' + $value, active:$value == subsection")
+            | {{getSubsectionTitle($value)}}
+
+        .edit-contents
+          h1 {{getSubsectionTitle(subsection)}}
+          div(v-component="thing-{{subsection}}")

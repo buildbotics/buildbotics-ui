@@ -1,0 +1,16 @@
+script#thing-edit-details-template(type="text/x-template")
+  h2 Title
+  input(v-model="edit_title" maxlength="128")
+
+  h2 Link
+  input(v-model="edit_url" maxlength="256")
+
+  h2 License
+  select(v-model="edit_license")
+    option(v-repeat="license:licenses" value="{{license.name}}"
+      v-attr="selected:license.name == license") {{license.name}}
+
+  h2 Tags
+  tag-editor(tags="{{edit_tags}}")
+
+  div: button.success(v-on="click:save()") Save

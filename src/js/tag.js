@@ -21,7 +21,7 @@ module.exports = {
 
     this.tag = app.tag;
 
-    $bb.get('tags/' + app.tag, {data: {limit: 100}}).success(function (things) {
+    $bb.get('tags/' + app.tag, {data: {limit: 100}}).done(function (things) {
       self.things = things;
       self.loaded = true;
     })

@@ -1,0 +1,3 @@
+script#thing-edit-instructions-template(type="text/x-template")
+  markdown-editor(field="edit_instructions" v-if="edit_instructions")
+  div: button.success(v-on="click:saveInstructions()") Save

@@ -145,7 +145,7 @@ module.exports = new Vue({
   compiled: function () {
     var self = this;
 
-    $bb.get('licenses').success(function (data) {
+    $bb.get('licenses').done(function (data) {
       for (var i = 0; i < data.length; i++)
         self.licenses.push(data[i]);
     })
@@ -271,7 +271,7 @@ module.exports = new Vue({
       var subsection = this.subsection;
       this.currentPage = 'loading';
 
-      $bb.get('auth/logout').success(function () {
+      $bb.get('auth/logout').done(function () {
         self.loggedOut()
         self.currentPage = currentPage;
         self.subsection = subsection;
@@ -282,7 +282,7 @@ module.exports = new Vue({
     login: function () {
       var self = this;
 
-      $bb.get('auth/user').success(function (data) {
+      $bb.get('auth/user').done(function (data) {
         if (typeof data.profile != 'undefined') {
           if (typeof data.profile.lastseen != 'undefined') {
             self.loggedIn(data);

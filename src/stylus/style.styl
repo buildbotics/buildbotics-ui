@@ -3,8 +3,11 @@ page_width = 960px
 min_page_width = 200px
 header_height = 50px
 avatar_size = 40px
-carousel_width = 500px
+carousel_width = 720px
 carousel_height = carousel_width / golden_ratio
+overview_width = 200px
+content_width = 720px
+edit_menu_width = 8em
 
 link_color = #e5aa3d
 link_hover_color = #428bca
@@ -135,13 +138,20 @@ pre code
 
 // Headings
 h1, h2, h3, h4
-  color medium_text_color
+  color light_text_color
   margin-top 0.5em
   margin-bottom 0.25em
 
 h1
+  color medium_text_color
   font-size 22pt
   font-weight normal
+
+h2
+  font-size 16pt
+
+h3
+  font-size 14pt
 
 
 // em
@@ -195,7 +205,7 @@ body
   .logo
     float left
     margin-right 1em
-    padding 5px 0 0 0
+    padding 4px 0 0 0
 
     img
       height header_height - 10px
@@ -261,19 +271,23 @@ body
     line-height header_height - 4px
     height header_height - 4px
     padding 2px 5px
+    vertical-align 1px
 
     > *
       display inline-block
       margin-right 0.5em
       height header_height - 20px
 
-    .fa-caret-down
-      margin-left 0
-
     .avatar
       vertical-align -10px
       width header_height - 20px
       height header_height - 20px
+
+  .sign-out
+    font-size 14pt
+
+    .text
+      display none
 
 
 // Page header
@@ -415,7 +429,7 @@ body
     width 25em
 
 
-// Panels
+// Panels (home page)
 .panel
   border 1px solid border_color
   border-radius 3px
@@ -588,7 +602,108 @@ body
       &:active, &:visited, &:hover, &:focus
         text-decoration none
 
-  .page-content > button
+  .overview
+    float right
+    margin 0 0 1em 1em
+    font-size 11pt
+    color medium_text_color
+    max-width overview_width
+
+    h1
+      color text_color
+      font-size 14pt
+
+    h2
+      font-size 12pt
+
+    > *
+      max-width overview_width
+      overflow hidden
+      text-overflow ellipsis
+      white-space nowrap
+      margin-bottom 0.5em
+
+    .fa
+      width 1.25em
+      font-size 12pt
+
+    .stats
+      white-space normal
+      text-align center
+      margin 1em 0
+      padding 1em 0
+      border-top 1px solid border_color
+      border-bottom 1px solid border_color
+
+      > *
+        display inline-block
+        width 33%
+        text-align center
+
+      .value
+        font-weight bold
+        font-size 18pt
+
+      .label
+        font-size 10pt
+
+  .edit-menu
+    float left
+    width edit_menu_width
+
+    background-color #fff
+    border 1px solid border_color
+    border-radius 3px
+
+    > a
+      display block
+      padding 1em
+
+      border-top 1px solid border_color
+      text-transform capitalize
+      font-size 12pt
+      padding 0.25em
+
+      &:first-of-type
+        border-top none
+
+      &.active, &.active:hover
+        color text_color !important
+        text-decoration none
+        border-left 3px solid border_color
+
+  .edit-contents
+    h1:first-of-type
+      text-transform capitalize
+
+    input, select, .tag-editor
+      width 30em
+
+    button
+      margin-top 0.5em
+
+  a.subsection-item-edit-profile, a.subsection-item-edit
+    float right
+    margin-right 0.25em
+    background-color #5cb85c
+    color #fff
+    border-color #4cae4c
+
+    &:hover, &.active
+      background-color #449d44
+      border-color #398439
+      color #fff !important
+
+    &.active
+      border-bottom 1px solid #449d44
+
+  .view-contents, .edit-contents
+    max-width content_width
+
+  .edit-contents
+    margin-left edit_menu_width + 2em
+
+  .page-content > .actions > button
     float right
     margin 0.5em
 
@@ -624,9 +739,6 @@ body
     input, .tag-editor
       width 18em
 
-  .section > .things
-    margin-top -1.5em
-
   .markdown
     padding 0 1em
     background #fff
@@ -642,8 +754,9 @@ body
 
 // Thing
 .thing-page
-  input
-    margin-right 0.25em
+  .overview
+    .license, .tags, .stars
+      white-space normal
 
   .delete-thing, .rename-thing
     display inline-block
@@ -652,13 +765,12 @@ body
     .modal
       min-width 20em
 
-.thing-overview
   .title
-    margin 0 0 1em 0
-    color medium_text_color
-    font-size 16pt
+    max-width content_width
+    overflow hidden
+    text-overflow ellipsis
 
-.thing-maintenance
+.thing-edit
   input
     width 20em
 
@@ -714,16 +826,24 @@ body
 
 // Profile
 .profile-page
-  .picture
-    max-width 200px
-    max-height 200px
+  img.picture
+    max-height overview_width
     border-radius 3px
-    margin-right 1em
-    margin-bottom 1em
-    float left
 
-  .bio
-    clear both
+  .overview
+    margin-top 0.5em
+
+    .picture
+      margin-bottom 0
+
+    .fullname
+      color text_color
+      font-weight bold
+      font-size 16pt
+      margin-bottom 0.25em
+
+    .name
+      margin-bottom 1em
 
 
 // Comments
@@ -910,6 +1030,7 @@ body
     border none
     outline none
     width 100%
+    background transparent
 
     &:focus
       box-shadow none
@@ -1334,6 +1455,7 @@ input, textarea, select
     left 0
     width 100%
     height 100%
+    z-index 10
 
     .slick-list
       background-image url('/images/spinner-black.gif')

@@ -29,12 +29,12 @@ module.exports = {
     var self = this;
 
     $bb.get('suggest')
-      .success(function (suggestions) {
+      .done(function (suggestions) {
         self.suggestions = suggestions;
         if (!self.name && suggestions.length)
           self.setName(suggestions[0]);
       })
-      .error(function (status) {
+      .fail(function (status) {
         page('/login');
       })
   },
@@ -46,11 +46,11 @@ module.exports = {
       var name = this.name.trim();
 
       $bb.put('profiles/' + name + '/register')
-        .success(function () {
+        .done(function () {
           require('./app').login();
           page('/' + name + '#profile');
         })
-        .error(function (status) {
+        .fail(function (status) {
           require('./app').error('Failed to register "' + name + '"', status);
         })
     },
@@ -100,9 +100,9 @@ module.exports = {
       var self = this;
 
       $bb.get('profiles/' + this.name.trim() + '/available')
-        .success(function (data) {self.available = data})
+        .done(function (data) {self.available = data})
 
-        .error(function (data, status) {
+        .fail(function (data, status) {
           require('./app').error('Failed to check name availability', status);
           self.available = true;
         })

@@ -48,8 +48,8 @@ module.exports = {
 
       var url = 'profiles/' + this.getUserName() + '/things/' + this.name;
       $bb.put(url, data)
-        .success(function (data) {page(thing)})
-        .error(function (data, status) {
+        .done(function (data) {page(thing)})
+        .fail(function (data, status) {
           app.error('Failed to create ' + thing, status);
         })
     },

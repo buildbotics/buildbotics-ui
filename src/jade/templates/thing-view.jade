@@ -1,0 +1,73 @@
+script#thing-view-template(type="text/x-template")
+  h1.title {{thing.title || thing.name}}
+
+  bb-carousel(media="{{media}}")
+    | Select <a href="#files">Files</a> to add media.
+
+  .overview
+    .owner
+      .fa.fa-user
+      | Created by{{' '}}
+      a(href="/{{thing.owner}}")
+        | {{thing.owner}}
+        //img.avatar(v-attr="src:'/api/profiles/' + thing.owner + '/avatar'")
+
+    .parent(v-show="thing.parent")
+      .fa.fa-child
+      | a(href="{{thing.parent}}") {{thing.parent}}
+
+    .link
+      .fa.fa-link
+      span.weak(v-show="!thing.url") (No link)
+      a(v-show="thing.url" href="{{thing.url}}" target="_blank") {{thing.url}}
+
+    .created
+      .fa.fa-clock-o
+      | Created {{thing.created | timeSince}}
+
+    .modified
+      .fa.fa-clock-o
+      | Modified {{thing.modified | timeSince}}
+
+    .stats
+      div
+        .value {{thing.stars | humanNumber}}
+        .label Stars
+
+      div
+        .value {{0 | humanNumber}}
+        .label Views
+
+      div
+        .value {{thing.comments | humanNumber}}
+        .label Comments
+
+    .license
+      h2 License
+      | Permission to use the contents of this project is granted by
+      | <a href="/{{thing.owner}}">{{thing.owner}}</a> under the terms of
+      | the <a href="{{thing.license_url}}">{{thing.license}}</a>.
+
+    .tags
+      h2 Tags
+      span.weak(v-show="!thing.tags.length") (No tags)
+
+      span.tag(v-show="thing.tags" v-repeat="tag:thing.tags")
+        a(v-attr="href:'/tags/' + tag") {{tag}}
+        = ' '
+
+    .stars
+      h2 Starred by
+      span.weak(v-show="!stars.length")
+        | Be the first to <a v-on="click:star()"> star this thing</a>.
+      bb-profiles(profiles="{{stars}}" small="true")
+
+  .view-contents
+    h1#introduction Introduction
+    div(v-markdown="thing.instructions")
+
+    h1#downloads Downloads
+    file-manager(files="{{files}}")
+
+    h1#comments Comments
+    bb-comments(comments="{{comments}}")

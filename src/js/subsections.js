@@ -4,7 +4,6 @@
 module.exports = function (prefix, subsections) {
   subsections = subsections.split(' ');
 
-
   function makeComponents() {
     var components = {};
 
@@ -49,6 +48,14 @@ module.exports = function (prefix, subsections) {
 
 
     methods: {
+      onSubsectionChange: function (newSubsection, oldSubsection) {},
+
+
+      getSubsectionTitle: function (subsection) {
+        return subsection.replace(/-/g, ' ');
+      },
+
+
       setSubsection: function (subsection) {
         subsection = subsection.trim();
 
@@ -56,17 +63,11 @@ module.exports = function (prefix, subsections) {
           subsection = subsections[0]; // Choose first by default
 
         if (this.subsection == subsection) return;
+        var oldSubsection = this.subsection;
         this.$set('subsection', subsection);
 
-        // Set menu item active
-        var self = this;
-        Vue.nextTick(function () {
-          $(self.$el).find('.menu > a').each(function () {
-            var text = $(this).text();
-            if (text == subsection) $(this).addClass('active');
-            else $(this).removeClass('active');
-          });
-        });
+        // Callback
+        this.onSubsectionChange(subsection, oldSubsection);
       }
     }
   }

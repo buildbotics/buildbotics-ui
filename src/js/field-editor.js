@@ -90,7 +90,7 @@ module.exports = function (target, fields) {
 
         // Do save callback
         var self = this;
-        $.when(this.onSave(changes)).then(function () {
+        $.when.apply($, this.onSave(changes)).then(function () {
           fields.forEach(function (field) {
             self[target][field] = copy(self[prefix + field]);
           })

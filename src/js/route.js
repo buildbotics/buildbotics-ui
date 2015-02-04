@@ -36,12 +36,12 @@ function profile_page(ctx) {
   app.currentPage = 'loading';
 
   $bb.get('profiles/' + profile)
-    .success(function (data) {
+    .done(function (data) {
       app.profileData = data;
       app.currentPage = 'profile';
       app.subsection = ctx.hash;
 
-    }).error(function (data) {
+    }).fail(function (data) {
       app.currentPage = 'not-found';
     })
 }
@@ -61,14 +61,14 @@ function thing_page(ctx) {
   app.currentPage = 'loading';
 
   $bb.get('profiles/' + profile + '/things/' + thing)
-    .success(function (data) {
+    .done(function (data) {
       app.thingData = data;
       app.currentPage = 'thing';
 
       if (/comment-\d+/.test(ctx.hash)) app.subsection = 'comments';
       else app.subsection = ctx.hash;
 
-    }).error(function (data) {
+    }).fail(function (data) {
       app.currentPage = 'not-found';
     })
 }

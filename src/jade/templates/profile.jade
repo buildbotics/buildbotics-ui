@@ -8,16 +8,13 @@ script#profile-template(type="text/x-template")
       .breadcrumbs
         a(href="/explore/people"): .fa.fa-users(title="Profiles")
         span /
-        a(href="/{{profile.name}}#creations") {{profile.name}}
+        a(href="/{{profile.name}}") {{profile.name}}
 
     .page-content
-      button.success(v-show="isOwner() && !editing" v-on="click:edit()")
-        | Edit Profile
-      button.success(v-show="editing" v-on="click:save()") Save
-      button(v-show="editing" v-on="click:cancel()") Cancel Edit
-
       .menu
-        a(v-repeat="subsection:subsections" v-attr="href:'#' + subsection")
-          | {{subsection}}
+        a(v-repeat="subsections" v-attr="href:'#' + $value"
+          v-show="$value != 'edit-profile' || isOwner"
+          v-class="'subsection-item-' + $value, active:$value == subsection")
+          | {{getSubsectionTitle($value)}}
 
       .section(v-component="profile-{{subsection}}")

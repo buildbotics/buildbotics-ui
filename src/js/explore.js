@@ -79,7 +79,7 @@ module.exports = {
       this.events = [];
 
       $bb.get(type, {data: {query: this.query, limit: 100}})
-        .success(function (data) {self.$set(type, data)})
+        .done(function (data) {self.$set(type, data)})
         .always(function () {self.loading = false})
     }
   }

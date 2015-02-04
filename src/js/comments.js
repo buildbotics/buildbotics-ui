@@ -45,7 +45,7 @@ module.exports = {
       }
 
       var self = this;
-      $bb.post(this.getAPIURL(), comment).success(function (id) {
+      $bb.post(this.getAPIURL(), comment).done(function (id) {
         self.text = '';
 
         comment.comment = id;

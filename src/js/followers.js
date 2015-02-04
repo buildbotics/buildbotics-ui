@@ -30,13 +30,13 @@ module.exports = {
       }
 
       if (active) return $bb.put(url)
-        .success(function () {
+        .done(function () {
           profile.followers += 1;
           app.setFollowing(name, true);
         })
 
       else return $bb.delete(url)
-        .success(function () {
+        .done(function () {
           profile.followers -= 1;
           app.setFollowing(name, false);
         })

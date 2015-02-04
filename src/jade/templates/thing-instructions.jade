@@ -1,8 +1,0 @@
-script#thing-instructions-template(type="text/x-template")
-  h2.weak(v-show="!editing && !thing.instructions")
-    span(v-show="isOwner")
-      | Click <button v-on="click:edit" class="success">Edit</button> to add
-      | instructions.
-    span(v-show="!isOwner") (No instructions)
-  div(v-markdown="thing.instructions" v-show="!editing && thing.instructions")
-  markdown-editor(field="edit_instructions" v-if="editing")

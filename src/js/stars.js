@@ -4,6 +4,7 @@ var $bb = require('./buildbotics');
 
 
 module.exports = {
+  replace: true,
   template: '#stars-template',
   paramAttributes: ['thing'],
 
@@ -22,13 +23,13 @@ module.exports = {
       var url = 'profiles/' + owner + '/things/' + name + '/star';
 
       if (active) return $bb.put(url)
-        .success(function () {
+        .done(function () {
           thing.stars += 1;
           app.setStarred(owner, name, true);
         })
 
       else return $bb.delete(url)
-        .success(function () {
+        .done(function () {
           thing.stars -= 1;
           app.setStarred(owner, name, false);
         })

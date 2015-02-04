@@ -25,7 +25,7 @@ module.exports = {
 
     onSave: function (fields, accept) {
       fields.comment = this.comment.comment;
-      $bb.put(this.getAPIURL(), fields).success(accept);
+      $bb.put(this.getAPIURL(), fields).done(accept);
     },
 
 
@@ -37,7 +37,7 @@ module.exports = {
     remove: function () {
       var self = this;
 
-      $bb.delete(this.getAPIURL()).success(function () {
+      $bb.delete(this.getAPIURL()).done(function () {
         self.$remove();
 
         Vue.nextTick(function () {

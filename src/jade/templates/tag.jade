@@ -7,6 +7,8 @@ script#tag-template(type="text/x-template")
         a(href="/tags/{{tag}}") {{tag}}
 
     .page-content
+      h1 Projects tagged with "{{tag}}"
+
       bb-things(things="{{things}}")
 
       .fa.fa-spinner.fa-spin(v-show="!loaded")

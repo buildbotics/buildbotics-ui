@@ -1,7 +1,7 @@
 #header
   #header-content
     a.logo(href="/")
-      img(src="/images/buildbotics_logo.png"
+      img(src="/images/buildbotics_banner.png"
         alt="Buildbotics logo, expore, learn, create")
 
     #main-header-nav
@@ -26,25 +26,14 @@
     #context-header-nav
       a.header-nav.sign-in(v-on="click:initiateLogin") Login or Register
 
-      a.header-nav.user(v-on="click:openUserNav")
+      a.header-nav.user(href="/{{user.name}}")
         img.avatar(v-attr="src:user.avatar")
         .name {{user.name}}
         bb-points(points="{{user.points}}")
-        .fa.fa-caret-down
 
-      #user-nav
-        a.header-nav(v-on="click:closeUserNav" href="/{{user.name}}#profile")
-          .fa.fa-user
-          | Profile
-
-        a.header-nav(v-on="click:closeUserNav" href="/{{user.name}}#activity")
-          .fa.fa-heartbeat
-          | Activity
-
-        a.header-nav.sign-out(
-          v-on="click:logout() | preventDefault, click:closeUserNav"
-          title="Sign Out")
-          .fa.fa-sign-out
-          span.text Sign Out
+      a.header-nav.sign-out(v-on="click:logout() | preventDefault"
+        title="Sign Out")
+        .fa.fa-sign-out
+        span.text Sign Out
 
     .clear

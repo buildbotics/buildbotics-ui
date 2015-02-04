@@ -1,38 +1,52 @@
 script#profile-profile-template(type="text/x-template")
-  img.picture(v-attr="src:getPicture()")
+  .overview
+    img.picture(v-attr="src:getPicture()")
 
-  table.info
-    tr
-      th Full name
-      td
-        span.weak(v-show="!editing && !profile.fullname") (Not set)
-        span(v-show="!editing") {{profile.fullname}}
-        input(v-show="editing" v-model="edit_fullname")
-    tr
-      th Location
-      td
-        span.weak(v-show="!editing && !profile.location") (Not set)
-        span(v-show="!editing") {{profile.location}}
-        input(v-show="editing" v-model="edit_location")
-    tr
-      th Homepage
-      td
-        span.weak(v-show="!editing && !profile.url") (Not set)
-        a(v-show="!editing" href="{{profile.url}}" target="_blank")
-          | {{profile.url}}
-        input(v-show="editing" v-model="edit_url")
-    tr
-      th Joined
-      td {{profile.joined | timeSince}}
-    tr
-      th Last seen
-      td {{profile.lastseen | timeSince}}
+    .fullname
+      span {{profile.fullname}}
 
-  .bio
-    h1 Bio
-    .weak(v-show="!editing && !profile.bio && !isOwner()") (Bio empty)
-    div(v-show="!editing && !profile.bio && isOwner()")
-      | Click <button v-on="click:edit" class="success">Edit</button> to add
-      | a bio.
-    div(v-markdown="profile.bio" v-show="!editing && profile.bio")
-    markdown-editor(field="edit_bio" v-if="editing")
+    .name {{profile.name}}
+
+
+    .details
+      .location
+        .fa.fa-map-marker
+        span.weak(v-show="!profile.location") (Not set)
+        span {{profile.location}}
+
+      .homepage
+        .fa.fa-link
+        span.weak(v-show="!profile.url") (Not set)
+        a(href="{{profile.url}}" target="_blank") {{profile.url}}
+
+      .joined
+        .fa.fa-clock-o
+        td Joined {{profile.joined | timeSince}}
+
+    .stats
+      div
+        a.value(href="#followers") {{profile.followers | humanNumber}}
+        .label Followers
+
+      div
+        .value {{profile.points | humanNumber}}
+        .label Points
+
+      div
+        a.value(href="#badges") {{profile.badges | humanNumber}}
+        .label Badges
+
+      div
+        a.value(href="#starred") {{profile.stars | humanNumber}}
+        .label Starred
+
+      div
+        a.value(href="#following") {{profile.following | humanNumber}}
+        .label Following
+
+  h1 {{profile.name | capitalize}}'s creations
+  bb-things(things="{{things}}")
+  .weak(v-show="!things.length && !isOwner()") (No creations)
+  .weak(v-show="!things.length && isOwner()")
+    | Click <button v-on="click:create" class="success">Create</button> to
+    | start your first project.

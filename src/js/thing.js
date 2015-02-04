@@ -3,8 +3,8 @@
 var $bb = require('./buildbotics');
 var page = require('page.min');
 
-var subsections = 'overview instructions files comments maintenance';
-var fields = 'title url license tags instructions';
+var subsections = 'view edit-details edit-instructions edit-files dangerous';
+var fields = 'title url license tags';
 
 
 function isImage(type) {
@@ -16,6 +16,12 @@ module.exports = {
   template: '#thing-template',
 
 
+  components: {
+    'thing-view': {inherit: true, template: '#thing-view-template'},
+    'thing-edit': {inherit: true, template: '#thing-edit-template'},
+  },
+
+
   data: function  () {
     return {
       newName: '',
@@ -25,7 +31,6 @@ module.exports = {
 
 
   events: {
-    // Listen file manager events
     'file-manager-before-upload': function (file, done) {
       var data = {
         type: file.type,
@@ -34,9 +39,9 @@ module.exports = {
       }
 
       $bb.put(this.getAPIURL() + '/files/' + file.name, data)
-        .success(function (data) {done(true, data);})
+        .done(function (data) {done(true, data);})
 
-        .error(function (data, status) {
+        .fail(function (data, status) {
           app.error('Failed to upload file ' + file.name, status);
           done(false);
         })
@@ -47,9 +52,9 @@ module.exports = {
 
     'file-manager-delete': function (file, done) {
       $bb.delete(this.getAPIURL() + '/files/' + file.name)
-        .success(function () {done(true)})
+        .done(function () {done(true)})
 
-        .error(function (data, status) {
+        .fail(function (data, status) {
           app.error('Failed to delete file ' + file.name, status)
           done(false);
         });
@@ -58,9 +63,8 @@ module.exports = {
     },
 
 
-    // Listen to is-owner events
     'is-owner': function (isOwner) {
-      this.$broadcast('file-manager-can-edit', isOwner);
+      //this.$broadcast('file-manager-can-edit', isOwner);
     },
 
 
@@ -114,16 +118,48 @@ module.exports = {
 
 
   methods: {
+    // From subsections
+    onSubsectionChange: function (newSubsection, oldSubsection) {
+      if (newSubsection == 'edit-details' || oldSubsection == 'edit-details')
+        Vue.nextTick(this.edit.bind(this));
+
+      if (newSubsection = 'edit-instructions')
+        Vue.nextTick(function () {
+          this.$set('edit_instructions', this.thing.instructions);
+        }.bind(this))
+    },
+
+
+    getSubsectionTitle: function (subsection) {
+      return subsection.replace(/^edit-/, '');
+    },
+
+
     // From login-listener
     getOwner: function () {
       return this.thing.owner;
     },
 
 
+    isEditing: function () {
+      return this.isOwner && this.subsection != 'view';
+    },
+
+
+    getEditSubsections: function () {
+      return this.subsections.filter(function (value) {return value != 'view'})
+    },
+
+
+    startEditing: function () {
+      location.hash = 'edit-details';
+    },
+
+
     publish: function () {
       var self = this;
       $bb.put(this.getAPIURL(), {publish: true})
-        .success(function () {self.$set('thing.published', true)})
+        .done(function () {self.$set('thing.published', true)})
     },
 
 
@@ -167,14 +203,34 @@ module.exports = {
 
       // Save any tags
       if (fields.tags) {
-        promises.push(this.saveTags(fields.tags));
-        fields.tags = undefined;
+        promises = promises.concat(this.saveTags(fields.tags));
+        delete fields.tags;
       }
 
       // Save other fields
-      promises.push($bb.put(this.getAPIURL(), fields));
+      if (JSON.stringify(fields) != '{}')
+        promises.push($bb.put(this.getAPIURL(), fields));
+
+      $.when.apply($, promises).done(function () {
+        require('./app').message('Details saved');
+      }).fail(function () {
+        require('./app').error('Failed to save details');
+      })
 
       return promises;
+    },
+
+
+    saveInstructions: function () {
+      var data = {instructions: this.edit_instructions};
+
+      $bb.put(this.getAPIURL(), data).done(function () {
+        this.$set('thing.instructions', this.edit_instructions);
+        require('./app').message('Instructions saved');
+
+      }.bind(this)).fail(function () {
+        require('./app').error('Failed to save instructions');
+      })
     },
 
 
@@ -194,11 +250,11 @@ module.exports = {
       var starred = app.isStarred(this.thing.owner, this.thing.name);
 
       $bb.put(this.getAPIURL() + '/rename', {name: this.newName})
-        .success(function () {
+        .done(function () {
           app.setStarred(self.thing.owner, self.newName, starred);
           page('/' + self.thing.owner + '/' + self.newName);
 
-        }).error(function () {
+        }).fail(function () {
           require('./app').error('Failed to rename project');
         })
     },
@@ -212,7 +268,7 @@ module.exports = {
     delete: function () {
       var self = this;
 
-      $bb.delete(this.getAPIURL()).success(function () {
+      $bb.delete(this.getAPIURL()).done(function () {
         page('/' + self.thing.owner);
       })
     }

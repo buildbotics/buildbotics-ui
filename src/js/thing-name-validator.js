@@ -56,9 +56,9 @@ module.exports = {
         'profiles/' + this.owner + '/things/' + this.newName + '/available';
 
       $bb.get(url)
-        .success(function (data) {self.available = data})
+        .done(function (data) {self.available = data})
 
-        .error(function (data, status) {
+        .fail(function (data, status) {
           require('./app').error('Failed to check name availability', status);
           self.available = true;
         })

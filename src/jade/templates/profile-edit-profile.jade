@@ -1,0 +1,19 @@
+script#profile-edit-profile-template(type="text/x-template")
+  div(v-if="isOwner")
+    h1 Profile Picture
+    img.picture(v-attr="src:getPicture()")
+
+    h1 Full name
+    input(v-model="edit_fullname")
+
+    h1 Location
+    input(v-model="edit_location")
+
+    h1 Homepage
+    input(v-model="edit_url")
+
+    div
+      button.success(v-on="click:save()") Update Profile
+
+    h1 Bio
+    markdown-editor(field="edit_bio")
