@@ -1,33 +1,34 @@
 script#thing-view-template(type="text/x-template")
+  #overview
   h1.title {{thing.title || thing.name}}
 
-  bb-carousel(media="{{media}}")
-    | Select <a href="#files">Files</a> to add media.
+  subsection-menu(subsections="{{viewSections}}")
+    button.success(v-show="isOwner" v-on="click:editThing") Edit
+    button.success(v-show="isOwner && !thing.published" v-on="click:publish")
+      | Publish
 
   .overview
+    .details
+      .parent(v-show="thing.parent")
+        .fa.fa-child
+        | a(href="{{thing.parent}}") {{thing.parent}}
+
+      .link
+        .fa.fa-link
+        span.weak(v-show="!thing.url") (No link)
+        a(v-show="thing.url" href="{{thing.url}}" target="_blank") {{thing.url}}
+
+      .published
+        .fa.fa-clock-o
+        span(v-if="thing.published") Published {{thing.published | timeSince}}
+        span(v-if="!thing.published") Unpublished
+
     .owner
-      .fa.fa-user
+      a(href="/{{thing.owner}}")
+        img.avatar(v-attr="src:'/api/profiles/' + thing.owner + '/avatar'")
       | Created by{{' '}}
       a(href="/{{thing.owner}}")
         | {{thing.owner}}
-        //img.avatar(v-attr="src:'/api/profiles/' + thing.owner + '/avatar'")
-
-    .parent(v-show="thing.parent")
-      .fa.fa-child
-      | a(href="{{thing.parent}}") {{thing.parent}}
-
-    .link
-      .fa.fa-link
-      span.weak(v-show="!thing.url") (No link)
-      a(v-show="thing.url" href="{{thing.url}}" target="_blank") {{thing.url}}
-
-    .created
-      .fa.fa-clock-o
-      | Created {{thing.created | timeSince}}
-
-    .modified
-      .fa.fa-clock-o
-      | Modified {{thing.modified | timeSince}}
 
     .stats
       div
@@ -42,11 +43,11 @@ script#thing-view-template(type="text/x-template")
         .value {{thing.comments | humanNumber}}
         .label Comments
 
+      // TODO Add copies/remakes
+
     .license
       h2 License
-      | Permission to use the contents of this project is granted by
-      | <a href="/{{thing.owner}}">{{thing.owner}}</a> under the terms of
-      | the <a href="{{thing.license_url}}">{{thing.license}}</a>.
+      thing-license
 
     .tags
       h2 Tags
@@ -63,11 +64,21 @@ script#thing-view-template(type="text/x-template")
       bb-profiles(profiles="{{stars}}" small="true")
 
   .view-contents
-    h1#introduction Introduction
-    div(v-markdown="thing.instructions")
+    .subsection
+      bb-carousel(media="{{media}}")
 
-    h1#downloads Downloads
-    file-manager(files="{{files}}")
+    .subsection
+      a.top(href="#overview" title="Back to top"): .fa.fa-arrow-circle-up
+      h1#instructions Instructions
+      div(v-markdown="thing.instructions")
 
-    h1#comments Comments
-    bb-comments(comments="{{comments}}")
+    .subsection
+      a.top(href="#overview" title="Back to top"): .fa.fa-arrow-circle-up
+      h1#downloads Downloads
+      file-manager(files="{{files}}")
+      thing-license
+
+    .subsection
+      a.top(href="#overview" title="Back to top"): .fa.fa-arrow-circle-up
+      h1#comments Comments
+      bb-comments(comments="{{comments}}")

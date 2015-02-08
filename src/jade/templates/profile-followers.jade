@@ -1,6 +1,0 @@
-script#profile-followers-template(type="text/x-template")
-  h1 People following {{profile.name}}
-
-  bb-profiles(profiles="{{followers}}")
-  .weak(v-show="!followers.length")
-    | ({{profile.name}} does not yet have any followers.)

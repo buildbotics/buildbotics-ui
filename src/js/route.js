@@ -1,6 +1,6 @@
 'use strict'
 
-var page = require('page.min');
+var page = require('page');
 var app = require('./app');
 var $bb = require('./buildbotics');
 
@@ -50,6 +50,7 @@ function profile_page(ctx) {
 function thing_page(ctx) {
   var profile = ctx.params.profile;
   var thing = ctx.params.thing;
+  console.debug('/' + profile + '/' + thing + '#' + ctx.hash);
 
   if (app.currentPage == 'thing' && app.thingData.thing &&
       app.thingData.thing.owner == profile &&

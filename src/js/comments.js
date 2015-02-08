@@ -1,7 +1,7 @@
 'use strict'
 
 
-var page = require('page.min');
+var page = require('page');
 
 
 module.exports = {

@@ -11,10 +11,11 @@ script#profile-template(type="text/x-template")
         a(href="/{{profile.name}}") {{profile.name}}
 
     .page-content
-      .menu
-        a(v-repeat="subsections" v-attr="href:'#' + $value"
-          v-show="$value != 'edit-profile' || isOwner"
+      .edit-menu(v-show="subsection != 'view'")
+        a(v-repeat="getEditSubsections()" href="#{{$value}}"
           v-class="'subsection-item-' + $value, active:$value == subsection")
           | {{getSubsectionTitle($value)}}
 
-      .section(v-component="profile-{{subsection}}")
+      div(v-class="edit-contents:subsection != 'view'")
+        h1(v-show="subsection != 'view'") {{getSubsectionTitle(subsection)}}
+        div(v-component="profile-{{subsection}}")

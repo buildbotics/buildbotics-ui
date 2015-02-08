@@ -20,6 +20,7 @@ function throttle(func, threshold) {
 
 
 module.exports = {
+  replace: true,
   template: '#markdown-editor-template',
   paramAttributes: ['field', 'placeholder'],
 

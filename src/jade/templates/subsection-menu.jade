@@ -1,0 +1,6 @@
+script#subsection-menu-template(type="text/x-template")
+  .menu
+    a(v-repeat="subsections" v-attr="href:'#' + $value"
+      v-class="'subsection-item-' + $value, active:$value == active")
+      | {{$value | capitalize}}
+    content

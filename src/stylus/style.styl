@@ -3,11 +3,11 @@ page_width = 960px
 min_page_width = 200px
 header_height = 50px
 avatar_size = 40px
-carousel_width = 720px
-carousel_height = carousel_width / golden_ratio
 overview_width = 200px
 content_width = 720px
 edit_menu_width = 8em
+carousel_width = content_width - 20px
+carousel_height = carousel_width / golden_ratio
 
 link_color = #e5aa3d
 link_hover_color = #428bca
@@ -498,6 +498,7 @@ body
     overflow hidden
     cursor pointer
     font-family "Times New Roman", Times, serif
+    text-align left
 
     .image
       width thing_width - 2px
@@ -575,6 +576,10 @@ body
 
 // Thing & Profile common
 .thing-page, .profile-page
+  #overview
+    position absolute
+    top 0
+
   .menu
     background-color #f3f3f3
     border 1px solid border_color
@@ -602,6 +607,10 @@ body
       &:active, &:visited, &:hover, &:focus
         text-decoration none
 
+    button
+      float right
+      margin -0.25em 0.25em 0 0
+
   .overview
     float right
     margin 0 0 1em 1em
@@ -621,16 +630,21 @@ body
       overflow hidden
       text-overflow ellipsis
       white-space nowrap
-      margin-bottom 0.5em
+      margin-bottom 2em
 
     .fa
       width 1.25em
       font-size 12pt
 
-    .stats
+    > .details
+      margin-bottom 1.5em
+
+      > *
+        margin-bottom 0.5em
+
+    > .stats
       white-space normal
       text-align center
-      margin 1em 0
       padding 1em 0
       border-top 1px solid border_color
       border-bottom 1px solid border_color
@@ -672,7 +686,12 @@ body
         text-decoration none
         border-left 3px solid border_color
 
+  .view-contents, .edit-contents
+    max-width content_width
+
   .edit-contents
+    margin-left edit_menu_width + 2em
+
     h1:first-of-type
       text-transform capitalize
 
@@ -682,62 +701,24 @@ body
     button
       margin-top 0.5em
 
-  a.subsection-item-edit-profile, a.subsection-item-edit
-    float right
-    margin-right 0.25em
-    background-color #5cb85c
-    color #fff
-    border-color #4cae4c
+  .view-contents
+    .top
+      display block
+      float right
 
-    &:hover, &.active
-      background-color #449d44
-      border-color #398439
-      color #fff !important
+      .fa
+        color light_text_color
+        font-size 26pt
 
-    &.active
-      border-bottom 1px solid #449d44
+    > .subsection
+      padding 0.25em 0.5em 5em 0.5em
 
-  .view-contents, .edit-contents
-    max-width content_width
-
-  .edit-contents
-    margin-left edit_menu_width + 2em
+      > h1:first-of-type
+        margin-top 0
 
   .page-content > .actions > button
     float right
     margin 0.5em
-
-  .section > .carousel
-    float left
-    margin-right 1em
-
-  .section > .info
-    float right
-    max-width 24em
-    padding 0.5em
-    border 1px solid border_color
-    border-radius 3px
-    background-color #fff
-
-    th, td
-      padding 0.25em
-      text-overflow ellipsis
-      overflow hidden
-
-    th
-      text-align right
-      color medium_text_color
-      white-space nowrap
-      vertical-align top
-
-    td
-      max-width 19em
-
-    select
-      width 18.75em
-
-    input, .tag-editor
-      width 18em
 
   .markdown
     padding 0 1em
@@ -755,7 +736,16 @@ body
 // Thing
 .thing-page
   .overview
-    .license, .tags, .stars
+    .owner
+      text-align center
+
+      .avatar
+        display block
+        margin auto
+        width 100px
+        height 100px
+
+    .owner, .published, .license, .tags, .stars
       white-space normal
 
   .delete-thing, .rename-thing
@@ -1170,7 +1160,6 @@ input, textarea, select
 
   .markdown-content
     border-top 1px solid border_color
-    padding 0.25em
 
   .markdown-preview
     padding 0 1em
@@ -1183,6 +1172,7 @@ input, textarea, select
     border-bottom-left-radius 3px
     border-bottom-right-radius 3px
     border 1px solid #fff
+    padding 0.25em
 
     &.CodeMirror-focused
       border 1px solid rgba(82, 168, 236, 0.8)

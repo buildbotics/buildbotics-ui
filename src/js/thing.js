@@ -1,7 +1,7 @@
 'use strict'
 
 var $bb = require('./buildbotics');
-var page = require('page.min');
+var page = require('page');
 
 var subsections = 'view edit-details edit-instructions edit-files dangerous';
 var fields = 'title url license tags';
@@ -17,15 +17,19 @@ module.exports = {
 
 
   components: {
-    'thing-view': {inherit: true, template: '#thing-view-template'},
-    'thing-edit': {inherit: true, template: '#thing-edit-template'},
+    'thing-license': {
+      replace: true,
+      inherit: true,
+      template: '#thing-license-template'
+    }
   },
 
 
   data: function  () {
     return {
       newName: '',
-      nameIsValid: false
+      nameIsValid: false,
+      viewSections: 'instructions downloads comments'.split(' ')
     }
   },
 
@@ -60,11 +64,6 @@ module.exports = {
         });
 
       return false; // Cancel event propagation
-    },
-
-
-    'is-owner': function (isOwner) {
-      //this.$broadcast('file-manager-can-edit', isOwner);
     },
 
 
@@ -104,7 +103,10 @@ module.exports = {
 
 
   ready: function () {
-    if (/#?comment-\d+/.test(location.hash)) location.hash = location.hash;
+    if (/#?comment-\d+/.test(location.hash)) {
+      var target = $(location.hash);
+      if (target.length) target[0].scrollIntoView();
+    }
   },
 
 
@@ -121,12 +123,10 @@ module.exports = {
     // From subsections
     onSubsectionChange: function (newSubsection, oldSubsection) {
       if (newSubsection == 'edit-details' || oldSubsection == 'edit-details')
-        Vue.nextTick(this.edit.bind(this));
+        this.edit();
 
       if (newSubsection = 'edit-instructions')
-        Vue.nextTick(function () {
-          this.$set('edit_instructions', this.thing.instructions);
-        }.bind(this))
+        this.$set('edit_instructions', this.thing.instructions);
     },
 
 
@@ -151,14 +151,14 @@ module.exports = {
     },
 
 
-    startEditing: function () {
+    editThing: function () {
       location.hash = 'edit-details';
     },
 
 
     publish: function () {
       var self = this;
-      $bb.put(this.getAPIURL(), {publish: true})
+      $bb.put(this.getAPIURL() + '/publish')
         .done(function () {self.$set('thing.published', true)})
     },
 

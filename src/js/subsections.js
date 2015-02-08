@@ -31,7 +31,6 @@ module.exports = function (prefix, subsections) {
 
     created: function () {
       this.$set('subsections', subsections);
-      this.setSubsection(subsections[0]);
 
       // Watch subsection changes
       var app = require('./app');
@@ -67,7 +66,9 @@ module.exports = function (prefix, subsections) {
         this.$set('subsection', subsection);
 
         // Callback
-        this.onSubsectionChange(subsection, oldSubsection);
+        Vue.nextTick(function () {
+          this.onSubsectionChange(subsection, oldSubsection);
+        }.bind(this))
       }
     }
   }

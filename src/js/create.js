@@ -3,7 +3,7 @@
 
 var debounce = require('./debounce');
 var $bb = require('./buildbotics');
-var page = require('page.min');
+var page = require('page');
 
 
 module.exports = {

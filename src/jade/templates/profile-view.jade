@@ -1,0 +1,101 @@
+script#profile-view-template(type="text/x-template")
+  #overview
+
+  subsection-menu(subsections="{{viewSections}}")
+    button.success(v-show="isOwner" v-on="click:editProfile") Edit
+
+  .overview
+    img.picture(v-attr="src:getPicture()")
+
+    .fullname
+      span {{profile.fullname}}
+
+    .name {{profile.name}}
+
+
+    .stats
+      div
+        a.value(href="#followers") {{profile.followers | humanNumber}}
+        .label Followers
+
+      div
+        .value {{profile.points | humanNumber}}
+        .label Points
+
+      div
+        a.value(href="#badges") {{profile.badges | humanNumber}}
+        .label Badges
+
+      div
+        a.value(href="#starred") {{profile.stars | humanNumber}}
+        .label Starred
+
+      div
+        a.value(href="#following") {{profile.following | humanNumber}}
+        .label Following
+
+    .details
+      .location
+        .fa.fa-map-marker
+        span.weak(v-show="!profile.location") (Not set)
+        span {{profile.location}}
+
+      .homepage
+        .fa.fa-link
+        span.weak(v-show="!profile.url") (Not set)
+        a(href="{{profile.url}}" target="_blank") {{profile.url}}
+
+      .joined
+        .fa.fa-clock-o
+        td Joined {{profile.joined | timeSince}}
+
+  .view-contents
+    .subsection
+      h1#creations Creations
+      bb-things(things="{{things}}")
+      .weak(v-show="!things.length && !isOwner") (No creations)
+      .weak(v-show="!things.length && isOwner")
+        | Click <button v-on="click:create" class="success">Create</button> to
+        | start your first project.
+
+    .subsection
+      a.top(href="#overview" title="Back to top"): .fa.fa-arrow-circle-up
+      h1#bio Bio
+      .weak(v-show="!profile.bio && !isOwner") (Bio empty)
+      div(v-show="!profile.bio && isOwner")
+        | Click <button v-on="click:editProfile()" class="success">Edit Profile
+        | </button> to add a bio.
+      div(v-markdown="profile.bio" v-show="profile.bio")
+
+    .subsection
+      a.top(href="#overview" title="Back to top"): .fa.fa-arrow-circle-up
+      h1#starred Starred projects
+      bb-things(things="{{starred}}")
+      .weak(v-show="!starred.length")
+        | ({{profile.name | capitalize}} has not yet starred any projects)
+
+    .subsection
+      a.top(href="#overview" title="Back to top"): .fa.fa-arrow-circle-up
+      h1#badges Badges earned
+      .weak(v-show="!badges.length")
+        | ({{profile.name | capitalize}} has not yet earned any badges.)
+
+    .subsection
+      a.top(href="#overview" title="Back to top"): .fa.fa-arrow-circle-up
+      h1#followers People following {{profile.name}}
+      bb-profiles(profiles="{{followers}}")
+      .weak(v-show="!followers.length")
+        | ({{profile.name | capitalize}} does not yet have any followers.)
+
+    .subsection
+      a.top(href="#overview" title="Back to top"): .fa.fa-arrow-circle-up
+      h1#following People {{profile.name}} is following
+
+      bb-profiles(profiles="{{following}}")
+      .weak(v-show="!following.length")
+        | ({{profile.name | capitalize}} is not yet following anyone.)
+
+    .subsection
+      a.top(href="#overview" title="Back to top"): .fa.fa-arrow-circle-up
+      h1#activity Recent activity
+      bb-events(events="{{events}}")

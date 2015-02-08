@@ -1,0 +1,11 @@
+script#profile-edit-details-template(type="text/x-template")
+  h2 Full name
+  input(v-model="edit_fullname")
+
+  h2 Location
+  input(v-model="edit_location")
+
+  h2 Homepage
+  input(v-model="edit_url")
+
+  div: button.success(v-on="click:save()") Update Details

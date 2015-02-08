@@ -1,6 +1,0 @@
-script#profile-creations-template(type="text/x-template")
-  bb-things(things="{{things}}")
-  .weak(v-show="!things.length && !isOwner()") (No creations)
-  .weak(v-show="!things.length && isOwner()")
-    | Click <button v-on="click:create" class="success">Create</button> to
-    | start your first project.

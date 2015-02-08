@@ -1,7 +1,7 @@
 'use strict'
 
 var $bb = require('./buildbotics');
-var page = require('page.min');
+var page = require('page');
 var debounce = require('./debounce');
 
 
@@ -53,6 +53,7 @@ module.exports = new Vue({
     'file-manager': require('./file-manager'),
     'markdown-editor': require('./markdown'),
     'tag-editor': require('./tag-editor'),
+    'subsection-menu': require('./subsection-menu'),
     'thing-name-validator': require('./thing-name-validator')
   },
 

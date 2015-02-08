@@ -13,21 +13,12 @@ script#thing-template(type="text/x-template")
         a(href="/{{thing.owner}}/{{thing.name}}") {{thing.name}}
 
     .page-content
-      .actions
-        button.success(v-show="isOwner && subsection == 'view'"
-          v-on="click:startEditing") Edit
-        button.success(v-show="isOwner && !thing.published"
-          v-on="click:publish") Publish
+      .edit-menu(v-show="subsection != 'view'")
+        a(v-repeat="getEditSubsections()" href="#{{$value}}"
+          v-class="'subsection-item-' + $value, active:$value == subsection")
+          | {{getSubsectionTitle($value)}}
 
-      .section(v-component="thing-view"
-        v-if="!isOwner || subsection == 'view'")
+      div(v-class="edit-contents:subsection != 'view'")
+        h1(v-show="subsection != 'view'") {{getSubsectionTitle(subsection)}}
+        div(v-component="thing-{{subsection}}")
 
-      .section(v-show="isOwner && subsection != 'view'")
-        .edit-menu
-          a(v-repeat="getEditSubsections()" href="#{{$value}}"
-            v-class="'subsection-item-' + $value, active:$value == subsection")
-            | {{getSubsectionTitle($value)}}
-
-        .edit-contents
-          h1 {{getSubsectionTitle(subsection)}}
-          div(v-component="thing-{{subsection}}")

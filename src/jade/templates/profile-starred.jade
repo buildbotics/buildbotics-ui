@@ -1,6 +1,0 @@
-script#profile-starred-template(type="text/x-template")
-  h1 Projects {{profile.name}} has starred
-
-  bb-things(things="{{starred}}")
-  .weak(v-show="!starred.length")
-    | (This user has not yet starred any projects)

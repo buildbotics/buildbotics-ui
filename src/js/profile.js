@@ -1,16 +1,22 @@
 'use strict'
 
 
-var page = require('page.min');
+var page = require('page');
 var $bb = require('./buildbotics');
 
-var subsections =
-  'profile bio starred badges followers following activity edit-profile';
+var subsections = 'view edit-picture edit-details edit-bio'
 var fields = 'fullname location url bio';
 
 
 module.exports = {
   template: '#profile-template',
+
+
+  data: function  () {
+    return {
+      viewSections: 'bio starred badges followers following activity'.split(' ')
+    }
+  },
 
 
   created: function () {
@@ -26,14 +32,23 @@ module.exports = {
   methods: {
     // From subsections
     onSubsectionChange: function (newSubsection, oldSubsection) {
-      var self = this;
-      if (newSubsection == 'edit-profile')
-        Vue.nextTick(function () {self.edit()})
+      this.edit()
     },
 
 
-    isOwner: function () {
-      return require('./app').isUser(this.profile.name);
+    getSubsectionTitle: function (subsection) {
+      return subsection.replace(/^edit-/, '');
+    },
+
+
+    // From login-listener
+    getOwner: function () {
+      return this.profile.name;
+    },
+
+
+    getEditSubsections: function () {
+      return this.subsections.filter(function (value) {return value != 'view'})
     },
 
 
@@ -59,13 +74,14 @@ module.exports = {
 
 
     editProfile: function () {
-      location.hash = 'edit-profile';
+      location.hash = 'edit-picture';
     }
   },
 
 
   mixins: [
     require('./subsections')('profile', subsections),
-    require('./field-editor')('profile', fields)
+    require('./field-editor')('profile', fields),
+    require('./login-listener')
   ]
 }

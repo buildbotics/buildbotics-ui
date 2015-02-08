@@ -16,7 +16,8 @@ script#file-template(type="text/x-template")
     span(v-show="!file.percent || file.percent == 100")
       | {{file.size | humanSize}}
 
-  td.downloads {{file.downloads | humanNumber}}
+  td.downloads(title="{{file.downloads}} downloads")
+    | {{file.downloads | humanNumber}}
 
   td.actions
     .delete
