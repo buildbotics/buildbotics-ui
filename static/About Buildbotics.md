@@ -13,11 +13,11 @@ Provide a web site that enables sharing of project designs and sharing of inform
 Buildbotics LLC is a California-based Limited Liability Corporation that was founded by Joseph Coffland and Doug Coffland (yes, we're related) in 2014.  Joe is President and Doug is Vice-Presicent.  At present, Joe and Doug are the only employees of Buildbotics LLC.  It has been a labor of love and neither Joe nor Doug currently receive a salary for their efforts.
 
  <figure>
-  <img src="https://github.com/DougCoffland/buildbotics-ui/blob/master/static/images/Joe.png" height="300" width = "300">
   <figcaption>Joseph Coffland</figcaption>
-</figure> <figure>
-  <img src="https://github.com/DougCoffland/buildbotics-ui/blob/master/static/images/Doug.png" height="300" width = "300">
+    <img src="https://github.com/DougCoffland/buildbotics-ui/blob/master/static/images/Joe.png" height="300" width = "300">     </figure> <figure>
   <figcaption>Doug Coffland</figcaption>
+    <img src="https://github.com/DougCoffland/buildbotics-ui/blob/master/static/images/Doug.png" height="300" width = "300">
+
 </figure> 
 
 While BuildBotics.com is currently a small startup company, we have significant capabilities and a vast amount of related experience. This includes:
