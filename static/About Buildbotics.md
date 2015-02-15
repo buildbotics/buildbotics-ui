@@ -14,7 +14,7 @@ Buildbotics LLC is a California-based Limited Liability Corporation that was fou
 
 | <img src="https://github.com/DougCoffland/buildbotics-ui/blob/master/static/images/Joe.png" height="300" width = "300">           |<img src="https://github.com/DougCoffland/buildbotics-ui/blob/master/static/images/Doug.png" height="300" width = "300">                                       |
 |----------------------|:-------------------------------------------------------:|
-|-><b>Joseph Coffland</b><- |-><b>Doug Coffland </b><-                           |
+|   <b>Joseph Coffland</b>|   <b>Doug Coffland </b>                          |
 
 
 While BuildBotics.com is currently a small startup company, we have significant capabilities and a vast amount of related experience. This includes:
