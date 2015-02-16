@@ -1,18 +1,22 @@
 #Buildbotics LLC Terms of Use
 #Effective as of February 13th, 2015
-Welcome to the Buldbotics LLC website.  The following Terms of Use apply when you view or use the Service provided by our website, which is  located at www.buildbotics.com. Please review the following terms carefully. By accessing or using the Service, you signify your agreement to these Terms of Use. If you do not agree to these Terms of Use, you may not access or use the Service.
+Welcome to the Buldbotics LLC website (the Service).  The following Terms of Use apply when you view or use the Service provided by our website, which is  located at www.buildbotics.com. Please review the following terms carefully. By accessing or using the Service, you signify your agreement to these Terms of Use. If you do not agree to these Terms of Use, you may not access or use the Service.
 ##Privacy Policy
-Buildbotics LLC respects the privacy of its Service users. Please refer to the Buildbotics Privacy Policy (enter url) which explains how we collect, use, and disclose information that pertains to your privacy. When you access or use the Service, you signify your agreement to this Privacy Policy.
+Buildbotics LLC (the Company) respects the privacy of its Service users. Please refer to the [Buildbotics Privacy Policy](https://github.com/buildbotics/buildbotics-ui/blob/master/static/Privacy%20Policy.md) which explains how we collect, use, and disclose information that pertains to your privacy. When you access or use the Service, you signify your agreement to this Privacy Policy.
 ##About the Service
 Buildbotics LLC provides the following services through its web site at www.buildbotics.com:
 * Project sharing - Users are encouraged to post their projects on the web site so that other users can view and possibly reproduce those projects.  Users sharing projects may select from several licensing agreements for sharing their work.
 * Learning - Buildbotics LLC periodically posts information believed to be of interest to the CNC routing and small scale manufacturing community and encourages its users to do the same.
 * Buildbotics LLC also provides its users with the ability to comment on and rate the work of other users.
+
 ##Rules for User Conduct and Use of the Service
+
 Buildbotics has no age or geographical restrictions for its users.
 
-Users who sign up for the Service, will login or register using their existing accounts on Google, Facebook, or Github.  This will create personalized accounts on the Buildbotics web site which include allow personalized access to the services provided by Buildbotics LLC. You agree to notify us immediately of any unauthorized use of your account. Buildbotics LLC will not be responsible for any liabilities, losses, or damages arising out of the unauthorized use of your account.
+Users who sign up for the Service, will login or register using their existing accounts on Google, Facebook, or Github.  This will create personalized accounts on the Buildbotics web site which include personalized access to the services provided by Buildbotics LLC. You agree to notify us immediately of any unauthorized use of your account. Buildbotics LLC will not be responsible for any liabilities, losses, or damages arising out of the unauthorized use of your account.
+
 ##Use Restrictions
+
 Your permission to use the Site is conditioned upon the following Use Restrictions and Conduct Restrictions: You agree that you will not under any circumstances:
 * post any information that is abusive, threatening, obscene, defamatory, libelous, or racially, sexually, religiously, or otherwise objectionable and offensive;
 * use the service for any unlawful purpose or for the promotion of illegal activities;
@@ -26,6 +30,7 @@ Your permission to use the Site is conditioned upon the following Use Restrictio
 * publish or link to objectionable or potentially obscene content.
 
 ##Posting and Conduct Restrictions
+
 When you create your own personalized account, you will be able to provide user content. You are solely responsible for the User Content that you post, upload, link to or otherwise make available via the Service. You agree that we are only acting as a passive conduit for your online distribution and publication of your User Content. Buildbotics LLC, however, reserves the right to remove any User Content from the Service at its discretion.  Furthermore reserves all rights to advertising the services or products of third party entities from the Buildbotics web site.
 
 The following rules pertain to User Content. By transmitting and submitting any User Content while using the Service, you agree as follows:
