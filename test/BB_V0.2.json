@@ -1,0 +1,810 @@
+[
+  [
+    {
+      "COMMENT": "Exercises all links on main page", 
+      "type": "testName", 
+      "value": "BUILDBOTICS MAIN PAGE TEST"
+    }, 
+    {
+      "type": "comment", 
+      "value": "HEADER SUBROUTINE TEST STARTS HERE"
+    }, 
+    {
+      "type": "subroutine", 
+      "value": "Test Header"
+    }, 
+    {
+      "COMMENT": "find tag with id = header-content", 
+      "type": "find", 
+      "value": "header-content", 
+      "criteria": "id"
+    }, 
+    {
+      "COMMENT": "Find the tag with class = logo below the header-content tag", 
+      "type": "findSub", 
+      "value": "logo", 
+      "criteria": "class"
+    }, 
+    {
+      "type": "click"
+    }, 
+    {
+      "COMMENT": "find the tag with id == content", 
+      "type": "find", 
+      "value": "content", 
+      "criteria": "id"
+    }, 
+    {
+      "COMMENT": "find the image tag", 
+      "type": "findSub", 
+      "value": "img", 
+      "criteria": "tag"
+    }, 
+    {
+      "COMMENT": "Verify that the large image in the center of the page is displayed", 
+      "type": "assert", 
+      "value": "https://test.buildbotics.com/images/buildbotics_explore_learn_create.png", 
+      "criteria": "src"
+    }, 
+    {
+      "type": "back"
+    }, 
+    {
+      "COMMENT": "find the EXPLORE tag in the header, click it and verify that the menu appears", 
+      "type": "find", 
+      "value": "main-header-nav", 
+      "criteria": "id"
+    }, 
+    {
+      "type": "findSub", 
+      "value": "EXPLORE", 
+      "criteria": "link text"
+    }, 
+    {
+      "type": "click"
+    }, 
+    {
+      "type": "find", 
+      "value": "main-header-nav", 
+      "criteria": "id"
+    }, 
+    {
+      "type": "findSub", 
+      "value": "explore-nav", 
+      "criteria": "id"
+    }, 
+    {
+      "type": "assert", 
+      "criteria": "is_displayed"
+    }, 
+    {
+      "COMMENT": "Find the CREATIONS entry on the Explore menu, click it and verify that Creations page appears", 
+      "type": "findSub", 
+      "value": "CREATIONS", 
+      "criteria": "link text"
+    }, 
+    {
+      "type": "click"
+    }, 
+    {
+      "type": "find", 
+      "value": "breadcrumbs", 
+      "criteria": "class"
+    }, 
+    {
+      "type": "assert", 
+      "value": "Creations", 
+      "criteria": "text"
+    }, 
+    {
+      "type": "back"
+    }, 
+    {
+      "COMMENT": "Click Explore to reopen dropdown menu", 
+      "type": "find", 
+      "value": "main-header-nav", 
+      "criteria": "id"
+    }, 
+    {
+      "type": "findSub", 
+      "value": "EXPLORE", 
+      "criteria": "link text"
+    }, 
+    {
+      "type": "click"
+    }, 
+    {
+      "COMMENT": "Click PEOPLE from EXPLORE menu, verify that People page opens, click back, reopen EXPLORE menu", 
+      "type": "find", 
+      "value": "main-header-nav", 
+      "criteria": "id"
+    }, 
+    {
+      "type": "findSub", 
+      "value": "PEOPLE", 
+      "criteria": "link text"
+    }, 
+    {
+      "type": "click"
+    }, 
+    {
+      "type": "find", 
+      "value": "breadcrumbs", 
+      "criteria": "class"
+    }, 
+    {
+      "type": "assert", 
+      "value": "People", 
+      "criteria": "text"
+    }, 
+    {
+      "type": "back"
+    }, 
+    {
+      "type": "find", 
+      "value": "main-header-nav", 
+      "criteria": "id"
+    }, 
+    {
+      "type": "findSub", 
+      "value": "EXPLORE", 
+      "criteria": "link text"
+    }, 
+    {
+      "type": "click"
+    }, 
+    {
+      "COMMENT": "Click TAGS in EXPLORE menu and verify that Tags page opens, click back, reopen EXPLORE menu", 
+      "type": "find", 
+      "value": "main-header-nav", 
+      "criteria": "id"
+    }, 
+    {
+      "type": "findSub", 
+      "value": "TAGS", 
+      "criteria": "link text"
+    }, 
+    {
+      "type": "click"
+    }, 
+    {
+      "type": "find", 
+      "value": "breadcrumbs", 
+      "criteria": "class"
+    }, 
+    {
+      "type": "assert", 
+      "value": "Tags", 
+      "criteria": "text"
+    }, 
+    {
+      "type": "back"
+    }, 
+    {
+      "type": "find", 
+      "value": "main-header-nav", 
+      "criteria": "id"
+    }, 
+    {
+      "type": "findSub", 
+      "value": "EXPLORE", 
+      "criteria": "link text"
+    }, 
+    {
+      "type": "click"
+    }, 
+    {
+      "COMMENT": "Click ACTIVITY in EXPLORE menu and verify that Activity page opens, click back", 
+      "type": "find", 
+      "value": "main-header-nav", 
+      "criteria": "id"
+    }, 
+    {
+      "type": "findSub", 
+      "value": "ACTIVITY", 
+      "criteria": "link text"
+    }, 
+    {
+      "type": "click"
+    }, 
+    {
+      "type": "find", 
+      "value": "breadcrumbs", 
+      "criteria": "class"
+    }, 
+    {
+      "type": "assert", 
+      "value": "Activity", 
+      "criteria": "text"
+    }, 
+    {
+      "type": "back"
+    }, 
+    {
+      "COMMENT": "Click LEARN in header, verify that the Learn page opens, click back", 
+      "type": "find", 
+      "value": "main-header-nav", 
+      "criteria": "id"
+    }, 
+    {
+      "type": "findSub", 
+      "value": "LEARN", 
+      "criteria": "link text"
+    }, 
+    {
+      "type": "click"
+    }, 
+    {
+      "type": "find", 
+      "value": "breadcrumbs", 
+      "criteria": "class"
+    }, 
+    {
+      "type": "assert", 
+      "value": "Learn", 
+      "criteria": "text"
+    }, 
+    {
+      "type": "back"
+    }, 
+    {
+      "COMMENT": "Click CREATE in header, verify that the Create page opens, click back", 
+      "type": "find", 
+      "value": "main-header-nav", 
+      "criteria": "id"
+    }, 
+    {
+      "type": "findSub", 
+      "value": "CREATE", 
+      "criteria": "link text"
+    }, 
+    {
+      "type": "click"
+    }, 
+    {
+      "type": "find", 
+      "value": "breadcrumbs", 
+      "criteria": "class"
+    }, 
+    {
+      "type": "assert", 
+      "value": "Create", 
+      "criteria": "text"
+    }, 
+    {
+      "type": "back"
+    }, 
+    {
+      "COMMENT": "Click Login or Register, verify that login page opens, click back", 
+      "type": "find", 
+      "value": "context-header-nav", 
+      "criteria": "id"
+    }, 
+    {
+      "type": "findSub", 
+      "value": "Login or Register", 
+      "criteria": "link text"
+    }, 
+    {
+      "type": "click"
+    }, 
+    {
+      "type": "find", 
+      "value": "login-page", 
+      "criteria": "class"
+    }, 
+    {
+      "type": "assert", 
+      "value": "Login or Register with:", 
+      "criteria": "text"
+    }, 
+    {
+      "type": "back"
+    }, 
+    {
+      "type": "wait", 
+      "value": "1"
+    }, 
+    {
+      "type": "return"
+    }, 
+    {
+      "type": "comment", 
+      "value": "FOOTER SUBROUTINE TEST STARTS HERE"
+    }, 
+    {
+      "type": "subroutine", 
+      "value": "Footer Test"
+    }, 
+    {
+      "type": "find", 
+      "value": "footer", 
+      "criteria": "id"
+    }, 
+    {
+      "type": "findSub", 
+      "value": "Terms", 
+      "criteria": "link text"
+    }, 
+    {
+      "type": "click"
+    }, 
+    {
+      "type": "wait", 
+      "value": ".5"
+    }, 
+    {
+      "type": "find", 
+      "value": "breadcrumbs", 
+      "criteria": "class"
+    }, 
+    {
+      "type": "assert", 
+      "value": "Terms", 
+      "errMsg": "Link to Terms in Footer failed", 
+      "criteria": "text"
+    }, 
+    {
+      "type": "back"
+    }, 
+    {
+      "type": "wait", 
+      "value": ".5"
+    }, 
+    {
+      "type": "find", 
+      "value": "footer", 
+      "criteria": "id"
+    }, 
+    {
+      "type": "findSub", 
+      "value": "Privacy", 
+      "criteria": "link text"
+    }, 
+    {
+      "type": "click"
+    }, 
+    {
+      "type": "wait", 
+      "value": ".5"
+    }, 
+    {
+      "type": "find", 
+      "value": "breadcrumbs", 
+      "criteria": "class"
+    }, 
+    {
+      "type": "assert", 
+      "value": "Privacy", 
+      "errMsg": "Privacy link in footer failed", 
+      "criteria": "text"
+    }, 
+    {
+      "type": "back"
+    }, 
+    {
+      "type": "wait", 
+      "value": ".5"
+    }, 
+    {
+      "type": "find", 
+      "value": "footer", 
+      "criteria": "id"
+    }, 
+    {
+      "type": "findSub", 
+      "value": "Contact", 
+      "criteria": "link text"
+    }, 
+    {
+      "type": "click"
+    }, 
+    {
+      "type": "wait", 
+      "value": ".5"
+    }, 
+    {
+      "type": "find", 
+      "value": "breadcrumbs", 
+      "criteria": "class"
+    }, 
+    {
+      "type": "assert", 
+      "value": "Contact", 
+      "errMsg": "Link to Contact in footer failed", 
+      "criteria": "link text"
+    }, 
+    {
+      "type": "back"
+    }, 
+    {
+      "type": "wait", 
+      "value": ".5"
+    }, 
+    {
+      "type": "return"
+    }, 
+    {
+      "type": "comment", 
+      "value": "BUILDBOTICS MAIN PAGE BODY TEST STARTS HERE"
+    }, 
+    {
+      "type": "openSite", 
+      "value": "https://test.buildbotics.com"
+    }, 
+    {
+      "type": "wait", 
+      "value": ".5"
+    }, 
+    {
+      "type": "find", 
+      "value": "content", 
+      "criteria": "id"
+    }, 
+    {
+      "type": "findSub", 
+      "value": "img", 
+      "criteria": "tag"
+    }, 
+    {
+      "type": "assert", 
+      "errMsg": "Failed to open main page at beginning of Main Page test", 
+      "value": "https://test.buildbotics.com/images/buildbotics_explore_learn_create.png", 
+      "criteria": "src"
+    }, 
+    {
+      "type": "gosub", 
+      "value": "Test Header"
+    }, 
+    {
+      "COMMENT": "Click Explore from main body, confirm that Explore page appeared, click back", 
+      "type": "find", 
+      "errMsg": "MAIN PAGE, CAN'T FIND CONTENT ID FOR EXPLORE", 
+      "value": "content", 
+      "criteria": "id"
+    }, 
+    {
+      "type": "findSub", 
+      "errMsg": "MAIN PAGE, CAN'T FIND EXPLORE TEXT IN MAIN BODY", 
+      "value": "Explore", 
+      "criteria": "link text"
+    }, 
+    {
+      "type": "click", 
+      "errMsg": "MAIN PAGE, CLICK ON EXPLORE IN MAIN BODY FAILED"
+    }, 
+    {
+      "type": "find", 
+      "errMsg": "UNABLE TO FIND BREADCRUMBS ON EXPLORE PAGE", 
+      "value": "breadcrumbs", 
+      "criteria": "class"
+    }, 
+    {
+      "type": "assert", 
+      "errMsg": "MAIN PAGE LINK TO EXPLORE PAGE FAILED", 
+      "value": "Explore", 
+      "criteria": "text"
+    }, 
+    {
+      "type": "goto", 
+      "value": "https://test.buildbotics.com"
+    }, 
+    {
+      "type": "wait", 
+      "value": "1"
+    }, 
+    {
+      "COMMENT": "Click Learn from main body, confirm that Learn page appeared, click back", 
+      "type": "find", 
+      "errMsg": "MAIN PAGE, CAN'T FIND CONTENT ID FOR LEARN", 
+      "value": "content", 
+      "criteria": "id"
+    }, 
+    {
+      "type": "findSub", 
+      "errMsg": "MAIN PAGE, CAN'T FIND LEARN TEXT IN MAIN BODY", 
+      "value": "Learn", 
+      "criteria": "text"
+    }, 
+    {
+      "type": "click", 
+      "errMsg": "MAIN PAGE, CLICK ON LEARN IN MAIN BODY FAILED"
+    }, 
+    {
+      "type": "find", 
+      "errMsg": "UNABLE TO FIND BREADCRUMBS ON LEARN PAGE", 
+      "value": "breadcrumbs", 
+      "criteria": "class"
+    }, 
+    {
+      "type": "wait", 
+      "value": ".5"
+    }, 
+    {
+      "type": "assert", 
+      "errMsg": "MAIN PAGE LINK TO LEARN PAGE FAILED", 
+      "value": "Learn", 
+      "criteria": "text"
+    }, 
+    {
+      "type": "back"
+    }, 
+    {
+      "type": "wait", 
+      "value": "1"
+    }, 
+    {
+      "COMMENT": "Click Create from main body, confirm that Create page appeared, click back", 
+      "type": "find", 
+      "errMsg": "MAIN PAGE, CAN'T FIND CONTENT ID FOR CREATE", 
+      "value": "content", 
+      "criteria": "id"
+    }, 
+    {
+      "type": "findSub", 
+      "errMsg": "MAIN PAGE, CAN'T FIND CREATE TEXT IN MAIN BODY", 
+      "value": "Create", 
+      "criteria": "text"
+    }, 
+    {
+      "type": "click", 
+      "errMsg": "MAIN PAGE, CLICK ON CREATE IN MAIN BODY FAILED"
+    }, 
+    {
+      "type": "find", 
+      "errMsg": "UNABLE TO FIND BREADCRUMBS ON CREATE PAGE", 
+      "value": "breadcrumbs", 
+      "criteria": "class"
+    }, 
+    {
+      "type": "assert", 
+      "errMsg": "MAIN PAGE LINK TO CREATE PAGE FAILED", 
+      "value": "Create", 
+      "criteria": "text"
+    }, 
+    {
+      "type": "back"
+    }, 
+    {
+      "type": "wait", 
+      "value": "1"
+    }, 
+    {
+      "COMMENT": "Click Points from main body, confirm that Points page appeared, click back", 
+      "type": "find", 
+      "errMsg": "MAIN PAGE, CAN'T FIND CONTENT ID FOR POINTS", 
+      "value": "content", 
+      "criteria": "id"
+    }, 
+    {
+      "type": "findSub", 
+      "errMsg": "MAIN PAGE, CAN'T FIND POINTS TEXT IN MAIN BODY", 
+      "value": "points", 
+      "criteria": "text"
+    }, 
+    {
+      "type": "click", 
+      "errMsg": "MAIN PAGE, CLICK ON POINTS IN MAIN BODY FAILED"
+    }, 
+    {
+      "type": "wait", 
+      "value": ".5"
+    }, 
+    {
+      "type": "find", 
+      "errMsg": "UNABLE TO FIND BREADCRUMBS ON POINTS PAGE", 
+      "value": "breadcrumbs", 
+      "criteria": "class"
+    }, 
+    {
+      "type": "assert", 
+      "errMsg": "MAIN PAGE LINK TO POINTS PAGE FAILED", 
+      "value": "Points", 
+      "criteria": "text"
+    }, 
+    {
+      "type": "back"
+    }, 
+    {
+      "type": "wait", 
+      "value": "1"
+    }, 
+    {
+      "COMMENT": "Click Badges from main body, confirm that Badges page appeared, click back", 
+      "type": "find", 
+      "errMsg": "MAIN PAGE, CAN'T FIND CONTENT ID FOR BADGES", 
+      "value": "content", 
+      "criteria": "id"
+    }, 
+    {
+      "type": "findSub", 
+      "errMsg": "MAIN PAGE, CAN'T FIND BADGES TEXT IN MAIN BODY", 
+      "value": "badges", 
+      "criteria": "text"
+    }, 
+    {
+      "type": "click", 
+      "errMsg": "MAIN PAGE, CLICK ON BADGES IN MAIN BODY FAILED"
+    }, 
+    {
+      "type": "wait", 
+      "value": ".5"
+    }, 
+    {
+      "type": "find", 
+      "errMsg": "UNABLE TO FIND BREADCRUMBS ON BADGES PAGE", 
+      "value": "breadcrumbs", 
+      "criteria": "class"
+    }, 
+    {
+      "type": "assert", 
+      "errMsg": "MAIN PAGE LINK TO BADGES PAGE FAILED", 
+      "value": "Badges", 
+      "criteria": "text"
+    }, 
+    {
+      "type": "back"
+    }, 
+    {
+      "type": "wait", 
+      "value": "1"
+    }, 
+    {
+      "type": "gosub", 
+      "value": "Footer Test"
+    }, 
+    {
+      "type": "comment", 
+      "value": "END OF BUILDBOTICS MAIN BODY TESTING"
+    }, 
+    {
+      "type": "testName", 
+      "value": "BUILDBOTICS CREATIONS TEST NOT LOGGED IN"
+    }, 
+    {
+      "COMMENT": "Start at the main page, select creations from EXPLORE pull down and click it to get to Creations", 
+      "type": "openSite", 
+      "value": "https://test.buildbotics.com"
+    }, 
+    {
+      "type": "wait", 
+      "value": ".5"
+    }, 
+    {
+      "type": "find", 
+      "value": "main-header-nav", 
+      "criteria": "id"
+    }, 
+    {
+      "type": "findSub", 
+      "value": "EXPLORE", 
+      "criteria": "link text"
+    }, 
+    {
+      "type": "click"
+    }, 
+    {
+      "type": "find", 
+      "value": "main-header-nav", 
+      "criteria": "id"
+    }, 
+    {
+      "type": "findSub", 
+      "value": "explore-nav", 
+      "criteria": "id"
+    }, 
+    {
+      "type": "findSub", 
+      "value": "CREATIONS", 
+      "criteria": "link text"
+    }, 
+    {
+      "type": "click"
+    }, 
+    {
+      "type": "wait", 
+      "value": ".5"
+    }, 
+    {
+      "type": "find", 
+      "value": "breadcrumbs", 
+      "criteria": "class"
+    }, 
+    {
+      "type": "assert", 
+      "errMsg": "Couldn't find Creations in breadcrumbs of Creations page", 
+      "value": "Creations", 
+      "criteria": "text"
+    }, 
+    {
+      "type": "gosub", 
+      "value": "Test Header"
+    }, 
+    {
+      "type": "comment", 
+      "value": "Header test from CREATIONS COMPLETED"
+    }, 
+    {
+      "type": "find", 
+      "value": "breadcrumbs", 
+      "criteria": "class"
+    }, 
+    {
+      "type": "findSub", 
+      "value": "Creations", 
+      "criteria": "link text"
+    }, 
+    {
+      "type": "click"
+    }, 
+    {
+      "type": "wait", 
+      "value": ".1"
+    }, 
+    {
+      "type": "find", 
+      "value": "breadcrumbs", 
+      "criteria": "class"
+    }, 
+    {
+      "COMMENT": "Confirms that we are still on Creations page after clicking the breadcrumb", 
+      "type": "findSub", 
+      "errMsg": "Clicking Creations breadcrumb led off of Creations page", 
+      "value": "Creations", 
+      "criteria": "link text"
+    }, 
+    {
+      "type": "find", 
+      "value": "things", 
+      "criteria": "class"
+    }, 
+    {
+      "type": "findSub", 
+      "value": "https://test.buildbotics.com/sam.coffland/Test_project/Tree_Swallow19.jpg", 
+      "criteria": "image"
+    }, 
+    {
+      "COMMENT": "Confirms that a known image on the Creations page is displayed", 
+      "type": "assert", 
+      "errMsg": "Swallow image not found on Creations page", 
+      "criteria": "is_displayed"
+    }, 
+    {
+      "COMMENT": "Now find the search field", 
+      "type": "find", 
+      "value": "search", 
+      "criteria": "class"
+    }, 
+    {
+      "type": "findSub", 
+      "value": "input", 
+      "criteria": "tag"
+    }, 
+    {
+      "type": "click"
+    }, 
+    {
+      "type": "sendkeys", 
+      "value": "logo RETURN"
+    }, 
+    {
+      "type": "find", 
+      "value": "things", 
+      "criteria": "class"
+    }, 
+    {
+      "type": "findSub", 
+      "value": "img", 
+      "criteria": "tag"
+    }, 
+    {
+      "type": "assert", 
+      "value": "https://test.buildbotics.com/Doug/Buildbotics_Logo/buildbotics_logo.png", 
+      "criteria": "src"
+    }, 
+    {
+      "type": "comment", 
+      "value": "NOP"
+    }
+  ]
+]

@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 import sys, time, unittest, traceback, json
 from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
 from gi.repository import Gtk, GdkPixbuf
 
 class TestRunner(unittest.TestCase):
@@ -17,6 +18,10 @@ class TestRunner(unittest.TestCase):
       self.altTextRender = Gtk.CellRendererText()
       self.toggleRendererSkip = Gtk.CellRendererToggle()
       self.dataScript = []
+      self.sourceFile = None
+      self.sourceFileDirty = False
+      self.subroutineList = []
+      self.callStack = []
       
       self.iconRenderer = Gtk.CellRendererPixbuf()
       icontheme = Gtk.IconTheme.get_default()
@@ -42,6 +47,9 @@ class TestRunner(unittest.TestCase):
       self.stepList.append_column(column6)
       self.paused = False
       
+      self.fileLabel = self.builder.get_object("TestFileLabel")
+      self.directoryLabel = self.builder.get_object("DirectoryLabel")
+      
       self.messageLog = self.builder.get_object("messagelog")
       self.messageBuffer = self.messageLog.get_buffer()
             
@@ -56,9 +64,9 @@ class TestRunner(unittest.TestCase):
       self.changeStepValueEntry = self.builder.get_object("StepChangeValueEntry")
       self.changeStepErrorEntry = self.builder.get_object("StepChangeErrorEntry")
       self.changeStepCommentEntry = self.builder.get_object("StepChangeCommentEntry")
-      self.actionList = ["testName","openSite","find","findSub","assert","click",\
-               "wait","back","refresh","goto"]
-      self.criteriaList = ["None","id","Tag","class","link text","text","src","is_displayed"]
+      self.actionList = \
+      ["testName","openSite","find", "findSub","assert","click","wait","back","refresh", "goto","subroutine","gosub","return","comment","sendkeys","findNot","findSubNot","assertNot"]
+      self.criteriaList = ["None","id","tag","class","link text","text","src","is_displayed","image"]
       
       
       self.viewStepErrorLabel = self.builder.get_object("StepViewErrorLabel")
@@ -74,8 +82,12 @@ class TestRunner(unittest.TestCase):
       
     def loadStore(self):
       self.stepStore.clear()
+      self.subroutineList = []
       i = 1
       while i <= len(self.dataScript[0]):
+        step = self.dataScript[0][i-1]
+        if step["type"] == "subroutine":
+          self.subroutineList.append([step["value"],i-1])
         arg1 = None
         arg2 = None
         arg3 = None 
@@ -86,21 +98,69 @@ class TestRunner(unittest.TestCase):
         i = i + 1
       return i - 1
 
+    def setFileAndDirectoryLabel(self,pathName):
+      words = pathName.split("/")
+      self.fileLabel.set_text(words.pop())
+      self.directoryLabel.set_text("/".join(words))     
+      
     def on_open_click(self, menuitem, data=None):
+      if self.sourceFileDirty == True:
+        message = "Changes to\n" + self.sourceFile + "\n will be lost"
+        message = message + "\nClick Apply to confirm or\nCancel to cancel"
+        self.confirmDialogLabel.set_text(message)
+        response = self.confirmDialog.run()
+        self.confirmDialog.hide()
+        if response == 0: return        
       fcd = Gtk.FileChooserDialog("Open...",
                       None,
                       Gtk.FileChooserAction.OPEN,
                       (Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,Gtk.STOCK_OPEN, Gtk.ResponseType.OK))
       response = fcd.run()
-      if response == Gtk.ResponseType.OK:
-        self.sourceFile = fcd.get_filename()
+      if response != Gtk.ResponseType.OK: return
+      self.sourceFile = fcd.get_filename()
       fcd.destroy()
       json_data = open(self.sourceFile)
       self.dataScript = json.load(json_data)
+      json_data.close()
       i = self.loadStore()
       self.stepList.set_cursor(0)
-      self.logMessage("File: {0} opened.\n{1} steps registered.".format(self.sourceFile, i-1))
-      return          
+      self.setFileAndDirectoryLabel(self.sourceFile)
+      self.logMessage("File: {0} opened.\n{1} steps registered.".format(self.sourceFile, i))
+      self.sourceFileDirty = False
+      return
+      
+    def on_Save_activate(self, menuitem, data=0):
+      if self.sourceFile:
+        if self.sourceFileDirty == True:
+          message = "Existing File\n" + self.sourceFile + "\n will be overwritten\n"
+          message = message + " Click Apply to confirm or\nCancel to cancel"
+          self.confirmDialogLabel.set_text(message)
+          response = self.confirmDialog.run()
+          self.confirmDialog.hide()
+          if response == 0: return
+        json_data = open(self.sourceFile, "w")
+        json.dump(self.dataScript,json_data, indent=2)
+        json_data.close
+        self.logMessage(self.sourceFile + " saved")
+        self.sourceFileDirty = False          
+      else:
+        self.on_SaveAs_activate(None,None)
+      
+    def on_SaveAs_activate(self, menuitem, data=0):
+      fcd = Gtk.FileChooserDialog("Save...",None,Gtk.FileChooserAction.SAVE,
+              (Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,Gtk.STOCK_SAVE, Gtk.ResponseType.OK))
+      response = fcd.run()
+
+      if response != Gtk.ResponseType.OK: return
+      self.sourceFile = fcd.get_filename()
+      json_data = open(self.sourceFile, "w")
+      json.dump(self.dataScript,json_data, indent=2)
+      json_data.close()
+      fcd.destroy()      
+      self.setFileAndDirectoryLabel(self.sourceFile)
+      self.logMessage(self.sourceFile + " saved")
+      self.sourceFileDirty = False          
+        
 
     def on_InsertStepBefore_clicked(self,widget,data=None):
       return self.newStep("before")
@@ -118,11 +178,12 @@ class TestRunner(unittest.TestCase):
       result = self.confirmDialog.run()
       self.confirmDialog.hide()
       if result == 0: return
+      self.sourceFileDirty = True
       self.dataScript[0].pop(stepNumber)
       i = self.loadStore()
       if i >= stepNumber: self.stepList.set_cursor(stepNumber)
       else: self.stepList.set_cursor(i)
-      self.logMessage("Step {0} was deleted.",format(stepNumber + 1))
+      self.logMessage("Step {0} was deleted.".format(stepNumber + 1))
          
     def newStep(self,when):
       self.changeStepTypeComboBox.set_active(0)
@@ -149,6 +210,7 @@ class TestRunner(unittest.TestCase):
         self.dataScript.append([step])
         self.loadStore()
         self.stepList.set_cursor(0)
+        self.sourceFileDirty = True
         self.logMessage("Step 1 added.")
         return
         
@@ -161,6 +223,7 @@ class TestRunner(unittest.TestCase):
         stepNumber += 1
         self.dataScript[0].insert(stepNumber,step)
       self.loadStore()
+      self.sourceFileDirty = True
       self.logMessage("New step added {0} step number {1}".format(when,stepNumber))
       self.stepList.set_cursor(stepNumber)
      
@@ -195,6 +258,7 @@ class TestRunner(unittest.TestCase):
       result = self.changeStepDialog.run()
       self.changeStepDialog.hide()
       if result == 1:
+        self.sourceFileDirty = True
         sType = self.actionList[self.changeStepTypeComboBox.get_active()]
         self.stepStore.set_value(it,4,sType)
         self.dataScript[0][row]["type"] = sType
@@ -281,9 +345,23 @@ class TestRunner(unittest.TestCase):
         return True
       return False
     
+    def quit(self):
+      if self.sourceFileDirty == True:
+        message = "You have unsaved changes."
+        message = message + "\nClick Confirm\nto continue without saving"
+        message = message + "\nOtherwise, Click Cancel"
+        self.confirmDialogLabel.set_text(message)
+        response = self.confirmDialog.run()
+        self.confirmDialog.hide()
+        if response == 0: return
+      self.tearDown()
+      Gtk.main_quit()    
+    
     def on_window_destroy(self, widget, data=None):
-        self.tearDown()
-        Gtk.main_quit()
+      self.quit()
+        
+    def on_Quit_activate(self, widget, data=None):
+      self.quit()
         
     def on_SingleStep_clicked(self, widget, data=None):
       selection = self.stepList.get_selection()
@@ -319,15 +397,41 @@ class TestRunner(unittest.TestCase):
         self.stepList.set_cursor(path)
         self.stepList.scroll_to_cell(path)
         try:
-          self.runStep(self.dataScript[0][i])
-          self.stepStore[it][3] = self.iconPass
+          step = self.dataScript[0][i]
+          if step["type"] == "gosub":
+            if not step.get("value"):
+              self.assertTrue(False,"Invalid goSub statement")
+            j = 0
+            while j < len(self.subroutineList):
+              if step["value"] == self.subroutineList[j][0]:
+                self.callStack.append(i)
+                i = self.subroutineList[j][1] + 1
+                break
+              j = j + 1
+            if j < len(self.subroutineList):
+              it = self.stepStore.get_iter(i)
+              continue
+            self.assertTrue(False,step["value"] + " is not a registered subroutine name")
+          elif step["type"] == "return":
+            if len(self.callStack) == 0:
+              self.assertTrue(False,"Unexpected return statement")
+            i = self.callStack.pop()
+          elif step["type"] == "subroutine":
+            i = i + 1
+            step = self.dataScript[0][i]
+            while step["type"] != "return" and i < len(self.dataScript[0]) - 1:
+              i = i + 1
+              step = self.dataScript[0][i]
+          else:              
+            self.runStep(step)
+            self.stepStore[it][3] = self.iconPass
         except AssertionError, e:
           self.logError(i,e)
           self.stepStore[it][3] = self.iconFail
-
-        it = self.stepStore.iter_next(it)          
-        while Gtk.events_pending(): Gtk.main_iteration()
+        
         i = i + 1
+        if i < len(self.dataScript[0]): it = self.stepStore.get_iter(i)          
+        while Gtk.events_pending(): Gtk.main_iteration()
 
     def on_GoToTop_clicked(self, widget, data=None):
       path = self.stepStore.get_path(self.stepStore.get_iter_first())
@@ -372,34 +476,98 @@ class TestRunner(unittest.TestCase):
       self.driver.get(step["value"])
       self.logMessage("Opening " + step["value"])
       
-    def findTag(self,base,step):
+    def findTag(self,base,step,Not):
       if step["criteria"] == "id":
-        return base.find_element_by_id(step["value"])
+        try:
+          element = base.find_element_by_id(step["value"])
+          if Not: self.assertTrue(False)
+          return element
+        except AssertionError:
+          self.assertTrue(False, "ID:" + step["value"] + " found unexpectedly")
+        except:
+          if Not: return
+          self.assertTrue(False,"ID: " + step["value"] + " not found")
       elif step["criteria"] == "tag":
-        return base.find_element_by_tag_name(step["value"])
+        try:
+          element = base.find_element_by_tag_name(step["value"])
+          if Not: self.assertTrue(False)
+          return element
+        except AssertionError:
+          self.assertTrue(False, "Tag:" + step["value"] + " found unexpectedly")
+        except:
+          if Not: return
+          self.assertTrue(False,"Tag: " + step["value"] + " not found")
       elif step["criteria"] == "class":
-        return base.find_element_by_class_name(step["value"])
+        try:
+          element = base.find_element_by_class_name(step["value"])
+          if Not: self.assertTrue(False)
+          return element
+        except AssertionError:
+          self.assertTrue(False, "Class:" + step["value"] + " found unexpectedly")
+        except:
+          if Not: return
+          self.assertTrue(False,"Class: " + step["value"] + " not found")
       elif step["criteria"] == "link text":
-        return base.find_element_by_partial_link_text(step["value"])
+        try:
+          element = base.find_element_by_partial_link_text(step["value"])
+          if Not: self.assertTrue(False)
+          return element
+        except AssertionError:
+          self.assertTrue(False, "Link text:" + step["value"] + " found unexpectedly")
+        except:
+          if Not: return
+          self.assertTrue(False,"Link text: " + step["value"] + " not found")
       elif step["criteria"] == "text":
-        elem = base.find_elements_by_css_selector("a")
+        try:
+          elem = base.find_elements_by_css_selector("a")
+        except:
+          if Not: return
+          self.assertTrue(False,"No link tags (a) found when looking for: " + step["value"])
         for e in elem: 
-          if step["value"] == e.text: return e
-        self.assertTrue(False,"Tag: " + step["value"] + ": NOT FOUND")
+          if step["value"] == e.text:
+            if Not: self.assertTrue(False,"Text: " + step["value"] + " found unexpectedly")
+            return e
+        if Not: return
+        self.assertTrue(False,"Text: " + step["value"] + ": NOT FOUND")
+      elif step["criteria"] == "image":
+        try:
+          elem = base.find_elements_by_css_selector("img")
+        except:
+          if Not: return
+          self.assertTrue(False,"No image tags (img) found when looking for: " + step["value"])
+        for picture in elem:
+          if picture.get_attribute("src") == step["value"]:
+            if Not: self.assertTrue(False,"Image: " + step["value"] + " found unexpectedly")
+            return picture
+        if Not: return
+        self.assertTrue(False,"Image: " + step["value"] + ":NOT FOUND")
       else:
         self.assertTrue(False,"SCRIPT ERROR: unknown tag criteria:" + step["criteria"])
         
-    def assertion(self,tag,step):
+    def assertion(self,tag,step,Not):
       if step["criteria"] == "src":
-        self.assertTrue(tag.get_attribute(step["criteria"]) == step["value"],\
+        if Not: self.assertFalse(tag.get_attribute(step["criteria"]) == step["value"],\
+               "Tag source: " + step["value"] + " found unexpectedly in current tag")
+        else: self.assertTrue(tag.get_attribute(step["criteria"]) == step["value"],\
                "Tag source: " + step["value"] + " not found in current tag")
       elif step["criteria"] == "is_displayed":
-        self.assertTrue(tag.is_displayed(),"Tag: is not displayed")
+        if Not: self.assertFalse(tag.is_displayed(),"Tag: displayed unexpectedly")
+        else: self.assertTrue(tag.is_displayed(),"Tag: is not displayed")
       elif step["criteria"] == "text":
-        self.assertIn(step["value"],tag.text,\
+        if Not: self.assertNotIn(step["value"],tag.text,\
+                step["value"] + " found unexpectedly in '" + tag.text + "'")
+        else: self.assertIn(step["value"],tag.text,\
                 step["value"] + " not found in '" + tag.text + "'")
       else:
         self.assertTrue(False,"WARNING: unknown assertion criteria: " + step["criteria"])
+        
+    def sendKeys(self,tag,s):
+      chars = s.split(' ')
+      if chars.pop() == "RETURN":
+        if len(chars) > 0: tag.send_keys(' '.join(chars));
+        tag.send_keys(Keys.RETURN)
+      else:
+        tag.send_keys(s)
         
     def setTestName(self,name):
       self.logMessage("Test Name: " + name)
@@ -408,60 +576,24 @@ class TestRunner(unittest.TestCase):
 		    type = step["type"]
 		    if type == "testName": self.setTestName(step["value"])
 		    elif type == "openSite": self.openSite(step)
-		    elif type == "find":   self.tag = self.findTag(self.driver,step)
-		    elif type == "findSub":self.tag = self.findTag(self.tag,step)
-		    elif type == "assert": self.assertion(self.tag,step)
+		    elif type == "find":   self.tag = self.findTag(self.driver,step,False)
+		    elif type == "findNot": self.tag = self.findTag(self.driver,step,True)
+		    elif type == "findSub": self.tag = self.findTag(self.tag,step,False)
+		    elif type == "findSubNot": self.tag = self.findTag(self.tag,step,True)
+		    elif type == "assert": self.assertion(self.tag,step,False)
+		    elif type == "assertNot": self.assertion(self.tag,step,True)
 		    elif type == "click":  self.tag.click()
 		    elif type == "wait":   time.sleep(eval(step["value"]))
 		    elif type == "back":   self.driver.back()
 		    elif type == "refresh":self.driver.refresh()
 		    elif type == "goto":   self.driver.get(step["value"])
+		    elif type == "sendkeys": self.sendKeys(self.tag,step["value"])
+		    elif type == "comment":pass
 		    else:
 		      self.assertTrue(False,"SCRIPT ERROR: unknown action type: " + type)
-        
-    def runner(self,ts):
-      tag = self.driver
-      errCount = 0;
-      j = 1
-      i = 1
-      while i < len(ts):
-        try:
-          type = ts[i]["type"]
-          if type == "openSite":
-            self.openSite(ts[i])
-          elif type == "find":
-            tag = self.findTag(self.driver,ts[i])
-          elif type == "findSub":
-            tag = self.findTag(tag,ts[i])
-          elif type == "assert":
-              self.assertion(tag,ts[i])
-          elif type == "click":
-            tag.click()
-          elif type == "wait":
-            time.sleep(eval(ts[i]["value"]))
-          elif type == "back":
-            self.driver.back()
-          elif type == "refresh":
-            self.driver.refresh()
-          elif "goto":
-            self.driver.get(ts[i]["value"])
-          else:
-            print "unknown action type: " + type
-        except:
-          errCount = errCount + 1
-          if ts[i].get("errMsg"):
-            print "ERROR: " + ts[i]["errMsg"]
-          else: print "ERROR: Unable to " + ts[i]["type"]
-          if ts[i].get("skip"):
-            i = i + eval(ts[i]["skip"])
-        j = j + 1
-        i += 1
-      print "\nRESULTS FOR: " + ts[0]["value"]
-      print "     {0} error(s) detected".format(errCount)
-      print "     {0} out of {1} steps executed".format(j,i)
 
     def tearDown(self):
-        self.driver.close()
+      self.driver.close()
 
 
 if __name__ == "__main__":   

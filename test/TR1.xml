@@ -449,18 +449,39 @@
                       </object>
                     </child>
                     <child>
+                      <object class="GtkImageMenuItem" id="Save">
+                        <property name="label">gtk-save</property>
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="use_underline">True</property>
+                        <property name="use_stock">True</property>
+                        <signal name="activate" handler="on_Save_activate" swapped="no"/>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkImageMenuItem" id="SaveAs">
+                        <property name="label">gtk-save-as</property>
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="use_underline">True</property>
+                        <property name="use_stock">True</property>
+                        <signal name="activate" handler="on_SaveAs_activate" swapped="no"/>
+                      </object>
+                    </child>
+                    <child>
                       <object class="GtkSeparatorMenuItem" id="separatormenuitem1">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                       </object>
                     </child>
                     <child>
-                      <object class="GtkImageMenuItem" id="imagemenuitem5">
+                      <object class="GtkImageMenuItem" id="Quit">
                         <property name="label">gtk-quit</property>
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="use_underline">True</property>
                         <property name="use_stock">True</property>
+                        <signal name="activate" handler="on_Quit_activate" swapped="no"/>
                       </object>
                     </child>
                   </object>
@@ -648,13 +669,15 @@
               </packing>
             </child>
             <child>
-              <object class="GtkLabel" id="label5">
+              <object class="GtkLabel" id="TestFileLabel">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="xalign">0</property>
                 <property name="xpad">5</property>
-                <property name="label" translatable="yes">Test File Label</property>
                 <property name="width_chars">70</property>
+                <attributes>
+                  <attribute name="weight" value="bold"/>
+                </attributes>
               </object>
               <packing>
                 <property name="left_attach">1</property>
@@ -662,16 +685,16 @@
               </packing>
             </child>
             <child>
-              <object class="GtkLabel" id="label3">
+              <object class="GtkLabel" id="DirectoryLabel">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="xalign">0</property>
                 <property name="xpad">5</property>
-                <property name="label" translatable="yes">Directory Label</property>
                 <property name="ellipsize">end</property>
                 <property name="width_chars">70</property>
                 <property name="track_visited_links">False</property>
                 <attributes>
+                  <attribute name="weight" value="bold"/>
                   <attribute name="gravity" value="west"/>
                 </attributes>
               </object>
@@ -1146,6 +1169,30 @@ Control</property>
       <row>
         <col id="0" translatable="yes">goto</col>
       </row>
+      <row>
+        <col id="0" translatable="yes">subroutine</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">gosub</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">return</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">comment</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">sendkeys</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">findNot</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">findSubNot</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">assertNot</col>
+      </row>
     </data>
   </object>
   <object class="GtkListStore" id="liststore2">
@@ -1177,6 +1224,9 @@ Control</property>
       </row>
       <row>
         <col id="0" translatable="yes">is_displayed</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">image</col>
       </row>
     </data>
   </object>
