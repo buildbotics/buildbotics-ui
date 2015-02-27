@@ -78,8 +78,25 @@ I discovered that [Cambotics](OpenSCAM.org) comes with a few additional command-
 3. Simulate - [Cambotics](OpenSCAM.org) is able to simulate either g-code or TPlang.
 4. Cut - LinuxCNC and my home made CNC router.
 
-I haven't actually cut out the baby yet, here is a picture of the [Cambotics](OpenSCAM.org) simulation.
+I haven't actually cut out the baby yet, here is a screenshot the [Cambotics](OpenSCAM.org) simulation.
+<img src = "https://github.com/DougCoffland/buildbotics-ui/blob/master/learn/clipperbaby.jpg" height="480" width = "320">
 
+It should come out great, but it's going to take a while to cut since the result g-code file is about 90,000 lines.
+
+##A plug for Camotics
+You may have noticed that [Cambotics](OpenSCAM.org) has played a big role in all of the workflows, and in the final workflow it completely fills the Convert step as well as the Simulate step.  While not stated earlier, [Cambotics](OpenSCAM.org) plays a big role in design as well, espescially when designing with [Cambotics](OpenSCAM.org).  It is extremely helpful to be able to see what you will get during the design stage and it's imperative with [TPLang](www.tplang.org) because it does not provide any visualization at all.
+
+I'm a big proponent of combining and blurring the workflow steps wherever possible, and [Cambotics](OpenSCAM.org) with [Cambotics](OpenSCAM.org) seem to do just that.
+## Wrap up
+I hope this was helpful.  I'm planning to create a few more short training documents that I'll share on the [Buildbotics](www.buildbotics.com) web site.  Here are a few of my future plans for tutorials:
+* Using [Cambotics](OpenSCAM.org)
+* Using [TPLang](www.tplang.org)
+* Using [Inkscape](www.inkscape.org) with [Gcodetools](http://www.cnc-club.ru/forum/viewtopic.php?t=35#p65) and [Hershey Text ](http://www.evilmadscientist.com/2011/hershey-text-an-inkscape-extension-for-engraving-fonts/) plug-ins
+* Using [Hershey Text ](http://www.evilmadscientist.com/2011/hershey-text-an-inkscape-extension-for-engraving-fonts/) with [TPLang](www.tplang.org)
+* Using the [ClipperJS](http://sourceforge.net/p/jsclipper/wiki/Home%206/) javascript library with [TPLang](www.tplang.org)
+* Using [Inkscape](www.inkscape.org) and [TPLang](www.tplang.org) to cut out photographs
+
+Finally, [Buildbotics](www.buildbotics.com) is committed to exchanging information and designs on the topic of small-scale manufacturing and we would be delighted to post tutorials from others on this topic.  If you have something you want to post, send me an e-mail at dougcoffland@gmail.com.
 
 
 
