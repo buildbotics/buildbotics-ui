@@ -52,7 +52,34 @@ I still wasn't satisfied, because I had dreamed of being able to cut out 3D obje
 
 It seemed that the panels weren't going to be too hard, but the handles were a completely different story.  I looked around for some handles to buy, and found that they cost about $600 for a pair.  It was time.  I now had to get the 3D routing figured out so I could make handles for my refrigerator.  There may be others, but the only free 3D package that could output [g-code](http://en.wikipedia.org/wiki/G-code) directly was [HeeksCAD](https://sites.google.com/site/heekscad/).  I wanted a long, sleek design for my handles and couldn't figure out how to make such a design using [HeeksCAD](https://sites.google.com/site/heekscad/).  I did, learn how to use the [g-code](http://en.wikipedia.org/wiki/G-code) generator from within [HeeksCAD](https://sites.google.com/site/heekscad/).
 
-Next, I decided to give [OpenSCAD](www.openscad.org) a try.  [OpenSCAD](www.openscad.org) was a little intimidating, because you have to actually write code that generates the model, but I gave it a try and it worked out.
+Next, I decided to give [OpenSCAD](www.openscad.org) a try.  [OpenSCAD](www.openscad.org) was a little intimidating, because you have to actually write code that generates the model, but I gave it a try and it worked out.  Here's a screen shot of the program and the 3D design in [OpenSCAD](www.openscad.org). Yep, it's only about 50 lines of code.  The code is pretty high-level and fairly easy to learn.
+
+<img src = "https://github.com/DougCoffland/buildbotics-ui/blob/master/learn/OpenScadHandle.png" height="320" width = "480">
+
+Unfortunately, [OpenSCAD](www.openscad.org) doesn't output [g-code](http://en.wikipedia.org/wiki/G-code) directly.  It does output STL files and [OpenSCAD](www.openscad.org) can read STL files.  So using the following workflow, I was able to create some really nice handles for my refrigerator.
+
+1. Design - OpenSCAD
+2. Convert - HeeksCAD
+3. Simulate - Cambotics
+4. Cut - LinuxCNC and my home made CNC router
+
+Here a picture of my fridge.  My wife is quite happy, and I suppose that's what really matters.
+<img src = "https://github.com/DougCoffland/buildbotics-ui/blob/master/learn/fridge.jpg" height="320" width = "480">
+
+This workflow still has a few problems and limitations.  For instance, as the design grows, the processing times for both [OpenSCAD](www.openscad.org) and [HeeksCAD](https://sites.google.com/site/heekscad/) seem to grow exponentially.  At some point, the complexity of the design has to give way to the amount of time it takes to process it.  [HeeksCAD](https://sites.google.com/site/heekscad/) seems to have a few bugs.  It's written in python, and fortunately I was able to find a couple of recommended patches to get me through this project.  I chose to use a raster-style (back and forth cutting pattern) and the cuts were not evenly spaced.  This cause difficulty while cutting.  I also found that [HeeksCAD](https://sites.google.com/site/heekscad/) tended to put a hole in the cut in unpredictable places. Fortunately, [Cambotics](OpenSCAM.org) is able to pick up on these problems before cutting begins.  Finally, I still want to combine as many steps into a single package as possible.
+
+##My Latest Endeavor
+One of the first things I wanted to do when I started CNC routing was to be able to take photographs and cut them out in wood.  How naive I was.  Nevertheless, I still want to do it.
+
+I discovered that [Cambotics](OpenSCAM.org) comes with a few additional command-line tools.  One of those tools is [TPLang](www.tplang.org), which is a javascript extension with some cutting capabilities built in.  I haven't really written much javascript before, but it's an excellent, easy-to-learn language.  I've written a few programs so far, and it looks very promising.  One of those programs is a cut of my old baby picture.  I haven't actually cut it out, but [Cambotics](OpenSCAM.org) simulations look good.  Here's the workflow for the baby picture:
+
+1. Design - I used [Inkscape](www.inkscape.org) to draw a polygon around the profile of the baby in the picture and save the profile to a DXF file from [Inkscape](www.inkscape.org).  I wrote a c++ program that reads the original picture and converts the raster pixel images to a JSON file.  Both dxf and JSON files are readable from tplang.  Then I created the design using TPLang.
+2. Convert - TPLang outputs g-code directly
+3. Simulate - [Cambotics](OpenSCAM.org) is able to simulate either g-code or TPlang.
+4. Cut - LinuxCNC and my home made CNC router.
+
+I haven't actually cut out the baby yet, here is a picture of the [Cambotics](OpenSCAM.org) simulation.
+
 
 
 
