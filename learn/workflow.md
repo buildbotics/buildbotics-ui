@@ -30,6 +30,29 @@ This is a classic example of something that sounds good if you say it fast.  The
 ##What tools should I use?
 It reminds me of when I went out to buy my first computer back in 1981 (yes, I'm old) and the computer salesman (who knew even less than me) asked "Well, what do you want to do with your computer?"  I didn't have a good answer because I didn't know what a computer could do.  Basically, I wanted to fiddle around and show off cool things to my friends, but I wasn't ready to admit that since I was getting ready to shell out $3000 for a computer with two floppies and 192K of RAM.  Unfortunately, that same silly question applies when you select your workflow tools.
 
-So,if your goal is to cut out basically flat shapes in two dimensions,  you're in luck because there are some pretty good tools for doing just that.  There are others, but I like [Inkscape](www.inkscape.org).  You can add on a plug-in called [Gcodetools](http://www.cnc-club.ru/forum/viewtopic.php?t=35#p65) that allows creating [g-code](http://en.wikipedia.org/wiki/G-code) from within Inkscape.  G-code is the language that [LinuxCNC](linuxcnc.org) and most other CNC drivers use.  The CNC driver actually converts the [g-code](http://en.wikipedia.org/wiki/G-code) to the electrical signals used by your CNC hardware.
+So,if your goal is to cut out basically flat shapes in two dimensions,  you're in luck because there are some pretty good tools for doing just that.  There are others, but I like [Inkscape](www.inkscape.org).  You can add on a plug-in called [Gcodetools](http://www.cnc-club.ru/forum/viewtopic.php?t=35#p65) that allows creating [g-code](http://en.wikipedia.org/wiki/G-code) from within Inkscape.  G-code is the language that [LinuxCNC](linuxcnc.org) and most other CNC drivers use.  The CNC driver actually converts the [g-code](http://en.wikipedia.org/wiki/G-code) to the electrical signals used by your CNC hardware.  Finally, I discover that [Cambotics](OpenSCAM.org) is a great tool for simulations.  So for simple 2D designs, I actually had a working workflow:
 
-But I was pretty impatient and wanted to do more.  I was still jealous of the cool output from in the [LinuxCNC](linuxcnc.org) example and wanted to be able to cut out text in nifty fonts.  I actually went off on my own and wrote a python script that would read bitmap files created by Paint and other programs.  The python script was pretty cool, but I could not get the text to be just right.  Then, I discovered [Hershey Text](http://www.evilmadscientist.com/2014/hershey-text-js/) and learned that there was a [Hershey Text Plug-in](http://www.evilmadscientist.com/2011/hershey-text-an-inkscape-extension-for-engraving-fonts/).  Viola, my jealous envy of the [LinuxCNC](linuxcnc.org) example program was over.  Using [Inkscape](www.inkscape.org) with [Gcodetools](http://www.cnc-club.ru/forum/viewtopic.php?t=35#p65) and [Hershey Text Plug-in](http://www.evilmadscientist.com/2011/hershey-text-an-inkscape-extension-for-engraving-fonts/), was able to create the "No Soliciting Please" sign that's hanging outside my door.
+1. Design - Using Inkscape
+2. Convert - Gcodetools plug-in for Inscape
+3. Simulate - Cambotics
+4. Cut - LinuxCNC with my home made CNC router
+
+But I was pretty impatient and wanted to do more.  I was still jealous of the cool output from the [LinuxCNC](linuxcnc.org) example and wanted to be able to cut out text in nifty fonts.  I actually went off on my own and wrote a python script that would read bitmap files created by Paint and other programs.  The python script was pretty cool, but I could not get the text to be just right.  Then, I discovered [Hershey Text](http://www.evilmadscientist.com/2014/hershey-text-js/) and learned that there was a [Hershey Text Plug-in](http://www.evilmadscientist.com/2011/hershey-text-an-inkscape-extension-for-engraving-fonts/).  Viola, my jealous envy of the [LinuxCNC](linuxcnc.org) example program was over.  Using [Inkscape](www.inkscape.org) with [Gcodetools](http://www.cnc-club.ru/forum/viewtopic.php?t=35#p65) and [Hershey Text ](http://www.evilmadscientist.com/2011/hershey-text-an-inkscape-extension-for-engraving-fonts/) plug-ins, I was able to create the "No Soliciting Please" sign that's hanging outside my door.
+
+<img src = "https://github.com/DougCoffland/buildbotics-ui/blob/master/learn/No_Soliciting.jpg" height="320" width = "480">
+
+With the hoards of solicitors no longer coming to my door, I have even more time to spend working on CNC stuff.  My workflow became:
+
+1. Design - Inscape with the Hershey Text plug-in
+2. Convert - GCodetools from within Inscape
+3. Simulate - Cambotics
+4. Cut - LinuxCNC and my home made router.
+
+I still wasn't satisfied, because I had dreamed of being able to cut out 3D objects.  In the mean time, my built-in refrigerator broke down and it became obvious that I needed to replace it.  I quickly found out that built-in refrigerators are really expensive.  My cheapskate genes took over, and I learned that I could by a "panel-ready" refrigerator and save about 1500 bucks.  "Panel-ready" means that the front of the fridge is just bare metal with some big funky handles.  It was not something that my wife was willing to put up with for long.
+
+It seemed that the panels weren't going to be too hard, but the handles were a completely different story.  I looked around for some handles to buy, and found that they cost about $600 for a pair.  It was time.  I now had to get the 3D routing figured out so I could make handles for my refrigerator.  There may be others, but the only free 3D package that could output [g-code](http://en.wikipedia.org/wiki/G-code) directly was [HeeksCAD](https://sites.google.com/site/heekscad/).  I wanted a long, sleek design for my handles and couldn't figure out how to make such a design using [HeeksCAD](https://sites.google.com/site/heekscad/).  I did, learn how to use the [g-code](http://en.wikipedia.org/wiki/G-code) generator from within [HeeksCAD](https://sites.google.com/site/heekscad/).
+
+Next, I decided to give [OpenSCAD](www.openscad.org) a try.  [OpenSCAD](www.openscad.org) was a little intimidating, because you have to actually write code that generates the model, but I gave it a try and it worked out.
+
+
+
