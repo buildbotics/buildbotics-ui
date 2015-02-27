@@ -81,12 +81,14 @@ I discovered that [Camotics](OpenSCAM.org) comes with a few additional command-l
 I haven't actually cut out the baby yet, here is a screenshot the [Camotics](OpenSCAM.org) simulation.
 <img src = "https://github.com/DougCoffland/buildbotics-ui/blob/master/learn/clipperbaby.jpg" height="300" width = "400">
 
-It should come out great, but it's going to take a while to cut since the result g-code file is about 90,000 lines.
+It should come out great, but it's going to take a while to cut since the resulting g-code file is about 90,000 lines.
 
 ##A plug for Camotics
 You may have noticed that [Camotics](OpenSCAM.org) has played a big role in all of the workflows, and in the final workflow it completely fills the Convert step as well as the Simulate step.  While not stated earlier, [Camotics](OpenSCAM.org) plays a big role in design as well, espescially when designing with [TPLang](www.tplang.org).  It is extremely helpful to be able to see what you will get during the design stage and it's imperative with [TPLang](www.tplang.org) because it does not provide any visualization at all.
 
-I'm a big proponent of combining and blurring the workflow steps wherever possible, and [otics](OpenSCAM.org) with [TPLang](www.tplang.org) seem to do just that.
+One thing that I really like about [TPLang](www.tplang.org) is it's speed.  Gone are the days of going out for lunch while the CAD program generates [g-code](http://en.wikipedia.org/wiki/G-code) for a complex design.  I haven't taken any measurements, but [TPLang](www.tplang.org) is by far the fastest [g-code](http://en.wikipedia.org/wiki/G-code) generator that I've found.
+
+I'm a big proponent of combining and blurring the workflow steps wherever possible, and [Camotics](OpenSCAM.org) with [TPLang](www.tplang.org) seem to do just that.
 ## Wrap up
 I hope this was helpful.  I'm planning to create a few more short training documents that I'll share on the [Buildbotics](www.buildbotics.com) web site.  Here are a few of my future plans for tutorials:
 * Using [Camotics](OpenSCAM.org)
