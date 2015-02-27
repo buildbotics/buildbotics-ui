@@ -79,7 +79,7 @@ I discovered that [Cambotics](OpenSCAM.org) comes with a few additional command-
 4. Cut - LinuxCNC and my home made CNC router.
 
 I haven't actually cut out the baby yet, here is a screenshot the [Cambotics](OpenSCAM.org) simulation.
-<img src = "https://github.com/DougCoffland/buildbotics-ui/blob/master/learn/clipperbaby.jpg" height="480" width = "320">
+<img src = "https://github.com/DougCoffland/buildbotics-ui/blob/master/learn/clipperbaby.jpg" height="300" width = "400">
 
 It should come out great, but it's going to take a while to cut since the result g-code file is about 90,000 lines.
 
