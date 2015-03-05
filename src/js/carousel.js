@@ -17,8 +17,6 @@ module.exports = {
 
   methods: {
     load: function () {
-      console.debug(this.$parent.files);
-
       var element = $(this.$el);
 
       // Changing class
