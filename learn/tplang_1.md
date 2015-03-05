@@ -10,6 +10,7 @@ This tutorial assumes that you have installed [Camotics](http://openscam.org) an
 These steps are performed on a Debian Linux system.  They should be very similar on all systems, but you may have to adlib a bit to get it exactly right on your system.  You may want too open the [TPL](http://tplang.org) in a separate window to get more information about the commands used during the tutorial.
 
 1. Make a folder for your testing and move into it:
+
   ```
   $ mkdir tpl_tutorials
   $ cd tpl_tutorials
@@ -17,7 +18,54 @@ These steps are performed on a Debian Linux system.  They should be very similar
 2. Open up your favorite text editor.  (I use gedit on linux machines and notepad++ on windows machines.)  If your text editor supports languages, configure it for Javascript.  Since TPL is an extension of Javascript, you will benefit from the syntax highlighting for Javascript.
 3. From within your text editor create a new file called tpl_tutorial1.tpl and save it in the tpl_tutorials folder that you created in step 1.
 4. Enter units(METRIC) for the first line.  Units can either be METRIC or IMPERIAL.  We will use METRIC for this tutorial.  As a result the distances entered will in millimeters and the resulting [g-code](http://reprap.org/wiki/G-code) distances will be in millimeters.
+
   ```
-  units(METRIC)
+  units(METRIC);
   ```
-5. 
+5. Set the cutting speed to 400 mm per minute.  This is the maximum speed at which the cutting head will travel through the workpiece material.
+
+  ```
+  feed(400);
+  ```
+6. Select tool number 1.  This will cause tool 1 to be used in [Camotics](http://openscam.org) and by your CNC machine.
+
+  ```
+  tool(1);
+  ```
+7. Tell the spindle to spin at 2000 revolutions per minute
+
+  ```
+  speed(2000);
+  ```
+8. Initiate a rapid movement to a height of 5 mm.  Rapid moves are used when the machine is not cutting material.
+
+  ```
+  rapid({z: 5});
+  ```
+9. With the cutting head now safely 5 mm above the workpiece surface, you can now initiate another rapid move to x = 1 mm and y = 1 mm.
+
+  ```
+  rapid({x: 1, y: 1});
+  ```
+10. Now drop the head 3 mm into the material.  Notice that we will use the cut command because we will be cutting as the head drops into the workpiece.
+
+  ```
+  cut({z: -3});
+  ```
+11. Now make four cuts forming a 10 mm square.
+
+  ```
+  cut({x: 11});
+  cut({y: 11});
+  cut({x: 1});
+  cut({y: 1});
+  ```
+12. Move the cutting head to a safe position 5 mm above the workpiece surface and stop the spindle by setting it to 0 rpm.
+
+  ```
+  rapid({z: 5});
+  speed(0);
+  ```
+  
+Here's a screen shot of what you program should look like at this point.
+
