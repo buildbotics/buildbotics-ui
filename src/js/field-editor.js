@@ -31,12 +31,10 @@ module.exports = function (target, fields) {
 
 
     created: function () {
-      var self = this;
-
       // Add editor variables
       fields.forEach(function (field) {
-        self.$set(prefix + field, '');
-      })
+        this.$set(prefix + field, '');
+      }.bind(this))
     },
 
 
@@ -47,21 +45,17 @@ module.exports = function (target, fields) {
 
 
       initFields: function () {
-        var self = this;
-
         fields.forEach(function (field) {
-          self.$set(target + '.' + field, self[target][field] || '');
-        })
+          this.$set(target + '.' + field, this[target][field] || '');
+        }.bind(this))
       },
 
 
       edit: function () {
-        var self = this;
-
         // Set editor variables
         fields.forEach(function (field) {
-          self.$set(prefix + field, copy(self[target][field]));
-        })
+          this.$set(prefix + field, copy(this[target][field]));
+        }.bind(this))
 
         this.onEdit();
         this.editing = true;
@@ -69,18 +63,16 @@ module.exports = function (target, fields) {
 
 
       save: function () {
-        var self = this;
-
         // Find Changes
         var changes = {};
         var changed = false;
 
         fields.forEach(function (field) {
-          if (!equal(self[prefix + field], self[target][field])) {
-            changes[field] = copy(self[prefix + field]);
+          if (!equal(this[prefix + field], this[target][field])) {
+            changes[field] = copy(this[prefix + field]);
             changed = true;
           }
-        })
+        }.bind(this))
 
         // Abort if nothing changed
         if (!changed) {
@@ -89,14 +81,13 @@ module.exports = function (target, fields) {
         }
 
         // Do save callback
-        var self = this;
-        $.when.apply($, this.onSave(changes)).then(function () {
+        return $.when(this.onSave(changes)).done(function () {
           fields.forEach(function (field) {
-            self[target][field] = copy(self[prefix + field]);
-          })
+            this[target][field] = copy(this[prefix + field]);
+          }.bind(this))
 
-          self.editing = false;
-        });
+          this.editing = false;
+        }.bind(this));
       },
 
 

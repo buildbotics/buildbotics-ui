@@ -14,7 +14,6 @@ link_hover_color = #428bca
 text_color = #344
 medium_text_color = #666
 light_text_color = #888
-highlight_color = #fdaa4d
 border_color = #ddd
 
 header_color = #ededed
@@ -50,13 +49,17 @@ a.fa, a.fa:visited
   &:hover
     text-decoration none
 
+a.disabled, a:hover.disabled
+    color light_text_color !important
+    cursor default
+
 
 // Special text
+.warn
+  color #ff6000
+
 .error
   color red
-
-.warn
-  color #fff000
 
 .success
   color green
@@ -97,7 +100,13 @@ button
     background-color header_color
     color light_text_color !important
     border-color border_color
+    cursor default
 
+  > .fa:first-child
+    margin-right 0.25em
+
+  > .fa:last-child
+    margin-left 0.25em
 
 // Inputs
 .CodeMirror-focused, .tag-editor-focused, input:focus, textarea:focus,
@@ -500,6 +509,29 @@ body
     font-family "Times New Roman", Times, serif
     text-align left
 
+    &.draft
+      .image:before
+        position absolute
+        content "DRAFT"
+        font-size 55pt
+        line-height thing_height
+        transform rotate(-30deg)
+        opacity 0.5
+        width thing_width
+        text-align center
+        z-index 10
+        color #000 !important
+
+      .image:after
+        position absolute
+        content " "
+        display block
+        margin-top -(thing_height)
+        width thing_width
+        height thing_height
+        background-color #fff
+        opacity 0.25
+
     .image
       width thing_width - 2px
       height thing_height - 2px
@@ -509,12 +541,17 @@ body
       background-image url('/images/spinner.gif')
       background-repeat no-repeat
       background-position center
+      overflow hidden
 
       img
         background #fff
-        width thing_width - 2px
+        max-width thing_width - 2px
         height thing_height - 2px
-        border-radius 6px
+        margin auto
+        display block
+
+        &.stretch
+          width thing_width - 2px
 
       .missing
         background-color #eee
@@ -695,11 +732,12 @@ body
     h1:first-of-type
       text-transform capitalize
 
-    input, select, .tag-editor
+    input, select, .tag-editor, p
       width 30em
 
     button
       margin-top 0.5em
+      margin-right 0.25em
 
   .view-contents
     .top
@@ -721,6 +759,8 @@ body
     margin 0.5em
 
   .markdown
+    font-family Open Sans, sans-serif
+    color #222
     padding 0 1em
     background #fff
     border 1px solid border_color
@@ -760,12 +800,57 @@ body
     overflow hidden
     text-overflow ellipsis
 
-.thing-edit
-  input
-    width 20em
+  .subsection .step
+    margin-bottom 3em
 
-  button
-    margin 0.5em 0
+    &:last-child
+      margin-bottom 0
+
+    .step-links
+      margin 0.5em 0.5em 0 0
+      float right
+
+      a
+        display inline-block
+        border 1px solid border_color
+        padding 0.25em
+        border-right none
+        background-color #eee
+        background-image linear-gradient(#fcfcfc, #eee)
+        font-size 10pt
+
+        &:first-of-type
+          border-top-left-radius 3px
+          border-bottom-left-radius 3px
+
+        &:last-of-type
+          border-top-right-radius 3px
+          border-bottom-right-radius 3px
+          border-right 1px solid border_color
+
+    .top
+      margin 0.5em 0.5em 0 0
+
+      .fa
+        font-size 18pt
+
+    > h2
+      background-color header_color
+      border 1px solid border_color
+      border-top-left-radius 3px
+      border-top-right-radius 3px
+      margin-bottom 0
+      padding 0.25em
+      color link_color
+
+    .markdown
+      border-top none
+      border-top-left-radius 0
+      border-top-right-radius 0
+
+.thing-edit-instructions
+  .step
+    width content_width
 
 // Thing name validator
 .thing-name-validator .fa
@@ -988,6 +1073,7 @@ body
   display inline-block
   border 1px inset border_color
   border-radius 3px
+  background-color #fff
 
   .tag-editor-wrapper
     overflow hidden
@@ -1030,6 +1116,69 @@ body
     left -999px
 
 
+// Step Editor
+.step-editor
+  .step-order
+    background #fff
+    border 1px solid border_color
+    padding 4px
+    border-radius 3px
+
+    height 15em
+    overflow-y auto
+
+    button
+      display block
+      width 100%
+      text-align left
+      margin 0
+
+      &.active, &.active:hover
+        color text_color
+
+  .actions
+    margin 1em auto
+    text-align right
+
+    .delete
+      position relative
+
+      .modal-content
+        white-space nowrap
+
+    > *
+      display inline-block
+
+    button
+      margin-left 0.25em
+
+  .left
+    float left
+
+    button
+      margin-left 0
+      margin-right 0.25em
+
+  .steps
+    overflow hidden
+    position relative
+
+    .track
+      position relative
+      transition-duration 0.5s
+      white-space nowrap
+
+      .step
+        display inline-block
+        vertical-align top
+
+        .title
+          margin 0
+
+        > input
+          width 100%
+          margin-bottom 0.5em
+
 // Events
 .events .event
   padding 1em
@@ -1060,6 +1209,13 @@ input, textarea, select
   border-radius 3px
   background #fff
   border 1px solid border_color
+  white-space normal
+
+  .modified
+    float right
+    color light_text_color
+    margin 0.5em
+    font-size 8pt
 
   .markdown-menu
     background-color #f3f3f3
@@ -1108,6 +1264,12 @@ input, textarea, select
           border-top-right-radius 3px
           border-bottom-right-radius 3px
           border-right 1px solid border_color
+
+        &.disabled, &:hover.disabled
+          background-color header_color
+          color light_text_color !important
+          border-color border_color
+          cursor default
 
   .markdown-help
     border-top 1px solid border_color
@@ -1161,6 +1323,15 @@ input, textarea, select
   .markdown-content
     border-top 1px solid border_color
 
+  .markdown-footer
+    padding 0.25em
+    text-align right
+    font-size 10pt
+    font-family 'courier 10'
+    color light_text_color
+    background-color secondary_header_color
+    border-top 1px solid border_color
+
   .markdown-preview
     padding 0 1em
     overflow auto
@@ -1189,11 +1360,50 @@ input, textarea, select
   box-shadow 0 1px 2px rgba(0, 0, 0, 0.1) inset
   text-align center
   overflow hidden
+  line-height 2em
 
   > div
     background-color link_hover_color
     height 2em
     line-height 2em
+
+
+// Notify
+.notify-overlay
+  background-color rgba(0, 0, 0, 0.2)
+
+.notify-dialog
+  z-index 110
+  position absolute
+  top 20%
+  left 50%
+  width 30em
+  margin-left -15em
+  border-radius 3px
+  border 1px solid #aaa
+  background-color #fff
+  overflow hidden
+
+  > *
+    padding 0.5em
+
+  .notify-dialog-header
+    background-color header_color
+    font-size 14pt
+    border-bottom 1px solid border_color
+
+    .fa
+      font-size 20pt
+      margin-right 0.5em
+      vertical-align top
+
+  .notify-dialog-footer
+    background-color secondary_header_color
+    text-align right
+    border-top 1px solid border_color
+
+    button
+      margin-left 0.5em
 
 
 // Modal
@@ -1203,6 +1413,7 @@ input, textarea, select
   border-radius 3px
   border 1px solid border_color
   z-index 110
+  text-align left
 
   &.callout-top-right
     right: -10px
@@ -1227,6 +1438,11 @@ input, textarea, select
       margin-left 0.5em
       text-transform capitalize
 
+.modal-overlay
+  background-color rgba(0, 0, 0, 0.1)
+
+
+// Overlay
 .overlay
   z-index 100
   position fixed
@@ -1234,9 +1450,6 @@ input, textarea, select
   left 0
   width 100%
   height 100%
-
-.modal-overlay
-  background-color rgba(0, 0, 0, 0.1)
 
 
 // Callouts
@@ -1287,8 +1500,15 @@ input, textarea, select
     border-radius 3px
     vertical-align middle
 
-  .progress-bar
-    color text_color
+  .progressbar.waiting
+    background-color link_color
+    text-align center
+
+    > div
+      display none
+
+    &:before
+      content "Waiting"
 
   .bb-modal .body
     text-align right
@@ -1334,7 +1554,10 @@ input, textarea, select
 
     a
       color light_text_color
-      margin 0.5em
+      margin 0.25em
+
+      &.disabled
+        color #ccc !important
 
 
 // Table
@@ -1414,7 +1637,7 @@ input, textarea, select
   &.changing .slick-list
     background-image none
 
-  img
+  img, video
     max-width carousel_width
     height carousel_height
     display inline-block
@@ -1470,7 +1693,7 @@ input, textarea, select
       line-height 100%
 
     .carousel-media
-      img
+      img, video
         height 80%
         width initial
         max-width 80%

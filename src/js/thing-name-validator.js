@@ -3,6 +3,7 @@
 
 var debounce = require('./debounce');
 var $bb = require('./buildbotics');
+var notify = require('./notify');
 
 
 module.exports = {
@@ -59,7 +60,7 @@ module.exports = {
         .done(function (data) {self.available = data})
 
         .fail(function (data, status) {
-          require('./app').error('Failed to check name availability', status);
+          notify.error('Failed to check name availability', status);
           self.available = true;
         })
 

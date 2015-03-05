@@ -17,4 +17,4 @@ script#tag-editor-template(type="text/x-template")
         .tag-editor-text {{$value}}
         a.fa.fa-close.tag-editor-delete(v-on="click:delete")
 
-      tag-editor-input(v-ref="input")
+      tag-editor-input(v-ref="input" v-events="change:changed")

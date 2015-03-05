@@ -1,0 +1,47 @@
+script#step-editor-template(type="text/x-template")
+  .step-editor
+    h2 Steps
+    .step-order
+      button(v-repeat="steps" v-on="click:go($index)"
+        v-class="active:current == $index") {{getStepTitle($index)}}
+
+    .actions.left
+      button(v-on="click:prev()" v-disable="steps.length < 2 || current == 0"
+        title="Go to next step.")
+        .fa.fa-chevron-left
+        | Prev
+
+      button(v-on="click:next()"
+        v-disable="steps.length < 2 || steps.length - 1 <= current"
+        title="Go to previous step.")
+        | Next
+        .fa.fa-chevron-right
+
+    .actions
+      button(v-on="click:insert()" v-disable="32 <= steps.length"
+        title="Add a new step after the current one.")
+        .fa.fa-plus
+        | Add
+
+      .delete
+        button(v-on="click:askDelete()" v-disable="current == 0"
+          title="Delete the current step.")
+          .fa.fa-trash
+          | Delete
+
+        bb-modal(ref="delete" buttons="cancel delete" callout="top-right")
+          .modal-header Delete this step?
+          .modal-content Step contents will be lost.
+
+      button.success(v-on="click:save()" v-disable="!modified"
+        title="Save all steps.")
+        .fa.fa-floppy-o
+        | Save All
+
+    .steps
+      .track
+        .step(v-repeat="steps")
+          h2 {{getStepName($index)}}
+          input(v-model="title" placeholder="Enter a title for this step.")
+          markdown-editor(field="text" placeholder="Enter text here."
+            max-length=50000)

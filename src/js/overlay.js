@@ -1,29 +1,31 @@
 'use strict'
 
 
-module.exports = function (klass) {
+module.exports = function (name) {
   return {
     beforeDestroy: function () {
-      this.removeOverlay();
+      this.removeOverlay(name);
     },
 
 
     methods: {
-      overlayClick: function () {},
+      overlayClick: function (name) {},
 
 
-      addOverlay: function () {
-        var self = this;
+      addOverlay: function (_name) {
+        if (typeof _name != 'undefined' && name != _name) return;
 
         if (typeof this.overlay == 'undefined')
           this.overlay = $('<div>')
-          .addClass('overlay ' + klass)
-          .click(function () {self.overlayClick()})
+          .addClass('overlay ' + name + '-overlay')
+          .click(function () {this.overlayClick(name)}.bind(this))
           .appendTo('body');
       },
 
 
-      removeOverlay: function () {
+      removeOverlay: function (_name) {
+        if (typeof _name != 'undefined' && name != _name) return;
+
         if (typeof this.overlay != 'undefined') {
           this.overlay.remove();
           delete this.overlay;

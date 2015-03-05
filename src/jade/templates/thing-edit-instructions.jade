@@ -1,3 +1,2 @@
 script#thing-edit-instructions-template(type="text/x-template")
-  markdown-editor(v-if="edit_instructions" field="edit_instructions")
-  div: button.success(v-on="click:saveInstructions()") Save
+  bb-step-editor(thing="{{thing}}")

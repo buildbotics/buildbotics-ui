@@ -2,14 +2,11 @@
 
 var $bb = require('./buildbotics');
 var page = require('page');
+var notify = require('./notify');
+var util = require('./util');
 
 var subsections = 'view edit-details edit-instructions edit-files dangerous';
 var fields = 'title url license tags';
-
-
-function isImage(type) {
-  return /^image\/((png)|(gif)|(jpeg)|(svg)|(bmp))/.test(type);
-}
 
 
 module.exports = {
@@ -21,7 +18,10 @@ module.exports = {
       replace: true,
       inherit: true,
       template: '#thing-license-template'
-    }
+    },
+
+
+    'thing-details-editor': require('./thing-details-editor')
   },
 
 
@@ -29,7 +29,22 @@ module.exports = {
     return {
       newName: '',
       nameIsValid: false,
-      viewSections: 'instructions downloads comments'.split(' ')
+      viewSections: 'instructions downloads comments'.split(' '),
+      media: []
+    }
+  },
+
+
+  watch: {
+    isOwner: function (value) {
+      this.$broadcast('file-manager-can-edit', value);
+    },
+
+
+    files: function (files) {
+      this.$set('media', files.filter(function (file) {
+        return file.display && util.isMedia(file.type);
+      }));
     }
   },
 
@@ -39,16 +54,57 @@ module.exports = {
       var data = {
         type: file.type,
         size: file.size,
-        display: isImage(file.type)
+        display: util.isMedia(file.type)
       }
+
+      file.display = data.display;
 
       $bb.put(this.getAPIURL() + '/files/' + file.name, data)
         .done(function (data) {done(true, data);})
 
         .fail(function (data, status) {
-          app.error('Failed to upload file ' + file.name, status);
+          notify.error('Failed to upload file ' + file.name, status);
           done(false);
         })
+
+      return false; // Cancel event propagation
+    },
+
+
+    'file-manager-after-upload': function (file, done) {
+      $bb.put(this.getAPIURL() + '/files/' + file.name + '/confirm')
+        .done(function (data) {done(true);})
+
+        .fail(function (data, status) {
+          notify.error('Failed to upload file ' + file.name, status);
+          done(false);
+        })
+
+      return false; // Cancel event propagation
+    },
+
+
+    'file-manager-up': function (file, done) {
+      $bb.post(this.getAPIURL() + '/files/' + file.name + '/up')
+        .done(function () {done(true)})
+
+        .fail(function (data, status) {
+          notify.error('Failed to move file ' + file.name + ' up', status)
+          done(false);
+        });
+
+      return false; // Cancel event propagation
+    },
+
+
+    'file-manager-down': function (file, done) {
+      $bb.post(this.getAPIURL() + '/files/' + file.name + '/down')
+        .done(function () {done(true)})
+
+        .fail(function (data, status) {
+          notify.error('Failed to move file ' + file.name + ' down', status)
+          done(false);
+        });
 
       return false; // Cancel event propagation
     },
@@ -59,7 +115,7 @@ module.exports = {
         .done(function () {done(true)})
 
         .fail(function (data, status) {
-          app.error('Failed to delete file ' + file.name, status)
+          notify.error('Failed to delete file ' + file.name, status)
           done(false);
         });
 
@@ -87,10 +143,9 @@ module.exports = {
 
     // Import thing data
     $.each(app.thingData, function (key, value) {self.$set(key, value);});
-    this.initFields();
 
-    // Get licenses
-    this.$set('licenses', app.licenses);
+    // API URL
+    this.thing.api_url = this.getAPIURL();
 
     // Split tags
     if (typeof this.thing.tags == 'string')
@@ -110,26 +165,8 @@ module.exports = {
   },
 
 
-  computed: {
-    media: function () {
-      return this.files.filter(function (file) {
-        return file.display && isImage(file.type);
-      });
-    }
-  },
-
-
   methods: {
     // From subsections
-    onSubsectionChange: function (newSubsection, oldSubsection) {
-      if (newSubsection == 'edit-details' || oldSubsection == 'edit-details')
-        this.edit();
-
-      if (newSubsection = 'edit-instructions')
-        this.$set('edit_instructions', this.thing.instructions);
-    },
-
-
     getSubsectionTitle: function (subsection) {
       return subsection.replace(/^edit-/, '');
     },
@@ -173,64 +210,20 @@ module.exports = {
     },
 
 
-    saveTags: function (tags) {
-      var promises = [];
-
-      // Find added tags
-      var tag = [];
-      for (var i = 0; i < tags.length; i++)
-        if (this.thing.tags.indexOf(tags[i]) == -1)
-          tag.push(tags[i]);
-
-      if (tag.length)
-        promises.push($bb.put(this.getAPIURL() + '/tags/' + tag.join()));
-
-      // Find removed tags
-      var untag = [];
-      for (var i = 0; i < this.thing.tags.length; i++)
-        if (tags.indexOf(this.thing.tags[i]) == -1)
-          untag.push(this.thing.tags[i]);
-
-      if (untag.length)
-        promises.push($bb.delete(this.getAPIURL() + '/tags/' + untag.join()));
-
-      return promises;
+    getStepName: function (index) {
+      return index ? '' + index : 'intro';
     },
 
 
-    onSave: function (fields) {
-      var promises = [];
-
-      // Save any tags
-      if (fields.tags) {
-        promises = promises.concat(this.saveTags(fields.tags));
-        delete fields.tags;
-      }
-
-      // Save other fields
-      if (JSON.stringify(fields) != '{}')
-        promises.push($bb.put(this.getAPIURL(), fields));
-
-      $.when.apply($, promises).done(function () {
-        require('./app').message('Details saved');
-      }).fail(function () {
-        require('./app').error('Failed to save details');
-      })
-
-      return promises;
+    getStepId: function (index) {
+      return index ? 'step-' + index : 'intro';
     },
 
 
-    saveInstructions: function () {
-      var data = {instructions: this.edit_instructions};
-
-      $bb.put(this.getAPIURL(), data).done(function () {
-        this.$set('thing.instructions', this.edit_instructions);
-        require('./app').message('Instructions saved');
-
-      }.bind(this)).fail(function () {
-        require('./app').error('Failed to save instructions');
-      })
+    getStepTitle: function (index, step) {
+      return (!index && step.title) ? step.title :
+        (index ? 'Step ' + index : 'Introduction') +
+        (index ? ': ' + step.title : '')
     },
 
 
@@ -245,17 +238,16 @@ module.exports = {
 
 
     rename: function () {
-      var self = this;
       var app = require('./app');
       var starred = app.isStarred(this.thing.owner, this.thing.name);
 
       $bb.put(this.getAPIURL() + '/rename', {name: this.newName})
         .done(function () {
-          app.setStarred(self.thing.owner, self.newName, starred);
-          page('/' + self.thing.owner + '/' + self.newName);
+          app.setStarred(this.thing.owner, this.newName, starred);
+          page('/' + this.thing.owner + '/' + this.newName);
 
-        }).fail(function () {
-          require('./app').error('Failed to rename project');
+        }.bind(this)).fail(function () {
+          notify.error('Failed to rename project');
         })
     },
 
@@ -266,18 +258,15 @@ module.exports = {
 
 
     delete: function () {
-      var self = this;
-
       $bb.delete(this.getAPIURL()).done(function () {
-        page('/' + self.thing.owner);
-      })
+        page('/' + this.thing.owner);
+      }.bind(this))
     }
   },
 
 
   mixins: [
     require('./subsections')('thing', subsections),
-    require('./field-editor')('thing', fields),
     require('./login-listener')
   ]
 }

@@ -2,6 +2,7 @@
 
 
 var $bb = require('./buildbotics');
+var notify = require('./notify');
 
 
 module.exports = {
@@ -23,7 +24,7 @@ module.exports = {
       var url = 'profiles/' + name + '/follow';
 
       if (app.getUser().name == name) {
-        app.error('You cannot follow yourself.');
+        notify.error('You cannot follow yourself.');
         var defer = $.Deferred();
         defer.reject();
         return defer.promise();

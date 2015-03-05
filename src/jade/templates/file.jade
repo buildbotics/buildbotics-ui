@@ -9,11 +9,11 @@ script#file-template(type="text/x-template")
       title="Download file" v-on="click:download()") {{file.name}}
 
   td.size
-    div(v-progressbar="file.percent"
-      v-show="0 < file.percent && file.percent < 100")
-      span {{file.percent}}%
+    div(v-progressbar="file.percent" v-show="file.uploading"
+      v-class="waiting:!file.percent")
+      span(v-show="file.percent") {{file.percent}}%
 
-    span(v-show="!file.percent || file.percent == 100")
+    span(v-show="!file.uploading")
       | {{file.size | humanSize}}
 
   td.downloads(title="{{file.downloads}} downloads")
@@ -26,6 +26,12 @@ script#file-template(type="text/x-template")
 
       bb-modal(ref="delete" buttons="cancel delete" callout="top-right")
         .modal-header Delete this file?
+
+    a.fa.fa-arrow-up(v-show="canEdit" v-class="disabled:!canUp()"
+      v-on="click:up()" title="Move up")
+
+    a.fa.fa-arrow-down(v-show="canEdit" v-class="disabled:!canDown()"
+      v-on="click:down()" title="Move down")
 
     a.fa.fa-download(v-show="file.url" v-on="click:download()" target="_blank"
       href="{{file.url}}?count=1" title="Download file")

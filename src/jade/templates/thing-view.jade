@@ -68,9 +68,17 @@ script#thing-view-template(type="text/x-template")
       bb-carousel(media="{{media}}")
 
     .subsection
-      a.top(href="#overview" title="Back to top"): .fa.fa-arrow-circle-up
       h1#instructions Instructions
-      div(v-markdown="thing.instructions")
+      .step(v-attr="id:getStepId($index)" v-repeat="step:thing.instructions")
+        a.top(href="#overview" title="Back to top"): .fa.fa-arrow-circle-up
+
+        .step-links
+          a(v-repeat="step:thing.instructions" href="#{{getStepId($index)}}"
+            title="{{getStepTitle($index, step)}}")
+            | {{getStepName($index)}}
+
+        h2 {{getStepTitle($index, step)}}
+        div(v-markdown="step.text")
 
     .subsection
       a.top(href="#overview" title="Back to top"): .fa.fa-arrow-circle-up

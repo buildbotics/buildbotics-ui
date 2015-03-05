@@ -1,8 +1,9 @@
 'use strict'
 
 
-var page = require('page');
 var $bb = require('./buildbotics');
+var page = require('page');
+var notify = require('./notify');
 
 var subsections = 'view edit-picture edit-details edit-bio'
 var fields = 'fullname location url bio';
@@ -14,7 +15,7 @@ module.exports = {
 
   data: function  () {
     return {
-      viewSections: 'bio starred badges followers following activity'.split(' ')
+      viewSections: 'bio starred followers following activity'.split(' ')
     }
   },
 
@@ -68,7 +69,7 @@ module.exports = {
     onSave: function (fields) {
       return $bb.put('profiles/' + this.profile.name, fields)
         .done(function () {
-          require('./app').message('Profile updated successfully');
+          notify.message('Profile updated successfully');
         });
     },
 

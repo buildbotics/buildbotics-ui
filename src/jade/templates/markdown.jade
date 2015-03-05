@@ -1,10 +1,20 @@
 script#markdown-editor-template(type="text/x-template")
   .markdown-editor
+    .modified.fa.fa-asterisk(v-show="modified" title="Document modified")
+
     .markdown-menu
       a.edit-tool.active(v-on="click:edit()") Edit
       a.preview-tool(v-on="click:preview()") Preview
 
     .markdown-toolbar(v-show="editing")
+      .button-group
+        a(title="Undo" v-on="click:canUndo && undo()"
+          v-class="disabled:!canUndo")
+          .fa.fa-undo
+        a(title="Redo" v-on="click:canRedo && redo()"
+          v-class="disabled:!canRedo")
+          .fa.fa-repeat
+
       .button-group
         a(title="Heading 1" v-on="click:prefix('# ')") h1
         a(title="Heading 2" v-on="click:prefix('## ')") h2
@@ -178,4 +188,8 @@ script#markdown-editor-template(type="text/x-template")
           | the character directly after a backslash.
 
     .markdown-content(v-show="editing")
+    .markdown-footer(v-if="maxLength" v-show="editing")
+      span(v-class="error:maxLength <= length, warn:0.95 * maxLength < length")
+        | Length: {{length}} Max: {{maxLength}}
+
     .markdown-preview(v-show="!editing") Preview

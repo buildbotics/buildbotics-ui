@@ -2,3 +2,5 @@ script#media-template(type="text/x-template")
   .carousel-media
     // Note data-lazy attribute could be used to lazy load images
     img(v-if="isImage" v-attr="src:url")
+    video(v-if="isVideo" controls)
+      source(v-attr="src:url" type="{{type}}")

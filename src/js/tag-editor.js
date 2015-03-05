@@ -77,18 +77,22 @@ var input = {
 
     insertTags: function() {
       // Split tag text, text pasted from clipboard may contain separators
-      var self = this;
       var tags = this.$parent.tags;
       var words = this.value.split(this.separator);
+      var changed = false;
 
-      Vue.nextTick(function () {self.value = ''});
+      Vue.nextTick(function () {this.value = ''}.bind(this));
 
       for (var i = 0; i < words.length; i++) {
         var word = words[i];
 
-        if (word && tags.indexOf(word) < 0)
+        if (word && tags.indexOf(word) < 0) {
           tags.push(word);
+          changed = true;
+        }
       }
+
+      if (changed) this.$emit('change');
     }
   }
 }
@@ -128,6 +132,12 @@ module.exports = {
 
     delete: function(e) {
       this.tags.splice(e.targetVM.$index, 1);
+      this.changed();
+    },
+
+
+    changed: function () {
+      this.$emit('change');
     }
   }
 }

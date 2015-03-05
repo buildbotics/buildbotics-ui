@@ -1,9 +1,6 @@
 'use strict'
 
-
-function isImage(type) {
-  return /^image\/((png)|(gif)|(jpeg)|(svg)|(bmp))$/.test(type);
-}
+var util = require('./util');
 
 
 module.exports = {
@@ -46,13 +43,34 @@ module.exports = {
 
 
     showThumb: function () {
-      return isImage(this.file.type) &&
+      return util.isImage(this.file.type) &&
         (!this.file.uploading || this.file.src);
     },
 
 
     download: function () {
       this.file.downloads += 1;
+    },
+
+
+    canUp: function () {
+      return this.file.url && this.files.indexOf(this.file);
+    },
+
+
+    canDown: function () {
+      return this.file.url &&
+        this.files.indexOf(this.file) < this.files.length - 1;
+    },
+
+
+    up: function () {
+      if (this.canUp()) this.onUp(this.file);
+    },
+
+
+    down: function () {
+      if (this.canDown()) this.onDown(this.file);
     },
 
 

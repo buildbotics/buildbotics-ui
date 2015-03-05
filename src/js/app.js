@@ -49,6 +49,7 @@ module.exports = new Vue({
     'bb-modal': require('./modal'),
     'bb-carousel': require('./carousel'),
     'bb-media': require('./media'),
+    'bb-step-editor': require('./step-editor'),
 
     'file-manager': require('./file-manager'),
     'markdown-editor': require('./markdown'),
@@ -157,28 +158,6 @@ module.exports = new Vue({
 
 
   methods: {
-    message: function (msg, obj) {
-      if (obj) msg += '\n' + JSON.stringify(obj);
-      alert(msg);
-      // TODO use a dialog instead
-    },
-
-
-    error: function (msg, obj) {
-      this.message('ERROR: ' + msg, obj);
-    },
-
-
-    warn: function (msg, obj) {
-      this.message('WARNING: ' + msg, obj);
-    },
-
-
-    info: function (msg, obj) {
-      this.message('INFO: ' + msg, obj);
-    },
-
-
     loggedIn: function (user_data) {
       var user = user_data.profile;
       console.debug('Logged in as ' + user.name);
@@ -341,5 +320,5 @@ module.exports = new Vue({
   },
 
 
-  mixins: [require('./overlay')('menu-overlay')]
+  mixins: [require('./overlay')('menu')]
 })

@@ -11,6 +11,29 @@ function page_debug(ctx, next) {
 }
 
 
+var callbacks = [];
+var backingOut = false;
+function page_callback(ctx, next) {
+  if (backingOut) return;
+
+  var results = [];
+
+  for (var i = 0; i < callbacks.length; i++)
+    results.push(callbacks[i](ctx));
+
+  $.when.apply($, results)
+    .done(next)
+    .fail(function () {
+      setTimeout(function () {
+        backingOut = true;
+        history.back();
+        page.len--;
+        backingOut = false;
+      })
+    })
+}
+
+
 function explore_page(ctx) {
   app.currentPage = 'explore';
   app.$set('exploreType', ctx.params.type);
@@ -75,15 +98,31 @@ function thing_page(ctx) {
 }
 
 
-//page('*', page_debug);
-page('/', function () {app.currentPage = 'home'});
-page('/explore/:type', explore_page);
-page('/learn', function () {app.currentPage = 'learn'});
-page('/create', function () {app.currentPage = 'create'});
-page('/login', function () {app.currentPage = 'login'});
-page('/register', function () {app.currentPage = 'register'});
-page('/tags/:tag', tag_page);
-page('/:profile', profile_page);
-page('/:profile/:thing', thing_page);
-page(function () {app.currentPage = 'not-found'});
-page();
+module.exports = {
+  start: function () {
+    //page('*', page_debug);
+    page('*', page_callback);
+    page('/', function () {app.currentPage = 'home'});
+    page('/explore/:type', explore_page);
+    page('/learn', function () {app.currentPage = 'learn'});
+    page('/create', function () {app.currentPage = 'create'});
+    page('/login', function () {app.currentPage = 'login'});
+    page('/register', function () {app.currentPage = 'register'});
+    page('/tags/:tag', tag_page);
+    page('/:profile', profile_page);
+    page('/:profile/:thing', thing_page);
+    page(function () {app.currentPage = 'not-found'});
+    page();
+  },
+
+
+  on: function (cb) {
+    callbacks.push(cb);
+  },
+
+
+  off: function (cb) {
+    var index = callbacks.indexOf(cb);
+    if (-1 < index) callbacks.splice(index, 1);
+  }
+}

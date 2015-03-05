@@ -1,33 +1,19 @@
 'use strict'
 
-function throttle(func, threshold) {
-  var timeout;
-  var self;
-  var args;
-
-  return function debounced() {
-    self = this;
-    args = arguments;
-
-    function delayed () {
-      func.apply(self, args);
-      timeout = null;
-    }
-
-    if (!timeout) timeout = setTimeout(delayed, threshold || 100);
-  }
-}
-
 
 module.exports = {
   replace: true,
   template: '#markdown-editor-template',
-  paramAttributes: ['field', 'placeholder'],
+  paramAttributes: ['field', 'placeholder', 'max-length', 'ref'],
 
 
   data: function () {
     return {
       editing: true,
+      modified: false,
+      canUndo: false,
+      canRedo: false,
+      length: 0,
       showHelp: false,
       helpSection: 'block',
       helpSubsection: 'breaks'
@@ -35,20 +21,31 @@ module.exports = {
   },
 
 
+  watch: {
+    modified: function (newValue, oldValue) {
+      if (newValue != oldValue)
+        this.$dispatch('markdown-editor.modified', newValue, this.ref)
+    }
+  },
+
+
   events: {
     // Listen for reset signal
-    'markdown-editor.reset': function () {
-      var self = this;
-      this.edit();
-      this.editor.setValue(this.$parent.$get(this.field));
-      Vue.nextTick(function () {self.editor.refresh()});
+    'markdown-editor.reset': function () {this.reset()},
+    'markdown-editor.refresh': function () {this.refresh()},
+    'markdown-editor.mark-clean': function () {
+      this.editor.markClean();
+      this.modified = false;
     }
   },
 
 
   compiled: function () {
-    var self = this;
+    if (typeof this.ref == 'undefined') this.ref = Math.random();
+
     var target = $(this.$el).find('.markdown-content');
+    var text = this.$parent.$get(this.field);
+    this.length = text.length;
 
     this.editor = CodeMirror(target[0], {
       placeholder: this.placeholder,
@@ -56,26 +53,79 @@ module.exports = {
       tabSize: 2,
       dragDrop: false,
       mode: 'gfm',
-      value: this.$parent.$get(this.field),
+      value: text
     })
 
     // Bind editor changes to component
-    this.handler = function (editor) {
-      this.$parent.$set(this.field, editor.getValue());
+    this.onChange = function (editor) {
+      var text = editor.getValue();
+
+      this.$parent.$set(this.field, text);
+      this.modified = !this.editor.isClean();
+      this.canUndo = 0 < this.editor.historySize().undo;
+      this.$set('length', text.length);
     }.bind(this);
 
-    this.editor.on('change', this.handler);
+    this.editor.on('change', this.onChange);
 
-    Vue.nextTick(function () {self.editor.refresh()});
+    // On before change
+    if (this.maxLength) {
+      this.onBeforeChange = function (editor, change) {
+        var text = change.text.join('\n');
+        var space = this.maxLength - this.length;
+        var removed = editor.getRange(change.from, change.to, '');
+
+        if (removed) space += removed.length;
+
+        if (space < text.length) {
+          if (change.update) {
+            if (0 <= space) text = text.substr(0, space).split('\n');
+            else text = [''];
+
+            change.update(undefined, undefined, text)
+
+          } else change.cancel();
+        }
+      }.bind(this);
+
+      this.editor.on('beforeChange', this.onBeforeChange);
+    }
+
+    Vue.nextTick(function () {this.editor.refresh()}.bind(this));
   },
 
 
   beforeDestroy: function () {
-    this.editor.off('change', this.handler);
+    this.editor.off('change', this.onChange);
   },
 
 
   methods: {
+    reset: function () {
+      this.refresh();
+      this.editor.setValue(this.$parent.$get(this.field));
+    },
+
+
+    refresh: function () {
+      this.showHelp = false;
+      this.edit();
+      Vue.nextTick(function () {this.editor.refresh()}.bind(this));
+    },
+
+
+    undo: function () {
+      this.editor.undo();
+      this.canRedo = true;
+    },
+
+
+    redo: function () {
+      this.editor.redo();
+      this.canRedo = 0 < this.editor.historySize().redo;
+    },
+
+
     edit: function (item) {
       $(this.$el).find('.edit-tool').addClass('active');
       $(this.$el).find('.preview-tool').removeClass('active');

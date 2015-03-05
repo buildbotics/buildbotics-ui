@@ -4,6 +4,7 @@
 var debounce = require('./debounce');
 var $bb = require('./buildbotics');
 var page = require('page');
+var notify = require('./notify');
 
 
 module.exports = {
@@ -50,7 +51,7 @@ module.exports = {
       $bb.put(url, data)
         .done(function (data) {page(thing)})
         .fail(function (data, status) {
-          app.error('Failed to create ' + thing, status);
+          notify.error('Failed to create ' + thing, status);
         })
     },
 

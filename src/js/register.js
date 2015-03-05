@@ -4,6 +4,7 @@
 var debounce = require('./debounce');
 var $bb = require('./buildbotics');
 var page = require('page');
+var notify = require('./notify');
 
 
 module.exports = {
@@ -51,7 +52,7 @@ module.exports = {
           page('/' + name + '#profile');
         })
         .fail(function (status) {
-          require('./app').error('Failed to register "' + name + '"', status);
+          notify.error('Failed to register "' + name + '"', status);
         })
     },
 
@@ -103,7 +104,7 @@ module.exports = {
         .done(function (data) {self.available = data})
 
         .fail(function (data, status) {
-          require('./app').error('Failed to check name availability', status);
+          notify.error('Failed to check name availability', status);
           self.available = true;
         })
 

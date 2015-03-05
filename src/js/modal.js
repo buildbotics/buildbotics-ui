@@ -36,6 +36,7 @@ module.exports = {
 
 
   methods: {
+    // From overlay
     overlayClick: function () {this.response('cancel')},
 
 
@@ -64,5 +65,5 @@ module.exports = {
   },
 
 
-  mixins: [require('./overlay')('modal-overlay')]
+  mixins: [require('./overlay')('modal')]
 }

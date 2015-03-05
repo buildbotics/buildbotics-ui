@@ -2,7 +2,7 @@ script#profile-view-template(type="text/x-template")
   #overview
 
   subsection-menu(subsections="{{viewSections}}")
-    button.success(v-show="isOwner" v-on="click:editProfile") Edit
+    button.success(v-show="isOwner" v-on="click:editProfile") Edit Profile
 
   .overview
     img.picture(v-attr="src:getPicture()")
@@ -15,24 +15,12 @@ script#profile-view-template(type="text/x-template")
 
     .stats
       div
-        a.value(href="#followers") {{profile.followers | humanNumber}}
-        .label Followers
-
-      div
         .value {{profile.points | humanNumber}}
         .label Points
 
       div
-        a.value(href="#badges") {{profile.badges | humanNumber}}
-        .label Badges
-
-      div
-        a.value(href="#starred") {{profile.stars | humanNumber}}
-        .label Starred
-
-      div
-        a.value(href="#following") {{profile.following | humanNumber}}
-        .label Following
+        a.value(href="#followers") {{profile.followers | humanNumber}}
+        .label Followers
 
     .details
       .location
@@ -73,12 +61,6 @@ script#profile-view-template(type="text/x-template")
       bb-things(things="{{starred}}")
       .weak(v-show="!starred.length")
         | ({{profile.name | capitalize}} has not yet starred any projects)
-
-    .subsection
-      a.top(href="#overview" title="Back to top"): .fa.fa-arrow-circle-up
-      h1#badges Badges earned
-      .weak(v-show="!badges.length")
-        | ({{profile.name | capitalize}} has not yet earned any badges.)
 
     .subsection
       a.top(href="#overview" title="Back to top"): .fa.fa-arrow-circle-up

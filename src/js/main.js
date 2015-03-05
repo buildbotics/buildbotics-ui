@@ -43,5 +43,5 @@ $(function () {
   require('./app');
 
   // Routing
-  require('./route');
+  require('./route').start();
 })
