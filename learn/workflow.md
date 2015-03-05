@@ -90,13 +90,13 @@ One thing that I really like about [TPLang](http://www.tplang.org) is it's speed
 
 I'm a big proponent of combining and blurring the workflow steps wherever possible, and [Camotics](http://OpenSCAM.org) with [TPLang](http://www.tplang.org) seem to do just that.
 ## Wrap up
-I hope this was helpful.  I'm planning to create a few more short training documents that I'll share on the [Buildbotics](www.buildbotics.com) web site.  Here are a few of my future plans for tutorials:
-* Using [Camotics](http://http://http://OpenSCAM.org)
-* Using [TPLang](http://http://www.tplang.org)
-* Using [Inkscape]http://(http://www.inkscape.org) with [Gcodetools](http://www.cnc-club.ru/forum/viewtopic.php?t=35#p65) and [Hershey Text ](http://www.evilmadscientist.com/2011/hershey-text-an-inkscape-extension-for-engraving-fonts/) plug-ins
+I hope this was helpful.  I'm planning to create a few more short training documents that I'll share on the [Buildbotics](http://www.buildbotics.com) web site.  Here are a few of my future plans for tutorials:
+* Using [Camotics](http://OpenSCAM.org)
+* Using [TPLang](http://www.tplang.org)
+* Using [Inkscape](http://www.inkscape.org) with [Gcodetools](http://www.cnc-club.ru/forum/viewtopic.php?t=35#p65) and [Hershey Text ](http://www.evilmadscientist.com/2011/hershey-text-an-inkscape-extension-for-engraving-fonts/) plug-ins
 * Using [Hershey Text ](http://www.evilmadscientist.com/2011/hershey-text-an-inkscape-extension-for-engraving-fonts/) with [TPLang](www.tplang.org)
 * Using the [ClipperJS](http://sourceforge.net/p/jsclipper/wiki/Home%206/) javascript library with [TPLang](http://www.tplang.org)
-* Using [Inkscape](www.inkscape.org) and [TPLang](www.tplang.org) to cut out photographs
+* Using [Inkscape](http://www.inkscape.org) and [TPLang](http://www.tplang.org) to cut out photographs
 
 Finally, [Buildbotics](http://www.buildbotics.com) is committed to exchanging information and designs on the topic of small-scale manufacturing and we would be delighted to post tutorials from others on this topic.  If you have something you want to post, send me an e-mail at dougcoffland@gmail.com.
 
