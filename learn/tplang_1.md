@@ -66,7 +66,7 @@ These steps are performed on a Debian Linux system.  They should be very similar
   rapid({z: 5});
   speed(0);
   ```
-Here's a screen shot of what you program should look like at this point.
+Here's a screen shot of what your program should look like at this point.
   <img src = "https://github.com/DougCoffland/buildbotics-ui/blob/master/learn/tpl_tut1_1.png" height="320" width = "480">
 
 13. Now, you can see the [g-code](http://reprap.org/wiki/G-code) that this program generates by entering the following command at the command prompt in our tpl_turorials directory.  You may also get a warning about using a non-existent tool, which you can ignore.
