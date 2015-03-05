@@ -7,7 +7,7 @@ The purpose of this tutorial is to provide enough basic information for you to g
 This tutorial assumes that you have installed [Camotics](http://openscam.org) and the tplang command is available in your path.  If not, go to the [Camotics](http://openscam.org) web site and follow the download and installation instructions.  [TPL](http://tplang.org) is included in the [Camotics](http://openscam.org) distribution.
 
 ##Step-by-Step Instructions
-These steps are performed on a Debian Linux system.  They should be very similar on all systems, but you may have to adlib a bit to get it exactly right on your system.  You may want too open the [TPL](http://tplang.org) in a separate window to get more information about the commands used during the tutorial.
+These steps are performed on a Debian Linux system.  They should be very similar on all systems, but you may have to adlib a bit to get it exactly right on your system.  You may want to open the [TPL](http://tplang.org) web site in a separate window to get more information about the commands used during the tutorial.
 
 1. Make a folder for your testing and move into it:
 
@@ -17,7 +17,7 @@ These steps are performed on a Debian Linux system.  They should be very similar
   ```
 2. Open up your favorite text editor.  (I use gedit on linux machines and notepad++ on windows machines.)  If your text editor supports languages, configure it for Javascript.  Since TPL is an extension of Javascript, you will benefit from the syntax highlighting for Javascript.
 3. From within your text editor create a new file called tpl_tutorial1.tpl and save it in the tpl_tutorials folder that you created in step 1.
-4. Enter units(METRIC) for the first line.  Units can either be METRIC or IMPERIAL.  We will use METRIC for this tutorial.  As a result the distances entered will in millimeters and the resulting [g-code](http://reprap.org/wiki/G-code) distances will be in millimeters.
+4. Enter units(METRIC) for the first line.  Units can either be METRIC or IMPERIAL.  We will use METRIC for this tutorial.  As a result the distances entered will be in millimeters and the resulting [g-code](http://reprap.org/wiki/G-code) distances will also be in millimeters.
 
   ```
   units(METRIC);
@@ -66,6 +66,41 @@ These steps are performed on a Debian Linux system.  They should be very similar
   rapid({z: 5});
   speed(0);
   ```
-  
 Here's a screen shot of what you program should look like at this point.
+  <img src = "https://github.com/DougCoffland/buildbotics-ui/blob/master/learn/tpl_tut1_1.png" height="320" width = "480">
 
+13. Now, you can see the [g-code](http://reprap.org/wiki/G-code) that this program generates by entering the following command at the command prompt in our tpl_turorials directory.  You may also get a warning about using a non-existent tool, which you can ignore.
+
+  ```
+  $ tplang tpl_tutorial1.tpl
+  G21
+  F400
+  G0 Z5
+  G0 X1 Y1
+  M3 S2000
+  G1 Z-3
+  G1 X11
+  G1 Y11
+  G1 X1
+  G1 Y1
+  G0 Z5
+  M5
+  %
+  ```
+Hmmmm, you might notice that we just wrote 12 lines of [TPL](http://tplang.org) to get 13 lines of [g-code](http://reprap.org/wiki/G-code), so what's the point; and you might as well have just written the program in [g-code](http://reprap.org/wiki/G-code).  This is true for a simple program like this.  Recall however, that [TPL](http://tplang.org) is an extension of Javascript and all of the power of Javascript programming is now available to create complex shapes that you could not consider with [g-code](http://reprap.org/wiki/G-code) alone.
+
+14. Now type the same command again, but redirect the output to a text file with a .nc extension so it can be used by your CNC machine and by the [Camotics](http://openscam.org) simulator.
+
+  ```
+  $ tplang tpl_tutorial1.tpl >> tpl_tutorial1.nc
+  ```
+15. Finally, open up the [Camotics](http://openscam.org) simulator, load tpl_tutorial1.nc, run the simulation, and you should get the following image.
+
+  <img src = "https://github.com/DougCoffland/buildbotics-ui/blob/master/learn/tpl_tut1_2.png" height="320" width = "480">
+
+In the next few tutorials I will show how [TPL](http://tplang.org) can use it's Javascript roots to create some complex and interesting shapes.
+
+On a final note, Buildbotics LLC is committed to the exchange of information for the betterment of small-scale manufacturing.  Your comments on this tutorial are welcome.  Please send me an e-mail message at dougcoffland@gmail.com if you would like to submit a tutorial of your own.
+
+  
+  
