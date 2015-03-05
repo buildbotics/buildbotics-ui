@@ -94,7 +94,7 @@ I hope this was helpful.  I'm planning to create a few more short training docum
 * Using [Camotics](http://OpenSCAM.org)
 * Using [TPLang](http://www.tplang.org)
 * Using [Inkscape](http://www.inkscape.org) with [Gcodetools](http://www.cnc-club.ru/forum/viewtopic.php?t=35#p65) and [Hershey Text ](http://www.evilmadscientist.com/2011/hershey-text-an-inkscape-extension-for-engraving-fonts/) plug-ins
-* Using [Hershey Text ](http://www.evilmadscientist.com/2011/hershey-text-an-inkscape-extension-for-engraving-fonts/) with [TPLang](www.tplang.org)
+* Using [Hershey Text ](http://www.evilmadscientist.com/2011/hershey-text-an-inkscape-extension-for-engraving-fonts/) with [TPLang]http://(www.tplang.org)
 * Using the [ClipperJS](http://sourceforge.net/p/jsclipper/wiki/Home%206/) javascript library with [TPLang](http://www.tplang.org)
 * Using [Inkscape](http://www.inkscape.org) and [TPLang](http://www.tplang.org) to cut out photographs
 
