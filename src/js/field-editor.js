@@ -54,7 +54,7 @@ module.exports = function (target, fields) {
       edit: function () {
         // Set editor variables
         fields.forEach(function (field) {
-          this.$set(prefix + field, copy(this[target][field]));
+          this.$set(prefix + field, copy(this[target][field] || ''));
         }.bind(this))
 
         this.onEdit();
