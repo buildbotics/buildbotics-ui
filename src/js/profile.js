@@ -26,7 +26,6 @@ module.exports = {
 
     // Import profile data
     $.each(app.profileData, function (key, value) {self.$add(key, value)});
-    this.profile.bio = this.profile.bio || '';
     this.initFields();
   },
 
