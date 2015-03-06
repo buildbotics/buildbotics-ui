@@ -3,5 +3,6 @@ script#profiles-template(type="text/x-template")
     .profiles
       a(v-repeat="profile:profiles" v-attr="href:'/' + profile.name")
         img.picture(v-attr="src:getPicture(profile)")
-        bb-points(points="{{profile.points}}")
-        .name {{profile.name}}
+        .footer
+          bb-points(points="{{profile.points}}")
+          .name {{profile.name}}
