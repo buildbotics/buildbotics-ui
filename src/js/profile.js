@@ -15,7 +15,15 @@ module.exports = {
 
   data: function  () {
     return {
-      viewSections: 'bio starred followers following activity'.split(' ')
+      viewSections: 'bio starred followers following activity'.split(' '),
+      modified: false
+    }
+  },
+
+
+  events: {
+    'markdown-editor.modified': function (modified, ref) {
+      this.$set('modified', modified);
     }
   },
 
@@ -27,6 +35,7 @@ module.exports = {
     // Import profile data
     $.each(app.profileData, function (key, value) {self.$add(key, value)});
     this.initFields();
+    this.edit()
   },
 
 
@@ -69,7 +78,10 @@ module.exports = {
     onSave: function (fields) {
       return $bb.put('profiles/' + this.profile.name, fields)
         .done(function () {
-          notify.message('Profile updated successfully');
+          this.$broadcast('markdown-editor.mark-clean');
+
+        }.bind(this)).fail(function () {
+          notify.error('Failed to updated bio');
         });
     },
 
