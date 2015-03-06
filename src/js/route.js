@@ -34,6 +34,25 @@ function page_callback(ctx, next) {
 }
 
 
+function docs_page(ctx, next) {
+  var page = ctx.params.page;
+  $.get('/docs/' + page + '.html')
+    .done(function (html) {
+      var re = /^<h1[^>]+>(.*)<\/h1>([\s\S]*)$/;
+      var m = re.exec(html);
+      var title = m[1];
+      var content = m[2];
+
+      app.currentPage = 'docs';
+      app.$set('docTitle', title);
+      app.$set('docContent', content);
+
+      window.scrollTo(0, 0);
+
+    }).fail(function () {next()})
+}
+
+
 function explore_page(ctx) {
   app.currentPage = 'explore';
   app.$set('exploreType', ctx.params.type);
@@ -103,6 +122,7 @@ module.exports = {
     //page('*', page_debug);
     page('*', page_callback);
     page('/', function () {app.currentPage = 'home'});
+    page('/docs/:page', docs_page);
     page('/explore/:type', explore_page);
     page('/learn', function () {app.currentPage = 'learn'});
     page('/create', function () {app.currentPage = 'create'});

@@ -740,14 +740,6 @@ body
       margin-right 0.25em
 
   .view-contents
-    .top
-      display block
-      float right
-
-      .fa
-        color light_text_color
-        font-size 26pt
-
     > .subsection
       padding 0.25em 0.5em 5em 0.5em
 
@@ -827,12 +819,6 @@ body
           border-top-right-radius 3px
           border-bottom-right-radius 3px
           border-right 1px solid border_color
-
-    .top
-      margin 0.5em 0.5em 0 0
-
-      .fa
-        font-size 18pt
 
     > h2
       background-color header_color
@@ -1367,6 +1353,16 @@ input, textarea, select
     height 2em
     line-height 2em
 
+
+// Top
+#top
+  display none
+  position fixed
+  right 10px
+  bottom 10px
+
+  .fa
+    font-size 32pt
 
 // Notify
 .notify-overlay

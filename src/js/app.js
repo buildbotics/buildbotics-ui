@@ -2,7 +2,7 @@
 
 var $bb = require('./buildbotics');
 var page = require('page');
-var debounce = require('./debounce');
+var throttle = require('./throttle');
 
 
 module.exports = new Vue({
@@ -23,6 +23,7 @@ module.exports = new Vue({
 
   components: {
     'loading-page': {template: '#loading-template'},
+    'docs-page': {template: '#docs-template', inherit: true},
     'login-page': {template: '#login-template'},
     'register-page': require('./register'),
     'home-page': {template: '#home-template'},
@@ -154,10 +155,26 @@ module.exports = new Vue({
   },
 
 
-  ready: function () {this.login()},
+  ready: function () {
+    this.login();
+
+    // Scroll to top
+    var win = $(window);
+    var top = $('#top');
+    win.scroll(throttle(250, false, function () {
+      if (win.scrollTop() < 200) top.hide();
+      else top.show();
+    }));
+  },
 
 
   methods: {
+    top: function (e) {
+      $('html, body').animate({scrollTop: 0}, 1000, 'swing')
+      e.preventDefault();
+    },
+
+
     loggedIn: function (user_data) {
       var user = user_data.profile;
       console.debug('Logged in as ' + user.name);

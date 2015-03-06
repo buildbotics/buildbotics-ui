@@ -29,6 +29,9 @@ html
       .clear
       include ./footer.jade
 
+    #top
+      a(v-on="click:top" title="Back to top"): .fa.fa-arrow-circle-up
+
     #templates
       include ../../build/templates.jade
 

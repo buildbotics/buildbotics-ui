@@ -47,7 +47,6 @@ script#profile-view-template(type="text/x-template")
         | start your first project.
 
     .subsection
-      a.top(href="#overview" title="Back to top"): .fa.fa-arrow-circle-up
       h1#bio Bio
       .weak(v-show="!profile.bio && !isOwner") (Bio empty)
       div(v-show="!profile.bio && isOwner")
@@ -56,21 +55,18 @@ script#profile-view-template(type="text/x-template")
       div(v-markdown="profile.bio" v-show="profile.bio")
 
     .subsection
-      a.top(href="#overview" title="Back to top"): .fa.fa-arrow-circle-up
       h1#starred Starred projects
       bb-things(things="{{starred}}")
       .weak(v-show="!starred.length")
         | ({{profile.name | capitalize}} has not yet starred any projects)
 
     .subsection
-      a.top(href="#overview" title="Back to top"): .fa.fa-arrow-circle-up
       h1#followers People following {{profile.name}}
       bb-profiles(profiles="{{followers}}")
       .weak(v-show="!followers.length")
         | ({{profile.name | capitalize}} does not yet have any followers.)
 
     .subsection
-      a.top(href="#overview" title="Back to top"): .fa.fa-arrow-circle-up
       h1#following People {{profile.name}} is following
 
       bb-profiles(profiles="{{following}}")
@@ -78,6 +74,5 @@ script#profile-view-template(type="text/x-template")
         | ({{profile.name | capitalize}} is not yet following anyone.)
 
     .subsection
-      a.top(href="#overview" title="Back to top"): .fa.fa-arrow-circle-up
       h1#activity Recent activity
       bb-events(events="{{events}}")
