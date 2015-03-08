@@ -30,7 +30,9 @@ html
       include ./footer.jade
 
     #top
-      a(v-on="click:top" title="Back to top"): .fa.fa-arrow-circle-up
+      a(v-on="click:top" title="Scroll to top")
+        .fa.fa-arrow-circle-up
+        | Scroll to top
 
     #templates
       include ../../build/templates.jade

@@ -65,12 +65,32 @@ function tag_page(ctx) {
 }
 
 
+function scroll_to(selector, cb) {
+  console.debug('scroll_to(' + selector + ')');
+
+  if (!selector || selector == '#') selector = 'html,body';
+
+  var target = $(selector);
+  target = target.length ? target : $('[name=' + selector.slice(1) +']');
+
+  if (target.length)
+    $("html, body").animate(
+      {scrollTop: target.offset().top}, 1000, 'swing', function () {
+        if (cb) cb();
+      })
+
+  else if (cb) cb();
+}
+
+
 function profile_page(ctx) {
   var profile = ctx.params.profile;
   console.debug('/' + profile + '#' + ctx.hash);
 
   if (app.currentPage == 'profile' && app.profileData.profile &&
       app.profileData.profile.name == profile) {
+
+    scroll_to('#' + ctx.hash);
     app.subsection = ctx.hash;
     return;
   }
@@ -98,6 +118,7 @@ function thing_page(ctx) {
       app.thingData.thing.owner == profile &&
       app.thingData.thing.name == thing) {
     app.subsection = ctx.hash;
+    scroll_to('#' + ctx.hash);
     return;
   }
 

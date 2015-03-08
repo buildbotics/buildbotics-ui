@@ -968,6 +968,7 @@ body
 
   .comment-content
     max-height 60em
+    overflow auto
 
     .markdown
       padding 0.5em
@@ -1329,8 +1330,6 @@ input, textarea, select
     min-height 20em
 
   .CodeMirror
-    border-bottom-left-radius 3px
-    border-bottom-right-radius 3px
     border 1px solid #fff
     padding 0.25em
 
@@ -1359,12 +1358,19 @@ input, textarea, select
 
 // Top
 #top
-  display none
   position fixed
+  display none
+  text-align right
   right 10px
   bottom 10px
+  width 8em
+  text-align center
+
+  a:hover
+    text-decoration none
 
   .fa
+    display block
     font-size 32pt
 
 // Notify

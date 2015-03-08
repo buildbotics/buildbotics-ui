@@ -188,8 +188,10 @@ module.exports = {
     },
 
 
-    editThing: function () {
-      location.hash = 'edit-details';
+    editThing: function (section) {
+      if (typeof section != 'string') section = 'details';
+      location.hash = 'edit-' + section;
+      window.scrollTo(0, 0);
     },
 
 

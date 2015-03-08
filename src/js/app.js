@@ -158,7 +158,7 @@ module.exports = new Vue({
   ready: function () {
     this.login();
 
-    // Scroll to top
+    // Scroll to top button
     var win = $(window);
     var top = $('#top');
     win.scroll(throttle(250, false, function () {
