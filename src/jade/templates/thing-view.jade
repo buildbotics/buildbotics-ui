@@ -77,6 +77,12 @@ script#thing-view-template(type="text/x-template")
         h2 {{getStepTitle($index, step)}}
         div(v-markdown="step.text")
 
+      .empty(v-if="!thing.instructions")
+        p.weak (No instructions)
+        button.success(v-on="click:editThing('instructions')")
+          .fa.fa-pencil
+          | Edit
+
     .subsection
       h1#downloads Downloads
       file-manager(files="{{files}}")
