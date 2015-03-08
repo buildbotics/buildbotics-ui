@@ -62,4 +62,6 @@ tplang tpl_tut2.tpl >> tut2.nc
 
 This will execute your program and direct the resulting g-code to a file called tut2.nc.  Then run the  [Camotics](http://www.openscam.org) simulator.  Open tut2.nc from witin Camotics and you'll get an image that looks like this:
 
+<img src = "https://github.com/DougCoffland/buildbotics-ui/blob/master/learn/tpl_tut2_1.png" height="320" width = "480">
+
 
