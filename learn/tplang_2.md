@@ -32,7 +32,7 @@ We'll use the same setup statements that we used in my [Intro tutorial](https://
 
 Notice that I added a "print" statement at the beginning.  The print statement allows things to be printed to the standard output, which is the g-code file.  In g-code, text following a semi-colon is a comment.  Therefore, print statements with strings starting with semi-colons allow you to put comments into your g-code file.  You could also use print statements to write g-code statements directly.
 
-After the print statement, we establish that metric units will be used (specifically millimeters), the cutting speed will be 400 mm per minute, we will use tool number 1, and the spindle will turn at 2000 rpm.  Then we raise the cutting head to 3 millimeters, move to x=0,y=0 and cut down to 3 mm below the surface.  A gap is then provided and this is where will will put the meat of our program.
+After the print statement, we establish that metric units will be used (specifically millimeters), the cutting speed will be 400 mm per minute, we will use tool number 1, and the spindle will turn at 2000 rpm.  Then we raise the cutting head to 3 millimeters, move to x=0,y=0 and cut down to 3 mm below the surface.  A gap is then provided and this is where we will put the meat of our program.
 
 ##Step 3 - Create a wave
 
