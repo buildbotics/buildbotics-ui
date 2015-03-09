@@ -48,7 +48,7 @@ In Javascript, as well and most other programming languages, we use loops to do 
 * then each time you complete the loop add pi/60 to i
 * keep looping until i is no longer less than or equal to 2 times pi.
 
-Note, the value of pi is approximately 3.14.  During the first loop, "i" will be zero and in the second, "i" will equal pi/60, and in the third "i" will equal 3 * pi/60, and so on until "i" equals 2 * pi at which point the "for loop" will be completed and the program will move on to the next statement.
+Note, the value of pi is approximately 3.14.  During the first loop, "i" will be zero and in the second, "i" will equal pi/60, and in the third "i" will equal 2 * pi/60, and so on until "i" equals 2 * pi at which point the "for loop" will be completed and the program will move on to the next statement.
 
 Within the loop, you'll recognize the cut statement, but the part inside might be a little confusing.  This cut statement will cause the CNC machine to cut to the coordinates specified by "x:" and "y:" during each iteration.  Since the value of the variable "i" changes with each iteration and both the "x:" and "y:" coordinates use "i", their values will be different for each iteration.  This will cause the CNC head to cut to the new coordinate.
 
@@ -66,7 +66,7 @@ This will execute your program and direct the resulting g-code to a file called 
 
 #Step 4 - Create the opposite of the wave
 
-Next, we'll create a sort of "lazy 8" by copying the code that created before, running the loop backwards, and changing the "y:" coordinate value to -1 times the values we used in the first loop.  The code in the gap should now look like this:
+Next, we'll create a sort of "lazy 8" by copying the code that we created before and modifying it to run the loop backwards, with the "y:" coordinate value equal to -1 times the values we used in the first loop.  The code in the gap should now look like this:
 
 ```
   for(var i = 0; i <= 2 * Math.PI; i = i + Math.PI/60) {
@@ -88,7 +88,7 @@ Then simulate it in Camotics and you will get an image that looks like this:
 <img src = "https://github.com/DougCoffland/buildbotics-ui/blob/master/learn/tut2_2.png" height="320" width = "480">
 
 ##Step 4 - Add an outer loop
-Next, we put the whole thing inside another loop and run the same thing 12 times.  Each iteration of the loop will rotate the coordinate system around the z axis by pi/6 using TPL's rotate command.  Your entire program should now looke like this:
+Next, we put the whole thing inside another loop and run the same thing 12 times.  Each iteration of the loop will rotate the coordinate system around the z axis by pi/6 using TPL's rotate command.  Your entire program should now look like this:
 
 ```
   print(";This is a demonstration of TPL/Javascript");
@@ -116,6 +116,6 @@ Once again, save the program, run tplang at the command line and simulate it in 
 <img src = "https://github.com/DougCoffland/buildbotics-ui/blob/master/learn/tut2_3.png" height="320" width = "480">
 
 ##Summary
-If you look at the g-code file (tut2.nc) in you editor, you notice that it's pretty big (2287 lines of code).  This should give you a taste of the power of tplang because with a simple program totalling 19 lines of code, we were able to generate a fairly complex cut that includes 2887 lines of g-code.  In the next few tutorials, I'll show you how to use some Javascript libraries that simplify creation of complex shapes even more.
+If you look at the g-code file (tut2.nc) in your editor, you'll notice that it's pretty big (2287 lines of code).  This should give you a taste of the power of tplang because with a simple program totalling 19 lines of code, we were able to generate a fairly complex cut that includes 2887 lines of g-code.  In the next few tutorials, I'll show you how to use some Javascript libraries that simplify creation of complex shapes even more.
 
 On a final note, Buildbotics LLC is committed to the exchange of information for the betterment of small-scale manufacturing.  Your comments on this tutorial are welcome.  Please send me an e-mail message at dougcoffland@gmail.com if you would like to submit a tutorial of your own.
