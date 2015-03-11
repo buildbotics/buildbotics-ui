@@ -1,0 +1,15 @@
+script#profile-details-editor-template(type="text/x-template")
+  h2 Full name
+  input(v-model="edit_fullname" v-on="input:changed" maxlength="64")
+
+  h2 Location
+  input(v-model="edit_location" v-on="input:changed" maxlength="256")
+
+  h2 Homepage
+  input(v-model="edit_url" v-on="input:changed" maxlength="256")
+
+  div
+    button.success(v-on="click:save()" v-disable="!modified"
+      title="Save changes")
+      .fa.fa-save
+      | Save Details
