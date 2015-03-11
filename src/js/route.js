@@ -66,8 +66,6 @@ function tag_page(ctx) {
 
 
 function scroll_to(selector, cb) {
-  console.debug('scroll_to(' + selector + ')');
-
   if (!selector || selector == '#') selector = 'html,body';
 
   var target = $(selector);

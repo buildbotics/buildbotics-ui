@@ -18,9 +18,5 @@ script#thing-details-editor-template(type="text/x-template")
   .actions
     button.success(v-on="click:save()" v-disable="!modified"
       title="Save changes")
-      .fa.fa-floppy-o
-      | Save
-
-    button(v-on="click:cancel()" v-disable="!modified" title="Cancel changes")
-      .fa.fa-times
-      | Cancel
+      .fa.fa-save
+      | Save Details

@@ -2,8 +2,11 @@ script#thing-view-template(type="text/x-template")
   h1.title {{thing.title || thing.name}}
 
   subsection-menu(subsections="{{viewSections}}")
-    button.success(v-show="isOwner" v-on="click:editThing") Edit
+    button.success(v-show="isOwner" v-on="click:editThing")
+      .fa.fa-pencil
+      | Edit
     button.success(v-show="isOwner && !thing.published" v-on="click:publish")
+      .fa.fa-book
       | Publish
 
   .overview

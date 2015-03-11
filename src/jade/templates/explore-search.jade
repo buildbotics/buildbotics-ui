@@ -3,5 +3,10 @@ script#explore-search-template(type="text/x-template")
     input(type="text" v-model="query" v-on="keyup:search | enter"
       placeholder="Enter search terms" maxlength="256")
 
-    button(v-on="click:clear") Clear
-    button.success(v-on="click:search") Search
+    button(v-on="click:clear")
+      .fa.fa-eraser
+      | Clear
+
+    button.success(v-on="click:search")
+      .fa.fa-search
+      | Search

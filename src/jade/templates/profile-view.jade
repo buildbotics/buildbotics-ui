@@ -1,6 +1,8 @@
 script#profile-view-template(type="text/x-template")
   subsection-menu(subsections="{{viewSections}}")
-    button.success(v-show="isOwner" v-on="click:editProfile") Edit Profile
+    button.success(v-show="isOwner" v-on="click:editProfile")
+      .fa.fa-pencil
+      | Edit Profile
 
   .overview
     img.picture(v-attr="src:getPicture()")

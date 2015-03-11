@@ -10,43 +10,13 @@ module.exports = {
   paramAttributes: ['thing'],
 
 
-  data: function () {
-    return {
-      modified: false
-    }
-  },
-
-
   ready: function () {
-    this.initFields();
-    this.edit();
-
     // Get licenses
     this.$set('licenses', require('./app').licenses);
   },
 
 
   methods: {
-    // From protect-changes
-    needsSave: function () {return this.modified},
-
-
-    saveChanges: function (defer) {
-      this.save().done(defer.resolve).fail(defer.fail);
-    },
-
-
-    discardChanges: function (defer) {
-      this.modified = false;
-      defer.resolve();
-    },
-
-
-    changed: function () {
-      this.modified = true;
-    },
-
-
     saveTags: function (tags) {
       var promises = [];
 
@@ -73,7 +43,7 @@ module.exports = {
 
 
     // From field-editor
-    onSave: function (fields) {
+    onProtectedSave: function (fields) {
       var promises = [];
 
       // Save any tags
@@ -86,19 +56,8 @@ module.exports = {
       if (JSON.stringify(fields) != '{}')
         promises.push($bb.put(this.thing.api_url, fields));
 
-      return $.when.apply($, promises).done(function () {
-        this.modified = false;
-
-      }.bind(this)).fail(function () {
-        notify.error('Failed to save details');
-      })
-    },
-
-
-    // From field-editor
-    onCancel: function () {
-      this.edit();
-      this.modified = false;
+      return $.when.apply($, promises)
+        .fail(function () {notify.error('Failed to save details')})
     },
 
 
@@ -118,7 +77,6 @@ module.exports = {
 
 
   mixins: [
-    require('./field-editor')('thing', fields),
-    require('./protect-changes')
+    require('./protected-field-editor')('thing', fields)
   ]
 }

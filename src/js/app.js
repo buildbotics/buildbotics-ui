@@ -35,7 +35,7 @@ module.exports = new Vue({
     'tag-page': require('./tag'),
     'not-found-page': {template: '#not-found-template'},
 
-    'page-layout': {replace: true, template: '#page-layout-template'},
+    'bb-page-layout': {replace: true, template: '#page-layout-template'},
 
     'bb-profiles': require('./profiles'),
     'bb-things': require('./things'),

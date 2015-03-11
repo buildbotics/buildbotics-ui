@@ -11,7 +11,9 @@ script#comments-template(type="text/x-template")
       .comment-wrapper
         .comment-header
           .actions
-            button.success(v-on="click:comment()") Post Comment
+            button.success(v-on="click:comment()")
+              .fa.fa-envelope-o
+              | Post Comment
         .comment-content
           markdown-editor(field="text" placeholder="Leave a comment here.")
 

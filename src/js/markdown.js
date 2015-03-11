@@ -92,6 +92,14 @@ module.exports = {
     }
 
     Vue.nextTick(function () {this.editor.refresh()}.bind(this));
+
+    // Bind field changes
+    this.$parent.$watch(this.field, function (value) {
+      if (value == this.editor.getValue()) return;
+      this.editor.setValue(value);
+      this.editor.markClean();
+      this.modified = false;
+    }.bind(this))
   },
 
 

@@ -6,11 +6,16 @@ var page = require('page');
 var notify = require('./notify');
 
 var subsections = 'view edit-picture edit-details edit-bio'
-var fields = 'fullname location url bio';
 
 
 module.exports = {
   template: '#profile-template',
+
+
+  components: {
+    'profile-details-editor': require('./profile-details-editor'),
+    'profile-bio-editor': require('./profile-bio-editor')
+  },
 
 
   data: function  () {
@@ -21,31 +26,16 @@ module.exports = {
   },
 
 
-  events: {
-    'markdown-editor.modified': function (modified, ref) {
-      this.$set('modified', modified);
-    }
-  },
-
-
   created: function () {
     var self = this;
     var app = require('./app');
 
     // Import profile data
     $.each(app.profileData, function (key, value) {self.$add(key, value)});
-    this.initFields();
-    this.edit()
   },
 
 
   methods: {
-    // From subsections
-    onSubsectionChange: function (newSubsection, oldSubsection) {
-      this.edit()
-    },
-
-
     getSubsectionTitle: function (subsection) {
       return subsection.replace(/^edit-/, '');
     },
@@ -75,17 +65,6 @@ module.exports = {
     },
 
 
-    onSave: function (fields) {
-      return $bb.put('profiles/' + this.profile.name, fields)
-        .done(function () {
-          this.$broadcast('markdown-editor.mark-clean');
-
-        }.bind(this)).fail(function () {
-          notify.error('Failed to updated bio');
-        });
-    },
-
-
     editProfile: function () {
       location.hash = 'edit-picture';
     }
@@ -94,7 +73,6 @@ module.exports = {
 
   mixins: [
     require('./subsections')('profile', subsections),
-    require('./field-editor')('profile', fields),
     require('./login-listener')
   ]
 }

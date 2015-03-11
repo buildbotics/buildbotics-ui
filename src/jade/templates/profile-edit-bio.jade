@@ -1,4 +1,2 @@
 script#profile-edit-bio-template(type="text/x-template")
-  markdown-editor(v-if="profile" field="edit_bio")
-
-  div: button.success(v-on="click:save()" v-disable="!modified") Update Bio
+  profile-bio-editor(profile="{{profile}}")
