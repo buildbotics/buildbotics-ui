@@ -65,8 +65,10 @@ module.exports = {
     },
 
 
-    editProfile: function () {
-      location.hash = 'edit-picture';
+    editProfile: function (section) {
+      if (typeof section != 'string') section = 'picture';
+      location.hash = 'edit-' + section;
+      window.scrollTo(0, 0);
     }
   },
 

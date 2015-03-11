@@ -49,9 +49,12 @@ script#profile-view-template(type="text/x-template")
     .subsection
       h1#bio Bio
       .weak(v-show="!profile.bio && !isOwner") (Bio empty)
-      div(v-show="!profile.bio && isOwner")
-        | Click <button v-on="click:editProfile()" class="success">Edit Profile
-        | </button> to add a bio.
+      p(v-show="!profile.bio && isOwner")
+        | Click
+        button.success(v-on="click:editProfile('bio')")
+          .fa.fa-pencil
+          | Edit Bio
+        | to add a bio.
       div(v-markdown="profile.bio" v-show="profile.bio")
 
     .subsection

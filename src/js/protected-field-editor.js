@@ -51,7 +51,7 @@ module.exports = function (target, fields) {
 
       // From field-editor
       onSave: function (fields) {
-        return $.when(this.onProtectedSave)
+        return $.when(this.onProtectedSave(fields))
           .done(function () {
             this.$broadcast('markdown-editor.mark-clean');
             this.modified = false
