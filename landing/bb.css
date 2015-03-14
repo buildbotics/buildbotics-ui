@@ -1,0 +1,202 @@
+body {
+	margin:0;
+	padding:0;
+	min-width:700px; 
+	font-family:"Trebuchet MS", Georgia, Verdana, serif;
+	color:#000;
+  background-image: url("feint_logo_only.png");
+}
+
+/* position:absolute for all browsers - the whole page scrolls */
+div#headerwrap {
+	background: #ccc;
+	position:absolute;
+	width:100%;
+	top:0;
+	left:0;
+	height:80px;
+	position:fixed;
+}
+
+.header
+{
+	background: #ccc;
+	width:100%
+	height: 80px;
+	margin: 0px auto;
+	display: inline;
+}
+
+#navcontainer
+{
+padding: 0;
+background: transparent;
+height: 20px;
+width: 100%;
+}
+
+#navlist
+{
+margin: 0px;
+padding: 0px 0px;
+display: block;
+}
+
+#navlist li
+{
+list-style: none;
+float: left;
+}
+
+#navcontainer a, #navlist li.extend
+{
+margin: 0px;
+display: block;
+border-top: 1px solid #ccc;
+border-right: 2px solid black;
+border-bottom: 2px solid black;
+padding: 1px 6px;
+text-decoration: none;
+background: transparent;
+font: normal 18px verdana, serif;
+color: #000;
+}
+
+#navcontainer a:hover
+{
+padding: 1px 5px;
+background: #ecb364;
+border-right: 1px solid #333;
+border-left: 1px solid #333;
+border-top: 1px solid #ccc;
+border-bottom: 1px solid #333;
+color: #000;
+}
+
+#navcontainer a.current
+{
+background: #ccc;
+border-top: 1px solid #ccc;
+font-weight: bold;
+}
+
+#navcontainer li.active
+{
+background: #ccc;
+border-right: 2px solid #828282;
+border-bottom: 2px solid #828282;
+}
+
+div#middlewrap {
+	padding:100px 0 0 0;
+	margin-left:0;
+}
+
+div#middle {
+	margin:0 auto;
+}
+
+.verticalcollage {
+	max-height: 700px;
+	padding-top: 0px;
+	padding-bottom:0px;
+}
+
+div#content {
+	background:transparent;
+	padding:0px;
+	margin-left:0px;	
+}
+
+.mainbodytable{
+	border-spacing: 10px;
+	word-wrap: normal;
+	padding-left: 0px;
+}
+
+
+.darkgreycell {
+	width: auto;
+	background-color: #333;
+	font-family: courier;
+	font-style: bold;
+	font-size: large;
+	color: #ecb364;
+}
+.darkgreycell2 {
+	width: auto;
+	height: 180px;
+	background-color: #333;
+	font-family: courier;
+	font-style: bold;
+	font-size: large;
+	color: #ecb364;
+}
+.orangecell {
+	width:auto;
+	height: 520px;
+	background-color: #ecb364;
+	font-family: courier;
+	font-style: bold;
+	font-size: large;
+	color: #333;
+}
+
+.mainbodyul {
+  list-style-type: none;
+	color: #333;
+}
+
+.mainbodyli {
+	width: auto;	
+}
+
+div#footerwrap {
+	width:100%;
+	bottom:0;
+	left:0;
+	height:50px;
+	position:fixed;
+}
+div#footer {
+	height:50px;
+	width:100%;
+	margin:0 auto;
+}
+
+.footer
+{
+	background: #ccc;
+	height: 62px;
+	padding: 5px;
+	margin: 0px auto;
+}
+
+div #footer p {
+	margin:0;
+	padding:0;
+	text-align:left;
+}
+div#footer a {
+	color:#fff;
+}
+
+.copyright {
+	color: white
+}
+
+.footerlinks{
+	color: orange
+}
+
+.whyjoin {
+	font-size: large;
+	width: 100%
+}
+.whyjoin td{
+	border: 2px solid #ccc;
+}
+
+	
+
+
