@@ -66,3 +66,7 @@ Open up the Camotics simulator and select "Open Project" from the File menu.  Br
    * Diameter 9.525
 This creates a bit that will cut a 90 degree angle up to 5/16 in deep. 
   
+##Step 5 - Run the Camotic simulation
+Click the "Simulation View" tab and then hit the F5 key to run the simulation.  The results should look like this:
+
+<img src = "https://github.com/DougCoffland/buildbotics-ui/blob/master/learn/CuttingTextWithFonts/Camotics_Simulation.png" height="300" width = "400">
