@@ -27,6 +27,8 @@ for (var i = 0; i < line.paths.length; i++) {
   pathToCut.path = line.paths[i];
   cutter.cutPath(pathToCut);
 };
+
+speed(0);
 ```
 The following is an explanation of the code you just entered.  It provides details of exactly what each line does.  You can skip to Step 2 if you don't need an explanation.
 * The first four lines are the libraries that must be included.  We will only make calls to functions in the [HersheyTextAids Library](https://github.com/buildbotics/tpl-docs/blob/master/HersheyText%20Aids%20Library.md) and the [CuttingAids Library](https://github.com/buildbotics/tpl-docs/blob/master/Cutting%20Library.md).  The HersheyTextAids Library depends on the hersheytext library so the hersheytext library must be included. Similarly, the CuttingAids Library depends on the ClipperAids Library,
@@ -44,7 +46,8 @@ so it must be included as well
   * Set the font to "Script 1-stroke".  You can use any font you like from the list defined in the HersheyTextAids Library documentation found at https://github.com/buildbotics/tpl-docs/blob/master/HersheyText%20Aids%20Library.md Those fonts with names ending with "-stroke" are single line fonts and work best for CNC routing.
   * Finally, set the space size (the distance between words) to 5 millimeters times the scale factor.  Since our scale factor is 2, each word will be 10 mm apart.
 * Next we must create an object with the rapid movement cutting height (safeHeight) and the cutting depth (depth) to be passed tothe cutPath functionn in the CuttingAids Library object, which was set to cutter in the fourth line of code.  safeHeight will be 3 mm and depth will be 6 mm.
-* Finally, for each path that was created in the ha.getLineOfText function call above, we will set the path property in the pathToCut object to that line and then pass the pathToCut object to the cutter.cutPath function to actually create the g-code for the cut.
+* Then, for each path that was created in the ha.getLineOfText function call above, we will set the path property in the pathToCut object to that line and then pass the pathToCut object to the cutter.cutPath function to actually create the g-code for the cut.
+* Finally, the last line of code turns off the spindle.  This is important even if you don't have automated control of your spindle decause LinuxCNC will complain that the program has not terminated correctly when you load it if you don't have this command.
 
 ##Step 2 - Convert TPL Program to g-code
 This step convert the TPL program that we just entered to a g-code file named TextOnWood.nc.
@@ -70,3 +73,14 @@ This creates a bit that will cut a 90 degree angle up to 5/16 in deep.
 Click the "Simulation View" tab and then hit the F5 key to run the simulation.  The results should look like this:
 
 <img src = "https://github.com/DougCoffland/buildbotics-ui/blob/master/learn/CuttingTextWithFonts/Camotics_Simulation.png" height="300" width = "400">
+
+Save your work in a file called TextOnWood.xml.  This will be your project file and it includes the tool configuration we made as well as a reference to TextOnWood.nc.  Use TextOnWood.xml to re-open this file if you want to make changes.  If you are satified with the appearance from the simulation move on to Step 6, otherwise go back to step 1 to adjust parameters and continue through step 5.  Rinse and repeat until it looks that way you want.
+
+##Step 6 Open LinuxCNC and load TextOnWood.nc
+##Step 7 Configure LinuxCNC Tool Table
+##Step 8 Secure Workpiece to Router Table
+##Step 9 Install Tool 1
+##Step 10 Home Axes
+##Step 11 Donn Personal Protective Equipment
+##Step 12 Cut
+##Step 12 Install Tool
