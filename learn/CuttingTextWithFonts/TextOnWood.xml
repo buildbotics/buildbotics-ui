@@ -1,0 +1,19 @@
+<openscam>
+  <!-- Note, all values are in mm regardless of 'units' option. -->
+  <!-- NC Files -->
+  <nc-files>
+    TextOnWood.nc
+  </nc-files>
+
+  <!-- Renderer -->
+  <resolution v='0.794253'/>
+
+  <!-- Workpiece -->
+  <automatic-workpiece v='true'/>
+  <workpiece-max v='(326.8,49.6,0)'/>
+  <workpiece-min v='(-20.8,-7.6,-6.3)'/>
+
+  <tool_table>
+    <tool length='10' number='1' radius='5' shape='CONICAL' units='MM'/>
+  </tool_table>
+</openscam>
