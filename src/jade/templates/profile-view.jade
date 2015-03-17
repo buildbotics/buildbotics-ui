@@ -4,6 +4,11 @@ script#profile-view-template(type="text/x-template")
       .fa.fa-pencil
       | Edit Profile
 
+    button(v-show="!isOwner && isLoggedIn" v-class="success:!isFollowing"
+      v-on="click:toggleFollow")
+      .fa.fa-users
+      | {{isFollowing ? 'Unfollow' : 'Follow'}}
+
   .overview
     img.picture(v-attr="src:getPicture()")
 
@@ -11,7 +16,6 @@ script#profile-view-template(type="text/x-template")
       span {{profile.fullname}}
 
     .name {{profile.name}}
-
 
     .stats
       div
