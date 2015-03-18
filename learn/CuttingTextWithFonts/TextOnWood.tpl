@@ -18,4 +18,5 @@ for (var i = 0; i < line.paths.length; i++) {
   pathToCut.path = line.paths[i];
   cutter.cutPath(pathToCut);
 };
-    
+
+print('M2\n');   
