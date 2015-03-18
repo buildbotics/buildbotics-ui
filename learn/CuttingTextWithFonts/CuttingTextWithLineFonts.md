@@ -106,6 +106,7 @@ Move the head to where you want the lower left point of the first letter to be. 
 We set the cutting speed to 800 mm/minute in the TPL program.  Tat equates to 31.5 inches per minute.  Assuming your router can cut at this speed, set the maximum velocity to about 31.5 inches per minute using slider control.
 
 At this point, the machine is ready to start cutting.  The following images show how my machine looks and the state of LunuxCNC.
+
 <img src = "https://github.com/DougCoffland/buildbotics-ui/blob/master/learn/CuttingTextWithFonts/Router_Ready_to_Cut.jpg" height="300" width = "400">
 <img src = "https://github.com/DougCoffland/buildbotics-ui/blob/master/learn/CuttingTextWithFonts/LinuxCNC_Ready_to_Cut.png" height="300" width = "400">
 
