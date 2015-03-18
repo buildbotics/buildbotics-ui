@@ -47,14 +47,14 @@ so it must be included as well
 * Finally, for each path that was created in the ha.getLineOfText function call above, we will set the path property in the pathToCut object to that line and then pass the pathToCut object to the cutter.cutPath function to actually create the g-code for the cut.
 
 ## Step 2 - Convert TPL Program to g-code
-This step convert the TPL program that we just entered to a g-code file named TextOnWood.nc.
+This step convert the TPL program that we just entered to a g-code file named ```TextOnWood.nc```.
 
 Move to your working directory and enter the following command.
 ```
 $ tplang TextOnWood.tpl > TextOnWood.nc
 ```
 ## Step 3 - Open Camotics simulator and load g-code
-Open up the Camotics simulator and select "Open Project" from the File menu.  Browse to your working directory, select TextOnWood.nc and click Open.
+Open up the Camotics simulator and select "Open Project" from the File menu.  Browse to your working directory, select ```TextOnWood.nc``` and click Open.
 
 ## Step 4 - Configure tool 1 in Camotics
 * Click the "Tool View" tab just above the display window
