@@ -107,8 +107,8 @@ We set the cutting speed to 800 mm/minute in the TPL program.  Tat equates to 31
 
 At this point, the machine is ready to start cutting.  The following images show how my machine looks and the state of LunuxCNC.
 
-<img src = "https://github.com/DougCoffland/buildbotics-ui/blob/master/learn/CuttingTextWithFonts/Router_Ready_to_Cut.jpg" height="300" width = "400">
-<img src = "https://github.com/DougCoffland/buildbotics-ui/blob/master/learn/CuttingTextWithFonts/LinuxCNC_Ready_to_Cut.png" height="300" width = "400">
+<img src = "https://github.com/DougCoffland/buildbotics-ui/blob/master/learn/CuttingTextWithFonts/Router_Ready_To_Cut.jpg" height="300" width = "400">
+<img src = "https://github.com/DougCoffland/buildbotics-ui/blob/master/learn/CuttingTextWithFonts/LinuxCNC_Ready_To_Cut.png" height="300" width = "400">
 
 ##Step 11 Personal safety
 The machine can throw off bits of material, so please wear safety glasses.
@@ -121,5 +121,6 @@ Turn on the spindle. Click the blue triangle (which points right) in the tool ba
 When cutting is finished, use the + control to move the head up and out of the way and remove the workpiece from the table.
 
 Here's a couple of pictures of the final cut.
+
 <img src = "https://github.com/DougCoffland/buildbotics-ui/blob/master/learn/CuttingTextWithFonts/FinalCut1.jpg" height="300" width = "400">
 <img src = "https://github.com/DougCoffland/buildbotics-ui/blob/master/learn/CuttingTextWithFonts/FinalCut2.jpg" height="300" width = "400">
