@@ -1,6 +1,6 @@
 script#file-template(type="text/x-template")
   td.preview
-    img(v-if="showThumb()" v-attr="src:file.src || file.url")
+    img(v-if="showThumb()" v-attr="src:file.src || (file.url + '?size=thumb')")
     .fa(v-if="!showThumb()" v-class="getIcon()" title="{{file.type}} file")
 
   td.name

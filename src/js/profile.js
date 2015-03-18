@@ -26,6 +26,13 @@ module.exports = {
   },
 
 
+  events: {
+    'logged-in': function (user) {
+      this.$set('isFollowing', require('./app').isFollowing(this.profile.name))
+    }
+  },
+
+
   created: function () {
     var self = this;
     var app = require('./app');
