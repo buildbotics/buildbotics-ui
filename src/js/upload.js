@@ -14,7 +14,7 @@ module.exports = function (url) {
 
 
     methods: {
-      initUploader: function () {
+      initUploader: function (options) {
         if (this.uploader) return; // Already loaded
 
         var self = this;
@@ -41,8 +41,8 @@ module.exports = function (url) {
         if (browse.length) browse.attr('id', browseID);
         else browseID = undefined;
 
-        // Configure plupload
-        this.uploader = new plupload.Uploader({
+        // Options
+        options = $.extend({
           runtimes: 'html5',
           url: url,
           file_data_name: 'file',
@@ -50,7 +50,10 @@ module.exports = function (url) {
           drop_element: dropzoneID,
           browse_button: browseID,
           multipart_params: {},
-        });
+        }, options || {});
+
+        // Configure plupload
+        this.uploader = new plupload.Uploader(options);
 
         // Bind events
         this.uploader.bind('Error',          handleError);
@@ -144,6 +147,23 @@ module.exports = function (url) {
           console.debug('Upload complete ' + file.name);
           self.onFileUploaded(file);
         }
+      },
+
+
+      cancelUpload: function (file) {
+        var status = file.status;
+        this.uploader.removeFile(file);
+
+        if (this.uploader.state == plupload.STARTED &&
+            status == plupload.UPLOADING) {
+          up.stop();
+          up.start();
+        }
+      },
+
+
+      triggerUpload: function () {
+        $(this.$el).find('.moxie-shim input[type=file]').trigger('click');
       },
 
 

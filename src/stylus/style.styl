@@ -2,7 +2,6 @@ golden_ratio = 1.6180339887498948482
 page_width = 960px
 min_page_width = 200px
 header_height = 50px
-avatar_size = 40px
 overview_width = 200px
 content_width = 720px
 edit_menu_width = 8em
@@ -286,12 +285,9 @@ body
     > *
       display inline-block
       margin-right 0.5em
-      height header_height - 20px
 
     .avatar
       vertical-align -10px
-      width header_height - 20px
-      height header_height - 20px
 
   .sign-out
     font-size 14pt
@@ -464,8 +460,6 @@ body
 // Avatar
 .avatar
   border-radius 3px
-  width avatar_size
-  height avatar_size
   margin 4px 4px 0 0
 
 
@@ -755,11 +749,10 @@ body
     border 1px solid border_color
     border-radius 3px
     text-overflow ellipsis
-    overflow hidden
+    overflow auto
 
     p
       text-overflow ellipsis
-      overflow hidden
 
 
 // Thing
@@ -771,8 +764,6 @@ body
       .avatar
         display block
         margin auto
-        width 100px
-        height 100px
 
     .owner, .published, .license, .tags, .stars
       white-space normal
@@ -849,7 +840,7 @@ body
     text-decoration none
     color link_hover_color
 
-  .picture
+  .avatar
     display block
     border-radius 4px
     margin auto
@@ -869,36 +860,36 @@ body
   width 150px
   margin 1em 1em 1em 0
 
-  .picture
+  .avatar
+    border 1px solid border_color
     width 150px
     height 150px
-    border 1px solid border_color
 
-  &:hover .picture
+  &:hover .avatar
     border 1px solid #444
 
 .profiles-small .profiles > a
   margin 0 0.25em 0.25em 0
   text-align center
 
-  .picture
-    width avatar_size
-    height avatar_size
-
   .name, .points
     display none
+
+  .avatar
+    max-width 32px
+    max-height 32px
 
 
 // Profile
 .profile-page
-  img.picture
-    max-height overview_width
-    border-radius 3px
-
   .overview
     margin-top 0.5em
+    text-align center
 
-    .picture
+    > *
+      text-align left
+
+    .avatar
       margin-bottom 0
 
     .fullname, .name
@@ -913,6 +904,22 @@ body
     .name
       margin-bottom 1em
 
+.profile-edit-picture
+  .dropzone
+    width 200px
+    height 200px
+    border 1px solid border_color
+    text-align center
+    background-color white
+
+    .avatar
+      margin 0
+      border-radius 0
+
+  .progressbar
+    width 200px
+    margin 0.5em 0
+
 
 // Comments
 .comment
@@ -924,7 +931,7 @@ body
   .comment-wrapper
     border-radius 3px
     border 1px solid border_color
-    margin-left avatar_size + 15px
+    margin-left 50px
     position relative
 
     &:before, &:after

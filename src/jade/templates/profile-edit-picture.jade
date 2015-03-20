@@ -1,7 +1,2 @@
 script#profile-edit-picture-template(type="text/x-template")
-  img.picture(v-attr="src:getPicture()")
-
-  div
-    button.success(v-disable="!modified" v-on="click:save()")
-      .fa.fa-save
-      | Save Picture
+  profile-avatar-editor(profile="{{profile}}")

@@ -1,0 +1,33 @@
+script#profile-avatar-editor-template(type="text/x-template")
+  div
+    .dropzone
+      .browse
+        img.avatar(v-attr="src:url")
+
+    div(v-show="!avatar.state")
+      p
+        | Click to
+        button.success(v-on="click:triggerUpload()")
+          .fa.fa-plus
+          | Upload
+        | a new profile picture.
+      p You can also drag and drop a new picture on to the old one.
+      p The ideal profile picture is square and at least 200x200 pixels.
+
+    div(v-show="avatar.uploading")
+        div(v-progressbar="avatar.percent")
+          span {{avatar.percent}}%
+
+        p
+          | Click to
+          button(v-on="click:cancel")
+            .fa.fa-times
+            | Cancel
+          | upload.
+
+    div(v-show="avatar.state == 'done'")
+      p Upload successful.
+      p
+        | You will need to reload the page to see your updated picture
+        | throughout the site.
+      button.success(v-on="click:gotIt") Got it!

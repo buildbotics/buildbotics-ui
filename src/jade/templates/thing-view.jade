@@ -27,7 +27,7 @@ script#thing-view-template(type="text/x-template")
 
     .owner
       a(href="/{{thing.owner}}")
-        img.avatar(v-attr="src:'/api/profiles/' + thing.owner + '/avatar'")
+        bb-avatar(name="{{thing.owner}}" size="alarge")
       | Created by{{' '}}
       a(href="/{{thing.owner}}")
         | {{thing.owner}}

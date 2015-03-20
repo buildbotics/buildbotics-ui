@@ -3,7 +3,7 @@
 
 var util = {
   isImage: function (type) {
-    return /^image\/((png)|(gif)|(jpeg)|(svg)|(bmp))/.test(type);
+    return /^image\/((png)|(gif)|(jpeg)|(svg))/.test(type);
   },
 
 

@@ -6,7 +6,7 @@ script#comments-template(type="text/x-template")
     hr
 
     .comment(v-show="isAuthenticated()")
-      img.avatar(v-attr="src:getAvatar()")
+      bb-avatar(name="{{getUserName()}}")
 
       .comment-wrapper
         .comment-header
