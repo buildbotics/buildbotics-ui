@@ -9,7 +9,7 @@ As a side note, I've known many people that draw the line at "writing code" and 
 
 ##Step 1 - Start your editor and create a tpl file
 
-If you accept this challenge, open up a text editor and create a new file called tpl_tpl2.tpl.  Save the file in a folder that is convenient for training. Configure the editor for Javascript language if it has that capability. 
+If you accept this challenge, open up a text editor and create a new file called tpl_tut2.tpl.  Save the file in a folder that is convenient for training. Configure the editor for Javascript language if it has that capability. 
 
 ##Step 2 - Set up for cutting and move to the starting point
 
