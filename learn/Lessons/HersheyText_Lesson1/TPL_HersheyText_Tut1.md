@@ -1,19 +1,20 @@
-#Cutting Text With Line Fonts
-This tutorial demonstrates how to cut a text string.
-##Software used
-The following software was used and it is assumed that the software is already installed and path variables are configured.
-* [Tool Path Language (TPL)](http://tplang.org)
-* [Camotics](http://openscam.org)
-* [LinuxCNC](http://linuxcnc.org)
+#How to cut text using the TPL HersheyText Aids Library
+This lesson demonstrates how to write a [TPL](http://tplang.org) program that creates the [g-code](http://reprap.org/wiki/G-code) for a text string using the [HersheyText Aids TPL Library](https://github.com/buildbotics/tpl-docs/blob/master/HersheyText%20Aids%20Library.md).
 
 ##Step 1 - Write TPL Program
-Using your favorite text editor, ceate a file called TextOnWood.tpl in the directory where you plan to work.  Configure it for Javascript if it supports languages, enter the following lines of text and save your work:
+Using your favorite text editor, ceate a file called text.tpl in the directory where you plan to work.  Configure it for Javascript if it supports languages.
+
+##Step2 - Include the necessary libraries
+We will use the HersheyTextAids.js and the [CuttingAids.js](https://github.com/buildbotics/tpl-docs/blob/master/Cutting%20Library.md) libraries directly.  The HersheyTextAids.js library references the hersheytext.js, which was created by the [Evil Mad Scientist Laboratories](http://www.evilmadscientist.com/2014/hershey-text-js/), so we have to include it as well.  In addition the [CuttingAids.js Library](https://github.com/buildbotics/tpl-docs/blob/master/Cutting%20Library.md) references the [ClipperAids.js library](https://github.com/buildbotics/tpl-docs/blob/master/Clipping%20Library.md) so the ClipperAids.js library has to be included along with the CuttingAids.js library.  Enter the first four lines into your text editor to provide these library inclusions.
+
 ```
 var hf = require('hersheytext');
 var ha = require('HersheyTextAids');
 var ca = require('ClipperAids');
 var cutter = require('CuttingAids');
+```
 
+```
 units(METRIC);
 feed(800);
 speed(4000);
@@ -30,9 +31,7 @@ for (var i = 0; i < line.paths.length; i++) {
 
 print('M2\n');
 ```
-The following is an explanation of the code you just entered.  It provides details of exactly what each line does.  You can skip to Step 2 if you don't need an explanation.
-* The first four lines are the libraries that must be included.  We will only make calls to functions in the [HersheyTextAids Library](https://github.com/buildbotics/tpl-docs/blob/master/HersheyText%20Aids%20Library.md) and the [CuttingAids Library](https://github.com/buildbotics/tpl-docs/blob/master/Cutting%20Library.md).  The HersheyTextAids Library depends on the hersheytext library so the hersheytext library must be included. Similarly, the CuttingAids Library depends on the ClipperAids Library,
-so it must be included as well
+
 * The next four lines are general set up and have the following meaning:
   * Units will be in millimeters
   * The cutting feed rate will be .8 meters per minute.  Note that the router may induce limitations that cause the cutting speed to be slower. If your router cuts faster, feel free to change this speed.  This is what mine will do reliably.
