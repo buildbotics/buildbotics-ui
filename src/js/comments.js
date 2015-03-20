@@ -27,11 +27,6 @@ module.exports = {
     },
 
 
-    getAvatar: function () {
-      return require('./app').user.avatar;
-    },
-
-
     getUserName: function () {
       return require('./app').user.name;
     },
@@ -50,7 +45,6 @@ module.exports = {
 
         comment.comment = id;
         comment.owner = self.getUserName();
-        comment.avatar = self.getAvatar();
         comment.created = comment.modified = new Date().toISOString();
 
         self.comments.push(comment);

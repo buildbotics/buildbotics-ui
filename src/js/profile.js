@@ -4,8 +4,9 @@
 var $bb = require('./buildbotics');
 var page = require('page');
 var notify = require('./notify');
+var util = require('./util');
 
-var subsections = 'view edit-picture edit-details edit-bio'
+var subsections = 'view edit-details edit-picture edit-bio'
 
 
 module.exports = {
@@ -13,6 +14,7 @@ module.exports = {
 
 
   components: {
+    'profile-avatar-editor': require('./profile-avatar-editor'),
     'profile-details-editor': require('./profile-details-editor'),
     'profile-bio-editor': require('./profile-bio-editor')
   },
@@ -20,7 +22,7 @@ module.exports = {
 
   data: function  () {
     return {
-      viewSections: 'bio starred followers following activity'.split(' '),
+      viewSections: 'creations starred followers following activity'.split(' '),
       modified: false
     }
   },
@@ -59,21 +61,13 @@ module.exports = {
     },
 
 
-    getPicture: function () {
-      var avatar = this.profile.avatar;
-      avatar = avatar.replace(/\?sz=\d+$/, '?sz=200'); // Google
-      avatar = avatar.replace(/\?type=small$/, '?type=large'); // Facebook
-      return avatar;
-    },
-
-
     create: function () {
       page('/create');
     },
 
 
     editProfile: function (section) {
-      if (typeof section != 'string') section = 'picture';
+      if (typeof section != 'string') section = 'details';
       location.hash = 'edit-' + section;
       window.scrollTo(0, 0);
     }

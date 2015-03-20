@@ -10,7 +10,7 @@ script#profile-view-template(type="text/x-template")
       | {{isFollowing ? 'Unfollow' : 'Follow'}}
 
   .overview
-    img.picture(v-attr="src:getPicture()")
+    bb-avatar(name="{{profile.name}}" size="alarge")
 
     .fullname
       span {{profile.fullname}}
@@ -43,14 +43,6 @@ script#profile-view-template(type="text/x-template")
 
   .view-contents
     .subsection
-      h1#creations Creations
-      bb-things(things="{{things}}")
-      .weak(v-show="!things.length && !isOwner") (No creations)
-      .weak(v-show="!things.length && isOwner")
-        | Click <button v-on="click:create" class="success">Create</button> to
-        | start your first project.
-
-    .subsection
       h1#bio Bio
       .weak(v-show="!profile.bio && !isOwner") (Bio empty)
       p(v-show="!profile.bio && isOwner")
@@ -60,6 +52,14 @@ script#profile-view-template(type="text/x-template")
           | Edit Bio
         | to add a bio.
       div(v-markdown="profile.bio" v-show="profile.bio")
+
+    .subsection
+      h1#creations Creations
+      bb-things(things="{{things}}")
+      .weak(v-show="!things.length && !isOwner") (No creations)
+      .weak(v-show="!things.length && isOwner")
+        | Click <button v-on="click:create" class="success">Create</button> to
+        | start your first project.
 
     .subsection
       h1#starred Starred projects

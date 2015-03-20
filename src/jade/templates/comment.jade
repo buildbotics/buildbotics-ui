@@ -1,7 +1,7 @@
 script#comment-template(type="text/x-template")
   .comment(v-attr="id:'comment-' + comment.comment")
     a(href="/{{comment.owner}}")
-      img.avatar(v-attr="src:comment.avatar")
+      bb-avatar(name="{{comment.owner}}")
 
     .comment-wrapper
       .comment-header

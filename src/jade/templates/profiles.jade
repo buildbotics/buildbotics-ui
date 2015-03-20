@@ -2,7 +2,7 @@ script#profiles-template(type="text/x-template")
   div
     .profiles
       a(v-repeat="profile:profiles" v-attr="href:'/' + profile.name")
-        img.picture(v-attr="src:getPicture(profile)")
+        bb-avatar(name="{{profile.name}}" size="{{small ? 'thumb' : 'asmall'}}")
         .footer
           bb-points(points="{{profile.points}}")
           .name {{profile.name}}
