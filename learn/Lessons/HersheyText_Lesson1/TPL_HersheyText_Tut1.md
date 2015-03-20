@@ -19,8 +19,8 @@ The next four lines are general set up and have the following meaning:
 * Units will be in millimeters
 * The cutting feed rate will be .8 meters per minute.  Note that the router may induce limitations that cause the cutting speed to be slower. If your router cuts faster, feel free to change this speed.  This is what mine will do reliably.
 * The spindle will turn at 4000 rpm.  Actually, mine is a fixed speed and is unaffected by this parameter.  Nevertheless, it should be here for those of you with more sophisticated machines than mine and you can set it to a speed that you are comfortable with.
-* Tool 1 will be used.  As a result, you will want to configure tool 1 in the Camotics simulator and the router controller.
-* 
+* Tool 1 will be used.
+
 ```
 units(METRIC);
 feed(800);
@@ -33,9 +33,9 @@ In the next three lines, we configure an object with the parameters of our cut a
   * The text to be cut will be "Hello World!".  You can enter any single line of text that you like here.  I chose "Hello World!
   * The character spacing will be -2, which squeezes the text together from the standard spacing defined in the HersheyText library.  This is necessary since we will be using a cursive script and we want the letters to connect together.
   * Multiply the size of the resulting fonts by the scale factor, which is two.  Note, that the actual size of the fonts in the hersheytext library vary somewhat, and you may have to play around with this to get the size of text that you actually want.
-  * Set the font to "Script 1-stroke".  You can use any font you like from the list defined in the [HersheyTextAids Library documentation]( https://github.com/buildbotics/tpl-docs/blob/master/HersheyText%20Aids%20Library.md) Those fonts with names ending with "-stroke" are single line fonts and work best for CNC routing.
+  * Set the font to "Script 1-stroke".  You can use any font you like from the list defined in the [HersheyTextAids Library documentation]( https://github.com/buildbotics/tpl-docs/blob/master/HersheyText%20Aids%20Library.md). Those fonts with names ending with "-stroke" are single line fonts and work best for CNC routing.
   * Finally, set the space size (the distance between words) to 5 millimeters times the scale factor.  Since our scale factor is 2, each word will be 10 mm apart.
-  * When ha.getLineOfText(line) returns, line will contain a new property (line.paths) which contains that paths representing the line of text.
+  * When ha.getLineOfText(line) returns, line will contain a new property (line.paths) which contains the paths that form our line of text.
 
 ```
 var line = {text: "Hello World!", spacing: -2, scale: 2,
@@ -44,7 +44,7 @@ ha.getLineOfText(line);
 ```
 
 ##Step 5 - Cut the paths
-First, we must prepare an object to be used as the argument for cutter.cutPath().  We do this by creating the pathToCut object and setting the rapid movement height (safeHeight) to 3 mm and the cutting depth (depth) to 6 mm.  Then we repeated assign each path in the line.paths property to the pathToCut.path property and call cutter.cutPath.  Cutter is an object that was created in line 4 and it contains the cutPath method.
+First, we must prepare an object to be used as the argument for cutter.cutPath().  We do this by creating the pathToCut object and setting the rapid movement height (safeHeight) to 3 mm and the cutting depth (depth) to 6 mm.  Then we repeatedly assign each path in the line.paths property to the pathToCut.path property and call cutter.cutPath.  Cutter is an object that was created in line 4 and it contains the cutPath method.
 
 Add the following four lines of code in your text editor.
 
@@ -91,7 +91,7 @@ Move to your working directory and enter the following command.
 ```
 $ tplang TextOnWood.tpl > text.ngc
 ```
-##Step 9 - Simulate the result in Camotics
+##Step 8 - Simulate the result in Camotics
 
 Open up the Camotics simulator and select "Open Project" from the File menu.  Browse to your working directory, select text.ngc and click Open.
 
