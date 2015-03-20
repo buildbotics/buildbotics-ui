@@ -1,15 +1,16 @@
-body {
+ body {
 	margin:0;
 	padding:0;
 	min-width:700px; 
 	font-family:"Trebuchet MS", Georgia, Verdana, serif;
-	color:#000;
+	color:brown;
   background-image: url("feint_logo_only.png");
+  background-color: #c0c0c0;
 }
 
 /* position:absolute for all browsers - the whole page scrolls */
 div#headerwrap {
-	background: #ccc;
+	background: #ededed;
 	position:absolute;
 	width:100%;
 	top:0;
@@ -52,14 +53,14 @@ float: left;
 {
 margin: 0px;
 display: block;
-border-top: 1px solid #ccc;
+
 border-right: 2px solid black;
 border-bottom: 2px solid black;
 padding: 1px 6px;
 text-decoration: none;
-background: transparent;
+background: #ededed;
 font: normal 18px verdana, serif;
-color: #000;
+color: brown;
 }
 
 #navcontainer a:hover
@@ -97,9 +98,10 @@ div#middle {
 }
 
 .verticalcollage {
-	max-height: 700px;
+	max-height: 735px;
 	padding-top: 0px;
 	padding-bottom:0px;
+	background-color: transparent;
 }
 
 div#content {
@@ -112,13 +114,14 @@ div#content {
 	border-spacing: 10px;
 	word-wrap: normal;
 	padding-left: 0px;
+	background-color: #999966;
 }
 
 
 .darkgreycell {
 	width: auto;
-	background-color: #333;
-	font-family: courier;
+	background-color:black;
+	font-family: "Arial Black", Gadget, sans-serif;
 	font-style: bold;
 	font-size: large;
 	color: #ecb364;
@@ -126,25 +129,25 @@ div#content {
 .darkgreycell2 {
 	width: auto;
 	height: 180px;
-	background-color: #333;
-	font-family: courier;
+	background-color: transparent;
+	font-family: "Arial Black", Gadget, sans-serif;
 	font-style: bold;
-	font-size: large;
-	color: #ecb364;
+	font-size: 24px;
+	color: brown;
 }
 .orangecell {
 	width:auto;
 	height: 520px;
-	background-color: #ecb364;
-	font-family: courier;
+	background-color: transparent;
+	font-family: arial;
 	font-style: bold;
-	font-size: large;
-	color: #333;
+	font-size: 20px;
+	color: brown;
 }
 
 .mainbodyul {
   list-style-type: none;
-	color: #333;
+
 }
 
 .mainbodyli {
@@ -155,8 +158,10 @@ div#footerwrap {
 	width:100%;
 	bottom:0;
 	left:0;
-	height:50px;
+	height:90px;
 	position:fixed;
+	background-color: transparent;
+	font-weight: bold;
 }
 div#footer {
 	height:50px;
@@ -166,7 +171,6 @@ div#footer {
 
 .footer
 {
-	background: #ccc;
 	height: 62px;
 	padding: 5px;
 	margin: 0px auto;
@@ -175,27 +179,49 @@ div#footer {
 div #footer p {
 	margin:0;
 	padding:0;
-	text-align:left;
-}
-div#footer a {
-	color:#fff;
 }
 
 .copyright {
-	color: white
+	color: brown;
 }
 
 .footerlinks{
-	color: orange
+	color: black;
 }
 
 .whyjoin {
-	font-size: large;
-	width: 100%
+  border-collapse: collapse;
+  background-color: #999966;
 }
 .whyjoin td{
-	border: 2px solid #ccc;
+	border: 2px solid brown;
+	padding-left: 10px;
 }
+
+.learn_table {
+	font-size: large;
+	width: 100%;
+	border-collapse: collapse;
+	background-color: #999966;
+}
+
+.learn_table td {
+  border: 2px solid #ecb364;
+  padding-left: 10px;
+}
+
+.learn_list {
+  list-style-type: none;
+}
+
+.create_table {
+	font-size: 24px;
+	width: 100%;
+	border-collapse: collapse;
+	background-color: #999966;
+}
+
+  
 
 	
 

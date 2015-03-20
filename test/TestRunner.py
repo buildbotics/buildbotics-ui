@@ -59,14 +59,11 @@ class TestRunner(unittest.TestCase):
       self.viewStepValueLabel = self.builder.get_object("StepViewValueLabel")
       
       self.changeStepDialog = self.builder.get_object("StepChangeDialog")
-      self.changeStepTypeComboBox = self.builder.get_object("StepChangeTypeComboBox")
-      self.changeStepCriteriaComboBox = self.builder.get_object("StepChangeCriteriaComboBox")
       self.changeStepValueEntry = self.builder.get_object("StepChangeValueEntry")
       self.changeStepErrorEntry = self.builder.get_object("StepChangeErrorEntry")
       self.changeStepCommentEntry = self.builder.get_object("StepChangeCommentEntry")
-      self.actionList = \
-      ["testName","openSite","find", "findSub","assert","click","wait","back","refresh", "goto","subroutine","gosub","return","comment","sendkeys","findNot","findSubNot","assertNot"]
-      self.criteriaList = ["None","id","tag","class","link text","text","src","is_displayed","image"]
+
+      self.variableList = {}
       
       
       self.viewStepErrorLabel = self.builder.get_object("StepViewErrorLabel")
@@ -77,6 +74,9 @@ class TestRunner(unittest.TestCase):
       
       self.confirmDialog = self.builder.get_object("AreYouSureDialog")
       self.confirmDialogLabel = self.builder.get_object("ConfirmDialogLabel")
+      
+      self.criteriaControl = self.builder.get_object("criteriaControlRadioButton")
+      self.typeControl = self.builder.get_object("typeControlRadioButton")
       
       self.setUp()
       
@@ -160,7 +160,31 @@ class TestRunner(unittest.TestCase):
       self.setFileAndDirectoryLabel(self.sourceFile)
       self.logMessage(self.sourceFile + " saved")
       self.sourceFileDirty = False          
-        
+    
+    def setActiveCriteria(self,criteriaList,default):
+      critList = ["id","tag","class","link text","text","image"]
+      self.criteriaControl.set_active(True)
+      for rb in self.criteriaControl.get_group():
+        if rb.get_label() not in criteriaList:
+          rb.set_sensitive(False)
+          rb.set_visible(False)
+        else:
+          rb.set_visible(True)
+          rb.set_sensitive(True)
+        if rb.get_label() == default: rb.set_active(True)
+      
+      
+    
+    def on_rb_toggled(self,widget,data=None):
+      if not widget.get_active(): return
+      if widget.get_label() in ["testName","openSite","click","wait","back","refresh",\
+                                "goto", "subroutine","gosub", "return", "comment",\
+                                "sendkeys","assertEqual","assertEqualNot","getValue","addToValue"]:
+        self.setActiveCriteria([],None)
+      elif widget.get_label() in ["find", "findNot", "findSub", "findSubNot"]:
+        self.setActiveCriteria(["id","tag","class","link text","text","image"],None)
+      elif widget.get_label() in ["assert", "assertNot"]:
+        self.setActiveCriteria(["src","is_displayed","text"],None)   
 
     def on_InsertStepBefore_clicked(self,widget,data=None):
       return self.newStep("before")
@@ -178,7 +202,7 @@ class TestRunner(unittest.TestCase):
       result = self.confirmDialog.run()
       self.confirmDialog.hide()
       if result == 0: return
-      self.sourceFileDirty = True
+      if self.sourceFile != None: self.sourceFileDirty = True
       self.dataScript[0].pop(stepNumber)
       i = self.loadStore()
       if i >= stepNumber: self.stepList.set_cursor(stepNumber)
@@ -186,8 +210,8 @@ class TestRunner(unittest.TestCase):
       self.logMessage("Step {0} was deleted.".format(stepNumber + 1))
          
     def newStep(self,when):
-      self.changeStepTypeComboBox.set_active(0)
-      self.changeStepCriteriaComboBox.set_active(0)
+      self.typeControl.set_active(True)
+      self.criteriaControl.set_active(True)
       self.changeStepValueEntry.set_text("")
       self.changeStepErrorEntry.set_text("")
       self.changeStepCommentEntry.set_text("")
@@ -196,9 +220,19 @@ class TestRunner(unittest.TestCase):
       if result == 0: return
       
       step = {}
-      step["type"] = self.actionList[self.changeStepTypeComboBox.get_active()]
-      index = self.changeStepCriteriaComboBox.get_active()
-      if index != 0: step["criteria"] = self.criteriaList[index]
+      active = [r for r in self.typeControl.get_group() if r.get_active()][0]
+      if active == self.typeControl:
+        self.logMessage("No type was specified so the step was not added");
+        return
+      step["type"] = active.get_label()
+      
+      if step["type"] in ["find", "findNot", "findSub","findSubNot", "assert", "assertNot"]:
+        active = [r for r in self.criteriaControl.get_group() if r.get_active()][0]
+        if active == self.criteriaControl:
+          self.logMessage("No criteria was specified so the step was not added");
+          return
+        step["criteria"] = active.get_label()
+
       value = self.changeStepValueEntry.get_text()
       if len(value) > 0: step["value"] = value
       error = self.changeStepErrorEntry.get_text()
@@ -210,7 +244,7 @@ class TestRunner(unittest.TestCase):
         self.dataScript.append([step])
         self.loadStore()
         self.stepList.set_cursor(0)
-        self.sourceFileDirty = True
+        if self.sourceFile != None: self.sourceFileDirty = True
         self.logMessage("Step 1 added.")
         return
         
@@ -223,11 +257,10 @@ class TestRunner(unittest.TestCase):
         stepNumber += 1
         self.dataScript[0].insert(stepNumber,step)
       self.loadStore()
-      self.sourceFileDirty = True
+      if self.sourceFile != None: self.sourceFileDirty = True
       self.logMessage("New step added {0} step number {1}".format(when,stepNumber))
       self.stepList.set_cursor(stepNumber)
-     
-      
+        
     def on_EditStep_clicked(self,widget,data=None):
       selection = self.stepList.get_selection()
       if selection.count_selected_rows() != 1:
@@ -239,12 +272,19 @@ class TestRunner(unittest.TestCase):
       it = selection.get_selected()[1]
       row = self.stepStore.get_path(it)[0]
       step = self.dataScript[0][row]
-      index = self.actionList.index(step["type"])
-      self.changeStepTypeComboBox.set_active(index)
-      if step.get("criteria"):
-        index = self.criteriaList.index(step["criteria"])
-        self.changeStepCriteriaComboBox.set_active(index)
-      else: self.changeStepCriteriaComboBox.set_active(0)
+      
+      active = [r for r in self.typeControl.get_group() if r.get_label() == step["type"]][0]
+      active.set_active(True)
+      
+      if step["type"] in ["testName","openSite","click","wait","back","refresh",\
+                                "goto", "subroutine","gosub", "return", "comment",\
+                                "sendkeys","assertEqual","assertEqualNot","getValue","addToValue"]:
+        self.setActiveCriteria([],None)
+      elif step["type"] in ["find", "findNot", "findSub", "findSubNot"]:
+        self.setActiveCriteria(["id","tag","class","link text","text","image"],step["criteria"])
+      elif step["type"] in ["assert", "assertNot"]:
+        self.setActiveCriteria(["src","is_displayed","text"],step["criteria"])   
+      
       if step.get("value"):
         self.changeStepValueEntry.set_text(step["value"])
       else: self.changeStepValueEntry.set_text("")
@@ -258,18 +298,19 @@ class TestRunner(unittest.TestCase):
       result = self.changeStepDialog.run()
       self.changeStepDialog.hide()
       if result == 1:
-        self.sourceFileDirty = True
-        sType = self.actionList[self.changeStepTypeComboBox.get_active()]
+        if self.sourceFile != None: self.sourceFileDirty = True
+        active = [r for r in self.typeControl.get_group() if r.get_active()][0]
+        sType = active.get_label()
         self.stepStore.set_value(it,4,sType)
         self.dataScript[0][row]["type"] = sType
         
-        criteria = self.criteriaList[self.changeStepCriteriaComboBox.get_active()]
-        if criteria == "None": 
-          if step.get("criteria"): step.dataScript[0][row].pop("criteria")
-          self.stepStore.set_value(it,5,"")
+        if sType in ["find", "findNot", "findSub", "findSubNot", "assert", "assertNot"]:
+          criteria = [r for r in self.criteriaControl.get_group() if r.get_active()][0]
+          self.stepStore.set_value(it,5,criteria.get_label())
+          self.dataScript[0][row]["criteria"] = criteria.get_label()
         else:
-          self.stepStore.set_value(it,5,criteria)
-          self.dataScript[0][row]["criteria"] = criteria
+          self.stepStore.set_value(it,5,"")
+          self.dataScript[0][row]["criteria"] = ""
           
         value = self.changeStepValueEntry.get_text()
         if value == "":
@@ -545,6 +586,17 @@ class TestRunner(unittest.TestCase):
         self.assertTrue(False,"SCRIPT ERROR: unknown tag criteria:" + step["criteria"])
         
     def assertion(self,tag,step,Not):
+      if step["type"] == "assertEqual" or step["type"] == "assertNotEqual":
+        try:
+          if tag.text == step["value"]:
+            if Not: self.assertTrue(False,"Error: Tag text (" + e.text + ") is equal to " + step["value"])
+            return
+          else:
+            if Not: return
+            self.assertTrue(False,"Error: Tag text (" + e.text + ") is not equal to " + step["value"])
+        except AttributeError:
+          self.assertTrue(False,"Error: Current tag does not have a text value")
+          
       if step["criteria"] == "src":
         if Not: self.assertFalse(tag.get_attribute(step["criteria"]) == step["value"],\
                "Tag source: " + step["value"] + " found unexpectedly in current tag")
@@ -571,7 +623,13 @@ class TestRunner(unittest.TestCase):
         
     def setTestName(self,name):
       self.logMessage("Test Name: " + name)
-		
+
+    def getTextToVariable(self,variable):
+		  try:
+		    self.variableList[step["criteria"]] = variable
+		  except:
+		    self.assertTrue(False,"Current tag has noo text value")
+		    
     def runStep(self, step):
 		    type = step["type"]
 		    if type == "testName": self.setTestName(step["value"])
@@ -589,6 +647,10 @@ class TestRunner(unittest.TestCase):
 		    elif type == "goto":   self.driver.get(step["value"])
 		    elif type == "sendkeys": self.sendKeys(self.tag,step["value"])
 		    elif type == "comment":pass
+		    elif type == "getValue": self.variableList[step["value"]] = self.tag.text
+		    elif type == "assertEqual": self.assertion(self.tag,step,False)
+		    elif type == "assertNotEqual": self.assertion(self.tag,step,True)
+		    elif type == "add": pass
 		    else:
 		      self.assertTrue(False,"SCRIPT ERROR: unknown action type: " + type)
 

@@ -60,14 +60,15 @@ These steps are performed on a Debian Linux system.  They should be very similar
   cut({x: 1});
   cut({y: 1});
   ```
-12. Move the cutting head to a safe position 5 mm above the workpiece surface and stop the spindle by setting it to 0 rpm.
+12. Move the cutting head to a safe position 5 mm above the workpiece surface and stop the spindle by setting it to 0 rpm.  Finally, we print M2 and a carriage return to the standard output.  M2 is a g-code command that means "end of program".  At the present time, TPL does not have an "end()" statement and some versions of LinuxCNC will fail if this statement is not included.
 
   ```
   rapid({z: 5});
   speed(0);
+  print('M2\n');
   ```
 Here's a screen shot of what your program should look like at this point.
-  <img src = "https://github.com/DougCoffland/buildbotics-ui/blob/master/learn/tpl_tut1_1.png" height="320" width = "480">
+  <img src = "https://github.com/DougCoffland/buildbotics-ui/blob/master/learn/Lessons/TPL_Lesson1/tpl_tut1_1.png" height="320" width = "480">
 
 13. Now, you can see the [g-code](http://reprap.org/wiki/G-code) that this program generates by entering the following command at the command prompt in our tpl_turorials directory.  You may also get a warning about using a non-existent tool, which you can ignore.
 
@@ -85,16 +86,17 @@ Here's a screen shot of what your program should look like at this point.
   G1 Y1
   G0 Z5
   M5
+  M2
   %
   ```
-Hmmmm, you might notice that we just wrote 12 lines of [TPL](http://tplang.org) to get 13 lines of [g-code](http://reprap.org/wiki/G-code), so what's the point; and you might as well have just written the program in [g-code](http://reprap.org/wiki/G-code).  This is true for a simple program like this.  Recall however, that [TPL](http://tplang.org) is an extension of Javascript and all of the power of Javascript programming is now available to create complex shapes that you could not consider with [g-code](http://reprap.org/wiki/G-code) alone.
+Hmmmm, you might notice that we just wrote 13 lines of [TPL](http://tplang.org) to get 14 lines of [g-code](http://reprap.org/wiki/G-code), so what's the point; and you might as well have just written the program in [g-code](http://reprap.org/wiki/G-code).  This is true for a simple program like this.  Recall however, that [TPL](http://tplang.org) is an extension of Javascript and all of the power of Javascript programming is now available to create complex shapes that you could not consider with [g-code](http://reprap.org/wiki/G-code) alone.
 
-14. Now type the same command again, but redirect the output to a text file with a .nc extension so it can be used by your CNC machine and by the [Camotics](http://openscam.org) simulator.
+14. Now type the same command again, but redirect the output to a text file with a .ngc extension so it can be used by your CNC machine and by the [Camotics](http://openscam.org) simulator.
 
   ```
-  $ tplang tpl_tutorial1.tpl >> tpl_tutorial1.nc
+  $ tplang tpl_tutorial1.tpl > tpl_tutorial1.ngc
   ```
-15. Finally, open up the [Camotics](http://openscam.org) simulator, load tpl_tutorial1.nc, run the simulation, and you should get the following image.
+15. Finally, open up the [Camotics](http://openscam.org) simulator, load tpl_tutorial1.ngc, run the simulation, and you should get the following image.
 
   <img src = "https://github.com/DougCoffland/buildbotics-ui/blob/master/learn/tpl_tut1_2.png" height="320" width = "480">
 
