@@ -20,3 +20,4 @@ for(k = 0;k < 12; k = k + 1){
 }
 rapid({z:3});
 speed(0);
+print('M2\n');
