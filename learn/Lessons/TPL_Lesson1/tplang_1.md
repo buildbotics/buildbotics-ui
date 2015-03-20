@@ -68,7 +68,7 @@ These steps are performed on a Debian Linux system.  They should be very similar
   print('M2\n');
   ```
 Here's a screen shot of what your program should look like at this point.
-  <img src = "https://github.com/DougCoffland/buildbotics-ui/blob/master/learn/tpl_tut1_1.png" height="320" width = "480">
+  <img src = "https://github.com/DougCoffland/buildbotics-ui/blob/master/learn/Lessons/TPL_Lesson1/tpl_tut1_1.png" height="320" width = "480">
 
 13. Now, you can see the [g-code](http://reprap.org/wiki/G-code) that this program generates by entering the following command at the command prompt in our tpl_turorials directory.  You may also get a warning about using a non-existent tool, which you can ignore.
 
