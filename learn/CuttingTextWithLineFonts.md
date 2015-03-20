@@ -1,13 +1,13 @@
-#Cutting Text With Line Fonts
+# Cutting Text With Line Fonts
 This tutorial demonstrates how to cut a text string.
-##Software used
+## Software used
 The following software was used and it is assumed that the software is already installed and path variables are configured.
 * [Tool Path Language (TPL)](http://tplang.org)
 * [Camotics](http://openscam.org)
 * [LinuxCNC](http://linuxcnc.org)
 
 ##Step 1 - Write TPL Program
-Using your favorite text editor, ceate a file called TextOnWood.tpl in the directory where you plan to work.  Configure it for Javascript if it supports languages, enter the following lines of text and save your work:
+Using your favorite text editor, ceate a file called ```TextOnWood.tpl``` in the directory where you plan to work.  Configure it for Javascript if it supports languages, enter the following lines of text and save your work:
 ```
 var hf = require('hersheytext');
 var ha = require('HersheyTextAids');
@@ -46,17 +46,17 @@ so it must be included as well
 * Next we must create an object with the rapid movement cutting height (safeHeight) and the cutting depth (depth) to be passed tothe cutPath functionn in the CuttingAids Library object, which was set to cutter in the fourth line of code.  safeHeight will be 3 mm and depth will be 6 mm.
 * Finally, for each path that was created in the ha.getLineOfText function call above, we will set the path property in the pathToCut object to that line and then pass the pathToCut object to the cutter.cutPath function to actually create the g-code for the cut.
 
-##Step 2 - Convert TPL Program to g-code
-This step convert the TPL program that we just entered to a g-code file named TextOnWood.nc.
+## Step 2 - Convert TPL Program to g-code
+This step convert the TPL program that we just entered to a g-code file named ```TextOnWood.nc```.
 
 Move to your working directory and enter the following command.
 ```
-$ tplang TextOnWood.tpl >> TextOnWood.nc
+$ tplang TextOnWood.tpl > TextOnWood.nc
 ```
-##Step 3 - Open Camotics simulator and load g-code
-Open up the Camotics simulator and select "Open Project" from the File menu.  Browse to your working directory, select TextOnWood.nc and click Open.
+## Step 3 - Open Camotics simulator and load g-code
+Open up the Camotics simulator and select "Open Project" from the File menu.  Browse to your working directory, select ```TextOnWood.nc``` and click Open.
 
-##Step 4 - Configure tool 1 in Camotics
+## Step 4 - Configure tool 1 in Camotics
 * Click the "Tool View" tab just above the display window
 * Set the settings section to the followiing parameters:
    * Tool     1
