@@ -53,7 +53,7 @@ Note, the value of pi is approximately 3.14.  During the first loop, "i" will be
 
 Within the loop, you'll recognize the cut statement, but the part inside might be a little confusing.  This cut statement will cause the CNC machine to cut to the coordinates specified by "x:" and "y:" during each iteration.  Since the value of the variable "i" changes with each iteration and both the "x:" and "y:" coordinates use "i", their values will be different for each iteration.  This will cause the CNC head to cut to the new coordinate.
 
-Finally, the "y:" coordinate includes at math function known as the "sine".  I won't attempt to explain sine waves, but will say that it will cause the "y:" coordinate to move up and down in a very nice wave as "i" changes.
+Finally, the "y:" coordinate includes a math function known as the "sine".  I won't attempt to explain sine waves, but will say that it will cause the "y:" coordinate to move up and down in a very nice wave as "i" changes.
 
 Save your work at this time, and then execute the following statement at the command prompt:
 
