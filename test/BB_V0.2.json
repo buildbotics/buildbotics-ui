@@ -412,7 +412,7 @@
       "type": "assert", 
       "value": "Contact", 
       "errMsg": "Link to Contact in footer failed", 
-      "criteria": "link text"
+      "criteria": "text"
     }, 
     {
       "type": "back"
@@ -725,6 +725,10 @@
       "value": "Header test from CREATIONS COMPLETED"
     }, 
     {
+      "type": "comment", 
+      "value": "Confirm that we are still on Creations page by looking at breadcrumbs"
+    }, 
+    {
       "type": "find", 
       "value": "breadcrumbs", 
       "criteria": "class"
@@ -754,6 +758,10 @@
       "criteria": "link text"
     }, 
     {
+      "type": "comment", 
+      "value": "Confirm that a known picture is present.  This could be tricky when the page has a lot of changes"
+    }, 
+    {
       "type": "find", 
       "value": "things", 
       "criteria": "class"
@@ -768,6 +776,10 @@
       "type": "assert", 
       "errMsg": "Swallow image not found on Creations page", 
       "criteria": "is_displayed"
+    }, 
+    {
+      "type": "comment", 
+      "value": "Search for a known image by a keyword and confirm that it is there"
     }, 
     {
       "COMMENT": "Now find the search field", 
@@ -786,6 +798,10 @@
     {
       "type": "sendkeys", 
       "value": "logo RETURN"
+    }, 
+    {
+      "type": "wait", 
+      "value": ".1"
     }, 
     {
       "type": "find", 
