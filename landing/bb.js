@@ -1,5 +1,6 @@
 // Load this script when page loads
 $(document).ready(function(){
+  $("body").css("background-image", "url('feint_logo_only.png')");
 	$('.menubutton').click(function () {
 		$('a.current').removeClass('current')
 		$('.active').removeClass('active','extend')

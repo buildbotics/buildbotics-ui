@@ -1,11 +1,7 @@
- body {
+body {
 	margin:0;
-	padding:0;
-	min-width:700px; 
-	font-family:"Trebuchet MS", Georgia, Verdana, serif;
-	color:brown;
-  background-image: url("feint_logo_only.png");
-  background-color: #c0c0c0;
+	min-width:700px;
+	font-family: "Arial Black", Gadget, sans-serif;
 }
 
 /* position:absolute for all browsers - the whole page scrolls */
@@ -13,6 +9,7 @@ div#headerwrap {
 	background: #ededed;
 	position:absolute;
 	width:100%;
+	max-width: 1000px;
 	top:0;
 	left:0;
 	height:80px;
@@ -59,14 +56,16 @@ border-bottom: 2px solid black;
 padding: 1px 6px;
 text-decoration: none;
 background: #ededed;
-font: normal 18px verdana, serif;
-color: brown;
+font-family: "Arial Black", Gadget, sans-serif;
+font-weight: 100;
+font-size: 18px;
+color: black;
 }
 
 #navcontainer a:hover
 {
 padding: 1px 5px;
-background: #ecb364;
+background: #eda92f;
 border-right: 1px solid #333;
 border-left: 1px solid #333;
 border-top: 1px solid #ccc;
@@ -89,7 +88,9 @@ border-bottom: 2px solid #828282;
 }
 
 div#middlewrap {
-	padding:100px 0 0 0;
+  width: 100%;
+  max-width: 1000px;
+	padding:80px 0 0 0;
 	margin-left:0;
 }
 
@@ -97,12 +98,6 @@ div#middle {
 	margin:0 auto;
 }
 
-.verticalcollage {
-	max-height: 735px;
-	padding-top: 0px;
-	padding-bottom:0px;
-	background-color: transparent;
-}
 
 div#content {
 	background:transparent;
@@ -111,54 +106,28 @@ div#content {
 }
 
 .mainbodytable{
-	border-spacing: 10px;
+  width: 100%;
 	word-wrap: normal;
 	padding-left: 0px;
-	background-color: #999966;
+	background-color: #eda92f;
 }
-
 
 .darkgreycell {
 	width: auto;
 	background-color:black;
 	font-family: "Arial Black", Gadget, sans-serif;
 	font-style: bold;
-	font-size: large;
-	color: #ecb364;
-}
-.darkgreycell2 {
-	width: auto;
-	height: 180px;
-	background-color: transparent;
-	font-family: "Arial Black", Gadget, sans-serif;
-	font-style: bold;
-	font-size: 24px;
-	color: brown;
-}
-.orangecell {
-	width:auto;
-	height: 520px;
-	background-color: transparent;
-	font-family: arial;
-	font-style: bold;
-	font-size: 20px;
-	color: brown;
-}
-
-.mainbodyul {
-  list-style-type: none;
-
-}
-
-.mainbodyli {
-	width: auto;	
+	font-size: 40px;
+	font-weight: 10;
+	color: #eda92f;
 }
 
 div#footerwrap {
 	width:100%;
+	max-width: 1000px;
 	bottom:0;
 	left:0;
-	height:90px;
+	height:120px;
 	position:fixed;
 	background-color: transparent;
 	font-weight: bold;
@@ -174,6 +143,7 @@ div#footer {
 	height: 62px;
 	padding: 5px;
 	margin: 0px auto;
+	
 }
 
 div #footer p {
@@ -191,10 +161,10 @@ div #footer p {
 
 .whyjoin {
   border-collapse: collapse;
-  background-color: #999966;
+  background: transparent;
 }
 .whyjoin td{
-	border: 2px solid brown;
+	border: 2px solid #eda92f;
 	padding-left: 10px;
 }
 
@@ -202,11 +172,11 @@ div #footer p {
 	font-size: large;
 	width: 100%;
 	border-collapse: collapse;
-	background-color: #999966;
+	background-color: transparent;
 }
 
 .learn_table td {
-  border: 2px solid #ecb364;
+  border: 2px solid #eda92f;
   padding-left: 10px;
 }
 
@@ -218,9 +188,13 @@ div #footer p {
 	font-size: 24px;
 	width: 100%;
 	border-collapse: collapse;
-	background-color: #999966;
+	background-color: transparent;
 }
 
+.create_table td {
+  border: 2px solid #eda92f;
+  padding-left: 10px;
+}
   
 
 	
