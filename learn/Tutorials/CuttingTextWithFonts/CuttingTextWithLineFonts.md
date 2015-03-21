@@ -61,18 +61,19 @@ This creates a bit that will cut a 90 degree angle up to 5/16" deep.
 
 <img src = "https://github.com/DougCoffland/buildbotics-ui/blob/master/learn/Tutorials/CuttingTextWithFonts/Camotics_Tool_Setup.png" height="300" width = "400">
 
-##Step 5 - Run the Camotic simulation
+##Step 5 - Run the Camotics simulation
 Click the "Simulation View" tab and then hit the F5 key to run the simulation.  The results should look like this:
 
 <img src = "https://github.com/DougCoffland/buildbotics-ui/blob/master/learn/Tutorials/CuttingTextWithFonts/Camotics_Simulation2.png" height="300" width = "400">
 
-Save your work in a file called TextOnWood.xml.  This will be your project file and it includes the tool configuration we made as well as a reference to TextOnWood.ngc.  Use TextOnWood.xml to re-open this file if you want to make changes.  If you are satified with the appearance from the simulation move on to Step 6, otherwise go back to step 1 to adjust parameters and continue through step 5.  Rinse and repeat until it looks that way you want.
+Save your work in a file called TextOnWood.xml.  This will be your project file and it includes the tool configuration we made as well as a reference to TextOnWood.ngc.  Use TextOnWood.xml to re-open this file if you want to make changes.  If you are satified with the appearance from the simulation move on to Step 6, otherwise go back to step 1 to adjust parameters and continue through step 5.  Rinse and repeat until it looks the way you want.
 
 ##Step 6 Open LinuxCNC and load TextOnWood.ngc
 Open linuxCNC and select the configuration file for your router.
 
 After LinuxCNC has opened, select "Open" from the file menu, browse to your working folder, select "TextOnWood.ngc, and open it.
-<img src = "https://github.com/DougCoffland/buildbotics-ui/blob/master/learn/Tutorials/CuttingTextWithFonts/Ready_To_Cut.png" height="300" width = "400">
+
+<img src = "https://github.com/DougCoffland/buildbotics-ui/blob/master/learn/Tutorials/CuttingTextWithFonts/LinuxCNC_Ready_To_Cut.png" height="300" width = "400">
 
 ##Step 7 Configure LinuxCNC Tool Table
 Select "Edit tool table..." from the File menu. Select row number 1 and enter the following data on row 1.  Note, your data may differ depending on what tool you have available for this cut:
@@ -83,7 +84,7 @@ Select "Edit tool table..." from the File menu. Select row number 1 and enter th
 * Comment column	.375 x 5/16" conical bit
 Then click "Write Tool Table File" and then click Dismiss
 
-<img src = "https://github.com/DougCoffland/buildbotics-ui/blob/master/learn/Tutorials/CuttingTextWithFonts/Ready_To_Cut.png" height="80" width = "400">
+<img src = "https://github.com/DougCoffland/buildbotics-ui/blob/master/learn/Tutorials/CuttingTextWithFonts/Tool_table.png" height="80" width = "400">
 
 ## Step 8 Turn on the router controller
 Turn on your router controller. Then, press F2 to power on the controller.
