@@ -2,6 +2,7 @@
 
 var $bb = require('./buildbotics');
 var page = require('page');
+var util = require('./util');
 var throttle = require('./throttle');
 
 
@@ -114,6 +115,18 @@ module.exports = new Vue({
     },
 
 
+    escape: function (handler) {
+      if (!handler) return;
+
+      return function (e) {
+        if (e.keyCode == 27) {
+          handler.call(this, e);
+          e.preventDefault();
+        }
+      }
+    },
+
+
     humanSize: function (bytes, precision) {
       if (typeof bytes != 'number' || isNaN(bytes)) return 'unknown';
       if (typeof precision == 'undefined') precision = 1;
@@ -162,10 +175,41 @@ module.exports = new Vue({
     // Scroll to top button
     var win = $(window);
     var top = $('#top');
+    var hidden;
+
     win.scroll(throttle(250, false, function () {
-      if (win.scrollTop() < 200) top.hide();
-      else top.show();
+      var hide = win.scrollTop() < 200;
+
+      if (hide && hidden !== true) top.hide();
+      if (!hide && hidden !== false) top.show();
+
+      hidden = hide;
     }));
+
+    // Smooth scrolling
+    window.addEventListener('click', function (e) {
+      if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey ||
+          e.defaultPrevented) return;
+
+      // Ensure link
+      var el = e.target;
+      while (el && 'A' !== el.nodeName) el = el.parentNode;
+      if (!el || 'A' !== el.nodeName) return;
+
+      // Ensure hash
+      var link = el.getAttribute('href');
+      if (!el.hash || link == '#') return;
+
+      if (location.pathname.replace(/^\//, '') ==
+          el.pathname.replace(/^\//, '') &&
+          location.hostname == el.hostname) {
+
+        util.scrollTo(el.hash, function () {location.hash = el.hash})
+
+        e.preventDefault();
+        return false;
+      }
+    }, false)
   },
 
 

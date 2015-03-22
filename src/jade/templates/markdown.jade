@@ -1,10 +1,13 @@
 script#markdown-editor-template(type="text/x-template")
   .markdown-editor
-    .modified.fa.fa-asterisk(v-show="modified" title="Document modified")
+    .fullscreen-btn.fa.fa-arrows-alt(v-on="click:toggleFullscreen"
+      title="Toggle fullscreen mode.")
+    .modified.fa.fa-asterisk(v-show="modified" title="Document modified.")
 
     .markdown-menu
+      .fullscreen-msg Fullscreen editor.  Press ESC to exit.
       a.edit-tool.active(v-on="click:edit()") Edit
-      a.preview-tool(v-on="click:preview()") Preview
+      a.preview-tool(v-on="click:showPreview()") Preview
 
     .markdown-toolbar(v-show="editing")
       .button-group
@@ -187,9 +190,11 @@ script#markdown-editor-template(type="text/x-template")
           | character with the backslash <code>\</code>. Markdown will ignore
           | the character directly after a backslash.
 
-    .markdown-content(v-show="editing")
+    .markdown-content(v-show="editing || fullscreen" v-on="click:focusEditor")
+
+    .markdown-preview(v-show="!editing || fullscreen")
+      .markdown-preview-content Preview
+
     .markdown-footer(v-if="maxLength" v-show="editing")
       span(v-class="error:maxLength <= length, warn:0.95 * maxLength < length")
         | Length: {{length}} Max: {{maxLength}}
-
-    .markdown-preview(v-show="!editing") Preview

@@ -723,8 +723,9 @@ body
     h1:first-of-type
       text-transform capitalize
 
-    input, select, .tag-editor, p
-      width 30em
+    > * > *
+      > input, > select, > .tag-editor, > p
+        width 30em
 
     button
       margin-top 0.5em
@@ -748,7 +749,8 @@ body
     background #fff
     border 1px solid border_color
     border-radius 3px
-    text-overflow ellipsis
+    word-break normal
+    word-wrap break-word
     overflow auto
 
     p
@@ -1212,11 +1214,23 @@ input, textarea, select
   border 1px solid border_color
   white-space normal
 
-  .modified
+  .modified, .fullscreen-btn
     float right
     color light_text_color
+
+  .modified
     margin 0.5em
     font-size 8pt
+
+  .fullscreen-btn
+    margin 0.125em
+    font-size 20pt
+    cursor pointer
+
+  .fullscreen-msg
+    color medium_text_color
+    font-size 14pt
+    display none
 
   .markdown-menu
     background-color #f3f3f3
@@ -1334,15 +1348,18 @@ input, textarea, select
     border-top 1px solid border_color
 
   .markdown-preview
-    padding 0 1em
     overflow auto
     border-bottom-left-radius 3px
     border-bottom-right-radius 3px
-    min-height 20em
+    word-break normal
+    word-wrap break-word
+
+    .markdown-preview-content
+      padding 0 1em
 
   .CodeMirror
     border 1px solid #fff
-    padding 0.25em
+    padding 1em
 
     &.CodeMirror-focused
       border 1px solid rgba(82, 168, 236, 0.8)
@@ -1350,6 +1367,46 @@ input, textarea, select
   .CodeMirror-empty
     color light_text_color
     font-size 100%
+
+  &.fullscreen
+    position fixed
+    top 0
+    left 0
+    width 100%
+    height 100%
+    z-index 10
+    overflow-x hidden
+    overflow-y auto
+
+    .fullscreen-msg
+      display inline
+
+    .markdown-menu > a
+      visibility hidden
+
+    .markdown-content, .markdown-preview
+      width 50%
+      height auto
+
+    .markdown-content
+      position absolute
+      border-right 1px solid border_color
+      min-height 100%
+
+    .markdown-preview
+      margin-left 50%
+      border-top 1px solid border_color
+      border-left 1px solid border_color
+      border-radius 0
+      margin-right -1px
+      min-height auto
+
+    .CodeMirror
+      height auto
+
+    .CodeMirror-focused
+      border 1px solid transparent
+      box-shadow none
 
 
 // Progressbar

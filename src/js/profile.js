@@ -69,7 +69,6 @@ module.exports = {
     editProfile: function (section) {
       if (typeof section != 'string') section = 'details';
       location.hash = 'edit-' + section;
-      window.scrollTo(0, 0);
     }
   },
 

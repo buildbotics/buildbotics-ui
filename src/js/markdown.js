@@ -1,5 +1,7 @@
 'use strict'
 
+var debounce = require('./debounce');
+
 
 module.exports = {
   replace: true,
@@ -9,6 +11,7 @@ module.exports = {
 
   data: function () {
     return {
+      fullscreen: false,
       editing: true,
       modified: false,
       canUndo: false,
@@ -100,6 +103,10 @@ module.exports = {
       this.editor.markClean();
       this.modified = false;
     }.bind(this))
+
+
+    // Save preview pointer
+    this.preview = $(this.$el).find('.markdown-preview-content');
   },
 
 
@@ -109,6 +116,47 @@ module.exports = {
 
 
   methods: {
+    exitFullscreenOnEscape: function (e) {
+      e = e || window.event;
+      if (e.keyCode == 27) this.setFullscreen(false);
+    },
+
+
+    setFullscreen: function (fullscreen) {
+      this.fullscreen = fullscreen;
+
+      if (this.fullscreen) {
+        $(this.$el).addClass('fullscreen');
+        this.updatePreview();
+        this.editor.on('change', this.updatePreview);
+        document.addEventListener('keyup', this.exitFullscreenOnEscape);
+        this.refresh();
+
+        $('body').css('overflow-y', 'hidden');
+        this.$el.scrollTo(0, 0);
+
+      } else {
+        $(this.$el).removeClass('fullscreen');
+        this.editor.off('change', this.updatePreview);
+        document.removeEventListener('keyup', this.exitFullscreenOnEscape);
+
+        $('body').css('overflow-y', '');
+      }
+    },
+
+
+    toggleFullscreen: function () {
+      this.setFullscreen(!this.fullscreen);
+    },
+
+
+    focusEditor: function () {
+      this.editor.focus();
+      if (typeof this.editor.getCursor().xRel == 'undefined')
+        this.editor.setCursor(this.editor.lineCount(), 0)
+    },
+
+
     reset: function () {
       this.refresh();
       this.editor.setValue(this.$parent.$get(this.field));
@@ -141,10 +189,17 @@ module.exports = {
     },
 
 
-    preview: function (item) {
-      $(this.$el).find('.markdown-preview')
-        .html(marked(this.editor.getValue()));
+    updatePreviewNow: function () {
+      this.preview.html(marked(this.editor.getValue()));
+    },
 
+    updatePreview: debounce(250, function () {
+      this.updatePreviewNow();
+    }),
+
+
+    showPreview: function (item) {
+      this.updatePreviewNow();
       $(this.$el).find('.edit-tool').removeClass('active');
       $(this.$el).find('.preview-tool').addClass('active');
       this.editing = false;

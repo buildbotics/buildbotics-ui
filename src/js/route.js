@@ -2,6 +2,7 @@
 
 var page = require('page');
 var app = require('./app');
+var util = require('./util');
 var $bb = require('./buildbotics');
 
 
@@ -65,22 +66,6 @@ function tag_page(ctx) {
 }
 
 
-function scroll_to(selector, cb) {
-  if (!selector || selector == '#') selector = 'html,body';
-
-  var target = $(selector);
-  target = target.length ? target : $('[name=' + selector.slice(1) +']');
-
-  if (target.length)
-    $("html, body").animate(
-      {scrollTop: target.offset().top}, 1000, 'swing', function () {
-        if (cb) cb();
-      })
-
-  else if (cb) cb();
-}
-
-
 function profile_page(ctx) {
   var profile = ctx.params.profile;
   console.debug('/' + profile + '#' + ctx.hash);
@@ -88,18 +73,22 @@ function profile_page(ctx) {
   if (app.currentPage == 'profile' && app.profileData.profile &&
       app.profileData.profile.name == profile) {
 
-    scroll_to('#' + ctx.hash);
+    util.scrollTo('#' + ctx.hash);
     app.subsection = ctx.hash;
     return;
   }
 
   app.currentPage = 'loading';
+  window.scrollTo(0, 0);
 
   $bb.get('profiles/' + profile)
     .done(function (data) {
       app.profileData = data;
       app.currentPage = 'profile';
       app.subsection = ctx.hash;
+
+      window.scrollTo(0, 0);
+      util.scrollTo('#' + ctx.hash);
 
     }).fail(function (data) {
       app.currentPage = 'not-found';
@@ -116,11 +105,12 @@ function thing_page(ctx) {
       app.thingData.thing.owner == profile &&
       app.thingData.thing.name == thing) {
     app.subsection = ctx.hash;
-    scroll_to('#' + ctx.hash);
+    util.scrollTo('#' + ctx.hash);
     return;
   }
 
   app.currentPage = 'loading';
+  window.scrollTo(0, 0);
 
   $bb.get('profiles/' + profile + '/things/' + thing)
     .done(function (data) {
@@ -129,6 +119,8 @@ function thing_page(ctx) {
 
       if (/comment-\d+/.test(ctx.hash)) app.subsection = 'comments';
       else app.subsection = ctx.hash;
+
+      util.scrollTo('#' + ctx.hash);
 
     }).fail(function (data) {
       app.currentPage = 'not-found';
