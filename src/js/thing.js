@@ -138,11 +138,11 @@ module.exports = {
 
 
   created: function () {
-    var self = this;
     var app = require('./app');
 
     // Import thing data
-    $.each(app.thingData, function (key, value) {self.$set(key, value);});
+    $.each(app.thingData,
+           function (key, value) {this.$set(key, value)}.bind(this));
 
     // API URL
     this.thing.api_url = this.getAPIURL();
@@ -154,6 +154,8 @@ module.exports = {
       .map(function (tag) {return tag.replace(/^#/, '')})
 
     else if (!this.thing.tags) this.thing.tags = []
+
+    this.util = util;
   },
 
 

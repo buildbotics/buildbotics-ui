@@ -32,10 +32,11 @@ script#profile-view-template(type="text/x-template")
         span.weak(v-show="!profile.location") (Not set)
         span {{profile.location}}
 
-      .homepage
+      .link
         .fa.fa-link
         span.weak(v-show="!profile.url") (Not set)
-        a(href="{{profile.url}}" target="_blank") {{profile.url}}
+        a(href="{{profile.url}}" target="_blank")
+          | {{util.prettyURL(profile.url)}}
 
       .joined
         .fa.fa-clock-o

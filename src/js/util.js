@@ -17,6 +17,11 @@ var util = {
   },
 
 
+  prettyURL: function (url) {
+    return url.replace(/^https?:\/\//, '');
+  },
+
+
   scrollTo: function (selector, cb, animate) {
     Vue.nextTick(function () {
       console.debug('scroll_to(' + selector + ')');

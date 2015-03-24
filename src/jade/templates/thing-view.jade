@@ -18,7 +18,8 @@ script#thing-view-template(type="text/x-template")
       .link
         .fa.fa-link
         span.weak(v-show="!thing.url") (No link)
-        a(v-show="thing.url" href="{{thing.url}}" target="_blank") {{thing.url}}
+        a(v-show="thing.url" href="{{thing.url}}" target="_blank")
+          | {{util.prettyURL(thing.url)}}
 
       .published
         .fa.fa-clock-o
