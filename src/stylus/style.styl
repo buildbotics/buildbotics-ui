@@ -784,51 +784,6 @@ body
     overflow hidden
     text-overflow ellipsis
 
-  .subsection .step
-    margin-bottom 3em
-
-    &:last-child
-      margin-bottom 0
-
-    .step-links
-      margin 0.5em 0.5em 0 0
-      float right
-
-      a
-        display inline-block
-        border 1px solid border_color
-        padding 0.25em
-        border-right none
-        background-color #eee
-        background-image linear-gradient(#fcfcfc, #eee)
-        font-size 10pt
-
-        &:first-of-type
-          border-top-left-radius 3px
-          border-bottom-left-radius 3px
-
-        &:last-of-type
-          border-top-right-radius 3px
-          border-bottom-right-radius 3px
-          border-right 1px solid border_color
-
-    > h2
-      background-color header_color
-      border 1px solid border_color
-      border-top-left-radius 3px
-      border-top-right-radius 3px
-      margin-bottom 0
-      padding 0.25em
-      color link_color
-
-    .markdown
-      border-top none
-      border-top-left-radius 0
-      border-top-right-radius 0
-
-.thing-edit-instructions
-  .step
-    width content_width
 
 // Thing name validator
 .thing-name-validator .fa
@@ -1121,69 +1076,6 @@ body
     left -999px
 
 
-// Step Editor
-.step-editor
-  .step-order
-    background #fff
-    border 1px solid border_color
-    padding 4px
-    border-radius 3px
-
-    height 15em
-    overflow-y auto
-
-    button
-      display block
-      width 100%
-      text-align left
-      margin 0
-
-      &.active, &.active:hover
-        color text_color
-
-  .actions
-    margin 1em auto
-    text-align right
-
-    .delete
-      position relative
-
-      .modal-content
-        white-space nowrap
-
-    > *
-      display inline-block
-
-    button
-      margin-left 0.25em
-
-  .left
-    float left
-
-    button
-      margin-left 0
-      margin-right 0.25em
-
-  .steps
-    overflow hidden
-    position relative
-
-    .track
-      position relative
-      transition-duration 0.5s
-      white-space nowrap
-
-      .step
-        display inline-block
-        vertical-align top
-
-        .title
-          margin 0
-
-        > input
-          width 100%
-          margin-bottom 0.5em
-
 // Events
 .events .event
   padding 1em
@@ -1355,7 +1247,7 @@ input, textarea, select
     border-bottom-right-radius 3px
     word-break normal
     word-wrap break-word
-    height 5em
+    min-height 5em
 
     .markdown-preview-content
       padding 0 1em

@@ -72,15 +72,7 @@ script#thing-view-template(type="text/x-template")
 
     .subsection
       h1#instructions Instructions
-      .step(v-attr="id:getStepId($index)" v-repeat="step:thing.instructions")
-        .step-links
-          a(v-repeat="step:thing.instructions" href="#{{getStepId($index)}}"
-            title="{{getStepTitle($index, step)}}")
-            | {{getStepName($index)}}
-
-        h2 {{getStepTitle($index, step)}}
-        div(v-markdown="step.text")
-
+      div(v-markdown="thing.instructions")
       .empty(v-if="!thing.instructions")
         p.weak (No instructions)
         button.success(v-on="click:editThing('instructions')")

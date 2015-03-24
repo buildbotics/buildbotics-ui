@@ -21,7 +21,8 @@ module.exports = {
     },
 
 
-    'thing-details-editor': require('./thing-details-editor')
+    'thing-details-editor': require('./thing-details-editor'),
+    'thing-instructions-editor': require('./thing-instructions-editor')
   },
 
 
@@ -211,23 +212,6 @@ module.exports = {
 
     star: function() {
       alert('TODO');
-    },
-
-
-    getStepName: function (index) {
-      return index ? '' + index : 'intro';
-    },
-
-
-    getStepId: function (index) {
-      return index ? 'step-' + index : 'intro';
-    },
-
-
-    getStepTitle: function (index, step) {
-      return (!index && step.title) ? step.title :
-        (index ? 'Step ' + index : 'Introduction') +
-        (index ? ': ' + step.title : '')
     },
 
 
