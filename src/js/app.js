@@ -167,10 +167,29 @@ module.exports = new Vue({
     })
 
     // Configure markdown
+    var renderer = new marked.Renderer();
+    renderer.image = function (href, title, text) {
+      var html = '<img ';
+
+      if (text) html += 'alt="' + text + '" ';
+      if (title) html += 'title="' + title + '" ';
+
+      var a = document.createElement('a');
+      a.href = href;
+
+      var q = util.parseQueryString(a.search);
+      var size = q.size || 'small';
+
+      href = a.pathname.replace(/^.*[\\\/]/, '');
+      href = location.pathname.replace(/\/$/, '') + '/' + href;
+      html += 'src="' + href + '?size=' + size + '"';
+
+      return html + '/>'
+    }
+
     marked.setOptions({
-      highlight: function (code) {
-        return hljs.highlightAuto(code).value;
-      }
+      renderer: renderer,
+      highlight: function (code) {return hljs.highlightAuto(code).value}
     })
   },
 

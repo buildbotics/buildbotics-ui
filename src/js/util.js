@@ -43,6 +43,22 @@ var util = {
 
       if (cb) cb();
     })
+  },
+
+
+  parseQueryString: function(q) {
+    function decode(s) {return decodeURIComponent(s.replace(/\+/g, ' '))}
+
+    var match;
+    var search = /([^&=]+)=?([^&]*)/g
+    var params = {}
+
+    q = q.replace(/^\?/, '');
+
+    while (match = search.exec(q))
+      params[decode(match[1])] = decode(match[2]);
+
+    return params;
   }
 }
 
