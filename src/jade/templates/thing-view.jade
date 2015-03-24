@@ -71,11 +71,13 @@ script#thing-view-template(type="text/x-template")
       bb-carousel(media="{{media}}")
 
     .subsection
+      .actions
+        a.fa.fa-edit(v-show="isOwner" v-on="click:editThing('instructions')")
       h1#instructions Instructions
       div(v-markdown="thing.instructions")
       .empty(v-if="!thing.instructions")
         p.weak (No instructions)
-        button.success(v-on="click:editThing('instructions')")
+        button.success(v-show="isOwner" v-on="click:editThing('instructions')")
           .fa.fa-pencil
           | Edit
 
