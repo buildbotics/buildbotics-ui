@@ -165,6 +165,13 @@ module.exports = new Vue({
       for (var i = 0; i < data.length; i++)
         self.licenses.push(data[i]);
     })
+
+    // Configure markdown
+    marked.setOptions({
+      highlight: function (code) {
+        return hljs.highlightAuto(code).value;
+      }
+    })
   },
 
 
