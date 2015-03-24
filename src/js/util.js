@@ -24,8 +24,6 @@ var util = {
 
   scrollTo: function (selector, cb, animate) {
     Vue.nextTick(function () {
-      console.debug('scroll_to(' + selector + ')');
-
       if (!selector || selector == '#') selector = 'html,body';
       if (typeof animate == 'undefined') animate = true;
 
