@@ -1,22 +1,41 @@
 script#home-template(type="text/x-template")
-  center
-    img(src='/images/buildbotics_explore_learn_create.png')
-  .actions
+  .intro
+    img(src="/images/squid_dude-200x200.png")
+
+    .banner
+      .logo
+        .left Build
+        .right botics
+      .byline Desktop manfacturing for everyone.
+
+    .login
+      a(href="/login"): button.success Join the Community.
+
+  .info
     .panel
-      .panel-heading: a(href="/explore/creations") Explore
-      .panel-body
-        | Explore free designs for CNC, 3D printing and LASER.
-        | Choose your favorites projects and designers.
+      .panel-header
+        a(href="/explore/creations")
+          img(src="/images/explore.png")
+          div Explore
+
+      | the <a href="/explore/creations">latest creations</a> by
+      | <a href="/explore/people">top designers</a>.
 
     .panel
-      .panel-heading: a(href="/learn") Learn
-      .panel-body
-        | Learn how to build and design your own projects with
-        | tutorials on how to operating your own machines.
+      .panel-header
+        a(href="/learn")
+          img(src="/images/learn.png")
+          div Learn
+
+      | how to operate a <a href="/learn/what_is_a_cnc">desktop CNC</a>
+      | using <a href="/learn/our_software">free Open-Source software</a>.
 
     .panel
-      .panel-heading: a(href="/create") Create
-      .panel-body
-        | Create and share your designs with the community.
-        | Earn <a href="/points">points</a> and
-        | <a href="/badges">badges</a> to unlock extra features.
+      .panel-header
+        a(href="/create")
+          img(src="/images/create.png")
+          div Create
+
+      | <a href="/learn/how_to_create_a_design">your own designs</a>
+      | and <a href="/learn/sharing_your_designs">share them</a> with the
+      | community.

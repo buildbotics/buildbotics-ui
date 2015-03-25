@@ -28,6 +28,11 @@ table_hover_color = #d8d8d8
 thing_width = 300px
 thing_height = ((thing_width) / 1.618)
 
+google_color = #cc3d2d
+facebook_color = #2b3990
+twitter_color = #27aae1
+github_color = #1c75bc
+
 
 // Links
 a, a:visited
@@ -215,10 +220,13 @@ body
     float left
     margin-right 1em
     padding 4px 0 0 0
+    font-size 24pt
+    text-shadow 2px 2px 4px #bbb
 
     img
       height header_height - 10px
-      vertical-align middle
+      vertical-align bottom
+      margin-right 0.25em
 
   #main-header-nav, #context-header-nav
     white-space nowrap
@@ -334,47 +342,42 @@ body
 
 
 // Login
-.login-page
-  ul
-    list-style none
-    padding 0
-    margin 0
+.login
+  font-size 20pt
 
-    li
-      font-size 20pt
-      margin 1em
+  > div
+    margin 1em
 
+    .fa
+      font-size 24pt
+      width 1.5em
+      color #fff
+      border-radius 20px
+      height 40px
+      width 40px
+      line-height 42px
+      text-align center
+      margin-right 0.25em
+
+    &.google a
+      color google_color
       .fa
-        font-size 24pt
-        width 1.5em
-        color #fff
-        border-radius 20px
-        height 40px
-        width 40px
-        line-height 42px
-        text-align center
-        margin-right 0.25em
+        background-color google_color
 
+    &.facebook a
+      color facebook_color
+      .fa
+        background-color facebook_color
 
-      &.google a
-        color #cc3d2d
-        .fa
-          background-color #cc3d2d
+    &.twitter a
+      color twitter_color
+      .fa
+        background-color twitter_color
 
-      &.facebook a
-        color #2b3990
-        .fa
-          background-color #2b3990
-
-      &.twitter a
-        color #27aae1
-        .fa
-          background-color #27aae1
-
-      &.github a
-        color #1c75bc
-        .fa
-          background-color #1c75bc
+    &.github a
+      color github_color
+      .fa
+        background-color github_color
 
 
 // Register
@@ -389,9 +392,76 @@ body
     margin 0.5em
 
 
+// Logo
+.logo
+  .left, .right
+    display inline
+    font-family Audiowide
+
+  .left
+    color #444
+
+  .right
+    color link_color
+
+
 // Home
 .home-page
   text-align center
+
+  .intro
+    background-color #dedede
+    padding 2em
+
+    .banner
+      text-shadow 2px 2px 4px #666
+
+      .logo
+        font-size 96pt
+
+      .byline
+        color #444
+        font-size 20pt
+
+    .login button
+      margin 3em 0
+      padding 1em
+      font-size 18pt
+      box-shadow 4px 4px 5px #555
+
+    background url('/images/home-bg.jpg')
+    background-size 150% auto
+    background-repeat no-repeat
+    background-position 0 -300px
+
+  .info
+    padding 3em 0
+
+  .panel
+    display inline-block
+    margin 1em
+    text-align center
+    width 12em
+    vertical-align top
+    color #666
+    font-family Lato
+    font-size 20pt
+    line-height 1.5em
+
+    .panel-header
+      font-family Audiowide
+      font-size 32pt
+      text-shadow 2px 2px 4px #bbb
+
+      img
+        display block
+        margin 0.5em auto
+
+      a, a:hover
+        display inline-block
+        margin 0.25em
+        color #666
+        text-decoration none
 
 
 // Explore
@@ -434,28 +504,6 @@ body
   input[name=title]
     width 25em
 
-
-// Panels (home page)
-.panel
-  border 1px solid border_color
-  border-radius 3px
-  display inline-block
-  margin 1em
-  background-color white
-  text-align center
-  width 15em
-  vertical-align top
-
-  .panel-heading
-    background-color header_color
-    border-bottom 1px solid border_color
-    padding 0.25em 1em
-    font-size 140%
-    padding 0
-    margin 0
-
-  .panel-body
-    padding 0.25em 1em
 
 // Avatar
 .avatar

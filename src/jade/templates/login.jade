@@ -3,16 +3,15 @@ script#login-template(type="text/x-template")
     .header-content
       | Login or Register with:
 
-    .page-content
-      ul
-        li.google: a(href="/api/auth/google" target="_top")
-          .fa.fa-google
-          | Google
+    .page-content.login
+      .google: a(href="/api/auth/google" target="_top")
+        .fa.fa-google
+        | Google
 
-        li.facebook: a(href="/api/auth/facebook" target="_top")
-          .fa.fa-facebook
-          | Facebook
+      .facebook: a(href="/api/auth/facebook" target="_top")
+        .fa.fa-facebook
+        | Facebook
 
-        li.github: a(href="/api/auth/github" target="_top")
-          .fa.fa-github
-          | GitHub
+      .github: a(href="/api/auth/github" target="_top")
+        .fa.fa-github
+        | GitHub
