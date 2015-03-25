@@ -465,7 +465,20 @@ body
 
 
 // Explore
-.explore-page .page-content
+#page #content.explore-page .page-content
+  padding 1em
+  max-width initial
+
+  > .loading
+    text-align center
+    max-width page_width
+    margin auto
+
+    .fa
+      color medium_text_color
+      font-size 24pt
+      margin 0.25em
+
   .search
     margin-bottom 1em
     text-align center
@@ -476,10 +489,9 @@ body
     input, button
       margin-right 0.5em
 
-  > .fa
-    font-size 18pt
-    margin 0.25em
-    position absolute
+  .explore-events
+    width page_width
+    margin auto
 
   .tag-cloud
     margin 1em auto
@@ -540,6 +552,8 @@ body
 
 // Things
 .things
+  text-align center
+
   a:hover
     text-decoration none
 
@@ -846,29 +860,33 @@ body
 
 
 // Profiles
-.profiles > a
-  display inline-block
-  color text_color
+.profiles
+  text-align center
 
-  &:hover, a:hover
-    text-decoration none
-    color link_hover_color
+  > a
+    text-align left
+    display inline-block
+    color text_color
 
-  .avatar
-    display block
-    border-radius 4px
-    margin auto
-    vertical-align middle
+    &:hover, a:hover
+      text-decoration none
+      color link_hover_color
 
-  .footer
-    white-space nowrap
+    .avatar
+      display block
+      border-radius 4px
+      margin auto
+      vertical-align middle
 
-  .name
-    overflow hidden
-    text-overflow ellipsis
+    .footer
+      white-space nowrap
 
-  .points
-    float right
+    .name
+      overflow hidden
+      text-overflow ellipsis
+
+    .points
+      float right
 
 .profiles-large .profiles > a
   width 150px

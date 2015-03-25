@@ -8,6 +8,6 @@ script#explore-things-template(type="text/x-template")
 
     .page-content
       explore-search
-      .fa.fa-spinner.fa-spin(v-show="loading")
+      .loading(v-show="loading"): .fa.fa-spinner.fa-spin
 
       bb-things(things="{{things}}")

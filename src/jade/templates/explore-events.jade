@@ -7,6 +7,7 @@ script#explore-events-template(type="text/x-template")
           | Activity
 
     .page-content
-      .fa.fa-spinner.fa-spin(v-show="loading")
+      .loading(v-show="loading"): .fa.fa-spinner.fa-spin
 
-      bb-events(events="{{events}}")
+      .explore-events
+        bb-events(events="{{events}}")

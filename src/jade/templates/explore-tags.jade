@@ -7,6 +7,6 @@ script#explore-tags-template(type="text/x-template")
           | Tags
 
     .page-content
-      .fa.fa-spinner.fa-spin(v-show="loading")
+      .loading(v-show="loading"): .fa.fa-spinner.fa-spin
 
       bb-tags(tags="{{tags}}")
