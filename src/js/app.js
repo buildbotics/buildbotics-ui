@@ -27,7 +27,7 @@ module.exports = new Vue({
     'docs-page': {template: '#docs-template', inherit: true},
     'login-page': {template: '#login-template'},
     'register-page': require('./register'),
-    'home-page': {template: '#home-template'},
+    'home-page': require('./home'),
     'explore-page': require('./explore'),
     'learn-page': {template: '#learn-template'},
     'create-page': require('./create'),
