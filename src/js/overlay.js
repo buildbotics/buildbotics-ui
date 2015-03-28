@@ -12,14 +12,16 @@ module.exports = function (name) {
       overlayClick: function (name) {},
 
 
-      addOverlay: function (_name) {
+      addOverlay: function (_name, selector) {
         if (typeof _name != 'undefined' && name != _name) return;
+
+        selector = selector || 'body';
 
         if (typeof this.overlay == 'undefined')
           this.overlay = $('<div>')
           .addClass('overlay ' + name + '-overlay')
           .click(function () {this.overlayClick(name)}.bind(this))
-          .appendTo('body');
+          .appendTo(selector);
       },
 
 

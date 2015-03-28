@@ -27,7 +27,7 @@ module.exports = {
 
 
     open: function () {
-      this.addOverlay();
+      this.addOverlay(undefined, this.$parent.$el);
       this.$set('selected', -1);
       this.$set('show', true);
       this.$set('size', 'small');

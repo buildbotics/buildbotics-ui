@@ -23,7 +23,7 @@ module.exports = {
 
 
     open: function (text) {
-      this.addOverlay();
+      this.addOverlay(undefined, this.$parent.$el);
       this.$set('link', '');
       this.$set('text', text || '');
       this.$set('show', true);
