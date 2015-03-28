@@ -6,7 +6,7 @@ var notify = require('./notify');
 module.exports = {
   replace: true,
   template: '#thing-instructions-editor-template',
-  paramAttributes: ['thing'],
+  paramAttributes: ['thing', 'media'],
 
 
   data: function () {

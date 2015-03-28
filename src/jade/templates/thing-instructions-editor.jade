@@ -1,7 +1,7 @@
 script#thing-instructions-editor-template(type="text/x-template")
   .thing-instructions-editor
     markdown-editor(field="edit_instructions" placeholder="Enter text here."
-        max-length=100000)
+        max-length=100000 media="{{media}}")
 
     button.success(v-on="click:save()" v-disable="!modified"
       title="Save changes.")

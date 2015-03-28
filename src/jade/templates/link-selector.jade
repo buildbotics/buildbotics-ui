@@ -1,0 +1,18 @@
+script#link-selector-template(type="text/x-template")
+  .media-selector.modal(v-show="show")
+    .modal-header
+      | Insert Hyperlink
+
+    .modal-content
+      table
+        tr
+          th Hyperlink
+          td: input(name="link" v-model="link")
+
+        tr
+          th Text
+          td: input(name="text" placeholder="(optional)" v-model="text")
+
+    .modal-footer
+      button(v-on="click:cancel") Cancel
+      button.success(v-on="click:add" v-disable="!link") Add Link

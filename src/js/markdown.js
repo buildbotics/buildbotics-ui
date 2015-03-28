@@ -6,7 +6,7 @@ var debounce = require('./debounce');
 module.exports = {
   replace: true,
   template: '#markdown-editor-template',
-  paramAttributes: ['field', 'placeholder', 'max-length', 'ref'],
+  paramAttributes: ['field', 'placeholder', 'max-length', 'media', 'ref'],
 
 
   data: function () {
@@ -21,6 +21,12 @@ module.exports = {
       helpSection: 'block',
       helpSubsection: 'breaks'
     }
+  },
+
+
+  components: {
+    'link-selector': require('./link-selector'),
+    'media-selector': require('./media-selector')
   },
 
 
@@ -39,6 +45,18 @@ module.exports = {
     'markdown-editor.mark-clean': function () {
       this.editor.markClean();
       this.modified = false;
+    },
+
+    'media-selector-cancel': function () {return false},
+    'media-selector-add': function (file, size) {
+      this.wrap('![', '](' + file.url + '?size=' + size + ')');
+      return false;
+    },
+
+    'link-selector-cancel': function () {return false},
+    'link-selector-add': function (link, text) {
+      this.editor.replaceSelection('[' + text + '](' + link + ')');
+      return false;
     }
   },
 
@@ -236,13 +254,13 @@ module.exports = {
     },
 
 
-    image: function () {
-      this.wrap('![', '](replace with image link)');
+    addMedia: function () {
+      this.$broadcast('media-selector-show');
     },
 
 
     link: function () {
-      this.wrap('[', '](replace with link)');
+      this.$broadcast('link-selector-show', this.editor.getSelection());
     },
 
 

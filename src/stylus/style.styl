@@ -95,6 +95,7 @@ button
     background #5cb85c
     border-color #4cae4c
     color #fff
+    transition 0.25s
 
     &:hover
       background #449d44
@@ -170,6 +171,24 @@ h3
 // em
 em
   color medium_text_color
+
+
+// Video
+video
+  &.large
+    max-width 100%
+    width 700px
+    max-height 433px
+
+  &.small
+    max-width 100%
+    width 300px
+    max-height 185px
+
+  &.thumb
+    max-width 100%
+    width 120px
+    max-height 100px
 
 
 // Body
@@ -1386,6 +1405,33 @@ input, textarea, select
     .CodeMirror-focused
       border 1px solid transparent
       box-shadow none
+
+
+// Media selector
+.media-selector
+  max-width 600px
+  text-align center
+
+  .media
+    display inline-block
+
+    img, video
+      vertical-align middle
+      border 2px solid transparent
+      border-radius 3px
+      background #eee
+      transition 0.25s
+      max-width 100px
+      max-height 100px
+      margin 1em
+
+    &:hover
+      img, video
+        border 2px solid #888
+
+    &.selected
+      img, video
+        border 2px solid #444
 
 
 // Progressbar

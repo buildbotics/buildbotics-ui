@@ -1,0 +1,34 @@
+script#media-selector-template(type="text/x-template")
+  .media-selector.modal(v-show="show")
+    .modal-header
+      | Insert Media
+
+    .modal-content
+      .weak(v-if="!media || !media.length") (No media)
+      .media(v-repeat="media" v-class="selected:selected == $index"
+        v-on="click:select($index)")
+
+        img(v-if="util.isImage(type)" v-attr="src:url + '?size=small'")
+
+        video(v-if="util.isVideo(type)")
+          source(v-attr="src:url + '?size=small', type:type")
+          | Sorry your browser does not support HTML5 video.
+
+      table(v-if="media && media.length")
+        tr
+          th File:
+          td
+            span(v-if="media[selected]") {{getFileName(media[selected])}}
+            .weak(v-if="!media[selected]") (Nothing selected)
+
+        tr
+          th Size:
+          td
+            select(v-on="change:sizeChanged")
+              option(value="large") Large
+              option(value="small" selected) Small
+              option(value="thumb") Thumb
+
+    .modal-footer
+      button(v-on="click:cancel") Cancel
+      button.success(v-on="click:add" v-disable="selected == -1") Ok

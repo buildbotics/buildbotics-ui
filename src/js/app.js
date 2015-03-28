@@ -169,11 +169,7 @@ module.exports = new Vue({
     // Configure markdown
     var renderer = new marked.Renderer();
     renderer.image = function (href, title, text) {
-      var html = '<img ';
-
-      if (text) html += 'alt="' + text + '" ';
-      if (title) html += 'title="' + title + '" ';
-
+      // Parse href
       var a = document.createElement('a');
       a.href = href;
 
@@ -182,13 +178,32 @@ module.exports = new Vue({
 
       href = a.pathname.replace(/^.*[\\\/]/, '');
       href = location.pathname.replace(/\/$/, '') + '/' + href;
-      html += 'src="' + href + '?size=' + size + '"';
 
-      return html + '/>'
+      if (href.slice(-4).toLowerCase() == '.mp4') {
+        var html = '<video controls class="' + size + '"';
+
+        if (title) html += ' title="' + title + '"';
+        html += '>';
+
+        html += '<source src="' + href + '" type="video/mp4"/>';
+
+        return html + '</video>'
+
+      } else {
+        var html = '<img ';
+
+        if (text) html += 'alt="' + text + '" ';
+        if (title) html += 'title="' + title + '" ';
+
+        html += 'src="' + href + '?size=' + size + '"';
+
+        return html + '/>'
+      }
     }
 
     marked.setOptions({
       renderer: renderer,
+      sanitize: false,
       highlight: function (code) {return hljs.highlightAuto(code).value}
     })
   },

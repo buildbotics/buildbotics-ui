@@ -25,7 +25,11 @@ script#markdown-editor-template(type="text/x-template")
 
       .button-group
         a(title="Link" v-on="click:link()"): .fa.fa-link
-        a(title="Image" v-on="click:image()"): .fa.fa-image
+        a(title="Add media" v-if="media && media.length"
+          v-on="click:addMedia()"): .fa.fa-image
+
+        link-selector
+        media-selector(media="{{media}}")
 
       .button-group
         a(title="Bold" v-on="click:wrap('**')"): .fa.fa-bold
