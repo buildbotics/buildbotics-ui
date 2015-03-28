@@ -49,7 +49,8 @@ module.exports = {
 
     'media-selector-cancel': function () {return false},
     'media-selector-add': function (file, size) {
-      this.wrap('![', '](' + file.url + '?size=' + size + ')');
+      var filename = file.url.replace(/^.*\//, '');
+      this.wrap('![', '](' + filename + '?size=' + size + ')');
       return false;
     },
 
