@@ -10,23 +10,7 @@ script#thing-view-template(type="text/x-template")
       | Publish
 
   .overview
-    .details
-      .parent(v-show="thing.parent")
-        .fa.fa-child
-        | a(href="{{thing.parent}}") {{thing.parent}}
-
-      .link
-        .fa.fa-link
-        span.weak(v-show="!thing.url") (No link)
-        a(v-show="thing.url" href="{{thing.url}}" target="_blank")
-          | {{util.prettyURL(thing.url)}}
-
-      .published
-        .fa.fa-clock-o
-        span(v-if="thing.published") Published {{thing.published | timeSince}}
-        span(v-if="!thing.published") Unpublished
-
-    .owner
+   .owner
       a(href="/{{thing.owner}}")
         bb-avatar(name="{{thing.owner}}" size="alarge")
       | Created by{{' '}}
@@ -48,7 +32,24 @@ script#thing-view-template(type="text/x-template")
 
       // TODO Add copies/remakes
 
-    .license
+    .details
+      h2 Details
+      .parent(v-show="thing.parent")
+        .fa.fa-child
+        | a(href="{{thing.parent}}") {{thing.parent}}
+
+      .link
+        .fa.fa-link
+        span.weak(v-show="!thing.url") (No link)
+        a(v-show="thing.url" href="{{thing.url}}" target="_blank")
+          | {{util.prettyURL(thing.url)}}
+
+      .published
+        .fa.fa-clock-o
+        span(v-if="thing.published") Published {{thing.published | timeSince}}
+        span(v-if="!thing.published") Unpublished
+
+     .license
       h2 License
       thing-license
 

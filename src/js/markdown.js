@@ -1,12 +1,14 @@
 'use strict'
 
 var debounce = require('./debounce');
+var buttons = require('./buttons');
 
 
 module.exports = {
   replace: true,
   template: '#markdown-editor-template',
-  paramAttributes: ['field', 'placeholder', 'max-length', 'media', 'ref'],
+  paramAttributes:
+    ['field', 'placeholder', 'max-length', 'media', 'buttons', 'ref'],
 
 
   data: function () {
@@ -32,8 +34,12 @@ module.exports = {
 
   watch: {
     modified: function (newValue, oldValue) {
-      if (newValue != oldValue)
+      if (newValue != oldValue) {
         this.$dispatch('markdown-editor.modified', newValue, this.ref)
+
+        if (newValue) $(this.$el).addClass('modified');
+        else $(this.$el).removeClass('modified');
+      }
     }
   },
 
@@ -45,6 +51,10 @@ module.exports = {
     'markdown-editor.mark-clean': function () {
       this.editor.markClean();
       this.modified = false;
+    },
+
+    'markdown-editor.fullscreen': function (fullscreen) {
+      this.setFullscreen(fullscreen);
     },
 
     'media-selector-cancel': function () {return false},
@@ -63,8 +73,18 @@ module.exports = {
 
 
   compiled: function () {
+    // Reference
     if (typeof this.ref == 'undefined') this.ref = Math.random();
 
+    // Buttons
+    if (this.buttons)
+      $(this.$el)
+      .find('> .actions')
+      .prepend(buttons.create(this.buttons, function (response) {
+        this.$dispatch('markdown-editor.response', response);
+      }.bind(this)));
+
+    // Create editor
     var target = $(this.$el).find('.markdown-content');
     var text = this.$parent.$get(this.field);
     this.length = text.length;

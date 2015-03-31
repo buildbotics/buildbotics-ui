@@ -12,7 +12,13 @@ module.exports = {
   data: function () {
     return {
       edit_instructions: '',
-      modified: false
+      modified: false,
+      instructionButtons: [
+        {label: 'Cancel', icon: 'times', response: 'cancel',
+         title: 'Discard changes.', klass: 'disabled'},
+        {label: 'Save', icon: 'save', response: 'save',
+         klass: 'success disabled', title: 'Save changes.'}
+      ]
     }
   },
 
@@ -20,6 +26,30 @@ module.exports = {
   events: {
     'markdown-editor.modified': function (modified) {
       this.modified = modified;
+
+      var save = $(this.$el).find('.markdown-editor .actions button');
+      if (modified) save.removeClass('disabled');
+      else save.addClass('disabled');
+
+      return false;
+    },
+
+
+    'markdown-editor.response': function (response) {
+      switch (response) {
+      case 'save':
+        if (!this.modified) return false;
+        this.save();
+        break;
+
+      case 'cancel':
+        this.cancel();
+        break;
+      }
+
+      this.$broadcast('markdown-editor.fullscreen', false);
+
+      return false;
     }
   },
 
@@ -47,6 +77,12 @@ module.exports = {
 
     markClean: function () {
       this.$broadcast('markdown-editor.mark-clean');
+    },
+
+
+    cancel: function () {
+      this.$set('edit_instructions', this.thing.instructions || '');
+      this.markClean();
     },
 
 

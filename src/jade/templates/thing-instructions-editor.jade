@@ -1,9 +1,13 @@
 script#thing-instructions-editor-template(type="text/x-template")
   .thing-instructions-editor
     markdown-editor(field="edit_instructions" placeholder="Enter text here."
-        max-length=100000 media="{{media}}")
+        max-length=100000 media="{{media}}" buttons="{{instructionButtons}}")
+
+    button(v-on="click:cancel()" v-disable="!modified" title="Cancel changes.")
+      .fa.fa-times
+      | Cancel
 
     button.success(v-on="click:save()" v-disable="!modified"
       title="Save changes.")
-      .fa.fa-floppy-o
+      .fa.fa-save
       | Save

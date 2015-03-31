@@ -5,7 +5,7 @@ header_height = 50px
 overview_width = 200px
 content_width = 720px
 edit_menu_width = 8em
-carousel_width = content_width - 20px
+carousel_width = content_width
 carousel_height = carousel_width / golden_ratio
 
 link_color = #e5aa3d
@@ -101,7 +101,7 @@ button
       background #449d44
       border-color #398439
 
-  &:disabled, &:hover:disabled
+  &:disabled, &:hover:disabled, &.disabled, &.disabled:hover
     background-color header_color
     color light_text_color !important
     border-color border_color
@@ -519,6 +519,9 @@ body
     input, button
       margin-right 0.5em
 
+  .things, .profiles
+    text-align center
+
   .explore-events
     width page_width
     margin auto
@@ -582,8 +585,6 @@ body
 
 // Things
 .things
-  text-align center
-
   a:hover
     text-decoration none
 
@@ -700,6 +701,12 @@ body
 
 // Thing & Profile common
 .thing-page, .profile-page
+  .title
+    font-size 28pt
+    overflow hidden
+    text-overflow ellipsis
+    text-align center
+
   .menu
     background-color #f3f3f3
     border 1px solid border_color
@@ -743,7 +750,8 @@ body
       font-size 14pt
 
     h2
-      font-size 12pt
+      font-size 16pt
+      border-bottom 1px solid border_color
 
     > *
       max-width overview_width
@@ -755,6 +763,13 @@ body
     .fa
       width 1.25em
       font-size 12pt
+
+    > .owner
+      text-align center
+
+      .avatar
+        display block
+        margin auto
 
     > .details
       margin-bottom 1.5em
@@ -771,7 +786,7 @@ body
       border-top 1px solid border_color
       border-bottom 1px solid border_color
 
-      > *
+      > div
         display inline-block
         width 33%
         text-align center
@@ -809,17 +824,15 @@ body
         border-left 3px solid border_color
 
   .view-contents, .edit-contents
-    max-width content_width
+    max-width content_width + 2px // Account for border
 
   .edit-contents
     margin-left edit_menu_width + 2em
 
     h1:first-of-type
       text-transform capitalize
-
-    > * > *
-      > input, > select, > .tag-editor, > p
-        width 30em
+      border-bottom 1px solid border_color
+      margin-bottom 1em
 
     button
       margin-top 0.5em
@@ -827,7 +840,7 @@ body
 
   .view-contents
     > .subsection
-      padding 0.25em 0.5em 5em 0.5em
+      padding 0 0 5em
 
       > .actions
         float right
@@ -838,6 +851,13 @@ body
 
       > h1:first-of-type
         margin-top 0
+
+      > h1
+        text-align center
+        //border-bottom 1px solid border_color
+
+      > .weak
+        text-align center
 
   .page-content > .actions > button
     float right
@@ -857,17 +877,17 @@ body
     p
       text-overflow ellipsis
 
+.thing-details-editor, .profile-details-editor, .thing-dangerous
+  > div
+    margin-bottom 2em
+
+    > input, > select, > .tag-editor, > p
+      width 30em
+
 
 // Thing
 .thing-page
   .overview
-    .owner
-      text-align center
-
-      .avatar
-        display block
-        margin auto
-
     .owner, .published, .license, .tags, .stars
       white-space normal
 
@@ -878,21 +898,23 @@ body
     .modal
       min-width 20em
 
-  .title
-    max-width content_width
-    overflow hidden
-    text-overflow ellipsis
+.thing-name-validator
+  > input
+    width 30em
 
+  .fa
+    margin 0 0.5em
 
-// Thing name validator
-.thing-name-validator .fa
-  margin 0 0.5em
+.thing-instructions-editor .markdown-editor
+  .actions button
+    display none
+
+  &.fullscreen .actions button
+    display inline-block
 
 
 // Profiles
 .profiles
-  text-align center
-
   > a
     text-align left
     display inline-block
@@ -944,27 +966,14 @@ body
 
 // Profile
 .profile-page
-  .overview
-    margin-top 0.5em
+  .things
     text-align center
 
-    > *
-      text-align left
+    .thing-preview
+      margin 1em 1.75em
 
-    .avatar
-      margin-bottom 0
-
-    .fullname, .name
-      text-align center
-
-    .fullname
-      color text_color
-      font-weight bold
-      font-size 16pt
-      margin-bottom 0.25em
-
-    .name
-      margin-bottom 1em
+  .subsection > h1
+    border-bottom 1px solid border_color
 
 .profile-edit-picture
   .dropzone
@@ -985,7 +994,7 @@ body
 
 // Comments
 .comment
-  margin 2em 0
+  margin 0 0 2em 0
 
   .avatar
     position absolute
@@ -1211,17 +1220,22 @@ input, textarea, select
   border 1px solid border_color
   white-space normal
 
-  .modified, .fullscreen-btn
+  .actions
     float right
     color light_text_color
 
+    > *, > button
+      margin 0.0625em 0.125em 0.0625em 0.5em
+
   .modified
-    margin 0.5em
+    margin 0.25em 0.125em
     font-size 8pt
+    float left
+    color light_text_color
 
   .fullscreen-btn
-    margin 0.125em
-    font-size 20pt
+    vertical-align bottom
+    font-size 22pt
     cursor pointer
 
   .fullscreen-msg
@@ -1637,7 +1651,7 @@ input, textarea, select
       color text_color
 
   th.size, td.size, th.downloads, td.downloads
-    min-width 6em
+    min-width 4em
     text-align right
 
   td.name

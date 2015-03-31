@@ -9,13 +9,9 @@ script#comments-template(type="text/x-template")
       bb-avatar(name="{{getUserName()}}")
 
       .comment-wrapper
-        .comment-header
-          .actions
-            button.success(v-on="click:comment()")
-              .fa.fa-envelope-o
-              | Post Comment
         .comment-content
-          markdown-editor(field="text" placeholder="Leave a comment here.")
+          markdown-editor(field="text" placeholder="Leave a comment here."
+            buttons="{{postButtons}}")
 
     h3(v-show="!isAuthenticated()")
       | <button class="success" v-on="click:login">Login</button> to comment.

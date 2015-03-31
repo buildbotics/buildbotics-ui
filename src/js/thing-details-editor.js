@@ -6,6 +6,7 @@ var fields = 'title url license tags';
 
 
 module.exports = {
+  replace: true,
   template: '#thing-details-editor-template',
   paramAttributes: ['thing'],
 

@@ -11,7 +11,45 @@ module.exports = {
 
   data: function () {
     return {
-      text: ''
+      text: '',
+      modified: false,
+      postButtons: [
+        {label: 'Cancel', icon: 'times', klass: 'disabled', response: 'cancel',
+         title: 'Cancel comment.'},
+        {label: 'Post', icon: 'envelope-o', klass: 'success disabled',
+         response: 'post', title: 'Post your comment.'}
+      ]
+    }
+  },
+
+
+  events: {
+    'markdown-editor.modified': function (modified) {
+      this.modified = modified;
+
+      var btn = $(this.$el).find('.markdown-editor .actions button');
+      if (modified) btn.removeClass('disabled');
+      else btn.addClass('disabled');
+
+      return false;
+    },
+
+
+    'markdown-editor.response': function (response) {
+      switch (response) {
+      case 'post':
+        if (this.modified) this.comment();
+        break;
+
+      case 'cancel':
+        this.text = '';
+        this.$broadcast('markdown-editor.mark-clean');
+        break;
+      }
+
+      this.$broadcast('markdown-editor.fullscreen', false);
+
+      return false;
     }
   },
 

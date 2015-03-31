@@ -1,8 +1,10 @@
 script#profile-view-template(type="text/x-template")
+  h1.title {{profile.fullname || profile.name}}
+
   subsection-menu(subsections="{{viewSections}}")
     button.success(v-show="isOwner" v-on="click:editProfile")
       .fa.fa-pencil
-      | Edit Profile
+      | Edit
 
     button(v-show="!isOwner && isLoggedIn" v-class="success:!isFollowing"
       v-on="click:toggleFollow")
@@ -10,12 +12,9 @@ script#profile-view-template(type="text/x-template")
       | {{isFollowing ? 'Unfollow' : 'Follow'}}
 
   .overview
-    bb-avatar(name="{{profile.name}}" size="alarge")
-
-    .fullname
-      span {{profile.fullname}}
-
-    .name {{profile.name}}
+    .owner
+      bb-avatar(name="{{profile.name}}" size="alarge")
+      .name {{profile.name}}
 
     .stats
       div
@@ -27,6 +26,7 @@ script#profile-view-template(type="text/x-template")
         .label Followers
 
     .details
+      h2 Details
       .location
         .fa.fa-map-marker
         span.weak(v-show="!profile.location") (Not set)
@@ -44,7 +44,6 @@ script#profile-view-template(type="text/x-template")
 
   .view-contents
     .subsection
-      h1#bio Bio
       .weak(v-show="!profile.bio && !isOwner") (Bio empty)
       p(v-show="!profile.bio && isOwner")
         | Click

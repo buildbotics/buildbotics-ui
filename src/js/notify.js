@@ -1,5 +1,7 @@
 'use strict'
 
+var buttons = require('./buttons');
+
 
 module.exports = new Vue({
   methods: {
@@ -41,26 +43,7 @@ module.exports = new Vue({
         }
 
       config.buttons = config.buttons || [{label: 'Ok', klass: 'success'}];
-
-      var buttons = [];
-      for (var i = 0; i < config.buttons.length; i++) {
-        var button = $('<button>')
-          .html(config.buttons[i].label);
-
-        var self = this;
-        (function (response) {
-          button.click(function () {self.response(response)})
-        })(config.buttons[i].response);
-
-        if (config.buttons[i].icon)
-          $('<div>')
-          .addClass('fa fa-' + config.buttons[i].icon)
-          .prependTo(button);
-
-        if (config.buttons[i].klass) button.addClass(config.buttons[i].klass);
-
-        buttons.push(button);
-      }
+      var btns = buttons.create(config.buttons, this.response);
 
       this.dialog = $('<div>')
         .addClass('notify-dialog');
@@ -76,10 +59,10 @@ module.exports = new Vue({
         .text(config.body)
         .appendTo(this.dialog);
 
-      if (buttons.length)
+      if (btns.length)
         $('<div>')
         .addClass('notify-dialog-footer')
-        .append(buttons)
+        .append(btns)
         .appendTo(this.dialog);
 
       this.addOverlay();

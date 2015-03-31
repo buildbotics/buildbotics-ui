@@ -1,9 +1,11 @@
 script#markdown-editor-template(type="text/x-template")
   .markdown-editor
-    .fullscreen-btn.fa.fa-arrows-alt(v-on="click:toggleFullscreen"
-      title="Toggle fullscreen mode.")
-    .modified.fa.fa-asterisk(v-show="modified" title="Document modified.")
+    .modified.fa.fa-asterisk(title="Document modified."
+      v-style="visibility:modified ? 'visible' : 'hidden'")
 
+    .actions
+      .fullscreen-btn.fa.fa-arrows-alt(v-on="click:toggleFullscreen"
+        title="Toggle fullscreen mode.")
     .markdown-menu
       .fullscreen-msg Fullscreen editor.  Press ESC to exit.
       a.edit-tool.active(v-on="click:edit()") Edit

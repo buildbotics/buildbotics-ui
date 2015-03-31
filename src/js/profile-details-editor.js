@@ -6,6 +6,7 @@ var fields = 'fullname location url';
 
 
 module.exports = {
+  replace: true,
   template: '#profile-details-editor-template',
   paramAttributes: ['profile'],
 
