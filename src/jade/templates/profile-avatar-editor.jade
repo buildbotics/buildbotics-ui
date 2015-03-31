@@ -10,9 +10,9 @@ script#profile-avatar-editor-template(type="text/x-template")
         button.success(v-on="click:triggerUpload()")
           .fa.fa-plus
           | Upload
-        | a new profile picture.
-      p You can also drag and drop a new picture on to the old one.
-      p The ideal profile picture is square and at least 200x200 pixels.
+        | a new profile picture or drag and drop a new picture on to the
+        | old one.
+      p The ideal profile picture is square and at least 150x150 pixels.
 
     div(v-show="avatar.uploading")
         div(v-progressbar="avatar.percent")
