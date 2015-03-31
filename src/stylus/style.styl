@@ -237,7 +237,7 @@ body
 
   .logo
     float left
-    margin-right 1em
+    margin-right 2.5em
     padding 4px 0 0 0
     font-size 24pt
     text-shadow 2px 2px 4px #bbb
@@ -248,6 +248,7 @@ body
       margin-right 0.25em
 
   #main-header-nav, #context-header-nav
+    display inline-block
     white-space nowrap
 
     > *
@@ -1220,7 +1221,7 @@ input, textarea, select
   border 1px solid border_color
   white-space normal
 
-  .actions
+  .markdown-header .actions
     float right
     color light_text_color
 
@@ -1240,7 +1241,7 @@ input, textarea, select
 
   .fullscreen-msg
     color medium_text_color
-    font-size 14pt
+    font-size 18pt
     display none
 
   .markdown-menu
@@ -1298,7 +1299,7 @@ input, textarea, select
           cursor default
 
   .markdown-help
-    border-top 1px solid border_color
+    border-bottom 1px solid border_color
     overflow auto
     font-size 90%
 
@@ -1346,8 +1347,8 @@ input, textarea, select
       p:first-of-type
         margin-top 0
 
-  .markdown-content
-    border-top 1px solid border_color
+  .markdown-toolbar
+    border-bottom 1px solid border_color
 
   .markdown-footer
     padding 0.25em
@@ -1365,16 +1366,22 @@ input, textarea, select
     word-break normal
     word-wrap break-word
     min-height 5em
+    background-color #f6f6f6
 
     .markdown-preview-content
       padding 0 1em
 
   .CodeMirror
     border 1px solid #fff
-    padding 1em
 
     &.CodeMirror-focused
       border 1px solid rgba(82, 168, 236, 0.8)
+
+  .CodeMirror-lines
+    padding 1em 0
+
+  .CodeMirror pre
+    padding 0 1em
 
   .CodeMirror-empty
     color light_text_color
@@ -1388,30 +1395,27 @@ input, textarea, select
     height 100%
     z-index 10
     overflow-x hidden
-    overflow-y auto
 
     .fullscreen-msg
       display inline
 
     .markdown-menu > a
-      visibility hidden
+      display none
 
-    .markdown-content, .markdown-preview
-      width 50%
-      height auto
+    .markdown-header, .markdown-footer
+      display block
 
     .markdown-content
-      position absolute
-      border-right 1px solid border_color
+      overflow-y scroll
+
+    .markdown-edit, .markdown-preview
       min-height 100%
+      display inline-block
+      width 50%
+      vertical-align top
 
     .markdown-preview
-      margin-left 50%
-      border-top 1px solid border_color
-      border-left 1px solid border_color
       border-radius 0
-      margin-right -1px
-      min-height auto
 
     .CodeMirror
       height auto

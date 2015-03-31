@@ -1,205 +1,210 @@
 script#markdown-editor-template(type="text/x-template")
   .markdown-editor
-    .modified.fa.fa-asterisk(title="Document modified."
-      v-style="visibility:modified ? 'visible' : 'hidden'")
+    .markdown-header
+      .modified.fa.fa-asterisk(title="Document modified."
+        v-style="visibility:modified ? 'visible' : 'hidden'")
 
-    .actions
-      .fullscreen-btn.fa.fa-arrows-alt(v-on="click:toggleFullscreen"
-        title="Toggle fullscreen mode.")
-    .markdown-menu
-      .fullscreen-msg Fullscreen editor.  Press ESC to exit.
-      a.edit-tool.active(v-on="click:edit()") Edit
-      a.preview-tool(v-on="click:showPreview()") Preview
+      .actions
+        .fullscreen-btn.fa.fa-arrows-alt(v-on="click:toggleFullscreen"
+          title="Toggle fullscreen mode.")
 
-    .markdown-toolbar(v-show="editing")
-      .button-group
-        a(title="Undo" v-on="click:canUndo && undo()"
-          v-class="disabled:!canUndo")
-          .fa.fa-undo
-        a(title="Redo" v-on="click:canRedo && redo()"
-          v-class="disabled:!canRedo")
-          .fa.fa-repeat
+      .markdown-menu
+        .fullscreen-msg Fullscreen editor.  Press ESC to exit.
+        a.edit-tool.active(v-on="click:edit()") Edit
+        a.preview-tool(v-on="click:showPreview()") Preview
 
-      .button-group
-        a(title="Heading 1" v-on="click:prefix('# ')") h1
-        a(title="Heading 2" v-on="click:prefix('## ')") h2
-        a(title="Heading 3" v-on="click:prefix('### ')") h3
+      .markdown-toolbar(v-show="editing")
+        .button-group
+          a(title="Undo" v-on="click:canUndo && undo()"
+            v-class="disabled:!canUndo")
+            .fa.fa-undo
+          a(title="Redo" v-on="click:canRedo && redo()"
+            v-class="disabled:!canRedo")
+            .fa.fa-repeat
 
-      .button-group
-        a(title="Link" v-on="click:link()"): .fa.fa-link
-        a(title="Add media" v-if="media && media.length"
-          v-on="click:addMedia()"): .fa.fa-image
+        .button-group
+          a(title="Heading 1" v-on="click:prefix('# ')") h1
+          a(title="Heading 2" v-on="click:prefix('## ')") h2
+          a(title="Heading 3" v-on="click:prefix('### ')") h3
 
-        link-selector
-        media-selector(media="{{media}}")
+        .button-group
+          a(title="Link" v-on="click:link()"): .fa.fa-link
+          a(title="Add media" v-if="media && media.length"
+            v-on="click:addMedia()"): .fa.fa-image
 
-      .button-group
-        a(title="Bold" v-on="click:wrap('**')"): .fa.fa-bold
-        a(title="Italicize" v-on="click:wrap('_')"): .fa.fa-italic
-        a(title="Code block" v-on="click:code()"): .fa.fa-code
+          link-selector
+          media-selector(media="{{media}}")
 
-      .button-group
-        a(title="Bullet list" v-on="click:prefix('* ')"): .fa.fa-list-ul
-        a(title="Numbered list" v-on="click:prefix('1. ')"): .fa.fa-list-ol
-        a(title="Block quote" v-on="click:prefix('> ')"): .fa.fa-quote-left
-        a(title="Horizontal rule" v-on="click:insert('\n***\n')"): .fa.fa-minus
+        .button-group
+          a(title="Bold" v-on="click:wrap('**')"): .fa.fa-bold
+          a(title="Italicize" v-on="click:wrap('_')"): .fa.fa-italic
+          a(title="Code block" v-on="click:code()"): .fa.fa-code
 
-      .button-group
-        a(title="Markdown help" v-on="click:help()"): .fa.fa-question-circle
+        .button-group
+          a(title="Bullet list" v-on="click:prefix('* ')"): .fa.fa-list-ul
+          a(title="Numbered list" v-on="click:prefix('1. ')"): .fa.fa-list-ol
+          a(title="Block quote" v-on="click:prefix('> ')"): .fa.fa-quote-left
+          a(title="Horizontal rule" v-on="click:insert('\n***\n')")
+            .fa.fa-minus
 
-    .markdown-help(v-show="showHelp && editing")
-      .markdown-help-menu
-        a(v-on="click:setHelpSection('block')"
-          v-class="active:helpSection == 'block'") Block Elements
-        a(v-on="click:setHelpSection('span')"
-          v-class="active:helpSection == 'span'") Span Elements
-        a(v-on="click:setHelpSection('misc')"
-          v-class="active:helpSection == 'misc'") Miscellaneous
+        .button-group
+          a(title="Markdown help" v-on="click:help()"): .fa.fa-question-circle
 
-      .markdown-help-submenu(v-show="helpSection == 'block'")
-        a(v-on="click:setHelpSubsection('breaks')"
-          v-class="active:helpSubsection == 'breaks'") Paragraphs & Breaks
-        a(v-on="click:setHelpSubsection('headers')"
-          v-class="active:helpSubsection == 'headers'") Headers
-        a(v-on="click:setHelpSubsection('quotes')"
-          v-class="active:helpSubsection == 'quotes'") Blockquotes
-        a(v-on="click:setHelpSubsection('lists')"
-          v-class="active:helpSubsection == 'lists'") Lists
-        a(v-on="click:setHelpSubsection('code blocks')"
-          v-class="active:helpSubsection == 'code blocks'") Code Blocks
-        a(v-on="click:setHelpSubsection('hrs')"
-          v-class="active:helpSubsection == 'hrs'") Horizontal Rules
+      .markdown-help(v-show="showHelp && editing")
+        .markdown-help-menu
+          a(v-on="click:setHelpSection('block')"
+            v-class="active:helpSection == 'block'") Block Elements
+          a(v-on="click:setHelpSection('span')"
+            v-class="active:helpSection == 'span'") Span Elements
+          a(v-on="click:setHelpSection('misc')"
+            v-class="active:helpSection == 'misc'") Miscellaneous
 
-      .markdown-help-submenu(v-show="helpSection == 'span'")
-        a(v-on="click:setHelpSubsection('links')"
-          v-class="active:helpSubsection == 'links'") Links
-        a(v-on="click:setHelpSubsection('emphasis')"
-          v-class="active:helpSubsection == 'emphasis'") Emphasis
-        a(v-on="click:setHelpSubsection('code')"
-          v-class="active:helpSubsection == 'code'") Code
-        a(v-on="click:setHelpSubsection('images')"
-          v-class="active:helpSubsection == 'images'") Images
+        .markdown-help-submenu(v-show="helpSection == 'block'")
+          a(v-on="click:setHelpSubsection('breaks')"
+            v-class="active:helpSubsection == 'breaks'") Paragraphs & Breaks
+          a(v-on="click:setHelpSubsection('headers')"
+            v-class="active:helpSubsection == 'headers'") Headers
+          a(v-on="click:setHelpSubsection('quotes')"
+            v-class="active:helpSubsection == 'quotes'") Blockquotes
+          a(v-on="click:setHelpSubsection('lists')"
+            v-class="active:helpSubsection == 'lists'") Lists
+          a(v-on="click:setHelpSubsection('code blocks')"
+            v-class="active:helpSubsection == 'code blocks'") Code Blocks
+          a(v-on="click:setHelpSubsection('hrs')"
+            v-class="active:helpSubsection == 'hrs'") Horizontal Rules
 
-      .markdown-help-submenu(v-show="helpSection == 'misc'")
-        a(v-on="click:setHelpSubsection('auto links')"
-          v-class="active:helpSubsection == 'auto links'") Automatic Links
-        a(v-on="click:setHelpSubsection('escaping')"
-          v-class="active:helpSubsection == 'escaping'") Escaping
+        .markdown-help-submenu(v-show="helpSection == 'span'")
+          a(v-on="click:setHelpSubsection('links')"
+            v-class="active:helpSubsection == 'links'") Links
+          a(v-on="click:setHelpSubsection('emphasis')"
+            v-class="active:helpSubsection == 'emphasis'") Emphasis
+          a(v-on="click:setHelpSubsection('code')"
+            v-class="active:helpSubsection == 'code'") Code
+          a(v-on="click:setHelpSubsection('images')"
+            v-class="active:helpSubsection == 'images'") Images
 
-      // Block Elements
-      .markdown-help-content(v-show="helpSubsection == 'breaks'")
-        p
-          | To create a paragraph, simply create a block of text that is not
-          | separated by one or more blank lines. Blocks of text separated by
-          | one or more blank lines will be parsed as paragraphs.
-        p
-          | If you want to create a line break, end a line with two or more
-          | spaces, then hit Return/Enter.
+        .markdown-help-submenu(v-show="helpSection == 'misc'")
+          a(v-on="click:setHelpSubsection('auto links')"
+            v-class="active:helpSubsection == 'auto links'") Automatic Links
+          a(v-on="click:setHelpSubsection('escaping')"
+            v-class="active:helpSubsection == 'escaping'") Escaping
 
-      .markdown-help-content(v-show="helpSubsection == 'headers'")
-        p
-          | Simply prefix your header text with the number of <code>#</code>
-          | characters to specify heading depth.  For example:
-          | <code># Header 1</code>, <code>## Header 2</code> and
-          | <code>### Header 3</code> will be progressively smaller headers.
-          | You may end your headers with any number of hashes.
+        // Block Elements
+        .markdown-help-content(v-show="helpSubsection == 'breaks'")
+          p
+            | To create a paragraph, simply create a block of text that is not
+            | separated by one or more blank lines. Blocks of text separated by
+            | one or more blank lines will be parsed as paragraphs.
+          p
+            | If you want to create a line break, end a line with two or more
+            | spaces, then hit Return/Enter.
 
-      .markdown-help-content(v-show="helpSubsection == 'quotes'")
-        p
-          | Markdown creates blockquotes email-style by prefixing each line
-          | with the <code>&gt;</code>. This looks best if you decide to
-          | hard-wrap text and prefix each line with a <code>&gt;</code>
-          | character, but Markdown supports just putting <code>&gt;</code>
-          | before your paragraph.
+        .markdown-help-content(v-show="helpSubsection == 'headers'")
+          p
+            | Simply prefix your header text with the number of <code>#</code>
+            | characters to specify heading depth.  For example:
+            | <code># Header 1</code>, <code>## Header 2</code> and
+            | <code>### Header 3</code> will be progressively smaller headers.
+            | You may end your headers with any number of hashes.
 
-      .markdown-help-content(v-show="helpSubsection == 'lists'")
-        p
-          | Markdown supports both ordered and unordered lists. To create an
-          | ordered list, simply prefix each line with a number.  Any number
-          | will do - this is why the editor only uses one number.  To create
-          | an unordered list, you can prefix each line with <code>*</code>,
-          | <code>+</code> or <code>-</code>.
-        p
-          | List items can contain multiple paragraphs, however each paragraph
-          | must be indented by at least 4 spaces or a tab.
+        .markdown-help-content(v-show="helpSubsection == 'quotes'")
+          p
+            | Markdown creates blockquotes email-style by prefixing each line
+            | with the <code>&gt;</code>. This looks best if you decide to
+            | hard-wrap text and prefix each line with a <code>&gt;</code>
+            | character, but Markdown supports just putting <code>&gt;</code>
+            | before your paragraph.
 
-      .markdown-help-content(v-show="helpSubsection == 'code blocks'")
-        p
-          | Markdown wraps code blocks in pre-formatted tags to preserve
-          | indentation in your code blocks. To create a code block, wrap
-          | the code with three backticks <code>```</code> or indent
-          | the entire block by at least 4 spaces.  Markdown will
-          | strip the extra indentation added to the code block.
+        .markdown-help-content(v-show="helpSubsection == 'lists'")
+          p
+            | Markdown supports both ordered and unordered lists. To create an
+            | ordered list, simply prefix each line with a number.  Any number
+            | will do - this is why the editor only uses one number.  To create
+            | an unordered list, you can prefix each line with <code>*</code>,
+            | <code>+</code> or <code>-</code>.
+          p
+            | List items can contain multiple paragraphs, however each paragraph
+            | must be indented by at least 4 spaces or a tab.
 
-      .markdown-help-content(v-show="helpSubsection == 'hrs'")
-        p
-          | Horizontal rules are created by placing three or more hyphens,
-          | asterisks or underscores on a line by themselves. Spaces are
-          | allowed between the hyphens, asterisks or underscores.
+        .markdown-help-content(v-show="helpSubsection == 'code blocks'")
+          p
+            | Markdown wraps code blocks in pre-formatted tags to preserve
+            | indentation in your code blocks. To create a code block, wrap
+            | the code with three backticks <code>```</code> or indent
+            | the entire block by at least 4 spaces.  Markdown will
+            | strip the extra indentation added to the code block.
 
-      // Span Elements
-      .markdown-help-content(v-show="helpSubsection == 'links'")
-        p
-          | Markdown has two types of links: inline and reference. For both
-          | types of links, the text you want to display to the user is placed
-          | in square brackets. For example, if you want your link to display
-          | the text <code>Example</code>, you write <code>[Example]</code>.
+        .markdown-help-content(v-show="helpSubsection == 'hrs'")
+          p
+            | Horizontal rules are created by placing three or more hyphens,
+            | asterisks or underscores on a line by themselves. Spaces are
+            | allowed between the hyphens, asterisks or underscores.
 
-        p
-          | To create an inline link, create a set of parentheses immediately
-          | after the brackets and write your URL within the parentheses.
-          | (e.g., <code>[Example](http://example.com/)</code>). Relative paths
-          | are allowed in inline links.
+        // Span Elements
+        .markdown-help-content(v-show="helpSubsection == 'links'")
+          p
+            | Markdown has two types of links: inline and reference. For both
+            | types of links, the text you want to display to the user is placed
+            | in square brackets. For example, if you want your link to display
+            | the text <code>Example</code>, you write <code>[Example]</code>.
 
-      .markdown-help-content(v-show="helpSubsection == 'emphasis'")
-        p
-          | Asterisks <code>*</code> and underscores <code>_</code> are treated
-          | as emphasis and are wrapped with an <code>&lt;em&gt;</code> tag,
-          | which usually displays as italics in most browsers.  Double
-          | asterisks <code>**</code> or double underscores <code>__</code> are
-          | treated as bold using the <code>&lt;strong&gt;</code> tag.
-        p
-          | To create italic or bold text, simply wrap your words in
-          | single/double asterisks/underscores. For example, <code>**My double
-          | emphasis text**</code> becomes <strong>My double emphasis
-          | text</strong>, and <code>*My single emphasis text*</code>
-          | becomes <em>My single emphasis text</em>.
+          p
+            | To create an inline link, create a set of parentheses immediately
+            | after the brackets and write your URL within the parentheses.
+            | (e.g., <code>[Example](http://example.com/)</code>). Relative
+            | paths are allowed in inline links.
 
-      .markdown-help-content(v-show="helpSubsection == 'code'")
-        p
-          | To create inline spans of code, simply wrap the code in backticks
-          | <code>`</code>. Markdown will turn <code>`foo()`</code> into
-          | <code>foo()</code>.
+        .markdown-help-content(v-show="helpSubsection == 'emphasis'")
+          p
+            | Asterisks <code>*</code> and underscores <code>_</code> are
+            | treated as emphasis and are wrapped with an
+            | <code>&lt;em&gt;</code> tag, which usually displays as italics in
+            | most browsers.  Double asterisks <code>**</code> or double
+            | underscores <code>__</code> are treated as bold using the
+            | <code>&lt;strong&gt;</code> tag.
+          p
+            | To create italic or bold text, simply wrap your words in
+            | single/double asterisks/underscores. For example, <code>**My
+            | double emphasis text**</code> becomes <strong>My double emphasis
+            | text</strong>, and <code>*My single emphasis text*</code>
+            | becomes <em>My single emphasis text</em>.
 
-      .markdown-help-content(v-show="helpSubsection == 'images'")
-        p
-          | Markdown image syntax looks a lot like the syntax for links; it is
-          | essentially the same syntax preceded by an exclamation point
-          | <code>!</code>.  For example, if you want to link to an image at
-          | <code>http://example.com/kitten.png</code> with the alternate text
-          | <code>My Kitten</code>, you would write
-          | <code>![My Kitten](http://example.com/kitten.png)</code>.
+        .markdown-help-content(v-show="helpSubsection == 'code'")
+          p
+            | To create inline spans of code, simply wrap the code in backticks
+            | <code>`</code>. Markdown will turn <code>`foo()`</code> into
+            | <code>foo()</code>.
 
-      // Miscellaneous
-      .markdown-help-content(v-show="helpSubsection == 'auto links'")
-        p
-          | If you want to create a link that displays the actual URL,
-          | markdown allows you to quickly wrap the URL in <code>&lt;</code>
-          | and <code>&gt;</code> to do so.  For example, the link
-          | <code>http://example.com/</code> is easily produced by
-          | writing <code>&lt;http://example.com/&gt;</code>.
+        .markdown-help-content(v-show="helpSubsection == 'images'")
+          p
+            | Markdown image syntax looks a lot like the syntax for links; it is
+            | essentially the same syntax preceded by an exclamation point
+            | <code>!</code>.  For example, if you want to link to an image at
+            | <code>http://example.com/kitten.png</code> with the alternate text
+            | <code>My Kitten</code>, you would write
+            | <code>![My Kitten](http://example.com/kitten.png)</code>.
 
-      .markdown-help-content(v-show="helpSubsection == 'escaping'")
-        p
-          | If you want to use a special Markdown character in your document
-          | (such as displaying literal asterisks), you can escape the
-          | character with the backslash <code>\</code>. Markdown will ignore
-          | the character directly after a backslash.
+        // Miscellaneous
+        .markdown-help-content(v-show="helpSubsection == 'auto links'")
+          p
+            | If you want to create a link that displays the actual URL,
+            | markdown allows you to quickly wrap the URL in <code>&lt;</code>
+            | and <code>&gt;</code> to do so.  For example, the link
+            | <code>http://example.com/</code> is easily produced by
+            | writing <code>&lt;http://example.com/&gt;</code>.
 
-    .markdown-content(v-show="editing || fullscreen" v-on="click:focusEditor")
+        .markdown-help-content(v-show="helpSubsection == 'escaping'")
+          p
+            | If you want to use a special Markdown character in your document
+            | (such as displaying literal asterisks), you can escape the
+            | character with the backslash <code>\</code>. Markdown will ignore
+            | the character directly after a backslash.
 
-    .markdown-preview(v-show="!editing || fullscreen")
-      .markdown-preview-content Preview
+    .markdown-content
+      .markdown-edit(v-show="editing || fullscreen" v-on="click:focusEditor")
+
+      .markdown-preview(v-show="!editing || fullscreen")
+        .markdown-preview-content Preview
 
     .markdown-footer(v-if="maxLength" v-show="editing")
       span(v-class="error:maxLength <= length, warn:0.95 * maxLength < length")

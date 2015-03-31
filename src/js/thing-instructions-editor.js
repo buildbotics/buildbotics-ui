@@ -36,15 +36,11 @@ module.exports = {
 
 
     'markdown-editor.response': function (response) {
-      switch (response) {
-      case 'save':
-        if (!this.modified) return false;
-        this.save();
-        break;
+      if (!this.modified) return false;
 
-      case 'cancel':
-        this.cancel();
-        break;
+      switch (response) {
+      case 'save': this.save(); break;
+      case 'cancel': this.cancel(); break;
       }
 
       this.$broadcast('markdown-editor.fullscreen', false);

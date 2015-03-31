@@ -79,13 +79,13 @@ module.exports = {
     // Buttons
     if (this.buttons)
       $(this.$el)
-      .find('> .actions')
+      .find('.markdown-header .actions')
       .prepend(buttons.create(this.buttons, function (response) {
         this.$dispatch('markdown-editor.response', response);
       }.bind(this)));
 
     // Create editor
-    var target = $(this.$el).find('.markdown-content');
+    var target = $(this.$el).find('.markdown-edit');
     var text = this.$parent.$get(this.field);
     this.length = text.length;
 
@@ -162,17 +162,20 @@ module.exports = {
 
 
     setFullscreen: function (fullscreen) {
+      var el = $(this.$el);
       this.fullscreen = fullscreen;
 
       if (this.fullscreen) {
-        $(this.$el).addClass('fullscreen');
+        el.addClass('fullscreen');
         this.updatePreview();
         this.editor.on('change', this.updatePreview);
         document.addEventListener('keyup', this.exitFullscreenOnEscape);
         this.refresh();
 
         $('body').css('overflow-y', 'hidden');
-        this.$el.scrollTo(0, 0);
+        el.find('.markdown-content').get(0).scrollTo(0, 0);
+
+        $(window).on('resize', this.resizeContent);
 
       } else {
         $(this.$el).removeClass('fullscreen');
@@ -180,7 +183,25 @@ module.exports = {
         document.removeEventListener('keyup', this.exitFullscreenOnEscape);
 
         $('body').css('overflow-y', '');
+
+        $(window).off('resize', debounce(250, this.resizeContent, true));
       }
+
+      // Fix content height
+      this.resizeContent()
+    },
+
+
+    resizeContent: function () {
+      var el = $(this.$el);
+
+      if (this.fullscreen) {
+        var total = window.innerHeight;
+        var header = el.find('.markdown-header').outerHeight();
+        var footer = el.find('.markdown-footer').outerHeight();
+        el.find('.markdown-content').css('height', total - header - footer);
+
+      } else el.find('.markdown-content').css('height', '');
     },
 
 
@@ -203,7 +224,6 @@ module.exports = {
 
 
     refresh: function () {
-      this.showHelp = false;
       this.edit();
       Vue.nextTick(function () {this.editor.refresh()}.bind(this));
     },
@@ -301,6 +321,7 @@ module.exports = {
 
     help: function () {
       this.showHelp = !this.showHelp;
+      Vue.nextTick(this.resizeContent)
     },
 
 
