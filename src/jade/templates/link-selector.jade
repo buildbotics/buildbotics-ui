@@ -7,12 +7,12 @@ script#link-selector-template(type="text/x-template")
       table
         tr
           th Hyperlink
-          td: input(name="link" v-model="link")
+          td: input(name="link" placeholder="Enter link" v-model="link")
 
         tr
           th Text
-          td: input(name="text" placeholder="(optional)" v-model="text")
+          td: input(name="text" placeholder="Enter text" v-model="text")
 
     .modal-footer
       button(v-on="click:cancel") Cancel
-      button.success(v-on="click:add" v-disable="!link") Add Link
+      button.success(v-on="click:add" v-disable="!link || !text") Add Link

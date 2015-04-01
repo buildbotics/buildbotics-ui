@@ -28,7 +28,8 @@ module.exports = {
 
   components: {
     'link-selector': require('./link-selector'),
-    'media-selector': require('./media-selector')
+    'media-selector': require('./media-selector'),
+    'youtube-selector': require('./youtube-selector')
   },
 
 
@@ -57,6 +58,13 @@ module.exports = {
       this.setFullscreen(fullscreen);
     },
 
+
+    'link-selector-cancel': function () {return false},
+    'link-selector-add': function (link, text) {
+      this.editor.replaceSelection('[' + text + '](' + link + ')');
+      return false;
+    },
+
     'media-selector-cancel': function () {return false},
     'media-selector-add': function (file, size) {
       var filename = file.url.replace(/^.*\//, '');
@@ -64,9 +72,9 @@ module.exports = {
       return false;
     },
 
-    'link-selector-cancel': function () {return false},
-    'link-selector-add': function (link, text) {
-      this.editor.replaceSelection('[' + text + '](' + link + ')');
+    'youtube-selector-cancel': function () {return false},
+    'youtube-selector-add': function (url) {
+      this.editor.replaceSelection('![YouTube Video](' + url + ')');
       return false;
     }
   },
@@ -295,13 +303,18 @@ module.exports = {
     },
 
 
+    addLink: function () {
+      this.$broadcast('link-selector-show', this.editor.getSelection());
+    },
+
+
     addMedia: function () {
       this.$broadcast('media-selector-show');
     },
 
 
-    link: function () {
-      this.$broadcast('link-selector-show', this.editor.getSelection());
+    addYoutube: function () {
+      this.$broadcast('youtube-selector-show');
     },
 
 

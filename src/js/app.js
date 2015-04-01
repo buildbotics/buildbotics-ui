@@ -173,6 +173,13 @@ module.exports = new Vue({
       var a = document.createElement('a');
       a.href = href;
 
+      if (a.hostname
+          .toLowerCase()
+          .match(/^(www\.)?((youtube\.com)|(youtu\.be))$/))
+        return '<iframe class="youtube" ' +
+          'src="//www.youtube.com/embed/' + util.getYoutubeId(a.href) +
+          '" frameborder="0" allowfullscreen></iframe>';
+
       var q = util.parseQueryString(a.search);
       var size = q.size || 'small';
 

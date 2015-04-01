@@ -73,7 +73,8 @@ script#thing-view-template(type="text/x-template")
 
     .subsection
       .actions
-        a.fa.fa-edit(v-show="isOwner" v-on="click:editThing('instructions')")
+        a.fa.fa-edit(v-show="isOwner" v-on="click:editThing('instructions')"
+          title="Edit instructions.")
       h1#instructions Instructions
       div(v-markdown="thing.instructions")
       .empty(v-if="!thing.instructions")
@@ -83,6 +84,9 @@ script#thing-view-template(type="text/x-template")
           | Edit
 
     .subsection
+      .actions
+        a.fa.fa-edit(v-show="isOwner" v-on="click:editThing('files')"
+          title="Edit files.")
       h1#downloads Downloads
       file-manager(files="{{downloads}}")
       thing-license

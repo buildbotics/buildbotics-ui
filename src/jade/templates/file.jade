@@ -1,13 +1,15 @@
 script#file-template(type="text/x-template")
   td.preview
-    img(v-if="showThumb()" v-attr="src:file.src || (file.url + '?size=thumb')")
-    .fa(v-if="!showThumb()" v-class="util.getIcon(file.type)"
-      title="{{file.type}} file")
+    a(v-attr="href:file.url ? file.url + '?count=1' : '#'" target="_blank"
+      title="Download {{file.name}}." v-on="click:download()")
+      img(v-if="showThumb()"
+        v-attr="src:file.src || (file.url + '?size=thumb')")
+      .fa(v-if="!showThumb()" v-class="util.getIcon(file.type)")
 
   td.name
     span(v-show="!file.url") {{file.name}}
     a(v-show="file.url" href="{{file.url}}?count=1" target="_blank"
-      title="Download file" v-on="click:download()") {{file.name}}
+      title="Download {{file.name}}." v-on="click:download()") {{file.name}}
 
   td.size
     div(v-progressbar="file.percent" v-show="file.uploading"

@@ -28,12 +28,15 @@ script#markdown-editor-template(type="text/x-template")
           a(title="Heading 3" v-on="click:prefix('### ')") h3
 
         .button-group
-          a(title="Link" v-on="click:link()"): .fa.fa-link
+          a(title="Link" v-on="click:addLink()"): .fa.fa-link
           a(title="Add media" v-if="media && media.length"
             v-on="click:addMedia()"): .fa.fa-image
+          a(title="Add YouTube video" v-on="click:addYoutube()")
+            .fa.fa-youtube-play
 
           link-selector
           media-selector(media="{{media}}")
+          youtube-selector
 
         .button-group
           a(title="Bold" v-on="click:wrap('**')"): .fa.fa-bold

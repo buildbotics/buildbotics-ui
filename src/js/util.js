@@ -1,5 +1,11 @@
 'use strict'
 
+var ytLongRE =
+  /^(https?:\/\/)?(www\.)?youtube\.com\/watch\?v=([\w-]{11})(\&.*)?$/;
+
+var ytShortRE = /^(https?:\/\/)?(www\.)?youtu\.be\/([\w-]{11})$/;
+var ytIdRE = /^[\w-]{11}$/;
+
 
 var util = {
   isImage: function (type) {
@@ -14,6 +20,43 @@ var util = {
 
   isMedia: function (type) {
     return util.isImage(type) || util.isVideo(type);
+  },
+
+
+  isYoutube: function (url) {
+    return url.match(ytLongRE) || url.match(ytShortRE) || url.match(ytIdRE)
+  },
+
+
+  isYoutubeId: function (url) {
+    return url.match(ytIdRE)
+  },
+
+
+  getYoutubeId: function (url) {
+    // ID
+    if (url.match(ytIdRE)) return url;
+
+    // Short
+    var m = url.match(ytShortRE);
+    if (m) return m[3];
+
+    // Long
+    m = url.match(ytLongRE);
+    if (m) return m[3];
+  },
+
+
+  sanitizeYoutube: function (url) {
+    if (this.isYoutubeId(url)) url = 'http://youtu.be/' + url;
+    url = url.replace(/\&feature=[^&]+/, '')
+    return url;
+  },
+
+
+  cleanYoutube: function (url) {
+    url = this.sanitizeYoutube(url);
+    url = url.replace(/^https?:/, '');
   },
 
 

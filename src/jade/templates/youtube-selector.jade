@@ -1,0 +1,17 @@
+script#youtube-selector-template(type="text/x-template")
+  .youtube-selector.modal(v-show="show")
+    .modal-header
+      .fa.fa-youtube
+      | Insert YouTube video.
+
+    .modal-content
+      p Copy and paste the video URL or ID from your into the box below.
+
+      label
+        | URL:&nbsp;
+        input(type="text" v-model="url" maxlength=256)
+      .error(v-show="!valid && url") Invalid Youtube URL.
+
+    .modal-footer
+      button(v-on="click:cancel") Cancel
+      button.success(v-on="click:insert" v-disable="!valid") Ok

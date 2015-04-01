@@ -44,7 +44,7 @@ module.exports = {
       }));
 
       this.$set('downloads', files.filter(function (file) {
-        return file.visibility != 'media';
+        return file.visibility != 'display';
       }));
     }
   },
