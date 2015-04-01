@@ -1,17 +1,18 @@
 script#file-manager-template(type="text/x-template")
   .file-manager
-    div(v-class="dropzone:canEdit")
-      table.table.table-striped
-        tr
-          th.preview Preview
-          th.name Name
-          th.size Size
-          th.downloads Downloads
-          th.actions Actions
+    .file-manager-container
+      div(v-class="dropzone:canEdit")
+        table.table.table-striped
+          tr
+            th.preview Preview
+            th.name Name
+            th.size Size
+            th.downloads Downloads
+            th.actions Actions
 
-        tr(v-repeat="file:files" v-component="bb-file")
+          tr(v-repeat="file:files" v-component="bb-file")
 
-      .file-manager-footer(v-if="canEdit")
-        | Click to <button class="success browse">
-        | <div class="fa fa-plus"></div> Add files</button> or drag and drop.
+        .file-manager-footer(v-if="canEdit")
+          | Click to <button class="success browse">
+          | <div class="fa fa-plus"></div> Add files</button> or drag and drop.
 

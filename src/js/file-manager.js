@@ -2,9 +2,45 @@
 
 
 var util = require('./util');
+var notify = require('./notify');
+
+
+plupload.addFileFilter('no_executables', function (arg, file, cb) {
+  switch (file.type) {
+  case 'application/x-msdownload':
+  case 'application/x-msdos-program':
+  case 'application/x-msdos-windows':
+  case 'application/x-download':
+  case 'application/bat':
+  case 'application/x-bat':
+  case 'application/com':
+  case 'application/x-com':
+  case 'application/exe':
+  case 'application/x-exe':
+  case 'application/x-winexe':
+  case 'application/x-winhlp':
+  case 'application/x-winhelp':
+  case 'application/x-javascript':
+  case 'application/hta':
+  case 'application/x-ms-shortcut':
+  case 'application/octet-stream':
+  case 'vms/exe':
+    this.trigger('Error', {
+      code: plupload.FILE_EXTENSION_ERROR,
+      message: plupload.translate('Cannot upload executable.'),
+      file: file
+    });
+
+    cb(false);
+    break;
+
+  default: cb(true); break;
+  }
+})
 
 
 module.exports = {
+  replace: true,
   template: '#file-manager-template',
   paramAttributes: ['files', 'can-edit'],
   components: {'bb-file': require('./file')},
@@ -17,10 +53,22 @@ module.exports = {
   },
 
 
+  watch: {
+    canEdit: function (newValue, oldValue) {
+      if (newValue) this.initUploader({
+        filters: {
+          max_file_size: '10mb',
+          no_executables: true,
+          prevent_duplicates: true
+        }
+      })
+    }
+  },
+
+
   events: {
     'file-manager.can-edit': function (canEdit) {
       this.$set('canEdit', canEdit);
-      if (canEdit) this.initUploader();
     },
 
 
@@ -72,6 +120,12 @@ module.exports = {
     },
 
 
+    findFile: function (filename) {
+      for (var i = 0; i < this.files.length; i++)
+        if (this.files[i].name == filename) return this.files[i];
+    },
+
+
     fileUpdated: function (file) {
       // HACK Remove and read file to force it to reload
       var self = this;
@@ -99,6 +153,22 @@ module.exports = {
 
 
     onFileAdded: function (file) {
+      var other = this.findFile(file.name);
+      if (other) {
+        this.uploader.trigger('Error', {
+          code: plupload.FILE_DUPLICATE_ERROR,
+          message:
+          plupload.translate('File "' + file.name + '" already exists.'),
+          file: file
+        })
+
+        this.uploader.stop();
+        this.uploader.removeFile(file);
+        this.uploader.start();
+
+        return;
+      }
+
       file.state = 'waiting';
       file.uploading = true;
       file.percent = 0;
@@ -175,6 +245,12 @@ module.exports = {
       }
 
       this.$dispatch('file-manager.delete', file, cb.bind(this));
+    },
+
+
+    onError: function (error) {
+      notify.error('Upload failure', error.message);
+      console.debug('Upload error:', JSON.stringify(error));
     }
   },
 

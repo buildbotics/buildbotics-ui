@@ -3,11 +3,6 @@
 
 module.exports = function (url) {
   return {
-    ready: function () {
-      this.initUploader();
-    },
-
-
     beforeDestroy: function () {
       if (this.uploader) this.uploader.destroy();
     },
@@ -49,7 +44,7 @@ module.exports = function (url) {
           container: uploadID,
           drop_element: dropzoneID,
           browse_button: browseID,
-          multipart_params: {},
+          multipart_params: {}
         }, options || {});
 
         // Configure plupload

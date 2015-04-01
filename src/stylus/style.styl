@@ -1622,7 +1622,12 @@ input, textarea, select
   .bb-modal .body
     text-align right
 
+  table
+    width 100%
+    table-layout fixed
+
   td, th
+    width 5em
     text-align center
     white-space nowrap
     font-size 10pt
@@ -1641,8 +1646,7 @@ input, textarea, select
     color light_text_color
 
   th.name, td.name
-    width 100%
-    max-width 100%
+    width auto
     text-align left
     overflow hidden
     text-overflow ellipsis
@@ -1671,8 +1675,8 @@ input, textarea, select
   .file-editor
     position absolute
     left 50%
+    top 1em
     margin-left -20em
-    margin-top -5em
     width 40em
 
     .modal-content
