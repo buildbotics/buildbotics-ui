@@ -30,8 +30,7 @@ module.exports = function (prefix, subsections) {
 
 
     events: {
-      'logged-in': function () {this.updateSubsection()},
-      'logged-out': function () {this.updateSubsection()}
+      'is-owner': function () {this.updateSubsection()},
     },
 
 
