@@ -2,6 +2,7 @@ script#stars-template(type="text/x-template")
   .stars
     button(v-if="button" v-on="click:toggle" v-class="success:!active"
       title="{{active ? 'Uns' : 'S'}}tar this project")
+      .fa.fa-star
       | {{active ? 'Uns' : 'S'}}tar
 
     a(v-if="!button" v-on="click:toggle"

@@ -2,6 +2,7 @@ script#followers-template(type="text/x-template")
   .followers
     button(v-if="button" v-on="click:toggle" v-class="success:!active"
       title="{{active ? 'Unf' : 'F'}}ollow {{profile.name}}")
+      .fa.fa-users
       | {{active ? 'Unf' : 'F'}}ollow
 
     a(v-if="!button" v-on="click:toggle"
