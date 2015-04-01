@@ -29,6 +29,12 @@ module.exports = function (prefix, subsections) {
     components: makeComponents(),
 
 
+    events: {
+      'logged-in': function () {this.updateSubsection()},
+      'logged-out': function () {this.updateSubsection()}
+    },
+
+
     created: function () {
       this.$set('subsections', subsections);
 
@@ -47,6 +53,11 @@ module.exports = function (prefix, subsections) {
 
 
     methods: {
+      updateSubsection: function () {
+        this.setSubsection(require('./app').subsection);
+      },
+
+
       onSubsectionChange: function (newSubsection, oldSubsection) {},
 
 
@@ -58,7 +69,8 @@ module.exports = function (prefix, subsections) {
       setSubsection: function (subsection) {
         subsection = subsection.trim();
 
-        if (!subsection || subsections.indexOf(subsection) == -1)
+        if (!subsection || subsections.indexOf(subsection) == -1 ||
+            (!this.isOwner && subsection.match(/^edit-/)))
           subsection = subsections[0]; // Choose first by default
 
         if (this.subsection == subsection) return;
@@ -70,6 +82,9 @@ module.exports = function (prefix, subsections) {
           this.onSubsectionChange(subsection, oldSubsection);
         }.bind(this))
       }
-    }
+    },
+
+
+    mixins: [require('./login-listener')]
   }
 }

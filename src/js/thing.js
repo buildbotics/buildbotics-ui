@@ -268,8 +268,5 @@ module.exports = {
   },
 
 
-  mixins: [
-    require('./subsections')('thing', subsections),
-    require('./login-listener')
-  ]
+  mixins: [require('./subsections')('thing', subsections)]
 }
