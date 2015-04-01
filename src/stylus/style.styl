@@ -1657,7 +1657,7 @@ input, textarea, select
     max-width 40em
 
   td.actions
-    .delete
+    .delete, .edit
       position relative
       display inline-block
 
@@ -1668,6 +1668,21 @@ input, textarea, select
       &.disabled
         color #ccc !important
 
+  .file-editor
+    width 40em
+    margin-left -40em
+
+    .modal-header h1
+      margin 0
+      border-bottom none
+      text-transform none
+
+    label
+      display block
+      margin 0.125em
+
+    input[type=text]
+      width 30em
 
 // Table
 .table

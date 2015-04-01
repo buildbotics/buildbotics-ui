@@ -5,7 +5,7 @@ var page = require('page');
 var notify = require('./notify');
 var util = require('./util');
 
-var subsections = 'view edit-details edit-instructions edit-files dangerous';
+var subsections = 'view edit-details edit-files edit-instructions dangerous';
 var fields = 'title url license tags';
 
 
@@ -31,36 +31,36 @@ module.exports = {
       newName: '',
       nameIsValid: false,
       viewSections: 'instructions downloads comments'.split(' '),
-      media: []
+      media: [],
+      downloads: []
     }
   },
 
 
   watch: {
-    isOwner: function (value) {
-      this.$broadcast('file-manager-can-edit', value);
-    },
-
-
     files: function (files) {
       this.$set('media', files.filter(function (file) {
-        return file.display && util.isMedia(file.type);
+        return file.visibility != 'download' && util.isMedia(file.type);
+      }));
+
+      this.$set('downloads', files.filter(function (file) {
+        return file.visibility != 'media';
       }));
     }
   },
 
 
   events: {
-    'file-manager-before-upload': function (file, done) {
+    'file-manager.before-upload': function (file, done) {
       var data = {
         type: file.type,
         size: file.size,
-        display: util.isMedia(file.type)
+        visibility: util.isMedia(file.type) ? 'display' : 'download'
       }
 
-      file.display = data.display;
+      file.visibility = data.visibility;
 
-      $bb.put(this.getAPIURL() + '/files/' + file.name, data)
+      $bb.post(this.getAPIURL() + '/files/' + file.name, data)
         .done(function (data) {done(true, data);})
 
         .fail(function (data, status) {
@@ -72,7 +72,7 @@ module.exports = {
     },
 
 
-    'file-manager-after-upload': function (file, done) {
+    'file-manager.after-upload': function (file, done) {
       $bb.put(this.getAPIURL() + '/files/' + file.name + '/confirm')
         .done(function (data) {done(true);})
 
@@ -85,7 +85,7 @@ module.exports = {
     },
 
 
-    'file-manager-up': function (file, done) {
+    'file-manager.up': function (file, done) {
       $bb.post(this.getAPIURL() + '/files/' + file.name + '/up')
         .done(function () {done(true)})
 
@@ -98,7 +98,7 @@ module.exports = {
     },
 
 
-    'file-manager-down': function (file, done) {
+    'file-manager.down': function (file, done) {
       $bb.post(this.getAPIURL() + '/files/' + file.name + '/down')
         .done(function () {done(true)})
 
@@ -111,13 +111,28 @@ module.exports = {
     },
 
 
-    'file-manager-delete': function (file, done) {
+    'file-manager.delete': function (file, done) {
       $bb.delete(this.getAPIURL() + '/files/' + file.name)
         .done(function () {done(true)})
 
         .fail(function (data, status) {
           notify.error('Failed to delete file ' + file.name, status)
           done(false);
+        });
+
+      return false; // Cancel event propagation
+    },
+
+
+    'file-manager.save': function (file, data) {
+      $bb.put(this.getAPIURL() + '/files/' + file.name, data)
+        .done(function () {
+          if (data.visibility) file.visibility = data.visibility;
+          if (data.rename) file.name = data.rename;
+          if (data.caption) file.caption = data.caption;
+
+        }).fail(function (data, status) {
+          notify.error('Failed to update file ' + file.name, status)
         });
 
       return false; // Cancel event propagation

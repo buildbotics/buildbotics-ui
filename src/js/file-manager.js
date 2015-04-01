@@ -18,9 +18,14 @@ module.exports = {
 
 
   events: {
-    'file-manager-can-edit': function (canEdit) {
+    'file-manager.can-edit': function (canEdit) {
       this.$set('canEdit', canEdit);
       if (canEdit) this.initUploader();
+    },
+
+
+    'file-editor.cancel': function () {
+      return false;
     }
   },
 
@@ -45,7 +50,7 @@ module.exports = {
           if (file.uploading && file.future_url) {
             resolve = false;
 
-            this.$dispatch('file-manager-delete', file, function () {
+            this.$dispatch('file-manager.delete', file, function () {
               this.removeFile(file);
               file.state = 'deleted';
               defer.resolve();
@@ -89,7 +94,7 @@ module.exports = {
         }
       }
 
-      this.$dispatch('file-manager-before-upload', file, cb.bind(this));
+      this.$dispatch('file-manager.before-upload', file, cb.bind(this));
     },
 
 
@@ -128,7 +133,7 @@ module.exports = {
         }
       }
 
-      this.$dispatch('file-manager-after-upload', file, cb.bind(this));
+      this.$dispatch('file-manager.after-upload', file, cb.bind(this));
     },
 
 
@@ -141,7 +146,7 @@ module.exports = {
         }
       }
 
-      this.$dispatch('file-manager-up', file, cb.bind(this));
+      this.$dispatch('file-manager.up', file, cb.bind(this));
     },
 
 
@@ -154,7 +159,7 @@ module.exports = {
         }
       }
 
-      this.$dispatch('file-manager-down', file, cb.bind(this));
+      this.$dispatch('file-manager.down', file, cb.bind(this));
     },
 
 
@@ -169,7 +174,7 @@ module.exports = {
         } else file.state = 'ok';
       }
 
-      this.$dispatch('file-manager-delete', file, cb.bind(this));
+      this.$dispatch('file-manager.delete', file, cb.bind(this));
     }
   },
 

@@ -1,0 +1,34 @@
+script#file-editor-template(type="text/x-template")
+  .file-editor.modal(v-show="show")
+    .modal-header
+      h1 Edit file details
+
+    .modal-content
+      div
+        h2 Name
+        input(type="text" name="name" v-model="name" v-on="input:update")
+
+      div
+        h2 Caption
+        input(type="text" name="caption" v-model="caption" v-on="input:update")
+
+      div
+        h2 Visibility
+        label
+          input(type="radio" name="visibility" value="display")
+          | Display
+        label
+          input(type="radio" name="visibility" value="download")
+          | Download
+        label
+          input(type="radio" name="visibility" value="both")
+          | Both
+
+    .modal-footer
+      button(v-on="click:cancel")
+        .fa.fa-times
+        | Cancel
+
+      button.success(v-on="click:save" v-disable="!name || !modified")
+        .fa.fa-save
+        | Save

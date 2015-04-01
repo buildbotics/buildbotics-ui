@@ -8,6 +8,11 @@ module.exports = {
   template: '#file-template',
 
 
+  components: {
+    'file-editor': require('./file-editor')
+  },
+
+
   events: {
     'modal-response': function (button) {
       if (button == 'delete') this.delete();
@@ -71,6 +76,11 @@ module.exports = {
 
     down: function () {
       if (this.canDown()) this.onDown(this.file);
+    },
+
+
+    edit: function () {
+      this.$broadcast('file-editor-show', this.file);
     },
 
 

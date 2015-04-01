@@ -22,16 +22,20 @@ script#file-template(type="text/x-template")
   td.actions
     .delete
       a.fa.fa-trash-o(v-on="click:askDelete()" v-show="canEdit"
-        title="Delete file")
+        title="Delete file.")
 
       bb-modal(ref="delete" buttons="cancel delete" callout="top-right")
         .modal-header Delete this file?
 
     a.fa.fa-arrow-up(v-show="canEdit" v-class="disabled:!canUp()"
-      v-on="click:up()" title="Move up")
+      v-on="click:up()" title="Move up.")
 
     a.fa.fa-arrow-down(v-show="canEdit" v-class="disabled:!canDown()"
-      v-on="click:down()" title="Move down")
+      v-on="click:down()" title="Move down.")
 
-    a.fa.fa-download(v-show="file.url" v-on="click:download()" target="_blank"
+    .edit
+      a.fa.fa-edit(v-show="canEdit" v-on="click:edit()" title="Edit details.")
+      file-editor
+
+    a.fa.fa-download(v-show="!canEdit" v-on="click:download()" target="_blank"
       href="{{file.url}}?count=1" title="Download file")
