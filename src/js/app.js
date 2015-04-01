@@ -159,6 +159,8 @@ module.exports = new Vue({
 
 
   compiled: function () {
+    this.login();
+
     var self = this;
 
     $bb.get('licenses').done(function (data) {
@@ -217,8 +219,6 @@ module.exports = new Vue({
 
 
   ready: function () {
-    this.login();
-
     // Scroll to top button
     var win = $(window);
     var top = $('#top');
