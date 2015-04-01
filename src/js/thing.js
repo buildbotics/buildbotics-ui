@@ -64,7 +64,7 @@ module.exports = {
         .done(function (data) {done(true, data);})
 
         .fail(function (data, status) {
-          notify.error('Failed to upload file ' + file.name, status);
+          notify.error('Failed to upload file.', status);
           done(false);
         })
 
@@ -77,7 +77,7 @@ module.exports = {
         .done(function (data) {done(true);})
 
         .fail(function (data, status) {
-          notify.error('Failed to upload file ' + file.name, status);
+          notify.error('Failed to upload file.', status);
           done(false);
         })
 
@@ -90,7 +90,7 @@ module.exports = {
         .done(function () {done(true)})
 
         .fail(function (data, status) {
-          notify.error('Failed to move file ' + file.name + ' up', status)
+          notify.error('Failed to move file up.', status)
           done(false);
         });
 
@@ -103,7 +103,7 @@ module.exports = {
         .done(function () {done(true)})
 
         .fail(function (data, status) {
-          notify.error('Failed to move file ' + file.name + ' down', status)
+          notify.error('Failed to move file down.', status)
           done(false);
         });
 
@@ -116,7 +116,7 @@ module.exports = {
         .done(function () {done(true)})
 
         .fail(function (data, status) {
-          notify.error('Failed to delete file ' + file.name, status)
+          notify.error('Failed to delete file.', status)
           done(false);
         });
 
@@ -132,7 +132,7 @@ module.exports = {
           if (data.caption) file.caption = data.caption;
 
         }).fail(function (data, status) {
-          notify.error('Failed to update file ' + file.name, status)
+          notify.error('Failed to update file.', status)
         });
 
       return false; // Cancel event propagation
@@ -250,7 +250,7 @@ module.exports = {
           page('/' + this.thing.owner + '/' + this.newName);
 
         }.bind(this)).fail(function () {
-          notify.error('Failed to rename project');
+          notify.error('Failed to rename project.');
         })
     },
 

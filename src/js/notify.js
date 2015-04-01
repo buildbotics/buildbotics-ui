@@ -29,7 +29,9 @@ module.exports = new Vue({
       switch (typeof config.body) {
       case 'undefined': break;
       case 'string': break;
-      default: config.body = JSON.stringify(config.body);
+      default:
+        if (config.body.responseText) config.body = config.body.responseText;
+        else config.body = JSON.stringify(config.body);
       }
 
       config.type = config.type || 'info';
@@ -42,7 +44,8 @@ module.exports = new Vue({
         default: config.icon = 'info-circle';
         }
 
-      config.buttons = config.buttons || [{label: 'Ok', klass: 'success'}];
+      config.buttons =
+        config.buttons || [{label: 'Ok', klass: 'success', response: 'ok'}];
       var btns = buttons.create(config.buttons, this.response);
 
       this.dialog = $('<div>')

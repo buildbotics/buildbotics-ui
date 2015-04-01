@@ -1,5 +1,7 @@
 'use strict'
 
+var util = require('./util');
+
 
 module.exports = {
   replace: true,
@@ -8,7 +10,9 @@ module.exports = {
 
   data: function () {
     return {
-      modified: false
+      file: {},
+      modified: false,
+      util: util
     }
   },
 
@@ -33,7 +37,7 @@ module.exports = {
     open: function (file) {
       this.addOverlay(undefined, this.$parent.$el);
 
-      this.file = file;
+      this.$set('file', file);
       this.$set('name', file.name);
 
       $(this.$el)

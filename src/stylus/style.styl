@@ -1642,7 +1642,10 @@ input, textarea, select
 
   th.name, td.name
     width 100%
+    max-width 100%
     text-align left
+    overflow hidden
+    text-overflow ellipsis
 
     a
       color text_color
@@ -1651,14 +1654,11 @@ input, textarea, select
     min-width 4em
     text-align right
 
-  td.name
-    overflow hidden
-    text-overflow ellipsis
-    max-width 40em
-
   td.actions
-    .delete, .edit
+    .delete
       position relative
+
+    .delete, .edit
       display inline-block
 
     a
@@ -1669,8 +1669,30 @@ input, textarea, select
         color #ccc !important
 
   .file-editor
+    position absolute
+    left 50%
+    margin-left -20em
+    margin-top -5em
     width 40em
-    margin-left -40em
+
+    .modal-content
+      > .fa, > img
+        display block
+        margin 0.5em auto
+
+      > .fa
+        width 32pt
+        font-size 32pt
+        color light_text_color
+
+      > img
+        border 1px solid border_color
+        max-width 150px
+        max-height 150px
+
+      > p
+        font-size 12pt
+        text-align center
 
     .modal-header h1
       margin 0

@@ -17,6 +17,32 @@ var util = {
   },
 
 
+  getIcon: function (type) {
+    switch (type) {
+    case 'text/plain': return 'fa-file-text-o';
+    case 'application/pdf': return 'fa-file-pdf-o';
+    case 'application/x-gzip':
+    case 'application/x-tar':
+    case 'application/x-bzip':
+    case 'application/x-bzip2':
+    case 'application/zip':
+    case 'application/x-compressed-zip':
+    case 'application/x-compressed':
+      return 'fa-file-archive-o';
+
+    default:
+      if (typeof type != 'undefined') {
+        if (type.indexOf('image/') == 0) return 'fa-file-image-o';
+        if (type.indexOf('audio/') == 0) return 'fa-file-audio-o';
+        if (type.indexOf('video/') == 0) return 'fa-file-video-o';
+        if (type.indexOf('text/') == 0) return 'fa-file-code-o';
+      }
+
+      return 'fa-file-o';
+    }
+  },
+
+
   prettyURL: function (url) {
     return url.replace(/^https?:\/\//, '');
   },

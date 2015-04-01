@@ -4,9 +4,9 @@ script#file-editor-template(type="text/x-template")
       h1 Edit file details
 
     .modal-content
-      div
-        h2 Name
-        input(type="text" name="name" v-model="name" v-on="input:update")
+      img(v-show="util.isImage(file.type)" src="{{file.url + '?size=asmall'}}")
+      .fa(v-show="!util.isImage(file.type)" v-class="util.getIcon(file.type)")
+      p {{file.name}}
 
       div
         h2 Caption
