@@ -1,5 +1,13 @@
 module.exports = {
   create: function (config, cb) {
+    if (typeof config == 'string') {
+      var labels = config.split(' ');
+      var config = [];
+
+      for (var i = 0; i < labels.length; i++)
+        config.push({label: labels[i], response: labels[i]})
+    }
+
     var buttons = [];
 
     for (var i = 0; i < config.length; i++) {

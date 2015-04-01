@@ -561,7 +561,7 @@ body
 .points, .followers, .stars
   position relative
 
-  .fa
+  > .fa
     margin-right 5px
     color link_color
 
@@ -571,16 +571,17 @@ body
   > a
     color medium_text_color
 
-    .fa
+    > .fa
+      margin-right 5px
       color medium_text_color
 
-    .active
+    > .active
       color link_color
 
     &:hover
       text-decoration none
 
-      .active
+      > .active
         color link_hover_color
 
 
@@ -735,7 +736,7 @@ body
       &:active, &:visited, &:hover, &:focus
         text-decoration none
 
-    button
+    > div, > button
       float right
       margin -0.25em 0.25em 0 0
 
@@ -1540,6 +1541,8 @@ iframe.youtube
   border 1px solid border_color
   z-index 110
   text-align left
+  font-size 12pt
+  color text_color
 
   &.callout-top-right
     right: -10px

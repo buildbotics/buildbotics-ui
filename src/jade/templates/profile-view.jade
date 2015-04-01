@@ -6,10 +6,8 @@ script#profile-view-template(type="text/x-template")
       .fa.fa-pencil
       | Edit
 
-    button(v-show="!isOwner && isLoggedIn" v-class="success:!isFollowing"
-      v-on="click:toggleFollow")
-      .fa.fa-users
-      | {{isFollowing ? 'Unfollow' : 'Follow'}}
+    bb-followers(v-show="!isOwner" profile="{{profile}}"
+      followers="{{followers}}" button="true")
 
   .overview
     .owner

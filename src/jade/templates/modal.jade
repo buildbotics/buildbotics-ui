@@ -5,5 +5,3 @@ script#modal-template(type="text/x-template")
       content(select=".modal-content")
       content(select=".modal-footer")
         .modal-footer
-          button(v-repeat="button:buttons" v-on="click:response(button)")
-            | {{button}}

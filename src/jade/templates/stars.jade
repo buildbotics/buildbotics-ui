@@ -1,8 +1,13 @@
 script#stars-template(type="text/x-template")
   .stars
-    a(title="{{active ? 'Unstar' : 'Star'}} this project", v-on="click:toggle")
+    button(v-if="button" v-on="click:toggle" v-class="success:!active"
+      title="{{active ? 'Uns' : 'S'}}tar this project")
+      | {{active ? 'Uns' : 'S'}}tar
+
+    a(v-if="!button" v-on="click:toggle"
+      title="{{active ? 'Unstar' : 'Star'}} this project")
       .fa.fa-star(v-class="active:active")
       | {{thing.stars || humanNumber}}
 
-    bb-modal(ref="login" buttons="cancel login" callout="top-right")
+    bb-modal(ref="login" buttons="{{buttons}}" callout="top-right")
       .modal-content You must login to star a project.

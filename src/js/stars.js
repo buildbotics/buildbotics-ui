@@ -6,7 +6,19 @@ var $bb = require('./buildbotics');
 module.exports = {
   replace: true,
   template: '#stars-template',
-  paramAttributes: ['thing'],
+  paramAttributes: ['thing', 'stars', 'button'],
+
+
+  data: function () {
+    return {
+      thing: {}
+    }
+  },
+
+
+  watch: {
+    'thing.stars': function () {this.updateUserList(this.stars)}
+  },
 
 
   methods: {

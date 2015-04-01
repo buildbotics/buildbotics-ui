@@ -5,9 +5,13 @@ script#thing-view-template(type="text/x-template")
     button.success(v-show="isOwner" v-on="click:editThing")
       .fa.fa-pencil
       | Edit
+
     button.success(v-show="isOwner && !thing.published" v-on="click:publish")
       .fa.fa-book
       | Publish
+
+    bb-stars(v-show="!isOwner" thing="{{thing}}" stars="{{stars}}"
+      button="true")
 
   .overview
    .owner

@@ -8,7 +8,18 @@ var notify = require('./notify');
 module.exports = {
   replace: true,
   template: '#followers-template',
-  paramAttributes: ['profile'],
+  paramAttributes: ['profile', 'followers', 'button'],
+
+  data: function () {
+    return {
+      profile: {}
+    }
+  },
+
+
+  watch: {
+    'profile.followers': function () {this.updateUserList(this.followers)}
+  },
 
 
   methods: {

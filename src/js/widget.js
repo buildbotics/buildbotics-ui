@@ -4,7 +4,11 @@
 module.exports = {
   data: function () {
     return {
-      active: false
+      active: false,
+      buttons: [
+        {label: 'Cancel', response: 'cancel', icon: 'times'},
+        {label: 'Login', response: 'login', icon: 'sign-in', klass: 'success'},
+      ]
     }
   },
 
@@ -26,6 +30,32 @@ module.exports = {
   methods: {
     isActive: function () {return false;},
     setActive: function (active) {},
+
+
+    updateUserList: function (list) {
+      var app = require('./app');
+      var user = app.getUser();
+
+      if (user && list)
+        if (this.isActive()) {
+          // Add the current user if necessary
+          var found = false;
+          for (var i = 0; i < list.length; i++)
+            if (list[i].name == user.name) {
+              found = true;
+              break;
+            }
+
+          if (!found) list.push(user);
+
+        } else
+          // Remove the current user if necessary
+          for (var i = 0; i < list.length; i++)
+            if (list[i].name == user.name)
+              list.splice(i);
+
+      this.update()
+    },
 
 
     update: function () {

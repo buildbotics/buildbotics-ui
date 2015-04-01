@@ -1,5 +1,7 @@
 'use strict'
 
+var buttons = require('./buttons')
+
 
 module.exports = {
   replace: true,
@@ -27,8 +29,9 @@ module.exports = {
     this.$on('modal-show-' + this.ref, function () {this.open()});
     this.$on('modal-hide-' + this.ref, function () {this.close()});
 
-    // Split buttons
-    this.buttons = this.buttons.split(' ');
+    // Add buttons
+    $(this.$el).find('.modal-footer')
+      .append(buttons.create(this.buttons, this.response))
 
     // Set callout class
     if (this.callout) Vue.util.addClass(this.$el, 'callout-' + this.callout);
