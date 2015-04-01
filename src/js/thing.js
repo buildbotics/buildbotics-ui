@@ -129,7 +129,7 @@ module.exports = {
         .done(function () {
           if (data.visibility) file.visibility = data.visibility;
           if (data.rename) file.name = data.rename;
-          if (data.caption) file.caption = data.caption;
+          if (typeof data.caption == 'string') file.caption = data.caption;
 
         }).fail(function (data, status) {
           notify.error('Failed to update file.', status)

@@ -9,7 +9,8 @@ module.exports = {
 
   data: function () {
     return {
-      util: util
+      util: util,
+      file: {}
     }
   },
 
@@ -24,6 +25,11 @@ module.exports = {
       if (button == 'delete') this.delete();
       return false; // Cancel event propagation
     }
+  },
+
+
+  ready: function () {
+    this.$set('file.caption', this.file.caption || '');
   },
 
 

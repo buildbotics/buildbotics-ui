@@ -10,6 +10,7 @@ script#file-template(type="text/x-template")
     span(v-show="!file.url") {{file.name}}
     a(v-show="file.url" href="{{file.url}}?count=1" target="_blank"
       title="Download {{file.name}}." v-on="click:download()") {{file.name}}
+    .caption {{file.caption}}
 
   td.size
     div(v-progressbar="file.percent" v-show="file.uploading"
