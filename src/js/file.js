@@ -76,7 +76,7 @@ module.exports = {
     },
 
 
-    delete: function () {
+    'delete': function () {
       this.onDelete(this.file);
     }
   }

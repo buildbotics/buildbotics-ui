@@ -260,7 +260,7 @@ module.exports = {
     },
 
 
-    delete: function () {
+    'delete': function () {
       $bb.delete(this.getAPIURL()).done(function () {
         page('/' + this.thing.owner);
       }.bind(this))

@@ -18,7 +18,8 @@ module.exports = new Vue({
     thingData: {},
     licenses: [],
     following: {},
-    starred: {}
+    starred: {},
+    authenticating: true
   },
 
 
@@ -27,7 +28,8 @@ module.exports = new Vue({
     'docs-page': {template: '#docs-template', inherit: true},
     'login-page': {template: '#login-template'},
     'register-page': require('./register'),
-    'home-page': require('./home'),
+    'landing-page': require('./landing'),
+    'dashboard-page': require('./dashboard'),
     'explore-page': require('./explore'),
     'learn-page': {template: '#learn-template'},
     'create-page': require('./create'),
@@ -293,7 +295,7 @@ module.exports = new Vue({
       // Redirect
       var path = $.cookie('buildbotics.login-path');
       $.removeCookie('buildbotics.login-path');
-      if (path) page(path);
+      if (path) page(path == '/' ? '/dashboard' : path);
 
       // Event
       this.$broadcast('logged-in', user, this);
@@ -384,7 +386,10 @@ module.exports = new Vue({
         }
 
         self.loggedOut();
-      });
+
+      }).always(function () {
+        this.authenticating = false
+      }.bind(this))
     },
 
 

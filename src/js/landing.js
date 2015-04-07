@@ -1,5 +1,8 @@
+'use strict'
+
+
 module.exports = {
-  template: '#home-template',
+  template: '#landing-template',
 
 
   data: function () {

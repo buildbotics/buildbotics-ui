@@ -132,7 +132,8 @@ module.exports = {
   start: function () {
     //page('*', page_debug);
     page('*', page_callback);
-    page('/', function () {app.currentPage = 'home'});
+    page('/', function () {app.currentPage = 'landing'});
+    page('/dashboard', function () {app.currentPage = 'dashboard'});
     page('/docs/:page', docs_page);
     page('/explore/:type', explore_page);
     page('/learn', function () {app.currentPage = 'learn'});

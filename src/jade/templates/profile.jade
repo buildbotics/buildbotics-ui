@@ -17,5 +17,6 @@ script#profile-template(type="text/x-template")
           | {{getSubsectionTitle($value)}}
 
       div(v-class="edit-contents:subsection != 'view'")
-        h1(v-show="subsection != 'view'") {{getSubsectionTitle(subsection)}}
+        h1(v-show="subsection != 'view'")
+          | Edit {{getSubsectionTitle(subsection)}}
         div(v-component="profile-{{subsection}}")

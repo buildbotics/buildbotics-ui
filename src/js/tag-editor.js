@@ -130,7 +130,7 @@ module.exports = {
     },
 
 
-    delete: function(e) {
+    'delete': function(e) {
       this.tags.splice(e.targetVM.$index, 1);
       this.changed();
     },

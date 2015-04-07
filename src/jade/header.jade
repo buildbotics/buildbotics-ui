@@ -1,6 +1,6 @@
 #header
   #header-content
-    a.logo(href="/")
+    a.logo(v-attr="href:user.name ? '/dashboard' : '/'")
       img(src="/images/squid_dude-40x40.png" alt="Buildbotics logo")
       .left Build
       .right botics
@@ -27,7 +27,7 @@
     #context-header-nav
       a.header-nav.sign-in(v-on="click:initiateLogin") Login or Register
 
-      a.header-nav.user(href="/{{user.name}}")
+      a.header-nav.user(href="/dashboard")
         bb-avatar(name="{{user.name}}")
         .name {{user.name}}
         bb-points(points="{{user.points}}")

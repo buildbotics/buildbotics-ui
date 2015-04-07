@@ -23,7 +23,7 @@ html
     link(rel='stylesheet' href='/css/style.css')
 
   body
-    #page
+    #page(v-show="!authenticating")
       include ./header.jade
       #content(v-component="{{currentPage}}-page"
         v-class="{{currentPage}}-page")

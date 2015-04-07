@@ -53,7 +53,7 @@ module.exports = {
   },
 
 
-  delete: function (url, config) {
+  'delete': function (url, config) {
     return api_cb('DELETE', url, undefined, config);
   }
 }
