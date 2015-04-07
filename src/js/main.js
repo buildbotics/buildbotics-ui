@@ -5,6 +5,21 @@ function which(e) {
 
 
 $(function () {
+  // Detect incompatible browsers
+  if (!Object.defineProperty) {
+    $('#incompatible-browser')
+      .show()
+      .find('.page-content')
+      .append(
+        $('<button>')
+          .addClass('success')
+          .text('Update')
+          .click(function () {location = 'http://whatbrowser.org/'})
+      )
+
+    return
+  }
+
   // Vue debugging
   Vue.util.warn = function (msg) {console.debug('[Vue warn]: ' + msg)}
   //Vue.config.debug = true;

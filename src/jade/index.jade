@@ -16,7 +16,8 @@ html
     link(rel='stylesheet'
       href=cdn + '/highlight.js/8.4/styles/solarized_light.min.css')
 
-    link(href='//fonts.googleapis.com/css?family=Roboto+Slab|Open+Sans|Lato|Audiowide'
+    link(href='//fonts.googleapis.com/css?family=Roboto+Slab|Open+Sans|Lato|' +
+      'Audiowide'
       rel='stylesheet' type='text/css')
 
     link(rel='stylesheet' href='/css/style.css')
@@ -25,7 +26,26 @@ html
     #page
       include ./header.jade
       #content(v-component="{{currentPage}}-page"
-        v-class="{{currentPage}}-page" v-with="user:user")
+        v-class="{{currentPage}}-page")
+
+        noscript
+          .page-content
+            h1 Buildbotics requires Javascript.
+            p
+              | We appologize for the inconvenience but you must
+              | <a href="http://enable-javascript.com/">enable Javascript</a>
+              | to use this Website.
+
+        #incompatible-browser
+          .page-content
+            h1 Incompatable browser.
+            p
+              | We appologize for the inconvenience but your browser
+              | is too old to view the our Website.
+            p
+              | Please <a href="http://whatbrowser.org/">update your
+              | browser</a>.
+
       .clear
       include ./footer.jade
 

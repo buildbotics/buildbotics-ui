@@ -17,7 +17,7 @@ script#create-template(type="text/x-template")
 
         table
           tr
-            td {{user.name}}
+            td {{getUserName()}}
             td /
             td
               thing-name-validator(owner="{{getUserName()}}")
