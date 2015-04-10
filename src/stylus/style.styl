@@ -642,7 +642,7 @@ body
   position relative
 
   > .fa
-    margin-right 5px
+    margin-left 5px
     color link_color
 
   .modal
@@ -652,7 +652,7 @@ body
     color medium_text_color
 
     > .fa
-      margin-right 5px
+      margin-left 5px
       color medium_text_color
 
     > .active
@@ -675,7 +675,6 @@ body
     margin 1em 10px 1em 10px
     width thing_width
     overflow hidden
-    cursor pointer
     font-family "Times New Roman", Times, serif
     text-align left
 
@@ -757,22 +756,15 @@ body
       text-overflow ellipsis
       overflow hidden
 
-    .stars, .comments
+    .stars, .comments, .views
+      float right
       font-size 12pt
       margin 0 0.1em 0 0.5em
-      color light_text_color
-
-      &:hover
-        color text_color
+      color medium_text_color
 
     .fa
       font-size 11pt
-
-    .stars
-      float right
-
-    .comments
-      float right
+      margin-left 0.25em
 
     .title
       font-size 18pt

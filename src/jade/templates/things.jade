@@ -19,5 +19,9 @@ script#things-template(type="text/x-template")
 
         a.comments(href="/{{thing.owner}}/{{thing.name}}#comments",
           title="View comments")
+          | {{thing.comments | humanNumber}}
           span.fa.fa-comments
-          | &nbsp;{{thing.comments}}
+
+        .views(title="{{thing.views}} Views")
+          | {{thing.views | humanNumber}}
+          span.fa.fa-eye
