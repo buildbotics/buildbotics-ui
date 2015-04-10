@@ -2,7 +2,7 @@ golden_ratio = 1.6180339887498948482
 page_width = 960px
 min_page_width = 200px
 header_height = 50px
-overview_width = 200px
+sidebar_width = 200px
 content_width = 720px
 edit_menu_width = 8em
 carousel_width = content_width
@@ -500,6 +500,81 @@ body
         color #189ed6 !important
 
 
+// Dashboard
+.dashboard
+  .dashboard-sidebar
+    float right
+    width 1.5 * sidebar_width - 15px
+    color medium_text_color
+    font-size 11pt
+
+    > div
+      margin 1em 0 2em 0
+
+      > h2
+        margin-top 0
+
+        a
+          color medium_text_color
+
+      > button
+        float right
+
+    .dashboard-profile
+      .owner
+        text-align center
+        margin 1em 0
+
+    .dashboard-creations
+      table
+        width 100%
+        border-collapse collapse
+        color text_color
+
+        .fa
+          color medium_text_color
+
+      tr
+        cursor pointer
+
+      td
+        padding 0.5em 0
+        border-bottom 1px solid border_color
+        white-space nowrap
+        overflow hidden
+        text-overflow ellipsis
+
+      tr:hover
+        background-color header_color
+
+        .name span
+          text-decoration underline
+          color link_hover_color
+
+      .name
+        width 100%
+
+        .fa
+          margin-right 0.75em
+
+      .stars
+        padding-right 1em
+
+        .fa
+          color medium_text_color
+
+      .views, .stars
+        text-align right
+
+        .fa
+          margin-left 0.5em
+
+      .draft .name .fa
+        color link_color
+
+   .dashboard-activity
+     max-width (page_width - 1.5 * sidebar_width - 15px)
+
 // Explore
 #page #content.explore-page .page-content
   padding 1em
@@ -750,7 +825,7 @@ body
     margin 0 0 1em 1em
     font-size 11pt
     color medium_text_color
-    max-width overview_width
+    max-width sidebar_width
 
     h1
       color text_color
@@ -761,7 +836,7 @@ body
       border-bottom 1px solid border_color
 
     > *
-      max-width overview_width
+      max-width sidebar_width
       overflow hidden
       text-overflow ellipsis
       white-space nowrap
@@ -785,25 +860,6 @@ body
         margin-bottom 0.5em
         overflow hidden
         text-overflow ellipsis
-
-    > .stats
-      white-space normal
-      text-align center
-      padding 1em 0
-      border-top 1px solid border_color
-      border-bottom 1px solid border_color
-
-      > div
-        display inline-block
-        width 33%
-        text-align center
-
-      .value
-        font-weight bold
-        font-size 18pt
-
-      .label
-        font-size 10pt
 
   .edit-menu
     float left
@@ -883,6 +939,25 @@ body
 
     p
       text-overflow ellipsis
+
+.stats
+  white-space normal
+  text-align center
+  padding 1em 0
+  border-top 1px solid border_color
+  border-bottom 1px solid border_color
+
+  > div
+    display inline-block
+    width 33%
+    text-align center
+
+  .value
+    font-weight bold
+    font-size 18pt
+
+  .label
+    font-size 10pt
 
 .thing-details-editor, .profile-details-editor, .thing-dangerous
   > div
@@ -1192,7 +1267,7 @@ body
 
 // Events
 .events .event
-  padding 1em
+  padding 1em 0
   border-bottom 1px solid border_color
 
   .content

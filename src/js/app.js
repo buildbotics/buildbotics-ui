@@ -270,6 +270,7 @@ module.exports = new Vue({
 
 
     loggedIn: function (user_data) {
+      this.user_data = user_data;
       var user = user_data.profile;
       console.debug('Logged in as ' + user.name);
 

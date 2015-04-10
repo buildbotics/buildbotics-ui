@@ -14,7 +14,54 @@ script#dashboard-template(type="text/x-template")
         | to view your dashboard.
 
       .dashboard(v-if="isAuthenticated()")
-        button.success(v-on="click:editProfile")
-          .fa.fa-pencil
-          | Edit Profile
+        .dashboard-announcements
 
+        .dashboard-sidebar
+          .dashboard-profile
+            button.success(v-on="click:editProfile")
+              .fa.fa-pencil
+              | Edit
+
+            h2: a(href="/{{profile.name}}") Your Profile
+
+            .owner
+              bb-avatar(name="{{profile.name}}" size="alarge")
+              .name {{profile.fullname || profile.name}}
+
+            .stats
+              div
+                .value {{profile.points | humanNumber}}
+                .label Points
+
+              div
+                a.value(href="/{{profile.name}}/#followers")
+                  | {{profile.followers | humanNumber}}
+                .label Followers
+
+          .dashboard-creations
+            button.success(v-on="click:create")
+              .fa.fa-plus
+              | Create
+
+            h2: a(href="/{{profile.name}}#creations") Your Creations
+
+            table
+              tr(v-repeat="things" v-on="click:openProject(name)"
+                v-class="draft:!published")
+                td.name(title="{{title || name}}")
+                  .fa(v-class="published ? 'fa-book' : 'fa-pencil'"
+                    v-attr="title: published ? 'Published' : 'Draft'")
+                  span {{name}}
+
+                td.stars(v-attr="title: stars + ' Stars'")
+                  | {{stars | humanNumber}}
+                  .fa.fa-star
+
+                td.views(v-attr="title: views + ' Views'")
+                  | {{views | humanNumber}}
+                  .fa.fa-eye
+
+            .weak(v-if="!things.length") (No creations)
+
+        .dashboard-activity
+          bb-events(events="{{events}}")
