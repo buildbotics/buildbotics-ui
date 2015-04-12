@@ -476,7 +476,6 @@ body
     .panel-header
       font-family Audiowide
       font-size 28pt
-      text-shadow 2px 2px 4px #bbb
 
       .image-wrapper
         width 158px
@@ -485,15 +484,15 @@ body
         margin 0.5em auto
         position relative
 
-        &:hover
-          background #189ed6
+        &.explore img
+          top -16px
 
       img
         display block
         position absolute
         top 4px
         left 4px
-
+  
       a, a:hover
         display inline-block
         margin 0.25em
@@ -503,8 +502,8 @@ body
       a:hover
         color #189ed6 !important
 
-    &:first-of-type .panel-header img
-      top -16px
+        .image-wrapper
+          background #189ed6
 
 
 // Dashboard
