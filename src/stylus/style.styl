@@ -473,39 +473,6 @@ body
     font-size 18pt
     line-height 1.5em
 
-    .panel-header
-      font-family Audiowide
-      font-size 28pt
-
-      .image-wrapper
-        width 158px
-        height 158px
-        border-radius 200px
-        display inline-block
-        margin 0.5em auto
-        position relative
-
-        &.explore img
-          top -16px
-
-      img
-        display block
-        position absolute
-        top 4px
-        left 4px
-  
-      a, a:hover
-        display inline-block
-        margin 0.25em
-        color #666
-        text-decoration none
-
-      a:hover
-        color #189ed6 !important
-
-        .image-wrapper
-          background #189ed6
-
     ul
       display inline-block
       text-align left
@@ -643,6 +610,15 @@ body
     height (page_width * 0.8 / golden_ratio)
 
 
+// Learn
+.learn-page
+  .page-content
+    text-align center
+
+    .icon-link
+      min-width 33%
+
+
 // Create
 .create-page
   .page-content .fa
@@ -659,6 +635,36 @@ body
 
   input[name=title]
     width 25em
+
+
+// Icon link
+a.icon-link
+  color medium_text_color
+  display inline-block
+  font-family Audiowide
+  font-size 28pt
+  text-decoration none
+
+  .icon-wrapper
+    width 158px
+    height 158px
+    border-radius 200px
+    display inline-block
+    margin 0.5em auto
+    position relative
+
+    img
+      display block
+      position absolute
+      top 4px
+      left 4px
+
+  &:hover
+    color #189ed6 !important
+    text-decoration none
+
+    .icon-wrapper
+      background #189ed6
 
 
 // Avatar
