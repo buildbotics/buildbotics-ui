@@ -11,3 +11,4 @@ script#explore-profiles-template(type="text/x-template")
       .loading(v-show="loading"): .fa.fa-spinner.fa-spin
 
       bb-profiles(profiles="{{profiles}}")
+      .weak(v-show="!loading && !profiles.length") (Sorry, no matching results.)

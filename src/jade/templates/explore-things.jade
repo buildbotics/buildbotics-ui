@@ -11,3 +11,4 @@ script#explore-things-template(type="text/x-template")
       .loading(v-show="loading"): .fa.fa-spinner.fa-spin
 
       bb-things(things="{{things}}")
+      .weak(v-show="!loading && !things.length") (Sorry, no matching results.)
