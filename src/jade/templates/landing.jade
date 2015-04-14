@@ -6,21 +6,24 @@ script#landing-template(type="text/x-template")
       .logo
         .left Build
         .right botics
-      .byline Desktop manfacturing for everyone.
+      .byline Desktop manufacturing for everyone.
 
     .login
-      a(href="/login"): button.success Join the Community.
+      a(v-attr="href:isLoggedIn ? '/dashboard' : '/login'")
+        button.success Join the revolution.
 
   .info
     .panel
       .panel-header
         a(href="/explore/creations")
-          .image-wrapper.explore
+          .image-wrapper
             img(src="/images/explore.png")
           div Explore
 
-      | the <a href="/explore/creations">latest creations</a> by
-      | <a href="/explore/people">top designers</a>.
+      ul
+        li Follow top designers.
+        li Download project files.
+        li Star your favorites.
 
     .panel
       .panel-header
@@ -29,8 +32,10 @@ script#landing-template(type="text/x-template")
             img(src="/images/learn.png")
           div Learn
 
-      | about <a href="/learn/what_is_a_cnc">desktop manufacturing</a>
-      | using <a href="/learn/our_software">free Open-Source software</a>.
+      ul
+        li Follow our tutorials.
+        li Learn Open-Source software.
+        li Master desktop manufacturing.
 
     .panel
       .panel-header
@@ -39,28 +44,46 @@ script#landing-template(type="text/x-template")
             img(src="/images/create.png")
           div Create
 
-      | <a>designs</a>
-      | and <a href="/learn/sharing_your_designs">share them</a> with the
-      | <a href="">community</a>.
+      ul
+        li Cut 2D & 3D shapes.
+        li Engrave text.
+        li Share your own projects.
 
-  .info
-    .panel
-      .panel-header
-        a(href="/learn/design")
-          .image-wrapper
-            img(src="/images/design.png")
-          div Design
+  h1 Create almost anything, step-by-step, using free software.
 
-    .panel
-      .panel-header
-        a(href="/learn/simulate")
-          .image-wrapper
-            img(src="/images/simulate.png")
-          div Simulate
+  .section.design
+    img(src="/images/design.png")
 
-    .panel
-      .panel-header
-        a(href="/learn/build")
-          .image-wrapper
-            img(src="/images/build.png")
-          div Build
+    .section-content
+      h1 Step 1: Design
+      p
+        | Create designs using free Open-Source software like Inkscape,
+        | LibreCAD, TPL and OpenSCAD.  Follow tutorials and learn to use
+        | this software effectively.  Or simply choose from many quality
+        | free designs.
+
+  .section.simulate
+    .section-content
+      h1 Step 2: Simulate
+      p
+        | With a design in hand, you will want to check that it will work
+        | safely on your machine.  Use our free simulation software to
+        | view the final product in 3D.
+
+    img(src="/images/simulate.png")
+
+  .section.build
+    img(src="/images/build.png")
+
+    .section-content
+      h1 Step 3: Build
+      p
+        | Learn how to build projects with desktop manufacturing machines
+        | safely and economically.  Get expert advice on choosing materials,
+        | selecting tools and setting up the cut.  Cut your projects with
+        | confidence and share the results with the community.
+
+  .login
+    a(v-attr="href:isLoggedIn ? '/dashboard' : '/login'")
+      button.success Let's get started.
+

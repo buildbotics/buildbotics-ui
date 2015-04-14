@@ -1,4 +1,4 @@
-#header
+#header(v-show="currentPage != 'landing'")
   #header-content
     a.logo(v-attr="href:user.name ? '/dashboard' : '/'")
       img(src="/images/squid_dude-40x40.png" alt="Buildbotics logo")

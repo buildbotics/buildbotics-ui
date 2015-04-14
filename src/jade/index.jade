@@ -25,9 +25,9 @@ html
   body
     #page(v-show="!authenticating")
       include ./header.jade
+
       #content(v-component="{{currentPage}}-page"
         v-class="{{currentPage}}-page")
-
         noscript
           .page-content
             h1 Buildbotics requires Javascript.

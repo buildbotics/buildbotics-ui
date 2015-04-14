@@ -245,19 +245,24 @@ module.exports = new Vue({
       while (el && 'A' !== el.nodeName) el = el.parentNode;
       if (!el || 'A' !== el.nodeName) return;
 
+      // Ensure same site
+      if (location.hostname != el.hostname) return;
+
+      // Ensure same path
+      if (location.pathname.replace(/^\//, '') !=
+          el.pathname.replace(/^\//, '')) {
+        window.scrollTo(0, 0);
+        return;
+      }
+
       // Ensure hash
       var link = el.getAttribute('href');
       if (!el.hash || link == '#') return;
 
-      if (location.pathname.replace(/^\//, '') ==
-          el.pathname.replace(/^\//, '') &&
-          location.hostname == el.hostname) {
+      util.scrollTo(el.hash, function () {location.hash = el.hash})
 
-        util.scrollTo(el.hash, function () {location.hash = el.hash})
-
-        e.preventDefault();
-        return false;
-      }
+      e.preventDefault();
+      return false;
     }, false)
   },
 

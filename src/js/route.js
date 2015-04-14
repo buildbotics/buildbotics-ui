@@ -79,7 +79,6 @@ function profile_page(ctx) {
   }
 
   app.currentPage = 'loading';
-  window.scrollTo(0, 0);
 
   $bb.get('profiles/' + profile)
     .done(function (data) {
@@ -110,7 +109,6 @@ function thing_page(ctx) {
   }
 
   app.currentPage = 'loading';
-  window.scrollTo(0, 0);
 
   $bb.get('profiles/' + profile + '/things/' + thing)
     .done(function (data) {

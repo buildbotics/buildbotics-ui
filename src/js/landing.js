@@ -5,15 +5,6 @@ module.exports = {
   template: '#landing-template',
 
 
-  data: function () {
-    return {
-      expore: '',
-      learn: '',
-      create: ''
-    }
-  },
-
-
   methods: {
     expand: function (e) {
       console.debug('expand(', e, ')');
@@ -42,5 +33,8 @@ module.exports = {
 
       e.preventDefault();
     }
-  }
+  },
+
+
+  mixins: [require('./login-listener')]
 }
