@@ -1,21 +1,21 @@
 script#events-template(type="text/x-template")
   .events
-    .event(v-repeat="events")
+    .event(v-repeat="events"
+      v-class="even:($index & 1) == 0, odd:($index & 1) == 1")
       .icon.fa(v-class="'fa-' + getIcon(action)" title="{{action}}")
 
-      .content
-        .when {{ts | timeSince}}
+      .when {{ts | timeSince}}
 
-        a.subject(href="/{{subject}}")
-          bb-avatar(name="{{subject}}")
-          | {{subject}}
+      a.subject(href="/{{subject}}")
+        bb-avatar(name="{{subject}}")
+        | {{subject}}
 
-        span.action {{describeAction(action)}}
+      span.action {{describeAction(action)}}
 
-        a.object(href="/{{path}}")
-          bb-avatar(v-if="action=='follow'" name="{{path}}")
-          | {{describeObject(action, path)}}
+      a.object(href="/{{path}}")
+        bb-avatar(v-if="action=='follow'" name="{{path}}")
+        | {{describeObject(action, path)}}
 
-        | .
+      | .
 
 

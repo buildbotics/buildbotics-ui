@@ -164,9 +164,11 @@ h1
 
 h2
   font-size 16pt
+  color medium_text_color
 
 h3
   font-size 14pt
+  color light_text_color
 
 // em
 em
@@ -503,6 +505,13 @@ body
 
 // Dashboard
 .dashboard
+  h1
+    margin 0.5em 0
+    border-bottom 1px solid border_color
+
+    a
+      color medium_text_color
+
   .dashboard-sidebar
     float right
     width 1.5 * sidebar_width - 15px
@@ -510,18 +519,16 @@ body
     font-size 11pt
 
     > div
-      margin 1em 0 2em 0
-
-      > h2
-        margin-top 0
-
-        a
-          color medium_text_color
+      margin 0 0 4em 0
 
       > button
         float right
+        margin-top 0.25em
 
     .dashboard-profile
+      > h1
+        margin-top 0
+
       .owner
         text-align center
         margin 1em 0
@@ -538,15 +545,17 @@ body
       tr
         cursor pointer
 
+        &.even
+          background rgba(200, 200, 200, 0.2)
+
       td
-        padding 0.5em 0
-        border-bottom 1px solid border_color
+        padding 0.5em
         white-space nowrap
         overflow hidden
         text-overflow ellipsis
 
       tr:hover
-        background-color header_color
+        background rgba(200, 200, 200, 0.4)
 
         .name span
           text-decoration underline
@@ -574,7 +583,8 @@ body
         color link_color
 
    .dashboard-activity
-     max-width (page_width - 1.5 * sidebar_width - 15px)
+     max-width (page_width - 1.5 * sidebar_width - 50px)
+
 
 // Explore
 #page #content.explore-page .page-content
@@ -1303,19 +1313,23 @@ a.icon-link
 
 // Events
 .events .event
-  padding 1em 0
-  border-bottom 1px solid border_color
+  padding 0.5em
+  color medium_text_color
+  overflow hidden
+  text-overflow ellipsis
 
-  .content
-    margin-left 3em
+  &.even
+    background rgba(200, 200, 200, 0.2)
 
   .when
-    color medium_text_color
+    display inline-block
+    margin 0 1em
+    font-size 10pt
 
   .fa
-    float left
     font-size 18pt
     color light_text_color
+    vertical-align middle
 
   img
     vertical-align middle

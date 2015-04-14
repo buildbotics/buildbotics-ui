@@ -22,7 +22,7 @@ script#dashboard-template(type="text/x-template")
               .fa.fa-pencil
               | Edit
 
-            h2: a(href="/{{profile.name}}") Your Profile
+            h1: a(href="/{{profile.name}}") Profile
 
             .owner
               bb-avatar(name="{{profile.name}}" size="alarge")
@@ -43,11 +43,12 @@ script#dashboard-template(type="text/x-template")
               .fa.fa-plus
               | Create
 
-            h2: a(href="/{{profile.name}}#creations") Your Creations
+            h1: a(href="/{{profile.name}}#creations") Creations
 
             table
               tr(v-repeat="things" v-on="click:openProject(name)"
-                v-class="draft:!published")
+                v-class="draft:!published, " +
+                "even:($index & 1) == 0, odd:($index & 1) == 1")
                 td.name(title="{{title || name}}")
                   .fa(v-class="published ? 'fa-book' : 'fa-pencil'"
                     v-attr="title: published ? 'Published' : 'Draft'")
@@ -64,4 +65,5 @@ script#dashboard-template(type="text/x-template")
             .weak(v-if="!things.length") (No creations)
 
         .dashboard-activity
+          h1 Recent Activity
           bb-events(events="{{events}}")
