@@ -1,6 +1,6 @@
 #header(v-show="currentPage != 'landing'")
   #header-content
-    a.logo(v-attr="href:user.name ? '/dashboard' : '/'")
+    a.logo(href="/")
       img(src="/images/squid_dude-40x40.png" alt="Buildbotics logo")
       .left Build
       .right botics
@@ -25,16 +25,6 @@
       a.header-nav(href="/create") Create
 
     #context-header-nav
-      a.header-nav.sign-in(v-on="click:initiateLogin") Login or Register
-
-      a.header-nav.user(href="/{{user.name}}")
-        bb-avatar(name="{{user.name}}")
-        .name {{user.name}}
-        bb-points(points="{{user.points}}")
-
-      a.header-nav.sign-out(v-on="click:logout() | preventDefault"
-        title="Sign Out")
-        .fa.fa-sign-out
-        span.text Sign Out
+      bb-user-status(v-if="!authenticating")
 
     .clear

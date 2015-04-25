@@ -50,6 +50,7 @@ module.exports = new Vue({
     'bb-tags': require('./tags'),
     'bb-events': require('./events'),
 
+    'bb-user-status': require('./user-status'),
     'bb-modal': require('./modal'),
     'bb-carousel': require('./carousel'),
     'bb-media': require('./media'),
@@ -222,20 +223,6 @@ module.exports = new Vue({
 
 
   ready: function () {
-    // Scroll to top button
-    var win = $(window);
-    var top = $('#top');
-    var hidden;
-
-    win.scroll(throttle(250, false, function () {
-      var hide = win.scrollTop() < 200;
-
-      if (hide && hidden !== true) top.hide();
-      if (!hide && hidden !== false) top.show();
-
-      hidden = hide;
-    }));
-
     // Smooth scrolling
     window.addEventListener('click', function (e) {
       if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey ||
@@ -412,7 +399,6 @@ module.exports = new Vue({
 
     overlayClick: function () {
       this.closeExploreNav();
-      this.closeUserNav();
     },
 
 
@@ -424,18 +410,6 @@ module.exports = new Vue({
 
     closeExploreNav: function () {
       $('#explore-nav').hide();
-      this.removeOverlay();
-    },
-
-
-    openUserNav: function () {
-      $('#user-nav').show();
-      this.addOverlay();
-    },
-
-
-    closeUserNav: function () {
-      $('#user-nav').hide();
       this.removeOverlay();
     }
   },

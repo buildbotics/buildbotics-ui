@@ -4,6 +4,7 @@
 module.exports = {
   data: function () {
     return {
+      user: {},
       isOwner: false,
       isLoggedIn: false
     }
@@ -12,12 +13,14 @@ module.exports = {
 
   events: {
     'logged-in': function (user) {
+      this.$set('user', user);
       this.setIsOwner(user.name == this.getOwner())
       this.$set('isLoggedIn', true)
     },
 
 
     'logged-out': function () {
+      this.$set('user', {});
       this.setIsOwner(false)
       this.$set('isLoggedIn', false)
     }
@@ -27,6 +30,7 @@ module.exports = {
   ready: function () {
     var user = require('./app').getUser();
 
+    this.$set('user', user);
     this.setIsOwner(user.name == this.getOwner())
     this.$set('isLoggedIn', typeof user.name != 'undefined')
   },

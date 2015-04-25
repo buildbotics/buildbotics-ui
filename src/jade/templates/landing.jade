@@ -1,6 +1,8 @@
 script#landing-template(type="text/x-template")
-  .intro
-    img(src="/images/squid_dude-175x175.png")
+  #landing-intro
+    bb-user-status(v-if="!authenticating")
+
+    img(src="/images/squid_dude-150x150.png")
 
     .banner
       .logo
@@ -9,10 +11,14 @@ script#landing-template(type="text/x-template")
       .byline Desktop manufacturing for everyone.
 
     .login
-      a(v-attr="href:isLoggedIn ? '/dashboard' : '/login'")
+      a(v-show="!isLoggedIn" href="/login")
         button.success Join the revolution.
+      a(v-show="isLoggedIn" href="/dashboard")
+        button.success View your dashboard.
 
-  .info
+    a.down.fa.fa-chevron-down(href="#landing-info")
+
+  #landing-info
     .panel
       bb-icon-link(href="/explore" icon="/images/explore.png" text="Explore")
 
@@ -37,41 +43,44 @@ script#landing-template(type="text/x-template")
         li Engrave text.
         li Share your own projects.
 
-  h1 Create almost anything, step-by-step, using free software.
+    h1 Create almost anything, step-by-step, using free software.
 
-  .section.design
-    img(src="/images/design.png")
+    a.down.fa.fa-chevron-down(href="#landing-steps")
 
-    .section-content
-      h1 Step 1: Design
-      p
-        | Create designs using free Open-Source software like Inkscape,
-        | LibreCAD, TPL and OpenSCAD.  Follow tutorials and learn to use
-        | this software effectively.  Or simply choose from many quality
-        | free designs.
+  #landing-steps
+    .section.design
+      img(src="/images/design.png")
 
-  .section.simulate
-    .section-content
-      h1 Step 2: Simulate
-      p
-        | With a design in hand, you will want to check that it will work
-        | safely on your machine.  Use our free simulation software to
-        | view the final product in 3D.
+      .section-content
+        h1 Step 1: Design
+        p
+          | Create designs using free Open-Source software like Inkscape,
+          | LibreCAD, TPL and OpenSCAD.  Follow tutorials and learn to use
+          | this software effectively.  Or simply choose from many quality
+          | free designs.
 
-    img(src="/images/simulate.png")
+    .section.simulate
+      img(src="/images/simulate.png")
 
-  .section.build
-    img(src="/images/build.png")
+      .section-content
+        h1 Step 2: Simulate
+        p
+          | With a design in hand, you will want to check that it will work
+          | safely on your machine.  Use our free simulation software to
+          | view the final product in 3D.
 
-    .section-content
-      h1 Step 3: Build
-      p
-        | Learn how to build projects with desktop manufacturing machines
-        | safely and economically.  Get expert advice on choosing materials,
-        | selecting tools and setting up the cut.  Cut your projects with
-        | confidence and share the results with the community.
+    .section.build
+      img(src="/images/build.png")
 
-  .login
-    a(v-attr="href:isLoggedIn ? '/dashboard' : '/login'")
-      button.success Let's get started.
+      .section-content
+        h1 Step 3: Build
+        p
+          | Learn how to build projects with desktop manufacturing machines
+          | safely and economically.  Get expert advice on choosing materials,
+          | selecting tools and setting up the cut.  Cut your projects with
+          | confidence and share the results with the community.
+
+    .login
+      a(v-attr="href:isLoggedIn ? '/dashboard' : '/login'")
+        button.success Let's get started.
 

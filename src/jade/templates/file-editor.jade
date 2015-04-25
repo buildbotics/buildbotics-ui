@@ -4,7 +4,8 @@ script#file-editor-template(type="text/x-template")
       h1 Edit file details
 
     .modal-content
-      img(v-if="util.isImage(file.type)" src="{{file.url + '?size=asmall'}}")
+      img(v-if="util.isImage(file.type)"
+        v-attr="src::file.url + '?size=asmall'")
       .fa(v-if="!util.isImage(file.type)" v-class="util.getIcon(file.type)")
       p {{file.name}}
 

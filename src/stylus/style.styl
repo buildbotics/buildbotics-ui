@@ -269,7 +269,7 @@ body
       text-transform uppercase
       font-size 16pt
 
-  #explore-nav, #user-nav
+  #explore-nav
     display none
     transition-delay 0.25s
     z-index 110
@@ -306,24 +306,9 @@ body
       background-color #f7f9f7
 
   a.user
-    position relative
     line-height header_height - 4px
     height header_height - 4px
     padding 2px 5px
-    vertical-align 1px
-
-    > *
-      display inline-block
-      margin-right 0.5em
-
-    .avatar
-      vertical-align -10px
-
-  .sign-out
-    font-size 14pt
-
-    .text
-      display none
 
 
 // Page header
@@ -439,40 +424,74 @@ body
 
   > *
     padding 0 1em
+    min-height 100vm
+    min-height 100vmin
 
-  .intro
+  .user-status
+    max-width page_width
+    margin 0 auto 1em
+    text-align right
+
+    > *, > a.user
+      display inline-block
+      background rgba(255, 255, 255, 0.3)
+      padding-left 0.5em
+      padding-right 0.5em
+
+      &:hover
+        background rgba(255, 255, 255, 0.5)
+
+      &.user, &.sign-in
+        border-bottom-left-radius 5px
+
+      &.sign-in, &.sign-out
+        border-bottom-right-radius 5px
+
+  a.down
+    display block
+    margin auto
+    width 2em
+    text-align center
+    font-size 36pt
+    color #444
+
+  #landing-intro
     background-color #dedede
     background url(/images/home-bg-gray.jpg)
-    background-size 150% auto
+    background-size cover
     background-repeat no-repeat
-    background-position 0 -300px
-    padding 2em
+    padding-bottom 2em
 
     .banner
       text-shadow 2px 2px 4px #666
+      padding 1em 0
 
       .logo
-        font-size 80pt
+        font-size 60pt
 
       .byline
         color #444
-        font-size 20pt
+        font-size 18pt
 
   .login button
-    margin 3em 0
+    margin 2em 0
     padding 0.75em
-    font-size 18pt
+    font-size 14pt
     box-shadow 4px 4px 5px #555
 
 
-  .info
-    padding 3em 0
+  #landing-info
+    padding 3em 1em
+
+    > *
+      margin-top 2em
+      margin-bottom 2em
 
   .panel
     display inline-block
     margin 0.5em 0
     text-align center
-    width 11em
+    width 10em
     vertical-align top
     color #666
     font-family Lato
@@ -480,12 +499,14 @@ body
     line-height 1.5em
 
     ul
-      display inline-block
+      display block
       text-align left
       font-size 12pt
+      width 10em
+      margin auto
 
   .section
-    margin 10em auto
+    margin 6em auto
     max-width page_width
     color medium_text_color
 
@@ -498,10 +519,42 @@ body
     .section-content
       text-align left
       max-width 32em
-      margin 0 4em
+      margin 1em 4em
 
       > h1
         margin-top 0
+
+@media (max-width: 755px)
+  .landing-page
+    .panel
+      width auto
+      display block
+
+@media (max-width: 550px)
+  .landing-page
+    .login button
+      font-size 12pt
+
+    #landing-intro
+      > img
+        width 96px
+
+      .banner
+        .logo
+          font-size 32pt
+
+        .byline
+          color #444
+          font-size 12pt
+
+    #landing-steps
+      .section-content
+        margin 1em
+
+@media (max-width: 400px)
+  .landing-page
+    .panel
+      width auto
 
 // Dashboard
 .dashboard
@@ -2007,27 +2060,48 @@ iframe.youtube
         margin 4%
 
 
-// Sign in
-#page #header a.header-nav
-  &.user, &.sign-out
-    display none
+// User Status
+.user-status
+  .sign-out
+    font-size 14pt
 
-.authorized #page #header a.header-nav
-  &.sign-in
-    display none !important
+    .text
+      display none
 
   &.user, &.sign-out
     display inline-block !important
 
+  a
+    color medium_text_color
+    line-height header_height
+    height header_height
+
+  a.user
+    position relative
+    line-height header_height - 4px
+    height header_height - 4px
+    padding 2px 5px
+    vertical-align 1px
+
+    > *
+      display inline-block
+      margin-right 0.5em
+
+    .avatar
+      vertical-align -10px
+
 
 // Responsive
-@media (max-width 730px)
+@media (max-width: 730px)
   #page #header #context-header-nav
     a.header-nav
       float none
       width 100%
 
-@media (max-width 400px)
+@media (max-width: 400px)
+  h1
+    font-size 18pt
+
   #page #header
     #main-header-nav, #context-header-nav
       float none
