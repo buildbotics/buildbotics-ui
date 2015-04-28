@@ -14,6 +14,7 @@ module.exports = new Vue({
     user: {},
     currentPage: 'loading',
     subsection: '',
+    docContent: '',
     profileData: {},
     thingData: {},
     licenses: [],
@@ -25,7 +26,7 @@ module.exports = new Vue({
 
   components: {
     'loading-page': {template: '#loading-template'},
-    'docs-page': {template: '#docs-template', inherit: true},
+    'docs-page': require('./docs'),
     'login-page': {template: '#login-template'},
     'register-page': require('./register'),
     'landing-page': require('./landing'),

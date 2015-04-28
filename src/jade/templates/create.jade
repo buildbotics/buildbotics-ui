@@ -2,9 +2,8 @@ script#create-template(type="text/x-template")
   bb-page-layout
     .header-content
       .breadcrumbs
-        a(href="/create")
-          .fa.fa-plus(title="Create")
-          | Create
+        .fa.fa-plus(title="Create")
+        | Create
 
     .page-content
       div(v-if="!isAuthenticated()")

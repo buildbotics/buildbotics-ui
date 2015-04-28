@@ -683,10 +683,29 @@ body
 // Learn
 .learn-page
   .page-content
-    text-align center
-
     .icon-link
-      min-width 33%
+      font-size 20pt
+      display block
+
+      .icon-wrapper
+        width 79px
+        height 79px
+
+        > img
+          top 2px
+          left 2px
+          width 75px
+
+    .learn-tutorials, .learn-reference
+      display inline-block
+      max-width (page_width / 2)
+      min-width 49%
+
+    .learn-tutorials
+      border-right 1px solid border_color
+
+    .learn-faqs
+      border-top 1px solid border_color
 
 
 // Create
@@ -714,13 +733,15 @@ a.icon-link
   font-family Audiowide
   font-size 28pt
   text-decoration none
+  margin-bottom 0.75em
+  text-align center
 
   .icon-wrapper
     width 158px
     height 158px
     border-radius 200px
     display inline-block
-    margin 0.5em auto
+    margin 0.5em auto 0
     position relative
 
     img

@@ -6,7 +6,6 @@ STYLUS     := $(NODE_MODS)/stylus/bin/stylus
 AP         := $(NODE_MODS)/autoprefixer/autoprefixer
 UGLIFY     := $(NODE_MODS)/uglify-js/bin/uglifyjs
 BROWSERIFY := $(NODE_MODS)/browserify/bin/cmd.js
-MARKED     := $(NODE_MODS)/marked/bin/marked
 
 HTTP_DIR := http
 
@@ -19,20 +18,16 @@ JS_ASSETS := $(HTTP_DIR)/js/assets.js
 STATIC := $(shell find static -type f \! -name *~)
 STATIC := $(patsubst static/%,$(HTTP_DIR)/%,$(STATIC))
 TEMPLS := $(wildcard src/jade/templates/*.jade)
-MD     := $(wildcard src/md/*.md)
-MD     := $(patsubst src/md/%.md,$(HTTP_DIR)/docs/%.html,$(MD))
 
-WATCH  := src/jade src/js src/stylus src/md static Makefile
+WATCH  := src/jade src/js src/stylus static Makefile
 
-all: dirs html css js md static
+all: dirs html css js static
 
 html: templates $(HTML)
 
 css: $(CSS)
 
 js: $(JS_ASSETS)
-
-md: $(MD)
 
 static: $(STATIC)
 
@@ -64,9 +59,6 @@ $(HTTP_DIR)/%.html: src/jade/%.jade $(wildcard src/jade/*.jade) node_modules
 
 $(HTTP_DIR)/css/%.css: src/stylus/%.styl node_modules
 	$(STYLUS) -I styles < $< | $(AP) -b "> 1%" >$@ || (rm -f $@; exit 1)
-
-$(HTTP_DIR)/docs/%.html: src/md/%.md
-	$(MARKED) --gfm -o $@ -i $<
 
 dirs:
 	@mkdir -p $(HTTP_DIR)/css

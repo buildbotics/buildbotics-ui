@@ -37,17 +37,11 @@ function page_callback(ctx, next) {
 
 function docs_page(ctx, next) {
   var page = ctx.params.page;
+
   $.get('/docs/' + page + '.html')
     .done(function (html) {
-      var re = /^<h1[^>]+>(.*)<\/h1>([\s\S]*)$/;
-      var m = re.exec(html);
-      var title = m[1];
-      var content = m[2];
-
+      app.$set('docContent', html);
       app.currentPage = 'docs';
-      app.$set('docTitle', title);
-      app.$set('docContent', content);
-
       window.scrollTo(0, 0);
 
     }).fail(function () {next()})
