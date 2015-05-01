@@ -1,0 +1,6 @@
+script#comments-widget-template(type="text/x-template")
+  .comments
+    a(href="/{{thing.owner}}/{{thing.name}}#comments"
+      title="{{thing.comments}} Comments")
+      | {{thing.comments | humanNumber}}
+      span.fa.fa-comments

@@ -23,6 +23,13 @@ module.exports = {
 
 
   methods: {
+    // From login-listener
+    getOwner: function () {
+      return this.profile.name;
+    },
+
+
+    // From widget
     isActive: function () {
       return require('./app').isFollowing(this.profile.name);
     },
@@ -56,5 +63,8 @@ module.exports = {
   },
 
 
-  mixins: [require('./widget')]
+  mixins: [
+    require('./widget'),
+    require('./login-listener')
+  ]
 }

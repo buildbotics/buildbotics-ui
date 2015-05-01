@@ -6,7 +6,8 @@ script#comment-template(type="text/x-template")
     .comment-wrapper
       .comment-header
         | <a href="/{{comment.owner}}">{{comment.owner}}</a>
-        | commented {{comment.created | timeSince}}.
+        | ({{comment.owner_points | humanNumber}}) commented
+        | {{comment.created | timeSince}}.
 
         .actions(v-show="!editing")
           a.fa.fa-edit(title="Edit comment" v-show="isOwner()"

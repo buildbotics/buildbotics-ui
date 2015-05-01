@@ -1,12 +1,17 @@
 script#followers-template(type="text/x-template")
   .followers
-    button(v-if="button" v-on="click:toggle" v-class="success:!active"
+    button(v-if="button && !isOwner" v-on="click:toggle"
+      v-class="success:!active"
       title="{{active ? 'Unf' : 'F'}}ollow {{profile.name}}")
       .fa.fa-users
       | {{active ? 'Unf' : 'F'}}ollow
 
-    a(v-if="!button" v-on="click:toggle"
+    a(v-if="!button && !isOwner" v-on="click:toggle"
       title="{{active ? 'Unf' : 'F'}}ollow {{profile.name}}")
+      | {{profile.followers | humanNumber}}
+      .fa.fa-users(v-class="active:active")
+
+    div(v-if="isOwner" title="{{profile.followers}} Followers")
       | {{profile.followers | humanNumber}}
       .fa.fa-users(v-class="active:active")
 

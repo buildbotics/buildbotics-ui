@@ -5,7 +5,7 @@ var page = require('page');
 var notify = require('./notify');
 var util = require('./util');
 
-var subsections = 'view edit-details edit-files edit-instructions dangerous';
+var subsections = 'view edit-instructions edit-files edit-details dangerous';
 var fields = 'title url license tags';
 
 
@@ -207,8 +207,9 @@ module.exports = {
 
 
     editThing: function (section) {
-      if (typeof section != 'string') section = 'details';
-      location.hash = 'edit-' + section;
+      if (typeof section != 'string') section = this.subsections[1];
+      else section = 'edit-' + section;
+      location.hash = section;
       window.scrollTo(0, 0);
     },
 

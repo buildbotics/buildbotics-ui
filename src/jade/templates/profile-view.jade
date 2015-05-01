@@ -1,30 +1,13 @@
 script#profile-view-template(type="text/x-template")
-  h1.title {{profile.fullname || profile.name}}
-
-  subsection-menu(subsections="{{viewSections}}")
-    button.success(v-show="isOwner" v-on="click:editProfile")
-      .fa.fa-pencil
-      | Edit
-
-    bb-followers(v-show="!isOwner" profile="{{profile}}"
-      followers="{{followers}}" button="true")
 
   .overview
-    .owner
-      bb-avatar(name="{{profile.name}}" size="alarge")
-      .name {{profile.name}}
-
-    .stats
-      div
-        .value {{profile.points | humanNumber}}
-        .label Points
-
-      div
-        a.value(href="#followers") {{profile.followers | humanNumber}}
-        .label Followers
-
     .details
-      h2 Details
+      bb-avatar(name="{{profile.name}}" size="asmall")
+
+      .owner
+        .fa.fa-user
+        | {{profile.name}} ({{profile.points | humanNumber}})
+
       .location
         .fa.fa-map-marker
         span.weak(v-show="!profile.location") (Not set)
@@ -40,8 +23,19 @@ script#profile-view-template(type="text/x-template")
         .fa.fa-clock-o
         td Joined {{profile.joined | timeSince}}
 
+
   .view-contents
     .subsection
+      .actions
+        button.success(v-show="isOwner" v-on="click:editProfile")
+          .fa.fa-pencil
+          | Edit
+
+        bb-followers(v-show="!isOwner" profile="{{profile}}"
+          followers="{{followers}}" button="true")
+
+      h1#bio {{profile.fullname || profile.name}}
+
       .weak(v-show="!profile.bio && !isOwner") (Bio empty)
       p(v-show="!profile.bio && isOwner")
         | Click

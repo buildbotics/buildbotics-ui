@@ -36,15 +36,23 @@ function page_callback(ctx, next) {
 
 
 function docs_page(ctx, next) {
-  var page = ctx.params.page;
+  var page = ctx.params[0];
 
-  $.get('/docs/' + page + '.html')
+  var path = '/docs/' + page + '.html';
+  if (page.length && page[page.length - 1] == '/')
+    path = '/docs/' + page + 'index.html';
+
+  $.get(path)
     .done(function (html) {
       app.$set('docContent', html);
+
+    }).fail(function () {
+      app.$set('docContent', '');
+
+    }).always(function () {
       app.currentPage = 'docs';
       window.scrollTo(0, 0);
-
-    }).fail(function () {next()})
+    })
 }
 
 
@@ -126,7 +134,7 @@ module.exports = {
     page('*', page_callback);
     page('/', function () {app.currentPage = 'landing'});
     page('/dashboard', function () {app.currentPage = 'dashboard'});
-    page('/docs/:page', docs_page);
+    page('/docs/(.*)', docs_page);
     page('/explore/:type', explore_page);
     page('/learn', function () {app.currentPage = 'learn'});
     page('/create', function () {app.currentPage = 'create'});

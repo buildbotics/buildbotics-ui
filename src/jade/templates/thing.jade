@@ -2,6 +2,8 @@ script#thing-template(type="text/x-template")
   bb-page-layout
     .header-content
       .widgets
+        bb-views(thing="{{thing}}")
+        bb-comments-widget(thing="{{thing}}")
         bb-stars(thing="{{thing}}")
         //bb-children(children="{{thing.children}}")
 

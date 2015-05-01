@@ -175,6 +175,10 @@ em
   color medium_text_color
 
 
+// Paragraphs
+p
+  color text_color
+
 // Video
 video
   &.large
@@ -313,8 +317,8 @@ body
 
 // Page header
 #page #content .page-header
-  font-size 18pt
-  margin 0 0 0.25em 0
+  font-size 14pt
+  margin 0 0 1em 0
   padding 0.5em
   background-color secondary_header_color
   border-bottom 1px solid secondary_header_border_color
@@ -323,9 +327,19 @@ body
   .widgets
     float right
 
+    .fa
+      margin-left 0.125em
+
     > div
       display inline-block
       margin-left 1em
+
+      > a
+        color medium_text_color
+
+        &:hover
+          color link_hover_color
+          text-decoration none
 
   .breadcrumbs
     > *
@@ -333,6 +347,12 @@ body
 
     .fa
       width 1.5em
+
+
+// Page content
+.page-content
+  img
+    max-width 100vw
 
 
 // Footer
@@ -683,30 +703,19 @@ body
 // Learn
 .learn-page
   .page-content
-    .icon-link
-      font-size 20pt
-      display block
+    > div
+      margin-bottom 2em
 
-      .icon-wrapper
-        width 79px
-        height 79px
+      > div > *
+        display inline-block
 
-        > img
-          top 2px
-          left 2px
-          width 75px
+      > div > img
+        width 75px
+        vertical-align top
+        margin-right 1em
 
-    .learn-tutorials, .learn-reference
-      display inline-block
-      max-width (page_width / 2)
-      min-width 49%
-
-    .learn-tutorials
-      border-right 1px solid border_color
-
-    .learn-faqs
-      border-top 1px solid border_color
-
+      > ul
+        padding-left 1em
 
 // Create
 .create-page
@@ -781,6 +790,9 @@ a.icon-link
     > .fa
       margin-left 5px
       color medium_text_color
+
+    &:hover > .fa
+      color link_hover_color
 
     > .active
       color link_color
@@ -883,6 +895,10 @@ a.icon-link
     .title
       text-overflow ellipsis
       overflow hidden
+      font-size 18pt
+      margin 0 0.2em
+      clear both
+      color text_color
 
     .stars, .comments, .views
       float right
@@ -890,56 +906,16 @@ a.icon-link
       margin 0 0.1em 0 0.5em
       color medium_text_color
 
+      a
+        color medium_text_color
+
     .fa
       font-size 11pt
       margin-left 0.25em
 
-    .title
-      font-size 18pt
-      margin 0 0.2em
-      clear both
-      color text_color
-
 
 // Thing & Profile common
 .thing-page, .profile-page
-  .title
-    font-size 28pt
-    overflow hidden
-    text-overflow ellipsis
-    text-align center
-
-  .menu
-    background-color #f3f3f3
-    border 1px solid border_color
-    border-top-left-radius 3px
-    border-top-right-radius 3px
-    margin 1em 0 2em 0
-    padding 0.5em 0.25em 0 0.25em
-
-    a
-      display inline-block
-      text-transform capitalize
-      font-size 14pt
-      background-color #fff
-      border-top-left-radius 3px
-      border-top-right-radius 3px
-      border 1px solid border_color
-      padding 0.125em 0.25em
-      margin-left 0.25em
-      margin-bottom -1px
-
-      &.active
-        border-bottom 1px solid #fff
-        color medium_text_color !important
-
-      &:active, &:visited, &:hover, &:focus
-        text-decoration none
-
-    > div, > button
-      float right
-      margin -0.25em 0.25em 0 0
-
   .overview
     float right
     margin 0 0 1em 1em
@@ -1022,22 +998,27 @@ a.icon-link
       margin-right 0.25em
 
   .view-contents
+    img
+      max-width 100%
+
     > .subsection
       padding 0 0 5em
 
       > .actions
         float right
 
+        > *
+          display inline-block
+          margin-left 0.5em
+
         .fa
-          font-size 20pt
           margin-top 0.25em
 
       > h1:first-of-type
         margin-top 0
-
-      > h1
-        text-align center
-        //border-bottom 1px solid border_color
+        overflow hidden
+        text-overflow ellipsis
+        white-space nowrap
 
       > .weak
         text-align center
@@ -1089,7 +1070,17 @@ a.icon-link
 
 // Thing
 .thing-page
+  .draft
+    font-size 30pt
+    color light_text_color
+    text-align center
+    margin-bottom 1em
+
   .overview
+    .details > a
+      .avatar
+        margin-bottom 1em
+
     .owner, .published, .license, .tags, .stars
       white-space normal
 
@@ -1166,9 +1157,6 @@ a.icon-link
 
     .thing-preview
       margin 1em 1.75em
-
-  .subsection > h1
-    border-bottom 1px solid border_color
 
 .profile-edit-picture
   .dropzone

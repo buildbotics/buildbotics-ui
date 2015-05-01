@@ -1,43 +1,16 @@
 script#thing-view-template(type="text/x-template")
-  h1.title {{thing.title || thing.name}}
-
-  subsection-menu(subsections="{{viewSections}}")
-    button.success(v-show="isOwner" v-on="click:editThing")
-      .fa.fa-pencil
-      | Edit
-
-    button.success(v-show="isOwner && !thing.published" v-on="click:publish")
-      .fa.fa-book
-      | Publish
-
-    bb-stars(v-show="!isOwner" thing="{{thing}}" stars="{{stars}}"
-      button="true")
+  .draft(v-if="!thing.published" title="This project is incomplete.") DRAFT
 
   .overview
-   .owner
-      a(href="/{{thing.owner}}")
-        bb-avatar(name="{{thing.owner}}" size="alarge")
-      | Created by{{' '}}
-      a(href="/{{thing.owner}}")
-        | {{thing.owner}}
-
-    .stats
-      div
-        .value {{thing.stars | humanNumber}}
-        .label Stars
-
-      div
-        .value {{thing.views | humanNumber}}
-        .label Views
-
-      div
-        .value {{thing.comments | humanNumber}}
-        .label Comments
-
-      // TODO Add copies/remakes
-
     .details
-      h2 Details
+      a(href="/{{thing.owner}}")
+        bb-avatar(name="{{thing.owner}}" size="asmall")
+
+      .owner
+        .fa.fa-user
+        | By <a href="/{{thing.owner}}">{{thing.owner}}</a>
+        | ({{thing.owner_points | humanNumber}})
+
       .parent(v-show="thing.parent")
         .fa.fa-child
         | a(href="{{thing.parent}}") {{thing.parent}}
@@ -51,7 +24,7 @@ script#thing-view-template(type="text/x-template")
       .published
         .fa.fa-clock-o
         span(v-if="thing.published") Published {{thing.published | timeSince}}
-        span(v-if="!thing.published") Unpublished
+        span(v-if="!thing.published") Draft
 
      .license
       h2 License
@@ -73,24 +46,31 @@ script#thing-view-template(type="text/x-template")
 
   .view-contents
     .subsection
-      bb-carousel(media="{{media}}")
-
-    .subsection
       .actions
-        a.fa.fa-edit(v-show="isOwner" v-on="click:editThing('instructions')"
+        bb-stars(thing="{{thing}}" button="true")
+
+        button.success(v-show="isOwner && !thing.published"
+          v-on="click:publish()" title="Publish this project.")
+          .fa.fa-book
+          | Publish
+
+        button.success(v-show="isOwner" v-on="click:editThing()"
           title="Edit instructions.")
-      h1#instructions Instructions
-      div(v-markdown="thing.instructions")
-      .empty(v-if="!thing.instructions")
-        p.weak (No instructions)
-        button.success(v-show="isOwner" v-on="click:editThing('instructions')")
           .fa.fa-pencil
           | Edit
 
+      h1#instructions(title="{{thing.title || thing.name}}")
+        | {{thing.title || thing.name}}
+      div(v-markdown="thing.instructions")
+      .empty(v-if="!thing.instructions")
+        p.weak (No instructions)
+
     .subsection
       .actions
-        a.fa.fa-edit(v-show="isOwner" v-on="click:editThing('files')"
+        button.success(v-show="isOwner" v-on="click:editThing('files')"
           title="Edit files.")
+          .fa.fa-pencil
+          | Edit
       h1#downloads Downloads
       file-manager(files="{{downloads}}")
       thing-license

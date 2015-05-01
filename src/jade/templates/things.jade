@@ -14,14 +14,8 @@ script#things-template(type="text/x-template")
         a.owner(href="/{{thing.owner}}",
           title="View {{thing.owner}}'s profile")
           | by <span>{{thing.owner}}</span>
+          | ({{thing.owner_points | humanNumber}})
 
         bb-stars(thing="{{thing}}")
-
-        a.comments(href="/{{thing.owner}}/{{thing.name}}#comments",
-          title="View comments")
-          | {{thing.comments | humanNumber}}
-          span.fa.fa-comments
-
-        .views(title="{{thing.views}} Views")
-          | {{thing.views | humanNumber}}
-          span.fa.fa-eye
+        bb-comments-widget(thing="{{thing}}")
+        bb-views(thing="{{thing}}")

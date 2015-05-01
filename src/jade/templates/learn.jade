@@ -7,12 +7,22 @@ script#learn-template(type="text/x-template")
 
     .page-content
       .learn-tutorials
-        bb-icon-link(href="/docs/tutorials" icon="/images/tutorials.png"
-          text="Tutorials")
+        div
+          img(src="/images/tutorials.png" title="Tutorials")
+          h1 Tutorials
+        ul
+          li(v-repeat="tutorials"): a(href="{{path}}") {{title}}
 
       .learn-reference
-        bb-icon-link(href="/docs/reference" icon="/images/reference.png"
-          text="Reference")
+        div
+          img(src="/images/reference.png" title="Reference")
+          h1 Reference
+        ul
+          li(v-repeat="reference"): a(href="{{path}}") {{title}}
 
       .learn-faqs
-        bb-icon-link(href="/docs/faqs" icon="/images/faqs.png" text="FAQs")
+        div
+          img(src="/images/faqs.png" title="FAQs")
+          h1 FAQs
+        ul
+          li(v-repeat="faqs"): a(href="{{path}}") {{title}}

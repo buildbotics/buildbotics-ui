@@ -32,7 +32,7 @@ module.exports = new Vue({
     'landing-page': require('./landing'),
     'dashboard-page': require('./dashboard'),
     'explore-page': require('./explore'),
-    'learn-page': {template: '#learn-template'},
+    'learn-page': require('./learn'),
     'create-page': require('./create'),
     'thing-page': require('./thing'),
     'profile-page': require('./profile'),
@@ -46,10 +46,12 @@ module.exports = new Vue({
     'bb-stars': require('./stars'),
     'bb-comment': require('./comment'),
     'bb-comments': require('./comments'),
+    'bb-comments-widget': require('./comments-widget'),
     'bb-points': require('./points'),
     'bb-followers': require('./followers'),
     'bb-tags': require('./tags'),
     'bb-events': require('./events'),
+    'bb-views': require('./views'),
 
     'bb-user-status': require('./user-status'),
     'bb-modal': require('./modal'),
@@ -188,7 +190,7 @@ module.exports = new Vue({
           '" frameborder="0" allowfullscreen></iframe>';
 
       var q = util.parseQueryString(a.search);
-      var size = q.size || 'small';
+      var size = q.size || 'large';
 
       href = a.pathname.replace(/^.*[\\\/]/, '');
       href = location.pathname.replace(/\/$/, '') + '/' + href;
@@ -233,6 +235,9 @@ module.exports = new Vue({
       var el = e.target;
       while (el && 'A' !== el.nodeName) el = el.parentNode;
       if (!el || 'A' !== el.nodeName) return;
+
+      // Ensure same frame
+      if (el.getAttribute('target')) return;
 
       // Ensure same site
       if (location.hostname != el.hostname) return;

@@ -6,7 +6,7 @@ script#user-status-template(type="text/x-template")
     a.header-nav.user(v-show="isLoggedIn" href="/dashboard")
       bb-avatar(name="{{user.name}}")
       .name {{user.name}}
-      bb-points(points="{{user.points}}")
+      | ({{user.points | humanNumber}})
 
     a.header-nav.sign-out(v-show="isLoggedIn" v-on="click:signOut()"
       title="Sign Out")
