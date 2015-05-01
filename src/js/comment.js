@@ -9,9 +9,20 @@ module.exports = {
   paramAttributes: ['comment'],
 
 
+  data: function () {
+    return {modified: false}
+  },
+
+
   events: {
     'modal-response': function (button) {
       if (button == 'delete') this.remove();
+      return false; // Cancel event propagation
+    },
+
+
+    'markdown-editor.modified': function (modified) {
+      this.modified = modified;
       return false; // Cancel event propagation
     }
   },

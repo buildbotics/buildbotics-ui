@@ -38,15 +38,7 @@ module.exports = {
 
 
   watch: {
-    files: function (files) {
-      this.$set('media', files.filter(function (file) {
-        return file.visibility != 'download' && util.isMedia(file.type);
-      }));
-
-      this.$set('downloads', files.filter(function (file) {
-        return file.visibility != 'display';
-      }));
-    }
+    files: function () {this.updateFiles()}
   },
 
 
@@ -131,7 +123,9 @@ module.exports = {
           if (data.rename) file.name = data.rename;
           if (typeof data.caption == 'string') file.caption = data.caption;
 
-        }).fail(function (data, status) {
+          this.updateFiles();
+
+        }.bind(this)).fail(function (data, status) {
           notify.error('Failed to update file.', status)
         });
 
@@ -193,6 +187,17 @@ module.exports = {
     // From login-listener
     getOwner: function () {
       return this.thing.owner;
+    },
+
+
+    updateFiles: function () {
+      this.$set('media', this.files.filter(function (file) {
+        return file.visibility != 'download' && util.isMedia(file.type);
+      }));
+
+      this.$set('downloads', this.files.filter(function (file) {
+        return file.visibility != 'display';
+      }));
     },
 
 

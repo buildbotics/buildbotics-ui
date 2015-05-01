@@ -26,11 +26,19 @@ script#thing-view-template(type="text/x-template")
         span(v-if="thing.published") Published {{thing.published | timeSince}}
         span(v-if="!thing.published") Draft
 
-     .license
+    .license
+      .actions
+        a.fa.fa-edit(title="Edit license" v-show="isOwner"
+          v-on="click:editThing('details')")
+
       h2 License
       thing-license
 
     .tags
+      .actions
+        a.fa.fa-edit(title="Edit tags" v-show="isOwner"
+          v-on="click:editThing('details')")
+
       h2 Tags
       span.weak(v-show="!thing.tags.length") (No tags)
 
@@ -54,7 +62,7 @@ script#thing-view-template(type="text/x-template")
           .fa.fa-book
           | Publish
 
-        button.success(v-show="isOwner" v-on="click:editThing()"
+        button.success(v-show="isOwner" v-on="click:editThing('instructions')"
           title="Edit instructions.")
           .fa.fa-pencil
           | Edit
@@ -62,17 +70,18 @@ script#thing-view-template(type="text/x-template")
       h1#instructions(title="{{thing.title || thing.name}}")
         | {{thing.title || thing.name}}
 
-      div(v-markdown="thing.instructions")
+      div(v-if="thing.instructions" v-markdown="thing.instructions")
 
       .empty(v-if="!thing.instructions")
         p.weak (No instructions)
 
-    .subsection
+    .subsection(v-if="downloads.length")
       .actions
         button.success(v-show="isOwner" v-on="click:editThing('files')"
           title="Edit files.")
           .fa.fa-pencil
           | Edit
+
       h1#downloads Downloads
       file-manager(files="{{downloads}}")
       thing-license

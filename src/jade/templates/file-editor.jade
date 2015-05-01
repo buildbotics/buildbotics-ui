@@ -5,7 +5,7 @@ script#file-editor-template(type="text/x-template")
 
     .modal-content
       img(v-if="util.isImage(file.type)"
-        v-attr="src::file.url + '?size=asmall'")
+        v-attr="src:file.url + '?size=asmall'")
       .fa(v-if="!util.isImage(file.type)" v-class="util.getIcon(file.type)")
       p {{file.name}}
 
