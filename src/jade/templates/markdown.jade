@@ -207,7 +207,7 @@ script#markdown-editor-template(type="text/x-template")
       .markdown-edit(v-show="editing || fullscreen" v-on="click:focusEditor")
 
       .markdown-preview(v-show="!editing || fullscreen")
-        .markdown-preview-content Preview
+        .markdown Preview
 
     .markdown-footer(v-if="maxLength" v-show="editing")
       span(v-class="error:maxLength <= length, warn:0.95 * maxLength < length")

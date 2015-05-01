@@ -61,7 +61,9 @@ script#thing-view-template(type="text/x-template")
 
       h1#instructions(title="{{thing.title || thing.name}}")
         | {{thing.title || thing.name}}
+
       div(v-markdown="thing.instructions")
+
       .empty(v-if="!thing.instructions")
         p.weak (No instructions)
 

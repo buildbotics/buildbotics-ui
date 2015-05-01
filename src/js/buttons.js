@@ -15,7 +15,7 @@ module.exports = {
       var button = $('<button>').html(config[i].label);
 
       // General callback
-      if (cb && typeof config[i].response != 'undefined')
+      if (cb)
         (function (response) {
           button.click(function () {cb(response)})
         })(config[i].response);

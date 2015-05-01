@@ -9,6 +9,7 @@ module.exports = {
       switch (response) {
       case 'discard': this.discardChanges(defer); break;
       case 'save': this.saveChanges(defer); break;
+      default: defer.reject(); break;
       }
     },
     

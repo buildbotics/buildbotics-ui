@@ -217,6 +217,25 @@ module.exports = new Vue({
       }
     }
 
+    renderer.link = function (href, title, text) {
+      var target;
+
+      if (/^[^\/:#]*$/.test(href)) {
+        if (text.trim() == '') text = href;
+        title = 'Download ' + href;
+        href = location.pathname.replace(/\/$/, '') + '/' + href +
+          '?count=1';
+        target = '_blank';
+      }
+
+      var html = '<a href="' + href + '"';
+      if (title) html += ' title="' + title + '"';
+      if (target) html += ' target="' + target + '"';
+      html += '>' + text + '</a>';
+
+      return html;
+    }
+
     marked.setOptions({
       renderer: renderer,
       sanitize: false,

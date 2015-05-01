@@ -153,7 +153,7 @@ module.exports = {
 
 
     // Save preview pointer
-    this.preview = $(this.$el).find('.markdown-preview-content');
+    this.preview = $(this.$el).find('.markdown-preview .markdown');
   },
 
 
