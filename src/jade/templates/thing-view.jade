@@ -2,9 +2,14 @@ script#thing-view-template(type="text/x-template")
   .draft(v-if="!thing.published" title="This project is incomplete.") DRAFT
 
   .overview
+    bb-carousel(media="{{media}}" dots="false")
+
     .details
-      a(href="/{{thing.owner}}")
-        bb-avatar(name="{{thing.owner}}" size="asmall")
+      .actions
+        a.fa.fa-edit(title="Edit details." v-show="isOwner"
+          v-on="click:editThing('details')")
+
+      h2 Details
 
       .owner
         .fa.fa-user
@@ -27,18 +32,10 @@ script#thing-view-template(type="text/x-template")
         span(v-if="!thing.published") Draft
 
     .license
-      .actions
-        a.fa.fa-edit(title="Edit license" v-show="isOwner"
-          v-on="click:editThing('details')")
-
       h2 License
       thing-license
 
     .tags
-      .actions
-        a.fa.fa-edit(title="Edit tags" v-show="isOwner"
-          v-on="click:editThing('details')")
-
       h2 Tags
       span.weak(v-show="!thing.tags.length") (No tags)
 

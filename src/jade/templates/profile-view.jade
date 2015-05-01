@@ -1,9 +1,10 @@
 script#profile-view-template(type="text/x-template")
 
   .overview
-    .details
-      bb-avatar(name="{{profile.name}}" size="asmall")
+    bb-avatar(name="{{profile.name}}" size="asmall")
 
+    .details
+      h2 Details
       .owner
         .fa.fa-user
         | {{profile.name}} ({{profile.points | humanNumber}})

@@ -2,6 +2,7 @@ script#carousel-template(type="text/x-template")
   .carousel(v-on="keyup:fullscreen(false) | key 27")
     .carousel-empty.weak(v-if="!media.length")
       content (No media)
-    a.expand(v-show="media.length" v-on="click:fullscreen()")
+    a.expand(v-show="media.length" v-on="click:fullscreen()"
+      title="Toggle fullscreen mode.")
       .fa.fa-arrows-alt
     bb-media.carousel-media(v-repeat="media")

@@ -4,7 +4,12 @@
 module.exports = {
   replace: true,
   template: '#carousel-template',
-  paramAttributes: ['media'],
+  paramAttributes: ['media', 'dots'],
+
+
+  data: function () {
+    return {dots: true}
+  },
 
 
   watch: {
@@ -21,7 +26,7 @@ module.exports = {
 
       // Changing class
       this.slick = element.slick({
-        dots: true,
+        dots: this.dots !== 'false',
 
         onBeforeChange: function () {
           element.addClass('changing');
@@ -80,7 +85,7 @@ module.exports = {
       else if (enable) $(this.$el).addClass('fullscreen');
       else $(this.$el).removeClass('fullscreen');
 
-      $(this.$el).slickSetOption('dots', true, true);
+      $(this.$el).slickSetOption('dots', this.dots !== 'false', true);
     }
   }
 }
