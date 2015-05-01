@@ -2,6 +2,7 @@
 
 
 var $bb = require('./buildbotics');
+var notify = require('./notify');
 
 
 module.exports = {
@@ -29,11 +30,11 @@ module.exports = {
 
 
   methods: {
-    isOwner: function () {
-      return require('./app').isUser(this.comment.owner);
-    },
+    // From login-listener
+    getOwner: function () {return this.comment.owner},
 
 
+    // From field-editor
     onSave: function (fields, accept) {
       fields.comment = this.comment.comment;
       $bb.put(this.getAPIURL(), fields).done(accept);
@@ -56,7 +57,26 @@ module.exports = {
         })
       })
     },
- 
+
+
+    checkLogin: function () {
+      if (!this.isLoggedIn) {
+        notify.login('vote on comments');
+        return false;
+      }
+
+      return true;
+    },
+
+
+    vote: function (up) {
+      if (!this.checkLogin()) return;
+
+      $bb.put(this.getAPIURL() + (up ? '/up' : '/down')).done(function () {
+        this.comment.votes += up ? 1 : -1;
+      }.bind(this))
+    },
+
 
     getAPIURL: function () {
       return this.$parent.getAPIURL() + '/' + this.comment.comment;
@@ -64,5 +84,8 @@ module.exports = {
  },
 
 
-  mixins: [require('./field-editor')('comment', 'text')]
+  mixins: [
+    require('./field-editor')('comment', 'text'),
+    require('./login-listener')
+  ]
 }

@@ -1,6 +1,7 @@
 'use strict'
 
 var buttons = require('./buttons');
+var page = require('page');
 
 
 module.exports = new Vue({
@@ -99,6 +100,18 @@ module.exports = new Vue({
     question: function (title, body, buttons) {
       this.notify({title: title, body: body, type: 'question',
                    buttons: buttons});
+    },
+
+
+    login: function (action) {
+      var title = 'Login required';
+      var body = 'You must login to ' + action + '.';
+      var buttons = [
+        {label: 'Cancel'},
+        {label: 'Login', klass: 'success', cb: function () {page('/login')}}
+      ]
+
+      this.notify({title: title, body: body, type: 'warn', buttons: buttons});
     }
   },
 

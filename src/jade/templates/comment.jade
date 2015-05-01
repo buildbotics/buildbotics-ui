@@ -10,10 +10,18 @@ script#comment-template(type="text/x-template")
         | {{comment.created | timeSince}}.
 
         .actions(v-show="!editing")
-          a.fa.fa-edit(title="Edit comment" v-show="isOwner()"
+          span(title="Comment votes") ({{comment.votes}})
+
+          a.fa.fa-arrow-up(title="Upvote" v-show="!isOwner"
+            v-on="click:vote(true)")
+
+          a.fa.fa-arrow-down(title="Downvote" v-show="!isOwner"
+            v-on="click:vote(false)")
+
+          a.fa.fa-edit(title="Edit comment" v-show="isOwner"
             v-on="click:edit()")
 
-          a.fa.fa-trash-o(tooltip="Delete comment" v-show="isOwner()"
+          a.fa.fa-trash-o(tooltip="Delete comment" v-show="isOwner"
             v-on="click:askRemove()")
 
           bb-modal(ref="delete" buttons="cancel delete" callout="top-right")
