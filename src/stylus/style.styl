@@ -14,11 +14,13 @@ text_color = #344
 medium_text_color = #666
 light_text_color = #888
 border_color = #ddd
+text_bg_color = #fff
+input_background = #fff
 
 header_color = #ededed
 header_border_color = border_color
 secondary_header_color = #fafafa
-secondary_header_border_color = #f1f1f1
+secondary_header_border_color = #f0f0f0
 
 table_header_color = #fff
 table_odd_color = secondary_header_color
@@ -200,6 +202,7 @@ video
 // Body
 body
   background-image url(/images/grid.png)
+  background-color #fefefe
   margin 0
   font-family 'Roboto Slab', serif
   overflow-y scroll
@@ -249,7 +252,6 @@ body
     margin-right 2.5em
     padding 4px 0 0 0
     font-size 24pt
-    text-shadow 2px 2px 4px #bbb
 
     img
       height header_height - 10px
@@ -480,7 +482,6 @@ body
     padding-bottom 2em
 
     .banner
-      text-shadow 2px 2px 4px #666
       padding 1em 0
 
       .logo
@@ -834,7 +835,7 @@ a.icon-link
         margin-top -(thing_height)
         width thing_width
         height thing_height
-        background-color #fff
+        background-color text_bg_color
         opacity 0.25
 
     .image
@@ -849,7 +850,7 @@ a.icon-link
       overflow hidden
 
       img
-        background #fff
+        background text_bg_color
         max-width thing_width - 2px
         height thing_height - 2px
         margin auto
@@ -960,7 +961,7 @@ a.icon-link
     float left
     width edit_menu_width
 
-    background-color #fff
+    background-color text_bg_color
     border 1px solid border_color
     border-radius 3px
 
@@ -1028,7 +1029,7 @@ a.icon-link
     font-family Open Sans, sans-serif
     color #222
     padding 0 1em
-    background #fff
+    background text_bg_color
     border 1px solid border_color
     border-radius 3px
     word-break normal
@@ -1089,7 +1090,7 @@ a.icon-link
 
         .fa
           font-size 16pt
-          color #fff
+          color text_bg_color
           background medium_text_color
           width 22px
           height 22px
@@ -1351,7 +1352,7 @@ a.icon-link
   display inline-block
   border 1px inset border_color
   border-radius 3px
-  background-color #fff
+  background-color input_background
 
   .tag-editor-wrapper
     overflow hidden
@@ -1422,11 +1423,11 @@ input, textarea, select
   border 1px inset border_color
   border-radius 3px
   padding 4px
-  background-color #fff
+  background-color input_background
 
 .markdown-editor
   border-radius 3px
-  background #fff
+  background text_bg_color
   border 1px solid border_color
   white-space normal
 
@@ -1462,7 +1463,7 @@ input, textarea, select
 
     a
       display inline-block
-      background-color #fff
+      background-color text_bg_color
       margin-bottom -1px
       border-top-left-radius 3px
       border-top-right-radius 3px
@@ -1471,7 +1472,7 @@ input, textarea, select
       margin-left 0.25em
 
       &.active
-        border-bottom 1px solid #fff
+        border-bottom 1px solid text_bg_color
 
       &:hover
         text-decoration none
@@ -1531,11 +1532,11 @@ input, textarea, select
         &:hover
           text-decoration none
           box-shadow 0 1px 2px #f0f0f0
-          background-color #fff
+          background-color text_bg_color
 
         &.active, &.active:hover
           box-shadow 0 1px 2px #f0f0f0
-          background-color #fff
+          background-color text_bg_color
           color text_color !important
           border-top 1px solid border_color
           border-bottom 1px solid border_color
@@ -1583,7 +1584,8 @@ input, textarea, select
       background transparent
 
   .CodeMirror
-    border 1px solid #fff
+    border 1px solid text_bg_color
+    background-color text_bg_color
 
     &.CodeMirror-focused
       border 1px solid rgba(82, 168, 236, 0.8)
@@ -1723,7 +1725,7 @@ iframe.youtube
   margin-left -15em
   border-radius 3px
   border 1px solid #aaa
-  background-color #fff
+  background-color text_bg_color
   overflow hidden
 
   > *
@@ -1751,7 +1753,7 @@ iframe.youtube
 // Modal
 .modal
   position absolute
-  background #fff
+  background text_bg_color
   border-radius 3px
   border 1px solid border_color
   z-index 110
@@ -1832,7 +1834,7 @@ iframe.youtube
 .file-manager
   border 1px solid border_color
   border-radius 3px
-  background-color #fff
+  background-color text_bg_color
 
   .file-manager-footer
     padding 1em
@@ -2051,7 +2053,7 @@ iframe.youtube
     max-width carousel_width
     height carousel_height
     display inline-block
-    background-color #fff
+    background-color text_bg_color
     vertical-align middle
 
   .stretch
