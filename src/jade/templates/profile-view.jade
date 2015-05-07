@@ -76,3 +76,5 @@ script#profile-view-template(type="text/x-template")
     .subsection
       h1#activity Recent activity
       bb-events(events="{{events}}")
+      .weak(v-show="!events.length")
+        | (No recent activity.)

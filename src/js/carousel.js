@@ -1,5 +1,7 @@
 'use strict'
 
+var util = require('./util');
+
 
 module.exports = {
   replace: true,
@@ -37,15 +39,14 @@ module.exports = {
         }
       });
 
-
       // Hide images before they are loaded
       var images = element.find('.carousel-media img');
       images.each(function () {
         if (!this.complete) $(this).hide();
-      })
+      });
 
-        // Stretch images which are close to our aspect ratio
-        var list = element.find('.slick-list');
+      // Stretch images which are close to our aspect ratio
+      var list = element.find('.slick-list');
       var carouselAspect = list.width() / list.height();
       images.one('load', function () {
         var aspect = this.width / this.height;
@@ -76,7 +77,7 @@ module.exports = {
 
 
     isImage: function (type) {
-      return /^image\/((png)|(gif)|(jpeg)|(svg)|(bmp))/.test(type);
+      return util.isImage(type);
     },
 
 

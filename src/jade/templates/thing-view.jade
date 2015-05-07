@@ -1,5 +1,8 @@
 script#thing-view-template(type="text/x-template")
-  .draft(v-if="!thing.published" title="This project is incomplete.") DRAFT
+  .draft(v-if="!thing.published" title="This project is incomplete.")
+    .fa.fa-pencil
+    | &nbsp;DRAFT&nbsp;
+    .fa.fa-pencil
 
   .overview
     bb-carousel(media="{{media}}" dots="false")
@@ -41,8 +44,8 @@ script#thing-view-template(type="text/x-template")
 
     .stars
       h2 Starred by
-      span.weak(v-show="!stars.length")
-        | Be the first to <a v-on="click:star()"> star this thing</a>.
+      p.weak(v-show="!stars.length")
+        | (No stars yet)
       bb-profiles(profiles="{{stars}}" small="true")
 
   .view-contents

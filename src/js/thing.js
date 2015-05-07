@@ -160,6 +160,9 @@ module.exports = {
     // API URL
     this.thing.api_url = this.getAPIURL();
 
+    // Load files
+    this.updateFiles();
+
     // Split tags
     if (typeof this.thing.tags == 'string')
       this.thing.tags = this.thing.tags.split(',')
@@ -168,6 +171,7 @@ module.exports = {
 
     else if (!this.thing.tags) this.thing.tags = []
 
+    // Import util
     this.util = util;
   },
 
@@ -194,13 +198,15 @@ module.exports = {
 
 
     updateFiles: function () {
-      this.$set('media', this.files.filter(function (file) {
+      this.media = this.files.filter(function (file) {
         return file.visibility != 'download' && util.isMedia(file.type);
-      }));
+      });
 
-      this.$set('downloads', this.files.filter(function (file) {
+      this.downloads = this.files.filter(function (file) {
         return file.visibility != 'display';
-      }));
+      });
+
+      console.debug('media=', this.media)
     },
 
 
@@ -230,11 +236,6 @@ module.exports = {
 
 
     tag: function() {
-      alert('TODO');
-    },
-
-
-    star: function() {
       alert('TODO');
     },
 
