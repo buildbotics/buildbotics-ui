@@ -28,7 +28,7 @@ script#profile-view-template(type="text/x-template")
   .view-contents
     .subsection
       .actions
-        button.success(v-show="isOwner" v-on="click:editProfile")
+        button.success(v-show="canEdit" v-on="click:editProfile")
           .fa.fa-pencil
           | Edit
 
@@ -37,8 +37,8 @@ script#profile-view-template(type="text/x-template")
 
       h1#bio {{profile.fullname || profile.name}}
 
-      .weak(v-show="!profile.bio && !isOwner") (Bio empty)
-      p(v-show="!profile.bio && isOwner")
+      .weak(v-show="!profile.bio && !canEdit") (Bio empty)
+      p(v-show="!profile.bio && canEdit")
         | Click
         button.success(v-on="click:editProfile('bio')")
           .fa.fa-pencil

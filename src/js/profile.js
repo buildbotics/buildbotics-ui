@@ -7,6 +7,9 @@ var notify = require('./notify');
 var util = require('./util');
 
 var subsections = 'view edit-details edit-picture edit-bio'
+var perms = {
+  canEdit: function (isOwner) {return isOwner || 'edit-profiles'}
+}
 
 
 module.exports = {
@@ -68,5 +71,5 @@ module.exports = {
   },
 
 
-  mixins: [require('./subsections')('profile', subsections)]
+  mixins: [require('./subsections')('profile', subsections, perms)]
 }

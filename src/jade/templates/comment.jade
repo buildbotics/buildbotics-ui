@@ -12,16 +12,16 @@ script#comment-template(type="text/x-template")
         .actions(v-show="!editing")
           span(title="Comment votes") ({{comment.votes}})
 
-          a.fa.fa-arrow-up(title="Upvote" v-show="!isOwner"
+          a.fa.fa-arrow-up(title="Upvote" v-show="canUpvote"
             v-on="click:vote(true)")
 
-          a.fa.fa-arrow-down(title="Downvote" v-show="!isOwner"
+          a.fa.fa-arrow-down(title="Downvote" v-show="canDownvote"
             v-on="click:vote(false)")
 
-          a.fa.fa-edit(title="Edit comment" v-show="isOwner"
+          a.fa.fa-edit(title="Edit comment" v-show="canEdit"
             v-on="click:edit()")
 
-          a.fa.fa-trash-o(tooltip="Delete comment" v-show="isOwner"
+          a.fa.fa-trash-o(tooltip="Delete comment" v-show="canDelete"
             v-on="click:askRemove()")
 
           bb-modal(ref="delete" buttons="cancel delete" callout="top-right")

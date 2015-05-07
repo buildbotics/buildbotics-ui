@@ -36,5 +36,5 @@ module.exports = {
   },
 
 
-  mixins: [require('./login-listener')]
+  mixins: [require('./login-listener')()]
 }

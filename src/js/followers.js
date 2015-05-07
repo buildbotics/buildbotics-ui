@@ -65,6 +65,6 @@ module.exports = {
 
   mixins: [
     require('./widget'),
-    require('./login-listener')
+    require('./login-listener')()
   ]
 }

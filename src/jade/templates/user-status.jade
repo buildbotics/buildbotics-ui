@@ -1,5 +1,5 @@
 script#user-status-template(type="text/x-template")
-  .user-status
+  .user-status(v-class="admin:isAdmin")
     a.header-nav.sign-in(v-show="!isLoggedIn" v-on="click:signIn")
       | Login or Register
 

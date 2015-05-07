@@ -6,7 +6,10 @@ var notify = require('./notify');
 var util = require('./util');
 
 var subsections = 'view edit-instructions edit-files edit-details dangerous';
-var fields = 'title url license tags';
+var perms = {
+  canEdit: function (isOwner) {return isOwner || 'edit-things'},
+  canPublish: function (isOwner) {return isOwner || 'publish-things'}
+}
 
 
 module.exports = {
@@ -274,5 +277,5 @@ module.exports = {
   },
 
 
-  mixins: [require('./subsections')('thing', subsections)]
+  mixins: [require('./subsections')('thing', subsections, perms)]
 }

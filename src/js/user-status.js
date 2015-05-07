@@ -1,5 +1,9 @@
 'use strict'
 
+var perms = {
+  isAdmin: function (isOwner) {return false}
+}
+
 
 module.exports = {
   replace: true,
@@ -12,5 +16,5 @@ module.exports = {
   },
 
 
-  mixins: [require('./login-listener')]
+  mixins: [require('./login-listener')(perms)]
 }

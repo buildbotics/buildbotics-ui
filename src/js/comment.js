@@ -4,6 +4,13 @@
 var $bb = require('./buildbotics');
 var notify = require('./notify');
 
+var perms = {
+  canEdit: function (isOwner) {return isOwner || 'edit-comments'},
+  canDelete: function (isOwner) {return isOwner || 'delete-comments'},
+  canUpvote: function (isOwner) {return !isOwner || 'upvote-comments'},
+  canDownvote: function (isOwner) {return !isOwner || 'downvote-comments'}
+}
+
 
 module.exports = {
   template: '#comment-template',
@@ -86,6 +93,6 @@ module.exports = {
 
   mixins: [
     require('./field-editor')('comment', 'text'),
-    require('./login-listener')
+    require('./login-listener')(perms)
   ]
 }

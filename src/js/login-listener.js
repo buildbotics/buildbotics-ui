@@ -1,50 +1,53 @@
 'use strict'
 
 
-module.exports = {
-  data: function () {
-    return {
-      user: {},
-      isOwner: false,
-      isLoggedIn: false
-    }
-  },
+module.exports = function (perms) {
+  perms = perms || {};
+
+  function evalPerm(perm, user, isOwner) {
+    if (typeof user.auth == 'undefined') return false;
+    if (user.auth.indexOf('admin') != -1) return true;
+
+    var result = perm(isOwner)
+
+    if (typeof result == 'string') return user.auth.indexOf(result) != -1
+    return result;
+  }
 
 
-  events: {
-    'logged-in': function (user) {
-      this.$set('user', user);
-      this.setIsOwner(user.name == this.getOwner())
-      this.$set('isLoggedIn', true)
+  return {
+    data: function () {
+      return {
+        user: {},
+        isOwner: false,
+        isLoggedIn: false
+      }
     },
 
 
-    'logged-out': function () {
-      this.$set('user', {});
-      this.setIsOwner(false)
-      this.$set('isLoggedIn', false)
-    }
-  },
+    events: {
+      'logged-in': function (user) {this.loginListenerUpdate(user)},
+      'logged-out': function () {this.loginListenerUpdate({})}
+    },
 
 
-  ready: function () {
-    var user = require('./app').getUser();
-
-    this.$set('user', user);
-    this.setIsOwner(user.name == this.getOwner())
-    this.$set('isLoggedIn', typeof user.name != 'undefined')
-  },
+    ready: function () {
+      this.loginListenerUpdate(require('./app').getUser());
+    },
 
 
-  methods: {
-    getOwner: function () {return ''},
+    methods: {
+      getOwner: function () {return ''},
 
 
-    setIsOwner: function (isOwner) {
-      if (this.isOwner == isOwner) return;
-      this.$set('isOwner',  isOwner);
-      this.$emit('is-owner', this.isOwner);
-      this.$broadcast('is-owner', this.isOwner);
+      loginListenerUpdate: function (user) {
+        this.$set('user', user);
+        this.$set('isLoggedIn', typeof user.name != 'undefined')
+        this.$set('isOwner', user.name == this.getOwner())
+
+        for (var name in perms)
+          this.$set(name, evalPerm(perms[name], user, this.isOwner));
+      }
     }
   }
 }

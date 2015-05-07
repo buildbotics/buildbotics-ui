@@ -5,10 +5,6 @@ script#thing-view-template(type="text/x-template")
     bb-carousel(media="{{media}}" dots="false")
 
     .details
-      .actions
-        a.fa.fa-edit(title="Edit details." v-show="isOwner"
-          v-on="click:editThing('details')")
-
       h2 Details
 
       .owner
@@ -54,12 +50,12 @@ script#thing-view-template(type="text/x-template")
       .actions
         bb-stars(thing="{{thing}}" button="true")
 
-        button.success(v-show="isOwner && !thing.published"
+        button.success(v-show="canPublish && !thing.published"
           v-on="click:publish()" title="Publish this project.")
           .fa.fa-book
           | Publish
 
-        button.success(v-show="isOwner" v-on="click:editThing('instructions')"
+        button.success(v-show="canEdit" v-on="click:editThing('instructions')"
           title="Edit instructions.")
           .fa.fa-pencil
           | Edit
@@ -73,12 +69,6 @@ script#thing-view-template(type="text/x-template")
         p.weak (No instructions)
 
     .subsection(v-if="downloads.length")
-      .actions
-        button.success(v-show="isOwner" v-on="click:editThing('files')"
-          title="Edit files.")
-          .fa.fa-pencil
-          | Edit
-
       h1#downloads Downloads
       file-manager(files="{{downloads}}")
       thing-license

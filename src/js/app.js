@@ -306,6 +306,9 @@ module.exports = new Vue({
         this.starred[thing.owner + '/' + thing.name] = true;
       }
 
+      // Auth
+      user.auth = user_data.auth;
+
       // Logged in
       this.user = user;
       this.user.authenticated = true;

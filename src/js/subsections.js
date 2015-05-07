@@ -1,7 +1,7 @@
 'use strict'
 
 
-module.exports = function (prefix, subsections) {
+module.exports = function (prefix, subsections, perms) {
   subsections = subsections.split(' ');
 
   function makeComponents() {
@@ -24,13 +24,15 @@ module.exports = function (prefix, subsections) {
     return components;
   }
 
+  // Make sure we have canEdit
+  perms = $.extend({canEdit: function (isOwner) {return isOwner}}, perms);
 
   return {
     components: makeComponents(),
 
 
-    events: {
-      'is-owner': function () {this.updateSubsection()},
+    watch: {
+      'canEdit': function () {this.updateSubsection()},
     },
 
 
@@ -69,7 +71,7 @@ module.exports = function (prefix, subsections) {
         subsection = subsection.trim();
 
         if (!subsection || subsections.indexOf(subsection) == -1 ||
-            (!this.isOwner && subsection.match(/^edit-/)))
+            (!this.canEdit && subsection.match(/^edit-/)))
           subsection = subsections[0]; // Choose first by default
 
         if (this.subsection == subsection) return;
@@ -84,6 +86,6 @@ module.exports = function (prefix, subsections) {
     },
 
 
-    mixins: [require('./login-listener')]
+    mixins: [require('./login-listener')(perms)]
   }
 }
