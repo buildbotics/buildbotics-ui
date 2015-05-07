@@ -205,8 +205,6 @@ module.exports = {
       this.downloads = this.files.filter(function (file) {
         return file.visibility != 'display';
       });
-
-      console.debug('media=', this.media)
     },
 
 
