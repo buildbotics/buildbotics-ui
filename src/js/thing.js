@@ -233,11 +233,6 @@ module.exports = {
     },
 
 
-    tag: function() {
-      alert('TODO');
-    },
-
-
     getAPIURL: function () {
       return 'profiles/' + this.thing.owner + '/things/' + this.thing.name;
     },
