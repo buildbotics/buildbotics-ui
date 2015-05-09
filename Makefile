@@ -12,22 +12,24 @@ HTTP_DIR := http
 HTML   := index
 HTML   := $(patsubst %,$(HTTP_DIR)/%.html,$(HTML))
 CSS    := $(wildcard src/stylus/*.styl)
-CSS    := $(patsubst src/stylus/%.styl,$(HTTP_DIR)/css/%.css,$(CSS))
+CSS_ASSETS := build/css/style.css
 JS     := $(wildcard src/js/*.js)
-JS_ASSETS := $(HTTP_DIR)/js/assets.js
+JS_ASSETS := build/js/assets.js
 STATIC := $(shell find static -type f \! -name *~)
 STATIC := $(patsubst static/%,$(HTTP_DIR)/%,$(STATIC))
 TEMPLS := $(wildcard src/jade/templates/*.jade)
 
 WATCH  := src/jade src/js src/stylus static Makefile
 
-all: dirs html css js static
+all: html css js static
 
 html: templates $(HTML)
 
-css: $(CSS)
+css: $(CSS_ASSETS) $(CSS_ASSETS).sha256
+	install -D $< $(HTTP_DIR)/css/style-$(shell cat $(CSS_ASSETS).sha256).css
 
-js: $(JS_ASSETS)
+js: $(JS_ASSETS) $(JS_ASSETS).sha256
+	install -D $< $(HTTP_DIR)/js/assets-$(shell cat $(JS_ASSETS).sha256).js
 
 static: $(STATIC)
 
@@ -37,33 +39,34 @@ build/templates.jade: $(TEMPLS)
 	mkdir -p build
 	cat $(TEMPLS) >$@
 
-$(HTTP_DIR)/index.html: build/templates.jade
+build/hashes.jade: $(CSS_ASSETS).sha256 $(JS_ASSETS).sha256
+	echo "- var css_hash = '$(shell cat $(CSS_ASSETS).sha256)'" > $@
+	echo "- var js_hash = '$(shell cat $(JS_ASSETS).sha256)'" >> $@
+
+$(HTTP_DIR)/index.html: build/templates.jade build/hashes.jade
 
 $(JS_ASSETS): $(JS) node_modules
+	@mkdir -p $(shell dirname $@)
 	NODE_PATH=./static/js $(BROWSERIFY) src/js/main.js -s main -o $@ || \
 	(rm -f $@; exit 1)
-#	$(UGLIFY) $(JS) -o $@ --source-map $@.map --source-map-root /js/ \
-	  --source-map-url $(shell basename $@).map -c -p 2
 
 node_modules:
 	npm install
 
-$(HTTP_DIR)/js/%.js: src/js/%.js
-	install -D $< $@
+%.sha256: %
+	mkdir -p $(shell dirname $@)
+	sha256sum $< | sed 's/^\([a-f0-9]\+\) .*$$/\1/' > $@
 
 $(HTTP_DIR)/%: static/%
 	install -D $< $@
 
 $(HTTP_DIR)/%.html: src/jade/%.jade $(wildcard src/jade/*.jade) node_modules
+	@mkdir -p $(shell dirname $@)
 	$(JADE) $< -o $(HTTP_DIR) || (rm -f $@; exit 1)
 
-$(HTTP_DIR)/css/%.css: src/stylus/%.styl node_modules
+build/css/%.css: src/stylus/%.styl node_modules
+	@mkdir -p $(shell dirname $@)
 	$(STYLUS) -I styles < $< | $(AP) -b "> 1%" >$@ || (rm -f $@; exit 1)
-
-dirs:
-	@mkdir -p $(HTTP_DIR)/css
-	@mkdir -p $(HTTP_DIR)/js
-	@mkdir -p $(HTTP_DIR)/docs
 
 watch:
 	@clear

@@ -1,3 +1,5 @@
+include ../../build/hashes.jade
+
 doctype html
 html
   head
@@ -20,7 +22,7 @@ html
       'Audiowide'
       rel='stylesheet' type='text/css')
 
-    link(rel='stylesheet' href='/css/style.css')
+    link(rel='stylesheet' href='/css/style-' + css_hash + '.css')
 
   body
     #page(v-show="!authenticating")
@@ -71,4 +73,4 @@ html
     script(src='/js/modernizr.custom.js')
     script(src='/js/plupload.full.min.js')
 
-    script(src='/js/assets.js')
+    script(src='/js/assets-' + js_hash + '.js')
