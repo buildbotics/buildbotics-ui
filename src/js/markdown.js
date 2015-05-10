@@ -228,6 +228,8 @@ module.exports = {
     reset: function () {
       this.refresh();
       this.editor.setValue(this.$parent.$get(this.field));
+      this.editor.markClean();
+      this.modified = false;
     },
 
 
