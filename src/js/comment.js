@@ -81,7 +81,10 @@ module.exports = {
 
       $bb.put(this.getAPIURL() + (up ? '/up' : '/down')).done(function () {
         this.comment.votes += up ? 1 : -1;
-      }.bind(this))
+
+      }.bind(this)).fail(function (xhr, status) {
+        notify.error((up ? 'Up' : 'Down') + 'vote failed', status);
+      })
     },
 
 
