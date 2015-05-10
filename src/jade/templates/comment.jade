@@ -1,10 +1,12 @@
 script#comment-template(type="text/x-template")
-  .comment(v-attr="id:'comment-' + comment.comment")
-    a(href="/{{comment.owner}}")
+  .comment(v-attr="id:'comment-' + comment.comment" v-class="deleted:deleted")
+    a(v-if="!deleted" href="/{{comment.owner}}")
       bb-avatar(name="{{comment.owner}}")
 
     .comment-wrapper
-      .comment-header
+      .comment-header(v-if="deleted") (Comment deleted)
+
+      .comment-header(v-if="!deleted")
         | <a href="/{{comment.owner}}">{{comment.owner}}</a>
         | ({{comment.owner_points | humanNumber}}) commented
         | {{comment.created | timeSince}}.
@@ -20,7 +22,8 @@ script#comment-template(type="text/x-template")
           a.fa.fa-arrow-down(title="Downvote" v-show="canDownvote"
             v-on="click:vote(false)")
 
-          a.fa.fa-reply(title="Reply" v-on="click:reply()")
+          a.fa.fa-reply(v-if="getDepth() < 8" title="Reply"
+            v-on="click:reply()")
 
           a.fa.fa-edit(title="Edit comment" v-show="canEdit"
             v-on="click:edit()")
@@ -28,20 +31,21 @@ script#comment-template(type="text/x-template")
           a.fa.fa-trash-o(tooltip="Delete comment" v-show="canDelete"
             v-on="click:askRemove()")
 
-          bb-modal(ref="delete" buttons="cancel delete" callout="top-right")
+          bb-modal(ref="{{'delete.' + comment.comment}}" buttons="cancel delete"
+            callout="top-right")
             .modal-header Delete this comment?
 
         .actions(v-show="editing")
           button(v-on="click:cancel()") Cancel
           button(v-on="click:save()" v-class="success:modified") Save
 
-      .comment-content
+      .comment-content(v-if="!deleted")
         div(v-markdown="comment.text" v-show="!editing")
         markdown-editor(field="edit_text" v-if="editing" max-length=10000)
 
     bb-comment-editor(v-if="show_reply" placeholder="Enter reply here."
       parent="{{comment.comment}}")
 
-    .comments(v-if="children.length")
+    .comments(v-if="children && children.length")
       div(v-repeat="child:children")
         bb-comment(comment="{{child}}")

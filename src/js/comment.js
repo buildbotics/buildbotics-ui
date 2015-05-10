@@ -21,6 +21,7 @@ module.exports = {
   data: function () {
     return {
       modified: false,
+      deleted: false,
       show_reply: false,
       children: []
     }
@@ -50,12 +51,24 @@ module.exports = {
     'comment-editor.cancel': function () {
       this.show_reply = false;
       return false;
+    },
+
+
+    'comment.child-deleted': function (id) {
+      this.children = this.children.filter(function (child) {
+        return child.comment != id;
+      });
+
+      if (!this.children.length && this.deleted) this.kill();
+
+      return false;
     }
   },
 
 
   compiled: function () {
-    this.$set('children', this.comment.children);
+    this.$set('children', this.comment.children || []);
+    this.$set('deleted', this.comment.deleted);
   },
 
 
@@ -72,21 +85,21 @@ module.exports = {
 
 
     askRemove: function () {
-      this.$broadcast('modal-show-delete');
+      this.$broadcast('modal-show-delete.' + this.comment.comment);
     },
- 
+
+
+    kill: function () {
+      this.$dispatch('comment.child-deleted', this.comment.comment);
+    },
+
 
     remove: function () {
-      var self = this;
-
       $bb.delete(this.getAPIURL(true)).done(function () {
-        // TODO check if has children
-        self.$remove();
-
-        Vue.nextTick(function () {
-          self.$destroy();
-        })
-      })
+        // Check if has children
+        this.deleted = true;
+        if (!this.children.length) this.kill();
+      }.bind(this))
     },
 
 
@@ -121,6 +134,11 @@ module.exports = {
 
     getAPIURL: function (full) {
       return this.$parent.getAPIURL() + (full ? '/' + this.comment.comment : '')
+    },
+
+
+    getDepth: function () {
+      return this.$parent.getDepth() + 1;
     }
  },
 

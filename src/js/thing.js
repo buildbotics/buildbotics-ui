@@ -188,7 +188,12 @@ module.exports = {
       else rootComments.push(comment);
     }
 
-    this.comments = rootComments;
+    function dont_prune(comment) {
+      comment.children = comment.children.filter(dont_prune);
+      return comment.children.length || !comment.deleted;
+    }
+
+    this.comments = rootComments.filter(dont_prune);
 
     // Import util
     this.util = util;
