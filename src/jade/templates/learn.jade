@@ -11,7 +11,7 @@ script#learn-template(type="text/x-template")
           img(src="/images/tutorials.png" title="Tutorials")
           h1 Tutorials
         ul
-          li(v-repeat="tutorials"): a(href="{{path}}") {{title}}
+          li(v-repeat="tutorials"): a(href="/{{owner}}/{{name}}") {{title}}
 
       .learn-reference
         div

@@ -19,11 +19,11 @@ module.exports = {
         return;
       }
 
-      /*$.get('/docs/' + section + '/index.json')
+      if (section == 'tutorials')
+        $.get('/api/tags/tutorial,featured')
         .done(function (data) {
-          sections[section] = data;
-          this.$set(section, data.items);
-        }.bind(this))*/
+          this.$set('tutorials', sections.tutorials = data);
+        }.bind(this))
     }
   }
 }
