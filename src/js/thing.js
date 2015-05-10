@@ -171,6 +171,25 @@ module.exports = {
 
     else if (!this.thing.tags) this.thing.tags = []
 
+    // Sort comments
+    var commentMap = {};
+    for (var i = 0; i < this.comments.length; i++) {
+      var comment = this.comments[i];
+      commentMap[comment.comment] = comment;
+      comment.children = [];
+    }
+
+    // Connect child comments to parents
+    var rootComments = [];
+    for (var i = 0; i < this.comments.length; i++) {
+      var comment = this.comments[i];
+      if (comment.parent)
+        commentMap[comment.parent].children.push(comment);
+      else rootComments.push(comment);
+    }
+
+    this.comments = rootComments;
+
     // Import util
     this.util = util;
   },

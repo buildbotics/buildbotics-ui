@@ -5,13 +5,8 @@ script#comments-template(type="text/x-template")
 
     hr
 
-    .comment(v-show="isAuthenticated()")
-      bb-avatar(name="{{getUserName()}}")
-
-      .comment-wrapper
-        .comment-content
-          markdown-editor(field="text" placeholder="Leave a comment here."
-            buttons="{{postButtons}}" max-length=10000)
+    bb-comment-editor(v-show="isAuthenticated()"
+      placeholder="Leave a comment here.")
 
     h3(v-show="!isAuthenticated()")
       | <button class="success" v-on="click:login">Login</button> to comment.

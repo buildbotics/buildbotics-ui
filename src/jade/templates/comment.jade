@@ -10,13 +10,17 @@ script#comment-template(type="text/x-template")
         | {{comment.created | timeSince}}.
 
         .actions(v-show="!editing")
-          span(title="Comment votes") ({{comment.votes}})
+          span(title="Comment votes")
+            | ({{comment.upvotes | humanNumber}} up
+            |  {{comment.downvotes | humanNumber}} down)
 
           a.fa.fa-arrow-up(title="Upvote" v-show="canUpvote"
             v-on="click:vote(true)")
 
           a.fa.fa-arrow-down(title="Downvote" v-show="canDownvote"
             v-on="click:vote(false)")
+
+          a.fa.fa-reply(title="Reply" v-on="click:reply()")
 
           a.fa.fa-edit(title="Edit comment" v-show="canEdit"
             v-on="click:edit()")
@@ -34,3 +38,10 @@ script#comment-template(type="text/x-template")
       .comment-content
         div(v-markdown="comment.text" v-show="!editing")
         markdown-editor(field="edit_text" v-if="editing" max-length=10000)
+
+    bb-comment-editor(v-if="show_reply" placeholder="Enter reply here."
+      parent="{{comment.comment}}")
+
+    .comments(v-if="children.length")
+      div(v-repeat="child:children")
+        bb-comment(comment="{{child}}")

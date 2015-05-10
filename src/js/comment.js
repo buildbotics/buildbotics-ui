@@ -13,12 +13,17 @@ var perms = {
 
 
 module.exports = {
+  replace: true,
   template: '#comment-template',
   paramAttributes: ['comment'],
 
 
   data: function () {
-    return {modified: false}
+    return {
+      modified: false,
+      show_reply: false,
+      children: []
+    }
   },
 
 
@@ -32,7 +37,25 @@ module.exports = {
     'markdown-editor.modified': function (modified) {
       this.modified = modified;
       return false; // Cancel event propagation
+    },
+
+
+    'comment-editor.add': function (comment) {
+      this.children.push(comment);
+      this.show_reply = false;
+      return false;
+    },
+
+
+    'comment-editor.cancel': function () {
+      this.show_reply = false;
+      return false;
     }
+  },
+
+
+  compiled: function () {
+    this.$set('children', this.comment.children);
   },
 
 
@@ -56,7 +79,8 @@ module.exports = {
     remove: function () {
       var self = this;
 
-      $bb.delete(this.getAPIURL()).done(function () {
+      $bb.delete(this.getAPIURL(true)).done(function () {
+        // TODO check if has children
         self.$remove();
 
         Vue.nextTick(function () {
@@ -79,7 +103,8 @@ module.exports = {
     vote: function (up) {
       if (!this.checkLogin()) return;
 
-      $bb.put(this.getAPIURL() + (up ? '/up' : '/down')).done(function () {
+      $bb.put(this.getAPIURL(true) + (up ? '/up' : '/down')).done(function () {
+        // TODO
         this.comment.votes += up ? 1 : -1;
 
       }.bind(this)).fail(function (xhr, status) {
@@ -88,8 +113,14 @@ module.exports = {
     },
 
 
-    getAPIURL: function () {
-      return this.$parent.getAPIURL() + '/' + this.comment.comment;
+    reply: function () {
+      if (!this.checkLogin()) return;
+      this.show_reply = !this.show_reply;
+    },
+
+
+    getAPIURL: function (full) {
+      return this.$parent.getAPIURL() + (full ? '/' + this.comment.comment : '')
     }
  },
 

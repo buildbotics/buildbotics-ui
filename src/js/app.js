@@ -47,6 +47,7 @@ module.exports = new Vue({
     'bb-comment': require('./comment'),
     'bb-comments': require('./comments'),
     'bb-comments-widget': require('./comments-widget'),
+    'bb-comment-editor': require('./comment-editor'),
     'bb-points': require('./points'),
     'bb-followers': require('./followers'),
     'bb-tags': require('./tags'),

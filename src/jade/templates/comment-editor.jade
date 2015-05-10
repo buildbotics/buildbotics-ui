@@ -1,0 +1,8 @@
+script#comment-editor-template(type="text/x-template")
+  .comment
+    bb-avatar(name="{{getUserName()}}")
+
+    .comment-wrapper
+      .comment-content
+        markdown-editor(field="text" placeholder="{{placeholder}}"
+          buttons="{{postButtons}}" max-length=10000)
