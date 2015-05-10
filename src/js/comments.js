@@ -77,18 +77,21 @@ module.exports = {
         text: this.text
       }
 
-      var self = this;
       $bb.post(this.getAPIURL(), comment).done(function (id) {
-        self.text = '';
+        this.text = '';
+
+        var user = require('./app').user;
 
         comment.comment = id;
-        comment.owner = self.getUserName();
+        comment.owner = user.name;
+        comment.owner_points = user.points;
+        comment.votes = 1;
         comment.created = comment.modified = new Date().toISOString();
 
-        self.comments.push(comment);
+        this.comments.push(comment);
 
-        self.$broadcast('markdown-editor.reset');
-      });
+        this.$broadcast('markdown-editor.reset');
+      }.bind(this));
     },
 
 
