@@ -4,32 +4,34 @@ NODE_MODS  := $(DIR)/node_modules
 JADE       := $(NODE_MODS)/jade/bin/jade.js
 STYLUS     := $(NODE_MODS)/stylus/bin/stylus
 AP         := $(NODE_MODS)/autoprefixer/autoprefixer
-UGLIFY     := $(NODE_MODS)/uglify-js/bin/uglifyjs
 BROWSERIFY := $(NODE_MODS)/browserify/bin/cmd.js
-
-HTTP_DIR := http
+MARKED     := $(NODE_MODS)/marked/bin/marked
 
 HTML   := index
-HTML   := $(patsubst %,$(HTTP_DIR)/%.html,$(HTML))
+HTML   := $(patsubst %,http/%.html,$(HTML))
 CSS    := $(wildcard src/stylus/*.styl)
 CSS_ASSETS := build/css/style.css
 JS     := $(wildcard src/js/*.js)
 JS_ASSETS := build/js/assets.js
+DOCS   := $(wildcard src/docs/*.md)
+DOCS   := $(patsubst src/docs/%.md,http/docs/%.html,$(DOCS))
 STATIC := $(shell find static -type f \! -name *~)
-STATIC := $(patsubst static/%,$(HTTP_DIR)/%,$(STATIC))
+STATIC := $(patsubst static/%,http/%,$(STATIC))
 TEMPLS := $(wildcard src/jade/templates/*.jade)
 
 WATCH  := src/jade src/js src/stylus static Makefile
 
-all: html css js static
+all: docs html css js static
+
+docs: $(DOCS)
 
 html: templates $(HTML)
 
 css: $(CSS_ASSETS) $(CSS_ASSETS).sha256
-	install -D $< $(HTTP_DIR)/css/style-$(shell cat $(CSS_ASSETS).sha256).css
+	install -D $< http/css/style-$(shell cat $(CSS_ASSETS).sha256).css
 
 js: $(JS_ASSETS) $(JS_ASSETS).sha256
-	install -D $< $(HTTP_DIR)/js/assets-$(shell cat $(JS_ASSETS).sha256).js
+	install -D $< http/js/assets-$(shell cat $(JS_ASSETS).sha256).js
 
 static: $(STATIC)
 
@@ -43,7 +45,7 @@ build/hashes.jade: $(CSS_ASSETS).sha256 $(JS_ASSETS).sha256
 	echo "- var css_hash = '$(shell cat $(CSS_ASSETS).sha256)'" > $@
 	echo "- var js_hash = '$(shell cat $(JS_ASSETS).sha256)'" >> $@
 
-$(HTTP_DIR)/index.html: build/templates.jade build/hashes.jade
+http/index.html: build/templates.jade build/hashes.jade
 
 $(JS_ASSETS): $(JS) node_modules
 	@mkdir -p $(shell dirname $@)
@@ -57,12 +59,16 @@ node_modules:
 	mkdir -p $(shell dirname $@)
 	sha256sum $< | sed 's/^\([a-f0-9]\+\) .*$$/\1/' > $@
 
-$(HTTP_DIR)/%: static/%
+http/docs/%.html: src/docs/%.md
+	@mkdir -p $(shell dirname $@)
+	$(MARKED) -i $< -o $@ --gfm --tables --smart-lists
+
+http/%: static/%
 	install -D $< $@
 
-$(HTTP_DIR)/%.html: src/jade/%.jade $(wildcard src/jade/*.jade) node_modules
+http/%.html: src/jade/%.jade $(wildcard src/jade/*.jade) node_modules
 	@mkdir -p $(shell dirname $@)
-	$(JADE) $< -o $(HTTP_DIR) || (rm -f $@; exit 1)
+	$(JADE) $< -o http || (rm -f $@; exit 1)
 
 build/css/%.css: src/stylus/%.styl node_modules
 	@mkdir -p $(shell dirname $@)

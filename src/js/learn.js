@@ -19,11 +19,11 @@ module.exports = {
         return;
       }
 
-      $.get('/docs/' + section + '/index.json')
+      /*$.get('/docs/' + section + '/index.json')
         .done(function (data) {
           sections[section] = data;
           this.$set(section, data.items);
-        }.bind(this))
+        }.bind(this))*/
     }
   }
 }
