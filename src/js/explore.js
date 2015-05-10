@@ -1,5 +1,5 @@
 $bb = require('./buildbotics');
-
+util = require('./util');
 
 var subsections = 'profiles things tags events'.split(' ');
 
@@ -43,33 +43,47 @@ module.exports = {
 
 
   watch: {
-    exploreType: function (value) {this.search();}
+    exploreType: function (value) {this.init();}
   },
 
 
   compiled: function () {
-    this.search();
+    this.init();
   },
 
 
   methods: {
+    getType: function () {
+      switch (this.exploreType) {
+      case 'creations': return 'things';
+      case 'people': return 'profiles';
+      case 'activity': return 'events';
+      default: return this.exploreType;
+      }
+    },
+
+
+    init: function () {
+      var params = util.parseQueryString();
+      var type = this.getType();
+      this.query = params.q;
+      this.load();
+    },
+
+
     clear: function () {
-      this.query = '';
-      this.search();
+      location.search = '';
     },
 
 
     search: function () {
-      var self = this;
-      var exploreType = require('./app').exploreType;
-      var type;
+      this.query = this.query || '';
+      location.search = '?q=' + encodeURIComponent(this.query);
+    },
 
-      switch (exploreType) {
-      case 'creations': type = 'things'; break;
-      case 'people': type = 'profiles'; break;
-      case 'activity': type = 'events'; break;
-      default: type = exploreType; break;
-      }
+
+    load: function () {
+      var type = this.getType();
 
       this.type = type;
       this.loading = true;
@@ -79,8 +93,8 @@ module.exports = {
       this.events = [];
 
       $bb.get(type, {data: {query: this.query, limit: 100}})
-        .done(function (data) {self.$set(type, data)})
-        .always(function () {self.loading = false})
+        .done(function (data) {this.$set(type, data)}.bind(this))
+        .always(function () {this.loading = false}.bind(this))
     }
   }
 }

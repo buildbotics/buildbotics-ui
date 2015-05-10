@@ -116,6 +116,8 @@ var util = {
 
 
   parseQueryString: function(q) {
+    q = q || location.search;
+
     function decode(s) {return decodeURIComponent(s.replace(/\+/g, ' '))}
 
     var match;
