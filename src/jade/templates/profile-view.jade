@@ -3,18 +3,27 @@ script#profile-view-template(type="text/x-template")
   .sidebar
     bb-avatar(name="{{profile.name}}" size="asmall")
 
-    .details
-      .owner
-        .fa.fa-user
-        div {{profile.name}} ({{profile.points | humanNumber}})
+    .stats
+      div(title="{{profile.points}} points")
+        .value {{profile.points | humanNumber}}
+        .label Points
 
-      .location
+      div(title="{{profile.followers}} followers")
+        a.value(href="#followers") {{profile.followers | humanNumber}}
+        .label Followers
+
+    .details
+      .owner(title="{{profile.fullname || profile.name}}")
+        .fa.fa-user
+        div {{profile.name}}
+
+      .location(title="Location")
         .fa.fa-map-marker
         div
           | {{profile.location}}
           .weak(v-show="!profile.location") (Not set)
 
-      .link
+      .link(title="Homepage")
         .fa.fa-link
         div
           a(href="{{profile.url}}" target="_blank")

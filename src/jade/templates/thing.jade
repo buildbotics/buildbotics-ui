@@ -17,10 +17,7 @@ script#thing-template(type="text/x-template")
           .fa.fa-eye
           | View
 
-        bb-views(thing="{{thing}}")
-        bb-comments-widget(thing="{{thing}}")
-        bb-stars(thing="{{thing}}")
-        //bb-children(children="{{thing.children}}")
+        bb-stars(thing="{{thing}}" stars="{{stars}}" button="true")
 
       .breadcrumbs {{thing.title || thing.name}}
 

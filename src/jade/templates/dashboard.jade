@@ -28,7 +28,7 @@ script#dashboard-template(type="text/x-template")
               .name {{profile.fullname || profile.name}}
 
             .stats
-              div
+              div(title="{{profile.points}} points")
                 .value {{profile.points | humanNumber}}
                 .label Points
 

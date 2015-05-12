@@ -257,6 +257,13 @@ module.exports = {
 
 
     publish: function () {
+      if (!this.media || !this.thing.instructions) {
+        notify.warning('Project incomplete', 'You must add at least one ' +
+                       'picture and some instructions before you can publish ' +
+                       'a project.')
+        return;
+      }
+
       var self = this;
       $bb.put(this.getAPIURL() + '/publish')
         .done(function () {self.$set('thing.published', true)})

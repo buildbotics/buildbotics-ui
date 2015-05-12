@@ -3,6 +3,23 @@ script#thing-view-template(type="text/x-template")
   .sidebar
     bb-carousel(media="{{media}}" dots="false")
 
+    .stats
+      div
+        a.value(href="#downloads") {{thing.downloads | humanNumber}}
+        .label Files
+
+      div
+        a.value(href="#comments") {{thing.comments | humanNumber}}
+        .label Comments
+
+      div
+        .value {{thing.stars | humanNumber}}
+        .label Stars
+
+      div
+        .value {{thing.views | humanNumber}}
+        .label Views
+
     .details
       .published
         .fa.fa-clock-o
@@ -36,14 +53,13 @@ script#thing-view-template(type="text/x-template")
       .stars(title="People who have starred this project")
         .fa.fa-star
         bb-profiles(v-if="stars.length" profiles="{{stars}}" small="true")
-        .weak(v-if="!stars.length") (No stars yet)
+        .weak(v-if="!thing.stars") (No stars yet)
+
 
   .view-contents
     .subsection
-      div(v-if="thing.instructions" v-markdown="thing.instructions")
-
-      .empty(v-if="!thing.instructions")
-        p.weak (No instructions)
+      div(v-show="thing.instructions" v-markdown="thing.instructions")
+      .weak(v-show="!thing.instructions") (No instructions)
 
     .subsection(v-if="downloads.length")
       h1#downloads Downloads

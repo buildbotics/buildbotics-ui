@@ -15,9 +15,6 @@ script#profile-template(type="text/x-template")
         bb-followers(v-show="!isOwner" profile="{{profile}}"
           followers="{{followers}}" button="true")
 
-        bb-points(points="{{profile.points}}")
-        bb-followers(profile="{{profile}}")
-
       .breadcrumbs {{profile.fullname || profile.name}}
 
     .page-content

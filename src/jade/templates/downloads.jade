@@ -1,0 +1,6 @@
+script#downloads-template(type="text/x-template")
+  .downloads
+    a(href="/{{thing.owner}}/{{thing.name}}#downloads"
+      title="{{thing.downloads}} Downloads")
+      | {{thing.downloads | humanNumber}}
+      span.fa.fa-download
