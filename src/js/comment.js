@@ -103,9 +103,9 @@ module.exports = {
     },
 
 
-    checkLogin: function () {
+    checkLogin: function (msg) {
       if (!this.isLoggedIn) {
-        notify.login('vote on comments');
+        notify.login(msg);
         return false;
       }
 
@@ -114,7 +114,7 @@ module.exports = {
 
 
     vote: function (up) {
-      if (!this.checkLogin()) return;
+      if (!this.checkLogin('vote on comments')) return;
 
       $bb.put(this.getAPIURL(true) + (up ? '/up' : '/down')).done(function () {
         // TODO
@@ -127,7 +127,7 @@ module.exports = {
 
 
     reply: function () {
-      if (!this.checkLogin()) return;
+      if (!this.checkLogin('post a reply')) return;
       this.show_reply = !this.show_reply;
     },
 
