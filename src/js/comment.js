@@ -116,13 +116,14 @@ module.exports = {
     vote: function (up) {
       if (!this.checkLogin('vote on comments')) return;
 
-      $bb.put(this.getAPIURL(true) + (up ? '/up' : '/down')).done(function () {
-        // TODO
-        this.comment.votes += up ? 1 : -1;
+      $bb.put(this.getAPIURL(true) + (up ? '/up' : '/down'))
+        .done(function (data) {
+          this.comment.upvotes = data.upvotes;
+          this.comment.downvotes = data.downvotes;
 
-      }.bind(this)).fail(function (xhr, status) {
-        notify.error((up ? 'Up' : 'Down') + 'vote failed', status);
-      })
+        }.bind(this)).fail(function (xhr, status) {
+          notify.error((up ? 'Up' : 'Down') + 'vote failed', status);
+        })
     },
 
 
