@@ -40,18 +40,6 @@ twitter_color = #27aae1
 github_color = #1c75bc
 
 
-// Mixins
-sidebar(width)
-  margin 0 0 1em 1em
-  font-size 11pt
-  color medium_text_color
-  width width
-  background secondary_header_color
-  padding 1em
-  border-radius 3px
-  border 1px solid secondary_header_border_color
-
-
 // Links
 a, a:visited
   color link_color
@@ -92,6 +80,7 @@ a.disabled, a:hover.disabled
 
 .help
   color medium_text_color
+
 
 // Buttons
 button
@@ -196,6 +185,7 @@ em
 // Paragraphs
 p
   color text_color
+
 
 // Video
 video
@@ -399,6 +389,18 @@ body
 
     .footer-nav
       margin 0 0.5em
+
+
+// Sidebar
+.sidebar
+  margin 0 0 1em 1em
+  font-size 11pt
+  color medium_text_color
+  background secondary_header_color
+  padding 1em
+  border-radius 3px
+  border 1px solid secondary_header_border_color
+  width sidebar_width
 
 
 // Incompatible browser
@@ -632,7 +634,7 @@ body
 
   .sidebar
     float right
-    sidebar(dashboard_sidebar_width)
+    width dashboard_sidebar_width
 
     > div
       margin 0 0 4em 0
@@ -925,7 +927,6 @@ a.icon-link
 .thing-page, .profile-page
   .sidebar
     float right
-    sidebar(sidebar_width)
 
     .details > *
       margin-bottom 0.75em
