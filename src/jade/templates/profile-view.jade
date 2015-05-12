@@ -37,30 +37,30 @@ script#profile-view-template(type="text/x-template")
 
   .view-contents
     .subsection
-      p(v-show="!profile.bio && canEdit")
-        | Click
+      div(v-markdown="profile.bio" v-show="profile.bio")
+      .weak(v-show="!profile.bio && canEdit")
+        = '(Click '
         button.success(v-on="click:editProfile('bio')")
           .fa.fa-pencil
-          | Edit Bio
-        | to add a bio.
-      div(v-markdown="profile.bio" v-show="profile.bio")
+          | Edit
+        = ' to add a bio.)'
 
     .subsection
       h1#creations Creations
       bb-things(things="{{things}}")
       .weak(v-show="!things.length && !isOwner") (No creations)
       .weak(v-show="!things.length && isOwner")
-        = 'Click '
+        = '(Click '
         button(v-on="click:create" class="success")
           .fa.fa-plus
           | Create
-        = ' to start your first project.'
+        = ' to start your first project.)'
 
     .subsection
       h1#starred Starred projects
       bb-things(things="{{starred}}")
       .weak(v-show="!starred.length")
-        | ({{profile.name | capitalize}} has not yet starred any projects)
+        | ({{profile.name | capitalize}} has not yet starred any projects.)
 
     .subsection
       h1#followers People following {{profile.name}}
@@ -78,5 +78,4 @@ script#profile-view-template(type="text/x-template")
     .subsection
       h1#activity Recent activity
       bb-events(events="{{events}}")
-      .weak(v-show="!events.length")
-        | (No recent activity.)
+      .weak(v-show="!events.length") (No recent activity.)
