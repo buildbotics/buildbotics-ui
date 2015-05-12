@@ -7,8 +7,8 @@ var notify = require('./notify');
 var perms = {
   canEdit: function (isOwner) {return isOwner || 'edit-comments'},
   canDelete: function (isOwner) {return isOwner || 'delete-comments'},
-  canUpvote: function (isOwner) {return !isOwner || 'upvote-comments'},
-  canDownvote: function (isOwner) {return !isOwner || 'downvote-comments'}
+  canUpvote: function (isOwner) {return isOwner ? false : 'upvote-comments'},
+  canDownvote: function (isOwner) {return isOwner ? false : 'downvote-comments'}
 }
 
 
