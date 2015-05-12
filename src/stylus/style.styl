@@ -360,7 +360,7 @@ body
     .fa
       margin-left 0.125em
 
-    > div
+    > *
       display inline-block
       margin-left 1em
 
@@ -668,6 +668,9 @@ body
         white-space nowrap
         overflow hidden
         text-overflow ellipsis
+
+        &.name
+          max-width 8em
 
       tr:hover
         background rgba(200, 200, 200, 0.4)
