@@ -167,6 +167,11 @@ module.exports = new Vue({
   },
 
 
+  watch: {
+    currentPage: function () {Vue.nextTick(this.adjust)}
+  },
+
+
   compiled: function () {
     this.login();
 
@@ -294,13 +299,14 @@ module.exports = new Vue({
 
   methods: {
     adjust: debounce(250, function () {
-      var total = window.innerHeight;
-      var header = $('#header').outerHeight();
-      var content = $('#content').outerHeight();
-      var footer = $('#footer').outerHeight();
-      $('#content-footer').css('height', total - header);
-      if (content < (total - header - footer))
-        $('#content').css('min-height', total - header - footer);
+      if (this.currentPage == 'landing')
+        $('#content-footer').css('height', '');
+
+      else {
+        var total = window.innerHeight;
+        var header = $('#header').outerHeight();
+        $('#content-footer').css('height', total - header);
+      }
     }),
 
 
