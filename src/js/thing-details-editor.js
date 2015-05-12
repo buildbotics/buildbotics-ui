@@ -3,7 +3,7 @@
 var $bb = require('./buildbotics');
 var notify = require('./notify');
 
-var fields = 'title url license tags';
+var fields = 'title license tags';
 
 
 module.exports = {
