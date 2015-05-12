@@ -1,6 +1,7 @@
 'use strict'
 
 var $bb = require('./buildbotics');
+var notify = require('./notify');
 
 var fields = 'fullname location url';
 

@@ -50,8 +50,11 @@ script#profile-view-template(type="text/x-template")
       bb-things(things="{{things}}")
       .weak(v-show="!things.length && !isOwner") (No creations)
       .weak(v-show="!things.length && isOwner")
-        | Click <button v-on="click:create" class="success">Create</button> to
-        | start your first project.
+        = 'Click '
+        button(v-on="click:create" class="success")
+          .fa.fa-plus
+          | Create
+        = ' to start your first project.'
 
     .subsection
       h1#starred Starred projects
