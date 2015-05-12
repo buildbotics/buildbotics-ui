@@ -211,16 +211,16 @@ body
   background-color #fefefe
   margin 0
   font-family 'Roboto Slab', serif
-  overflow-y scroll
 
 
 // Layout
+html, body, #page
+  overflow hidden
+  height 100vh
+
 #page
   #header
-    position fixed
-    top 0
     width 100%
-    z-index 110
 
     #header-wrapper
       padding 0 1em
@@ -232,11 +232,16 @@ body
       margin 0 auto
       overflow hidden
 
+  #content-footer
+    max-width 100vw
+    height 100%
+    overflow-y auto
+
   #content
-    margin header_height auto 4em auto
+    margin 0 auto
     min-width min_page_width
     max-width 100vw
-    overflow hidden
+    min-height 80%
     text-overflow ellipsis
 
     .page-content-wrapper
@@ -379,7 +384,7 @@ body
 
   #footer-content
     font-size 10pt
-    padding 2em 0
+    padding 1em 0
     margin 0 auto
     max-width page_width
 
@@ -731,12 +736,12 @@ body
       margin-right 0.5em
 
   .explore-events
-    width page_width
+    max-width page_width
     margin auto
 
   .tag-cloud
-    margin 1em auto
-    width page_width * 0.8
+    margin 0 auto
+    max-width 90vw
     height (page_width * 0.8 / golden_ratio)
 
 
@@ -994,6 +999,9 @@ a.icon-link
     > .subsection
       padding 0 0 5em
 
+      &:last-of-type
+        padding-bottom 0
+
       > .actions
         float right
 
@@ -1041,7 +1049,7 @@ a.icon-link
 
   > div
     display inline-block
-    width 50%
+    width (sidebar_width / 2)
     text-align center
 
   .value
@@ -1070,7 +1078,7 @@ a.icon-link
   .sidebar
     .carousel
       overflow visible
-      margin-bottom 2em
+      margin 0 auto 2em
       max-width initial
 
       .expand
@@ -1187,6 +1195,7 @@ a.icon-link
 // Comments
 .comment
   margin 0 0 2em 0
+  position relative
 
   > .comment, > .comments
     margin-top 2em
@@ -2116,16 +2125,9 @@ iframe.youtube
 
 
 // Responsive
-@media (max-width: 900px)
-  #page #content
-    margin-top header_height * 2
-
 @media (max-width: 600px)
   h1
     font-size 18pt
-
-  #page #content
-    margin-top header_height * 3
 
   #page #header-content
     > *

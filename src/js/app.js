@@ -173,9 +173,6 @@ module.exports = new Vue({
     var self = this;
 
     // Window resize
-    var style = document.createElement('style');
-    document.head.appendChild(style);
-    this.sheet = style.sheet;
     $(window).resize(this.adjust);
 
     // Info
@@ -257,6 +254,9 @@ module.exports = new Vue({
 
 
   ready: function () {
+    // Adjust layout
+    this.adjust()
+
     // Smooth scrolling
     window.addEventListener('click', function (e) {
       if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey ||
@@ -294,9 +294,13 @@ module.exports = new Vue({
 
   methods: {
     adjust: debounce(250, function () {
-      var height = $('#page #header').outerHeight();
-      try {this.sheet.deleteRule(0)} catch (e) {}
-      this.sheet.insertRule("#page #content {margin-top: " + height + "px}", 0);
+      var total = window.innerHeight;
+      var header = $('#header').outerHeight();
+      var content = $('#content').outerHeight();
+      var footer = $('#footer').outerHeight();
+      $('#content-footer').css('height', total - header);
+      if (content < (total - header - footer))
+        $('#content').css('min-height', total - header - footer);
     }),
 
 
