@@ -20,7 +20,8 @@ script#profile-view-template(type="text/x-template")
       .location(title="Location")
         .fa.fa-map-marker
         div
-          | {{profile.location}}
+          a(href="http://www.google.com/maps?q={{profile.location}}"
+            title="View on Google Maps." target="_blank") {{profile.location}}
           .weak(v-show="!profile.location") (Not set)
 
       .link(title="Homepage")
