@@ -192,7 +192,11 @@ module.exports = {
 
         $('body').css('overflow-y', '');
 
-        $(window).off('resize', debounce(250, this.resizeContent, true));
+        $(window).off('resize', this.resizeContent);
+
+        Vue.nextTick(this.refresh);
+
+        this.showHelp = false;
       }
 
       // Fix content height

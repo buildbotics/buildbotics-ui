@@ -2,13 +2,23 @@ script#profile-template(type="text/x-template")
   bb-page-layout
     .header-content
       .widgets
+        button.success(v-show="canEdit && subsection == 'view'"
+          v-on="click:editProfile")
+          .fa.fa-pencil
+          | Edit
+
+        button.success(v-show="subsection != 'view'"
+          v-on="click:viewProfile" title="View profile.")
+          .fa.fa-eye
+          | View
+
+        bb-followers(v-show="!isOwner" profile="{{profile}}"
+          followers="{{followers}}" button="true")
+
         bb-points(points="{{profile.points}}")
         bb-followers(profile="{{profile}}")
 
-      .breadcrumbs
-        a(href="/explore/people"): .fa.fa-users(title="Profiles")
-        span /
-        a(href="/{{profile.name}}") {{profile.name}}
+      .breadcrumbs {{profile.fullname || profile.name}}
 
     .page-content
       .edit-menu(v-show="subsection != 'view'")

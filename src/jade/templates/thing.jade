@@ -2,17 +2,27 @@ script#thing-template(type="text/x-template")
   bb-page-layout
     .header-content
       .widgets
+        button.success(v-show="canPublish && !thing.published"
+          v-on="click:publish()" title="Publish this project.")
+          .fa.fa-book
+          | Publish
+
+        button.success(v-show="canEdit && subsection == 'view'"
+          v-on="click:editThing('instructions')" title="Edit instructions.")
+          .fa.fa-pencil
+          | Edit
+
+        button.success(v-show="subsection != 'view'"
+          v-on="click:viewThing" title="View project.")
+          .fa.fa-eye
+          | View
+
         bb-views(thing="{{thing}}")
         bb-comments-widget(thing="{{thing}}")
         bb-stars(thing="{{thing}}")
         //bb-children(children="{{thing.children}}")
 
-      .breadcrumbs
-        a(href="/explore/creations"): .fa.fa-cubes(title="Creations")
-        span /
-        a(href="/{{thing.owner}}") {{thing.owner}}
-        span /
-        a(href="/{{thing.owner}}/{{thing.name}}") {{thing.name}}
+      .breadcrumbs {{thing.title || thing.name}}
 
     .page-content
       .edit-menu(v-show="subsection != 'view'")

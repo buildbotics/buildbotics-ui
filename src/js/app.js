@@ -3,7 +3,7 @@
 var $bb = require('./buildbotics');
 var page = require('page');
 var util = require('./util');
-var throttle = require('./throttle');
+var debounce = require('./debounce');
 
 
 module.exports = new Vue({
@@ -171,6 +171,13 @@ module.exports = new Vue({
 
     var self = this;
 
+    // Window resize
+    var style = document.createElement('style');
+    document.head.appendChild(style);
+    this.sheet = style.sheet;
+    $(window).resize(this.adjust);
+
+    // Licenses
     $bb.get('licenses').done(function (data) {
       for (var i = 0; i < data.length; i++)
         self.licenses.push(data[i]);
@@ -282,10 +289,11 @@ module.exports = new Vue({
 
 
   methods: {
-    top: function (e) {
-      $('html, body').animate({scrollTop: 0}, 1000, 'swing')
-      e.preventDefault();
-    },
+    adjust: debounce(250, function () {
+      var height = $('#page #header').outerHeight();
+      try {this.sheet.deleteRule(0)} catch (e) {}
+      this.sheet.insertRule("#page #content {margin-top: " + height + "px}", 0);
+    }),
 
 
     loggedIn: function (user_data) {

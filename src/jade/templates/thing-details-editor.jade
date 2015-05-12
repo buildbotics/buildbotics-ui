@@ -5,10 +5,6 @@ script#thing-details-editor-template(type="text/x-template")
       input(v-model="edit_title" v-on="input:changed" maxlength="128")
 
     div
-      h2 Link
-      input(v-model="edit_url" v-on="input:changed" maxlength="256")
-
-    div
       h2 License
       select(v-model="edit_license" v-on="change:changed")
         option(v-repeat="license:licenses" value="{{license.name}}"

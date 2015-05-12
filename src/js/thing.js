@@ -242,6 +242,12 @@ module.exports = {
     },
 
 
+    viewThing: function () {
+      location.hash = '#';
+      window.scrollTo(0, 0);
+    },
+
+
     editThing: function (section) {
       if (typeof section != 'string') section = this.subsections[1];
       else section = 'edit-' + section;

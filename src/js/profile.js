@@ -64,9 +64,16 @@ module.exports = {
     },
 
 
+    viewProfile: function () {
+      location.hash = '#';
+      window.scrollTo(0, 0);
+    },
+
+
     editProfile: function (section) {
       if (typeof section != 'string') section = 'details';
       location.hash = 'edit-' + section;
+      window.scrollTo(0, 0);
     }
   },
 

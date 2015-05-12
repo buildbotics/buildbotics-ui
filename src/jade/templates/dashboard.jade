@@ -2,9 +2,8 @@ script#dashboard-template(type="text/x-template")
   bb-page-layout
     .header-content
       .breadcrumbs
-        a(href="/dashboard")
-          .fa.fa-tasks(title="Dashboard")
-          | Dashboard
+        .fa.fa-tasks(title="Dashboard")
+        | Dashboard
 
     .page-content
       p(v-if="!isAuthenticated()")
@@ -16,7 +15,7 @@ script#dashboard-template(type="text/x-template")
       .dashboard(v-if="isAuthenticated()")
         .dashboard-announcements
 
-        .dashboard-sidebar
+        .sidebar
           .dashboard-profile
             button.success(v-on="click:editProfile")
               .fa.fa-pencil

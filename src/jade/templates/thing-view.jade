@@ -1,71 +1,45 @@
 script#thing-view-template(type="text/x-template")
-  .draft(v-if="!thing.published" title="This project is incomplete.")
-    .fa.fa-pencil
-    | &nbsp;DRAFT&nbsp;
-    .fa.fa-pencil
 
-  .overview
+  .sidebar
     bb-carousel(media="{{media}}" dots="false")
 
     .details
-      h2 Details
-
-      .owner
-        .fa.fa-user
-        | By <a href="/{{thing.owner}}">{{thing.owner}}</a>
-        | ({{thing.owner_points | humanNumber}})
-
-      .parent(v-show="thing.parent")
-        .fa.fa-child
-        | a(href="{{thing.parent}}") {{thing.parent}}
-
-      .link
-        .fa.fa-link
-        span.weak(v-show="!thing.url") (No link)
-        a(v-show="thing.url" href="{{thing.url}}" target="_blank")
-          | {{util.prettyURL(thing.url)}}
-
       .published
         .fa.fa-clock-o
-        span(v-if="thing.published") Published {{thing.published | timeSince}}
-        span(v-if="!thing.published") Draft
+        div(v-if="thing.published" title="Publish date")
+          | {{thing.published | timeSince}}
+        div(v-if="!thing.published" title="This project is incomplete")
+          | DRAFT
 
-    .license
-      h2 License
-      thing-license
+      .owner(title="Project owner")
+        .fa.fa-user
+        div
+          | by <a href="/{{thing.owner}}">{{thing.owner}}</a>
+          | ({{thing.owner_points | humanNumber}})
 
-    .tags
-      h2 Tags
-      span.weak(v-show="!thing.tags.length") (No tags)
+      .parent(v-if="thing.parent" title="Parent project")
+        .fa.fa-child
+        div a(href="{{thing.parent}}") {{thing.parent}}
 
-      span.tag(v-show="thing.tags" v-repeat="tag:thing.tags")
-        a(v-attr="href:'/tags/' + tag") {{tag}}
-        = ' '
+      .tags(title="Tags")
+        .fa.fa-tags
+        div
+          span.tag(v-repeat="thing.tags")
+            | {{$index ? ', ' : ' '}}
+            a(href="/tags/{{$value}}" title="{{$value}} tag") {{$value}}
+          .weak(v-if="!thing.tags.length") (No tags)
 
-    .stars
-      h2 Starred by
-      p.weak(v-show="!stars.length")
-        | (No stars yet)
-      bb-profiles(profiles="{{stars}}" small="true")
+      .license(title="License")
+        .fa.fa-gavel
+        div: thing-license
+
+      .stars(title="People who have starred this project")
+        .fa.fa-star
+        bb-profiles(v-if="stars.length" profiles="{{stars}}" small="true")
+        .weak(v-if="!stars.length") (No stars yet)
 
   .view-contents
     .subsection
-      .actions
-        bb-stars(thing="{{thing}}" button="true")
-
-        button.success(v-show="canPublish && !thing.published"
-          v-on="click:publish()" title="Publish this project.")
-          .fa.fa-book
-          | Publish
-
-        button.success(v-show="canEdit" v-on="click:editThing('instructions')"
-          title="Edit instructions.")
-          .fa.fa-pencil
-          | Edit
-
-      h1#instructions(title="{{thing.title || thing.name}}")
-        | {{thing.title || thing.name}}
-
       div(v-if="thing.instructions" v-markdown="thing.instructions")
 
       .empty(v-if="!thing.instructions")

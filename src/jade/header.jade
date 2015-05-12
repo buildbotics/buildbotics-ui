@@ -1,31 +1,32 @@
 #header(v-show="currentPage != 'landing'")
-  #header-content
-    a.logo(href="/")
-      img(src="/images/squid_dude-40x40.png" alt="Buildbotics logo")
-      .left Build
-      .right botics
-      .beta BETA
+  #header-wrapper
+    #header-content
+      a.logo(href="/")
+        img(src="/images/squid_dude-40x40.png" alt="Buildbotics logo")
+        .left Build
+        .right botics
+        .beta BETA
 
-    #main-header-nav
-      div
-        a.header-nav(v-on="click:openExploreNav")
-          | Explore
-          .fa.fa-caret-down
+      #context-header-nav
+        bb-user-status(v-if="!authenticating")
 
-        #explore-nav
-          a.header-nav(v-on="click:closeExploreNav" href="/explore/creations")
-            | Creations
-          a.header-nav(v-on="click:closeExploreNav" href="/explore/people")
-            | People
-          a.header-nav(v-on="click:closeExploreNav" href="/explore/tags")
-            | Tags
-          a.header-nav(v-on="click:closeExploreNav" href="/explore/activity")
-            | Activity
+      #main-header-nav
+        div
+          a.header-nav(v-on="click:openExploreNav")
+            | Explore
+            .fa.fa-caret-down
 
-      a.header-nav(href="/learn") Learn
-      a.header-nav(href="/create") Create
+          #explore-nav
+            a.header-nav(v-on="click:closeExploreNav" href="/explore/creations")
+              | Creations
+            a.header-nav(v-on="click:closeExploreNav" href="/explore/people")
+              | People
+            a.header-nav(v-on="click:closeExploreNav" href="/explore/tags")
+              | Tags
+            a.header-nav(v-on="click:closeExploreNav" href="/explore/activity")
+              | Activity
 
-    #context-header-nav
-      bb-user-status(v-if="!authenticating")
+        a.header-nav(href="/learn") Learn
+        a.header-nav(href="/create") Create
 
-    .clear
+      .clear

@@ -1,43 +1,33 @@
 script#profile-view-template(type="text/x-template")
 
-  .overview
+  .sidebar
     bb-avatar(name="{{profile.name}}" size="asmall")
 
     .details
-      h2 Details
       .owner
         .fa.fa-user
-        | {{profile.name}} ({{profile.points | humanNumber}})
+        div {{profile.name}} ({{profile.points | humanNumber}})
 
       .location
         .fa.fa-map-marker
-        span.weak(v-show="!profile.location") (Not set)
-        span {{profile.location}}
+        div
+          | {{profile.location}}
+          .weak(v-show="!profile.location") (Not set)
 
       .link
         .fa.fa-link
-        span.weak(v-show="!profile.url") (Not set)
-        a(href="{{profile.url}}" target="_blank")
-          | {{util.prettyURL(profile.url)}}
+        div
+          a(href="{{profile.url}}" target="_blank")
+            | {{util.prettyURL(profile.url)}}
+          .weak(v-show="!profile.url") (Not set)
 
       .joined
         .fa.fa-clock-o
-        td Joined {{profile.joined | timeSince}}
+        div Joined {{profile.joined | timeSince}}
 
 
   .view-contents
     .subsection
-      .actions
-        button.success(v-show="canEdit" v-on="click:editProfile")
-          .fa.fa-pencil
-          | Edit
-
-        bb-followers(v-show="!isOwner" profile="{{profile}}"
-          followers="{{followers}}" button="true")
-
-      h1#bio {{profile.fullname || profile.name}}
-
-      .weak(v-show="!profile.bio && !canEdit") (Bio empty)
       p(v-show="!profile.bio && canEdit")
         | Click
         button.success(v-on="click:editProfile('bio')")
