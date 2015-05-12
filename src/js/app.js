@@ -178,11 +178,14 @@ module.exports = new Vue({
     this.sheet = style.sheet;
     $(window).resize(this.adjust);
 
-    // Licenses
-    $bb.get('licenses').done(function (data) {
-      for (var i = 0; i < data.length; i++)
-        self.licenses.push(data[i]);
-    })
+    // Info
+    $bb.get('info').done(function (data) {
+      this.permissions = {};
+      for (var i in data.permissions)
+        this.permissions[data.permissions[i].name] = data.permissions[i].points;
+
+      this.licenses = data.licenses;
+    }.bind(this))
 
     // Configure markdown
     var renderer = new marked.Renderer();

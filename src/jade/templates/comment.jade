@@ -13,8 +13,7 @@ script#comment-template(type="text/x-template")
 
         .actions(v-show="!editing")
           span(title="Comment votes")
-            | ({{comment.upvotes | humanNumber}} up
-            |  {{comment.downvotes | humanNumber}} down)
+            | ({{(comment.upvotes - comment.downvotes) | humanNumber}})
 
           a.fa.fa-arrow-up(title="Upvote" v-show="canUpvote"
             v-on="click:vote(true)")
@@ -22,8 +21,7 @@ script#comment-template(type="text/x-template")
           a.fa.fa-arrow-down(title="Downvote" v-show="canDownvote"
             v-on="click:vote(false)")
 
-          a.fa.fa-reply(v-if="getDepth() < 8" title="Reply"
-            v-on="click:reply()")
+          a(v-if="getDepth() < 8" title="Reply" v-on="click:reply()") reply
 
           a.fa.fa-edit(title="Edit comment" v-show="canEdit"
             v-on="click:edit()")

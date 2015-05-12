@@ -10,7 +10,11 @@ module.exports = function (perms) {
 
     var result = perm(isOwner)
 
-    if (typeof result == 'string') return user.auth.indexOf(result) != -1
+    if (typeof result == 'string') {
+      var app = require('./app');
+      return app.permissions[result] <= user.points;
+    }
+
     return result;
   }
 

@@ -8,7 +8,7 @@ var util = require('./util');
 var subsections = 'view edit-instructions edit-files edit-details dangerous';
 var perms = {
   canEdit: function (isOwner) {return isOwner || 'edit-things'},
-  canPublish: function (isOwner) {return isOwner || 'publish-things'}
+  canPublish: function (isOwner) {return isOwner}
 }
 
 
