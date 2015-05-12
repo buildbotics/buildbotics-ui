@@ -14,6 +14,3 @@ script#followers-template(type="text/x-template")
     div(v-if="isOwner" title="{{profile.followers}} Followers")
       | {{profile.followers | humanNumber}}
       .fa.fa-users(v-class="active:active")
-
-    bb-modal(ref="login" buttons="{{buttons}}" callout="top-right")
-      .modal-content You must login to follow someone.

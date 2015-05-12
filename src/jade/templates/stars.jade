@@ -9,6 +9,3 @@ script#stars-template(type="text/x-template")
       title="{{active ? 'Unstar' : 'Star'}} this project")
       | {{thing.stars | humanNumber}}
       .fa.fa-star(v-class="active:active")
-
-    bb-modal(ref="login" buttons="{{buttons}}" callout="top-right")
-      .modal-content You must login to star a project.

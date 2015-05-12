@@ -1,26 +1,19 @@
 'use strict'
 
+var notify = require('./notify');
+
 
 module.exports = {
   data: function () {
     return {
-      active: false,
-      buttons: [
-        {label: 'Cancel', response: 'cancel', icon: 'times'},
-        {label: 'Login', response: 'login', icon: 'sign-in', klass: 'success'},
-      ]
+      active: false
     }
   },
 
 
   events: {
     'logged-in': function () {this.update()},
-    'logged-out': function () {this.$set('active', false)},
-
-    'modal-response': function (button) {
-      if (button == 'login') require('./app').initiateLogin();
-      return false; // Cancel event propagation
-    }
+    'logged-out': function () {this.$set('active', false)}
   },
 
 
@@ -65,7 +58,7 @@ module.exports = {
 
     toggle: function () {
       if (!require('./app').isAuthenticated()) {
-        this.$broadcast('modal-show-login');
+        notify.login('perform this action');
         return;
       }
 

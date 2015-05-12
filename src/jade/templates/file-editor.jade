@@ -1,7 +1,6 @@
 script#file-editor-template(type="text/x-template")
   .file-editor.modal(v-show="show")
-    .modal-header
-      h1 Edit file details
+    .modal-header Edit file details
 
     .modal-content
       img(v-if="util.isImage(file.type)"
