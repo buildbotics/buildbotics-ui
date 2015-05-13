@@ -29,7 +29,7 @@ function api_cb(method, url, data, config) {
     var text = xhr.responseText;
     try {text = $.parseJSON(xhr.responseText)} catch(e) {}
     d.reject(text, xhr, status, error);
-    console.debug('API Error: ' + text);
+    console.debug('API Error: ' + url + ': ' + text);
   })
 
   return d.promise();
