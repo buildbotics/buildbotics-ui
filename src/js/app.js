@@ -167,16 +167,8 @@ module.exports = new Vue({
   },
 
 
-  watch: {
-    currentPage: function () {Vue.nextTick(this.adjust)}
-  },
-
-
   compiled: function () {
     var self = this;
-
-    // Window resize
-    $(window).resize(this.adjust);
 
     // Info
     $bb.get('info').done(function (data) {
@@ -258,58 +250,7 @@ module.exports = new Vue({
   },
 
 
-  ready: function () {
-    // Adjust layout
-    this.adjust()
-
-    // Smooth scrolling
-    window.addEventListener('click', function (e) {
-      if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey ||
-          e.defaultPrevented) return;
-
-      // Ensure link
-      var el = e.target;
-      while (el && 'A' !== el.nodeName) el = el.parentNode;
-      if (!el || 'A' !== el.nodeName) return;
-
-      // Ensure same frame
-      if (el.getAttribute('target')) return;
-
-      // Ensure same site
-      if (location.hostname != el.hostname) return;
-
-      // Ensure same path
-      if (location.pathname.replace(/^\//, '') !=
-          el.pathname.replace(/^\//, '')) {
-        window.scrollTo(0, 0);
-        return;
-      }
-
-      // Ensure hash
-      var link = el.getAttribute('href');
-      if (!el.hash || link == '#') return;
-
-      util.scrollTo(el.hash, function () {location.hash = el.hash})
-
-      e.preventDefault();
-      return false;
-    }, false)
-  },
-
-
   methods: {
-    adjust: debounce(250, function () {
-      if (this.currentPage == 'landing')
-        $('#content-footer').css('height', '');
-
-      else {
-        var total = window.innerHeight;
-        var header = $('#header').outerHeight();
-        $('#content-footer').css('height', total - header);
-      }
-    }),
-
-
     loggedIn: function (user_data) {
       this.user_data = user_data;
       var user = user_data.profile;

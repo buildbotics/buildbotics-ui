@@ -66,7 +66,7 @@ module.exports = {
       $bb.put('profiles/' + name + '/register')
         .done(function () {
           require('./app').login();
-          page('/' + name + '#profile');
+          page('/dashboard');
         })
         .fail(function (status) {
           notify.error('Failed to register "' + name + '"', status);
