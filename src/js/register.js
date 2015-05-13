@@ -19,9 +19,9 @@ module.exports = {
       shortName: false,
       invalidChars: false,
       available: true,
-      loggedOut: true,
       valid: false,
-      checking: false
+      checking: false,
+      agree: false
     }
   },
 
@@ -38,6 +38,23 @@ module.exports = {
       .fail(function (status) {
         page('/login');
       })
+  },
+
+
+  filters: {
+    nameValidator: {
+      write: function (name) {
+        name = name.trim();
+
+        if (name != this.name) {
+          this.available = true;
+          this.valid = false;
+          this.validate(name);
+        }
+
+        return name;
+      }
+    }
   },
 
 
@@ -71,13 +88,12 @@ module.exports = {
       this.spaces = !/^[^ ]*$/.test(name);
       this.invalidChars = !this.spaces && !/^[\w.]*$/.test(name);
       this.shortName = !this.spaces && !this.invalidChars && name.length == 1;
-      this.loggedOut = !user.authenticated;
 
       return name &&
         !this.spaces &&
         !this.invalidChars &&
         !this.shortName &&
-        this.loggedOut;
+        !this.isLoggedIn;
     },
 
 
@@ -116,19 +132,5 @@ module.exports = {
   },
 
 
-  filters: {
-    nameValidator: {
-      write: function (name) {
-        name = name.trim();
-
-        if (name != this.name) {
-          this.available = true;
-          this.valid = false;
-          this.validate(name);
-        }
-
-        return name;
-      }
-    }
-  }
+  mixins: [require('./login-listener')()]
 }

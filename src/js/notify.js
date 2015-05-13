@@ -58,10 +58,17 @@ module.exports = new Vue({
         .append(config.title)
         .appendTo(this.dialog);
 
-      $('<div>')
+      var body = $('<div>')
         .addClass('notify-dialog-body')
-        .text(config.body)
+        .html(config.body)
         .appendTo(this.dialog);
+
+      if (config.width)
+        this.dialog.css({
+          width: config.width + 'px',
+          'margin-left': (-config.width / 2) + 'px',
+        });
+      if (config.height) body.css('height', config.height + 'px');
 
       if (btns.length)
         $('<div>')

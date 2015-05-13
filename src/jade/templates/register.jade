@@ -13,7 +13,7 @@ script#register-template(type="text/x-template")
       span(v-show="checking")
         .fa.fa-spin.fa-spinner
         | Checking name availability. . .
-      span.success(v-show="valid")
+      span.success(v-show="valid && !isLoggedIn")
         .fa.fa-check
         | This name is available.
       span.error(v-show="!available && !checking")
@@ -28,7 +28,7 @@ script#register-template(type="text/x-template")
       span.error(v-show="shortName")
         .fa.fa-close
         | Names must be at least 2 characters long.
-      span.error(v-show="!loggedOut")
+      span.error(v-show="isLoggedIn")
         .fa.fa-close
         | You are already logged in.
 
@@ -37,4 +37,13 @@ script#register-template(type="text/x-template")
         button.suggestion(v-repeat="suggestion:suggestions" href="#"
           v-on="click:setName(suggestion) | preventDefault") {{suggestion}}
 
-      button.success(v-on="click:submit()" v-disable="!valid") Register
+      p
+        label
+          input(type="checkbox" v-model="agree")
+          = 'I have read and agree to the '
+        a(href="/docs/terms" target="_blank") Buildbotics LLC Terms of Use
+        | .
+
+      .actions
+        button.success(v-on="click:submit()"
+          v-disable="!valid || !agree || isLoggedIn") Register
