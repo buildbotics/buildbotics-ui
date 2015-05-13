@@ -173,8 +173,6 @@ module.exports = new Vue({
 
 
   compiled: function () {
-    this.login();
-
     var self = this;
 
     // Window resize
@@ -187,6 +185,8 @@ module.exports = new Vue({
         this.permissions[data.permissions[i].name] = data.permissions[i].points;
 
       this.licenses = data.licenses;
+
+      this.login();
     }.bind(this))
 
     // Configure markdown
