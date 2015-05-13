@@ -1,7 +1,7 @@
 // Dimensions
 golden_ratio = 1.6180339887498948482
 page_width = 960px
-min_page_width = 200px
+min_page_width = 465px
 header_height = 50px
 sidebar_width = 200px
 content_width = 700px
@@ -214,6 +214,9 @@ body
 
 
 // Layout
+html, body
+  min-width 500px
+
 #page
   #header
     #header-wrapper
@@ -2119,7 +2122,20 @@ iframe.youtube
 
 
 // Responsive
-@media (max-width: 600px)
+size_page_content(screen, content)
+  @media (max-width: screen)
+    .thing-page, .profile-page
+      .view-contents, .edit-contents
+        max-width content
+
+size_page_content(1000px, 650px)
+size_page_content( 950px, 600px)
+size_page_content( 900px, 550px)
+size_page_content( 850px, 500px)
+size_page_content( 800px, 450px)
+size_page_content( 750px, 750px)
+
+@media (max-width: 750px)
   h1
     font-size 18pt
 
