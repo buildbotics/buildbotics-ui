@@ -16,7 +16,7 @@ script#landing-template(type="text/x-template")
       a(v-show="isLoggedIn" href="/dashboard")
         button.success View your dashboard.
 
-    a.down.fa.fa-chevron-down(href="#landing-info")
+    a.down.fa.fa-chevron-down(v-on="click:smoothScroll" href="#landing-info")
 
   #landing-info
     .panel
@@ -46,7 +46,7 @@ script#landing-template(type="text/x-template")
 
     h1 Create almost anything, step-by-step, using free software.
 
-    a.down.fa.fa-chevron-down(href="#landing-steps")
+    a.down.fa.fa-chevron-down(v-on="click:smoothScroll" href="#landing-steps")
 
   #landing-steps
     .section.design

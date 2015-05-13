@@ -91,11 +91,17 @@ var util = {
   },
 
 
-  scrollTo: function (selector) {
+  scrollTo: function (selector, animate, cb) {
     Vue.nextTick(function () {
+      if (typeof animate == 'undefined') animate = false;
+
       if (!selector || selector == '#') {
-        window.scrollTo(0, 0);
-        return;
+        if (!animate) {
+          window.scrollTo(0, 0);
+          if (cb) cb();
+          return;
+
+        } else selector = 'html,body';
       }
 
       var target = $(selector);
@@ -103,8 +109,16 @@ var util = {
 
       if (target.length) {
         var top = target.offset().top;
+
+        if (animate) {
+          $("html,body").animate({scrollTop: top}, 1000, 'swing', cb)
+          return
+        }
+
         window.scrollTo(0, top);
       }
+
+      if (cb) cb();
     })
   },
 
