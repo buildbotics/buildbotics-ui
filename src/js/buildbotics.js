@@ -26,7 +26,7 @@ function api_cb(method, url, data, config) {
     d.resolve(data, status, xhr);
 
   }).error(function (xhr, status, error) {
-    var text;
+    var text = xhr.responseText;
     try {text = $.parseJSON(xhr.responseText)} catch(e) {}
     d.reject(text, xhr, status, error);
     console.debug('API Error: ' + text);
