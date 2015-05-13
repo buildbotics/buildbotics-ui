@@ -91,7 +91,7 @@ function profile_page(ctx) {
       window.scrollTo(0, 0);
       util.scrollTo('#' + ctx.hash);
 
-    }).fail(function (data) {
+    }).fail(function () {
       app.currentPage = 'not-found';
     })
 }
@@ -122,7 +122,7 @@ function thing_page(ctx) {
 
       util.scrollTo('#' + ctx.hash);
 
-    }).fail(function (data) {
+    }).fail(function () {
       app.currentPage = 'not-found';
     })
 }

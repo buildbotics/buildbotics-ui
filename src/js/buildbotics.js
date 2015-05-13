@@ -26,11 +26,10 @@ function api_cb(method, url, data, config) {
     d.resolve(data, status, xhr);
 
   }).error(function (xhr, status, error) {
-    try {
-      d.reject($.parseJSON(xhr.responseText), xhr, status, error);
-    } catch(e) {
-      d.reject(undefined, xhr, status, error);
-    }
+    var text;
+    try {text = $.parseJSON(xhr.responseText)} catch(e) {}
+    d.reject(text, xhr, status, error);
+    console.debug('API Error: ' + text);
   })
 
   return d.promise();
