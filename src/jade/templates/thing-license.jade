@@ -1,4 +1,9 @@
 script#thing-license-template(type="text/x-template")
-  | Permission to use the contents of this project has been granted by
-  | <a href="/{{thing.owner}}">{{thing.owner}}</a> under the terms of
-  | the <a href="{{thing.license_url}}">{{thing.license}}</a>.
+  .license
+    div(v-if="thing.license")
+      | Permission to use the contents of this project has been granted by
+      | <a href="/{{thing.owner}}">{{thing.owner}}</a> under the terms of
+      | the <a href="{{thing.license_url}}">{{thing.license}}</a>.
+
+    div(v-if="!thing.license")
+      | The owner of this project has not yet choosen a license.

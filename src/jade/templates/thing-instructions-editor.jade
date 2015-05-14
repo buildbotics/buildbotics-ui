@@ -2,3 +2,13 @@ script#thing-instructions-editor-template(type="text/x-template")
   .thing-instructions-editor
     markdown-editor(field="text" placeholder="Enter text here."
         max-length=100000 media="{{media}}" buttons="{{editorButtons}}")
+
+    p
+      | Click the <span class="fa fa-arrows-alt"></span> button to use the
+      | fullscreen editor.
+
+    p
+      | Insert images you've uploaded or Youtube videos using
+      | <a href="http://daringfireball.net/projects/markdown/syntax#img"
+      | target="_blank">markdown</a>.
+      | E.g <code>![](https://youtu.be/xrXVaW3LdUk)</code>.

@@ -49,7 +49,7 @@ module.exports = {
 
       var url = 'profiles/' + this.getUserName() + '/things/' + this.name;
       $bb.put(url, data)
-        .done(function (data) {page(thing)})
+        .done(function (data) {page(thing + '#edit-files')})
         .fail(function (data, status) {
           notify.error('Failed to create ' + thing, status);
         })

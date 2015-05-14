@@ -12,6 +12,16 @@ script#create-template(type="text/x-template")
           | to create projects.
 
       div(v-if="isAuthenticated()")
+        p There are five basic steps to creating a project:
+
+        ol
+          li Choose a name and title.
+          li Upload files. (Including at least one picture.)
+          li Add instructions.
+          li Choose a license.
+          li Publish.
+
+        h2 Step 1
         table
           tr
             td {{getUserName()}}
@@ -25,7 +35,7 @@ script#create-template(type="text/x-template")
           input(type="text" name="title" v-model="title"
             placeholder="Choose a title")
 
-        p
+        div
           button.success(v-on="click:submit" v-disable="!valid")
             .fa.fa-plus
             | Create

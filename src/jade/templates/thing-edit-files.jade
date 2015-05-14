@@ -1,2 +1,13 @@
 script#thing-edit-files-template(type="text/x-template")
-  file-manager(files="{{files}}" can-edit="true")
+  div
+    file-manager(files="{{files}}" can-edit="true")
+
+    p Add both images and project files like GCode, TPL or models, etc.
+
+    p
+      | You can later link to files and display images uploaded here in your
+      | project's instructions.
+
+    p
+      | Click the edit icon <span class="fa fa-edit"></span> in the
+      | <b>Actions</b> column to change a file's visibility or to add a caption.

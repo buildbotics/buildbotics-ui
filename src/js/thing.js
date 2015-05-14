@@ -5,11 +5,13 @@ var page = require('page');
 var notify = require('./notify');
 var util = require('./util');
 
-var subsections = 'view edit-instructions edit-files edit-details dangerous';
+var subsections = 'view edit-files edit-instructions edit-details dangerous';
 var perms = {
   canEdit: function (isOwner) {return isOwner || 'edit-things'},
   canPublish: function (isOwner) {return isOwner}
 }
+
+var lastEditSubsection;
 
 
 module.exports = {
@@ -31,6 +33,7 @@ module.exports = {
 
   data: function  () {
     return {
+      util: util,
       newName: '',
       nameIsValid: false,
       viewSections: 'instructions downloads comments'.split(' '),
@@ -41,7 +44,12 @@ module.exports = {
 
 
   watch: {
-    files: function () {this.updateFiles()}
+    files: function () {this.updateFiles()},
+
+
+    subsection: function (subsection) {
+      if (subsection != 'view') lastEditSubsection = subsection;
+    }
   },
 
 
@@ -194,9 +202,6 @@ module.exports = {
     }
 
     this.comments = rootComments.filter(dont_prune);
-
-    // Import util
-    this.util = util;
   },
 
 
@@ -249,24 +254,49 @@ module.exports = {
 
 
     editThing: function (section) {
-      if (typeof section != 'string') section = this.subsections[1];
+      if (typeof section != 'string')
+        section = lastEditSubsection || this.subsections[1];
       else section = 'edit-' + section;
+
       location.hash = section;
       window.scrollTo(0, 0);
     },
 
 
     publish: function () {
-      if (!this.media || !this.thing.instructions) {
-        notify.warning('Project incomplete', 'You must add at least one ' +
-                       'picture and some instructions before you can publish ' +
-                       'a project.')
+      if (!this.media.length || !this.thing.instructions ||
+          !this.thing.license) {
+
+        var pass = '<span class="fa fa-check" style="color:green"></span>';
+        var fail = '<span class="fa fa-times" style="color:red"></span>';
+        var media = this.media.length ? pass : fail;
+        var instructions = this.thing.instructions ? pass : fail;
+        var license = this.thing.license ? pass : fail;
+        var title = (this.thing.title && this.thing.title != this.thing.name) ?
+          pass : fail;
+        var tags = this.thing.tags.length ? pass : fail;
+
+        notify.warning(
+          'Project incomplete', 'Before you can publish a ' +
+            'project you must complete the following:' +
+            '<ol>' +
+            '  <li>' + media + ' Add at least one picture.</li>' +
+            '  <li>' + instructions + ' Write some instructions.</li>' +
+            '  <li>' + license + ' Choose a license.</li>' +
+            '</ol>' +
+            'Optionally also:' +
+            '<ol start="4">' +
+            '  <li>' + title + ' Choose a good title.</li>' +
+            '  <li>' + tags + ' Add some tags.</li>' +
+            '</ol>')
         return;
       }
 
-      var self = this;
       $bb.put(this.getAPIURL() + '/publish')
-        .done(function () {self.$set('thing.published', true)})
+        .done(function () {
+          this.$set('thing.published', true)
+          location.hash = '';
+        }.bind(this))
     },
 
 
@@ -302,7 +332,7 @@ module.exports = {
 
     'delete': function () {
       $bb.delete(this.getAPIURL()).done(function () {
-        page('/' + this.thing.owner);
+        page('/dashboard');
       }.bind(this))
     }
   },

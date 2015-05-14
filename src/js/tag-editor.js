@@ -78,7 +78,7 @@ var input = {
     insertTags: function() {
       // Split tag text, text pasted from clipboard may contain separators
       var tags = this.$parent.tags;
-      var words = this.value.split(this.separator);
+      var words = this.value.toLowerCase().split(this.separator);
       var changed = false;
 
       Vue.nextTick(function () {this.value = ''}.bind(this));

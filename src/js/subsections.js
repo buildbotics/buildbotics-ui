@@ -27,6 +27,7 @@ module.exports = function (prefix, subsections, perms) {
   // Make sure we have canEdit
   perms = $.extend({canEdit: function (isOwner) {return isOwner}}, perms);
 
+
   return {
     components: makeComponents(),
 

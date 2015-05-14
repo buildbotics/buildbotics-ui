@@ -10,9 +10,12 @@ module.exports = {
 
   data: function () {
     return {
+      util: util,
       file: {},
-      modified: false,
-      util: util
+      show: false,
+      visibility: '',
+      caption: '',
+      modified: false
     }
   },
 
@@ -22,10 +25,9 @@ module.exports = {
   },
 
 
-  ready: function () {
-    $(this.$el)
-      .find('input[name="visibility"]')
-      .change(this.update);
+  watch: {
+    visibility: function () {this.update()},
+    caption: function () {this.update()}
   },
 
 
@@ -37,16 +39,10 @@ module.exports = {
     open: function (file) {
       this.addOverlay(undefined, this.$parent.$el);
 
-      this.$set('file', file);
-      this.$set('name', file.name);
-
-      $(this.$el)
-        .find('input[value="' + file.visibility + '"]')
-        .prop('checked', true)
-
-      this.$set('caption', file.caption);
-
-      this.$set('show', true);
+      this.file = file;
+      this.visibility = file.visibility;
+      this.caption = file.caption;
+      this.show = true;
     },
 
 
@@ -56,18 +52,8 @@ module.exports = {
     },
 
 
-    getVisibility: function () {
-      return $(this.$el).find('input[type=radio]:checked').val();
-    },
-
-
     visibilityChanged: function () {
-      return this.getVisibility() != this.file.visibility;
-    },
-
-
-    nameChanged: function () {
-      return this.name != this.file.name;
+      return this.visibility != this.file.visibility;
     },
 
 
@@ -77,8 +63,7 @@ module.exports = {
 
 
     update: function () {
-      this.modified =
-        this.visibilityChanged() || this.nameChanged() || this.captionChanged();
+      this.modified = this.visibilityChanged() || this.captionChanged();
     },
 
 
@@ -90,8 +75,7 @@ module.exports = {
 
     save: function () {
       var data = {
-        visibility: this.visibilityChanged() ? this.getVisibility() : undefined,
-        rename: this.nameChanged() ? this.name : undefined,
+        visibility: this.visibilityChanged() ? this.visibility : undefined,
         caption: this.captionChanged() ? this.caption : undefined
       }
 

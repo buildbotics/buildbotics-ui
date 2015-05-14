@@ -56,10 +56,23 @@ module.exports = {
 
       // Save other fields
       if (JSON.stringify(fields) != '{}')
-        promises.push($bb.put(this.thing.api_url, fields));
+        promises.push($bb.put(this.thing.api_url, fields).done(function () {
+          // Update license URL
+          if (fields.license)
+            this.thing.license_url = this.getLicenseURL(fields.license);
+        }.bind(this)));
 
       return $.when.apply($, promises)
         .fail(function () {notify.error('Failed to save details')})
+    },
+
+
+    getLicenseURL: function (license) {
+      if (!this.licenses) return;
+
+      for (var i = 0; i < this.licenses.length; i++)
+        if (this.licenses[i].name == license)
+          return this.licenses[i].url;
     },
 
 
@@ -74,6 +87,8 @@ module.exports = {
             .replace('$name', '<a href="' + l.url + '" target="_blank">' +
                      l.name + "</a>");
       }
+
+      return 'Please choose a license.'
     }
   },
 

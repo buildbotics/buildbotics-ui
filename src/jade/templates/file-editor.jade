@@ -10,25 +10,28 @@ script#file-editor-template(type="text/x-template")
 
       div
         h2 Caption
-        input(type="text" name="caption" v-model="caption" v-on="input:update")
+        input(type="text" name="caption" v-model="caption")
 
-      div
+        p
+          | Captions appear in the file's row in the <b>Downloads</b> section
+          | and can help explain the file's purpose.
+
+      div(v-if="util.isImage(file.type)")
         h2 Visibility
-        label
-          input(type="radio" name="visibility" value="display")
-          | Display
-        label
-          input(type="radio" name="visibility" value="download")
-          | Download
-        label
-          input(type="radio" name="visibility" value="both")
-          | Both
+        label(v-repeat="['display', 'download', 'both']")
+          input(type="radio" name="{{$value}}" value="{{$value}}"
+            v-model="visibility")
+          | {{$value}}
+
+        p
+          | Images may appear either in views of the project, in the
+          | <b>Downloads</b> section or both.
 
     .modal-footer
       button(v-on="click:cancel")
         .fa.fa-times
         | Cancel
 
-      button.success(v-on="click:save" v-disable="!name || !modified")
+      button.success(v-on="click:save" v-disable="!modified")
         .fa.fa-save
         | Save

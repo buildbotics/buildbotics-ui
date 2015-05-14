@@ -8,7 +8,7 @@ script#thing-template(type="text/x-template")
           | Publish
 
         button.success(v-show="canEdit && subsection == 'view'"
-          v-on="click:editThing('instructions')" title="Edit instructions.")
+          v-on="click:editThing" title="Edit instructions.")
           .fa.fa-pencil
           | Edit
 
@@ -17,7 +17,8 @@ script#thing-template(type="text/x-template")
           .fa.fa-eye
           | View
 
-        bb-stars(thing="{{thing}}" stars="{{stars}}" button="true")
+        bb-stars(v-show="!isOwner" thing="{{thing}}" stars="{{stars}}"
+          button="true")
 
       .breadcrumbs {{thing.title || thing.name}}
 

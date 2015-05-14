@@ -7,6 +7,8 @@ script#thing-details-editor-template(type="text/x-template")
     div
       h2 License
       select(v-model="edit_license" v-on="change:changed")
+        option(v-attr="selected:!thing.license" disabled style="display:none")
+          | -- None selected --
         option(v-repeat="license:licenses" value="{{license.name}}"
           v-attr="selected:license.name == thing.license") {{license.name}}
 
@@ -15,6 +17,11 @@ script#thing-details-editor-template(type="text/x-template")
     div
       h2 Tags
       tag-editor(tags="{{edit_tags}}" v-events="change:changed")
+
+      p
+        | Tags are words or short phrases connected with underscores (e.g.
+        | <code>cnc</code> or <code>3d_printer</code>) which can help users
+        | find your project.
 
     .actions
       button.success(v-on="click:save()" v-disable="!modified"
