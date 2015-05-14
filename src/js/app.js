@@ -290,7 +290,7 @@ module.exports = new Vue({
 
     loggedOut: function () {
       console.debug('loggedOut()');
-      $.removeCookie('buildbotics.sid.js');
+      $.removeCookie('buildbotics.sid');
       this.user = {}
       this.following = {}
       this.starred = {}
