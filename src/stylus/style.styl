@@ -2078,12 +2078,20 @@ iframe.youtube
       height 100%
       line-height 100%
 
+    .carousel-media::before
+      content ''
+      display inline-block
+      height 100%
+      vertical-align middle
+
     .carousel-media
       img, video
-        height 80%
+        height initial
         width initial
-        max-width 80%
-        margin 4%
+        max-height 90%
+        max-width 90%
+        display inline-block
+        vertical-align middle
 
 
 // User Status
