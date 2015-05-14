@@ -128,6 +128,12 @@ function thing_page(ctx) {
 }
 
 
+function login_page(ctx) {
+  $.removeCookie('buildbotics.sid');
+  app.currentPage = 'login';
+}
+
+
 module.exports = {
   start: function () {
     //page('*', page_debug);
@@ -138,7 +144,7 @@ module.exports = {
     page('/explore/:type', explore_page);
     page('/learn', function () {app.currentPage = 'learn'});
     page('/create', function () {app.currentPage = 'create'});
-    page('/login', function () {app.currentPage = 'login'});
+    page('/login', login_page);
     page('/register', function () {app.currentPage = 'register'});
     page('/tags/:tag', tag_page);
     page('/:profile', profile_page);
