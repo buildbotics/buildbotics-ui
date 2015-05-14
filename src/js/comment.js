@@ -100,13 +100,15 @@ module.exports = {
 
 
     remove: function () {
-      var config = {data: {owner: this.comment.owner}}
-
-      $bb.delete(this.getAPIURL(true), config).done(function () {
+      var url = this.getAPIURL(true) + '/owner/' + this.comment.owner;
+      $bb.delete(url).done(function () {
         // Check if has children
         this.deleted = true;
         if (!this.children.length) this.kill();
-      }.bind(this))
+
+      }.bind(this)).fail(function (status) {
+        notify.error('Failed to delete comment', status);
+      })
     },
 
 
