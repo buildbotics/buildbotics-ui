@@ -281,7 +281,8 @@ module.exports = new Vue({
       // Redirect
       var path = $.cookie('buildbotics.login-path');
       $.removeCookie('buildbotics.login-path');
-      if (path) page(path == '/' ? '/dashboard' : path);
+      if (path == '/' || path == '/register') path = '/dashboard';
+      if (path) page(path);
 
       // Event
       this.$broadcast('logged-in', user, this);
