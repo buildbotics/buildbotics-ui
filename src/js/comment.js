@@ -79,8 +79,13 @@ module.exports = {
 
     // From field-editor
     onSave: function (fields, accept) {
-      fields.comment = this.comment.comment;
-      $bb.put(this.getAPIURL(), fields).done(accept);
+      var data = {
+        comment: this.comment.comment,
+        text: fields.text,
+        owner: this.comment.owner
+      }
+
+      $bb.put(this.getAPIURL(), data).done(accept);
     },
 
 
@@ -95,7 +100,9 @@ module.exports = {
 
 
     remove: function () {
-      $bb.delete(this.getAPIURL(true)).done(function () {
+      var config = {data: {owner: this.comment.owner}}
+
+      $bb.delete(this.getAPIURL(true), config).done(function () {
         // Check if has children
         this.deleted = true;
         if (!this.children.length) this.kill();

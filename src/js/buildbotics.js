@@ -8,6 +8,8 @@ function api_cb(method, url, data, config) {
     dataType: 'json'
   }, config);
 
+  data = data || config.data;
+
   if (typeof data == 'object') {
     config.data = JSON.stringify(data);
     config.contentType = 'application/json; charset=utf-8';
