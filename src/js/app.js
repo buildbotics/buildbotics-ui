@@ -254,7 +254,6 @@ module.exports = new Vue({
     loggedIn: function (user_data) {
       this.user_data = user_data;
       var user = user_data.profile;
-      console.debug('Logged in as ' + user.name);
 
       // Following
       this.following = {}
@@ -283,9 +282,12 @@ module.exports = new Vue({
       $.removeCookie('buildbotics.login-path');
       if (path == '/' || path == '/register') path = '/dashboard';
       if (path) page(path);
+      console.debug('login-path=' + path);
 
       // Event
       this.$broadcast('logged-in', user, this);
+
+      console.debug('Logged in as ' + user.name);
     },
 
 
@@ -343,27 +345,23 @@ module.exports = new Vue({
 
 
     logout: function () {
-      var self = this;
-
       var currentPage = this.currentPage;
       var subsection = this.subsection;
       this.currentPage = 'loading';
 
       $bb.get('auth/logout').done(function () {
-        self.loggedOut()
-        self.currentPage = currentPage;
-        self.subsection = subsection;
-      });
+        this.loggedOut()
+        this.currentPage = currentPage;
+        this.subsection = subsection;
+      }.bind(this));
     },
 
 
     login: function () {
-      var self = this;
-
       $bb.get('auth/user').done(function (data) {
         if (typeof data.profile != 'undefined') {
           if (typeof data.profile.lastseen != 'undefined') {
-            self.loggedIn(data);
+            this.loggedIn(data);
             return;
 
           } else if (typeof data.profile.name != 'undefined') {
@@ -372,9 +370,9 @@ module.exports = new Vue({
           }
         }
 
-        self.loggedOut();
+        this.loggedOut();
 
-      }).always(function () {
+      }.bind(this)).always(function () {
         this.authenticating = false
       }.bind(this))
     },
@@ -384,7 +382,7 @@ module.exports = new Vue({
       var path = location.pathname;
       if (location.hash) path += location.hash;
       $.removeCookie('buildbotics.login-path');
-      $.cookie('buildbotics.login-path', path, {path: '/dashboard'});
+      $.cookie('buildbotics.login-path', path, {path: '/'});
 
       page('/login');
     },
