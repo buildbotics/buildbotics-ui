@@ -63,6 +63,21 @@ module.exports = new Vue({
         .html(config.body)
         .appendTo(this.dialog);
 
+      function capture_clicks(body) {
+        body.find('a').click(function (e) {
+          if (/^\/docs\//.test(e.target.pathname)) {
+            $.get(e.target.pathname + '.html')
+              .done(function (data) {
+                body.html(data);
+                capture_clicks(body);
+              })
+
+            e.preventDefault();
+          }
+        })
+      }
+      capture_clicks(body);
+
       if (config.width)
         this.dialog.css({
           width: config.width + 'px',

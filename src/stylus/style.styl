@@ -408,41 +408,34 @@ html, body
 
 // Login
 .login
-  font-size 20pt
-
   > div
     margin 1em
+    font-size 16pt
 
     .fa
       font-size 24pt
-      width 1.5em
-      color #fff
-      border-radius 20px
-      height 40px
-      width 40px
-      line-height 42px
-      text-align center
-      margin-right 0.25em
+      width 1.125em
+      vertical-align middle
 
     &.google a
       color google_color
       .fa
-        background-color google_color
+        color google_color
 
     &.facebook a
       color facebook_color
       .fa
-        background-color facebook_color
+        color facebook_color
 
     &.twitter a
       color twitter_color
       .fa
-        background-color twitter_color
+        color twitter_color
 
     &.github a
       color github_color
       .fa
-        background-color github_color
+        color github_color
 
 
 // Register
@@ -2136,9 +2129,6 @@ size_page_content( 800px, 450px)
 size_page_content( 750px, 750px)
 
 @media (max-width: 750px)
-  h1
-    font-size 18pt
-
   #page #header-content
     > *
       float none
@@ -2162,3 +2152,11 @@ size_page_content( 750px, 750px)
       background none
       border none
       padding 0
+
+
+@media (max-width: 500px)
+  h1
+    font-size 18pt
+
+  .events .event
+    font-size 10pt

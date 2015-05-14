@@ -128,7 +128,23 @@ module.exports = {
           self.checking = false;
           self.valid = self.isValid(self.name) && self.available;
         })
-    })
+    }),
+
+
+    terms: function () {
+      $.get('/docs/terms.html')
+        .done(function (data) {
+          var w = window.innerWidth * 0.8;
+          var h = window.innerHeight * 0.7;
+
+          notify.notify({title: 'Terms of Use', body: data,
+                         width: w, height: h});
+
+        }).fail(function () {
+          notify.error('Failed to load terms of use',
+                       'Sorry something\'s wrong.');
+        })
+    }
   },
 
 

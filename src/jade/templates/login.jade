@@ -1,9 +1,13 @@
 script#login-template(type="text/x-template")
   bb-page-layout
     .header-content
-      | Login or Register with:
+      .breadcrumbs
+        .fa.fa-sign-in
+        | Login or register
 
     .page-content.login
+      p Please login with one of the following services:
+
       .google: a(href="/api/auth/google" target="_top")
         .fa.fa-google
         | Google

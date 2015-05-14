@@ -283,7 +283,6 @@ module.exports = new Vue({
       if (path == '/' || path == '/register' || path == '/login')
         path = '/dashboard';
       if (path) page(path);
-      console.debug('login-path=' + path);
 
       // Event
       this.$broadcast('logged-in', user, this);

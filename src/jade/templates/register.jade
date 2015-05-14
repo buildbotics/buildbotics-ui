@@ -1,7 +1,9 @@
 script#register-template(type="text/x-template")
   bb-page-layout
     .header-content
-      | New user registration
+      .breadcrumbs
+        .fa.fa-user
+        | New user registration
 
     .page-content
       p Please choose a user name.
@@ -41,7 +43,7 @@ script#register-template(type="text/x-template")
         label
           input(type="checkbox" v-model="agree")
           = 'I have read and agree to the '
-        a(href="/docs/terms" target="_blank") Buildbotics LLC Terms of Use
+        a(v-on="click:terms") Buildbotics LLC Terms of Use
         | .
 
       .actions
