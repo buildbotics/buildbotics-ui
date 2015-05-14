@@ -280,7 +280,8 @@ module.exports = new Vue({
       // Redirect
       var path = $.cookie('buildbotics.login-path');
       $.removeCookie('buildbotics.login-path');
-      if (path == '/' || path == '/register') path = '/dashboard';
+      if (path == '/' || path == '/register' || path == '/login')
+        path = '/dashboard';
       if (path) page(path);
       console.debug('login-path=' + path);
 
