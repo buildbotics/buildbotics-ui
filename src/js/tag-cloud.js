@@ -41,8 +41,15 @@ function hitTest(target, placed) {
 }
 
 
-module.exports = function(element, word_array, options) {
-  element = $(element);
+module.exports = function(_element, word_array, options) {
+  // Create dummy element
+  var element = $('<div>')
+    .css({
+      'float': 'left',
+      'position': 'absolute',
+      'white-space': 'nowrap',
+      'visibility': 'hidden'
+    }).appendTo('body');
 
   // Default options value
   var default_options = {
@@ -165,4 +172,12 @@ module.exports = function(element, word_array, options) {
 
     element.height(maxBottom - minTop + 10);
   }
+
+  // Attach to real element
+  element
+    .remove()
+    .css({'visibility': '', 'float': '', 'position': ''})
+
+  $(_element)
+    .replaceWith(element)
 }

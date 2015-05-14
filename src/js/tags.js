@@ -23,17 +23,18 @@ module.exports = {
           weight: tag.count,
           link: {
             href: '/tags/' + tag.name,
-            title: 'The tag "' + tag.name + '" occurs ' + tag.count + ' times.'
+            title:
+            'The tag "' + tag.name + '" occurs ' + tag.count + ' times.'
           }
         })
       }
 
       $(this.$el).html('');
 
-      cloud(this.$el, words, {
-        width: $(this.$el).width(),
-        height: $(this.$el).width() / 1.618
-      });
+      var width = window.innerWidth * 0.8;
+      if (700 < width) width = 700.0;
+
+      cloud(this.$el, words, {width: width, height: width / 1.618});
     }
   }
 }
