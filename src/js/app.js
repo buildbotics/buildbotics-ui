@@ -382,8 +382,10 @@ module.exports = new Vue({
     initiateLogin: function () {
       var path = location.pathname;
       if (location.hash) path += location.hash;
-      $.removeCookie('buildbotics.login-path');
-      $.cookie('buildbotics.login-path', path, {path: '/'});
+      if (path != '/login') {
+        $.removeCookie('buildbotics.login-path');
+        $.cookie('buildbotics.login-path', path, {path: '/'});
+      }
 
       page('/login');
     },
