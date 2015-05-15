@@ -1,9 +1,9 @@
 # About Buildbotics
 
 ## Mission
-Our main goal is to make desktop manufacturing easier.  CNC, 3D printers and LASER cutters are awesome tools but using them can be both expensive and challenging.  Fortunately many companies are beginning to produce relative cheap machines but the software to run them effectively is both costly and difficult to use.  We believe desktop manufacturing is for everyone, not just technicians.
+Our main goal is to make desktop manufacturing easier.  CNC, 3D printers and LASER cutters are awesome tools but using them can be both expensive and challenging.  Fortunately, many companies are beginning to produce relative cheap machines but the software to run them effectively is both costly and difficult to use.  We believe desktop manufacturing is for everyone.
 
-Buildbotics, [OpenSCAM](http://openscam.org/) and [TPL](http://tplang.org) are our answers to these problems.  We still have a long way to go but we are looking forward to working with and helping to expand this vibrant community.
+Buildbotics.com, [OpenSCAM](http://openscam.org/) and [TPL](http://tplang.org) are our answers to these problems.  We still have a long way to go but we are looking forward to working with and helping to expand this vibrant community.
 
 ## The Company
 Buildbotics LLC is a California-based Limited Liability Corporation founded by Joseph Coffland and Doug Coffland (yes, we're related) in 2014.
