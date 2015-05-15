@@ -87,7 +87,7 @@ var util = {
 
 
   prettyURL: function (url) {
-    return url ? url.replace(/^https?:\/\//, '') : '';
+    return url ? url.replace(/^https?:\/\//, '').replace(/\/$/, '') : '';
   },
 
 
