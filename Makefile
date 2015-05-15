@@ -19,7 +19,7 @@ STATIC := $(shell find static -type f \! -name *~)
 STATIC := $(patsubst static/%,http/%,$(STATIC))
 TEMPLS := $(wildcard src/jade/templates/*.jade)
 
-WATCH  := src/jade src/js src/stylus static Makefile
+WATCH  := src/jade src/js src/stylus src/docs static Makefile
 
 all: docs html css js static
 
