@@ -498,6 +498,39 @@ html, body
     font-size 36pt
     color #444
 
+  .expand
+    max-width 20em
+    margin auto
+
+    tt
+      font-family Courier
+
+    b
+      font-weight normal
+
+    i
+      font-style normal
+      text-decoration underline
+      color link_color
+      cursor pointer
+
+      &:hover
+        color link_hover_color
+
+    i > b
+      display none
+
+    i.expanded
+      text-decoration none
+      cursor inherit
+      color inherit
+
+      &:hover
+        color inherit
+
+    i.expanded > b
+      display inline
+
   #landing-intro
     //background-color #dedede
     //background url(/images/home-bg-gray.jpg)

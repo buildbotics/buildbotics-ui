@@ -18,5 +18,12 @@ module.exports = {
   },
 
 
+  ready: function () {
+    $(this.$el).find('.expand i').click(function () {
+      $(this).addClass('expanded');
+    })
+  },
+
+
   mixins: [require('./login-listener')()]
 }

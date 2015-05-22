@@ -11,10 +11,18 @@ script#landing-template(type="text/x-template")
     a.down.fa.fa-chevron-down(v-on="click:smoothScroll" href="#landing-info")
 
   #landing-info
-    h1
-      | Create and build almost anything using <br/>
-      | CNCs, 3D printers, LASER cutters and <br/>
-      | Open-Source software.
+    h1.expand
+      | Build almost anything using
+      | <i>desktop manufacturing machines<b> such as
+      | <i>CNCs<b> for milling materials like wood, plastic, and metal</b></i>,
+      | <i>3D printers<b> which build shapes in layers from plastic</b></i> &
+      | <i>LASER cutters<b> to cut wood, cardboard, plastic & vinyl</b></i>
+      | </i>, all with <i>Open-Source software<b> like
+      | <i><tt>TPL</tt><b>, a new tool for creating machine tool paths</b></i>,
+      | <i><tt>OpenSCAM</tt><b>, a fast 3-axis CNC simulator</b></i>,
+      | <i><b>2D drawing programs </b><tt>Inkscape</tt> & <tt>LibreCAD</tt></i>,
+      | <i><tt>OpenSCAD</tt><b>, a powerful 3D modeling tool</b></i>
+      | and many others</b></i>.
 
     .panel
       bb-icon-link(href="/explore/creations" icon="/images/explore.png"
@@ -37,13 +45,15 @@ script#landing-template(type="text/x-template")
       bb-icon-link(href="/create" icon="/images/create.png" text="Create")
 
       ul
-        li Cut 2D & 3D shapes.
-        li Engrave text.
-        li Share your projects.
+        li Create projects.
+        li Host your files.
+        li Share your knolwedge.
 
     a.down.fa.fa-chevron-down(v-on="click:smoothScroll" href="#landing-steps")
 
   #landing-steps
+    h1 Follow a step-by-step process.
+
     .section.design
       img(src="/images/design.png")
 
