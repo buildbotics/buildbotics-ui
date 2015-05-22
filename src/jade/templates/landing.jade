@@ -8,30 +8,29 @@ script#landing-template(type="text/x-template")
         .right botics
       .byline Desktop manufacturing for everyone.
 
-    .login
-      a(v-show="!isLoggedIn" href="/login")
-        button.success Join the revolution.
-      a(v-show="isLoggedIn" href="/dashboard")
-        button.success View your dashboard.
-
     a.down.fa.fa-chevron-down(v-on="click:smoothScroll" href="#landing-info")
 
   #landing-info
+    h1
+      | Create and build almost anything using <br/>
+      | CNCs, 3D printers, LASER cutters and <br/>
+      | Open-Source software.
+
     .panel
       bb-icon-link(href="/explore/creations" icon="/images/explore.png"
         text="Explore")
 
       ul
+        li Download free files.
         li Follow top designers.
-        li Download project files.
         li Star your favorites.
 
     .panel
       bb-icon-link(href="/learn" icon="/images/learn.png" text="Learn")
 
       ul
-        li Follow our tutorials.
-        li Learn Open-Source software.
+        li Follow tutorials.
+        li Learn machining software.
         li Master desktop manufacturing.
 
     .panel
@@ -40,9 +39,7 @@ script#landing-template(type="text/x-template")
       ul
         li Cut 2D & 3D shapes.
         li Engrave text.
-        li Share your own projects.
-
-    h1 Create almost anything, step-by-step, using free software.
+        li Share your projects.
 
     a.down.fa.fa-chevron-down(v-on="click:smoothScroll" href="#landing-steps")
 
