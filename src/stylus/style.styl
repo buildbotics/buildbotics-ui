@@ -212,7 +212,7 @@ video
 // Body
 body
   background-image url(/images/grid.png)
-  background-color #fefefe
+  background-color #fdfdfd
   margin 0
   font-family 'Roboto Slab', serif
 
@@ -823,6 +823,9 @@ a.icon-link
     font-family "Times New Roman", Times, serif
     text-align left
     position relative
+    border-radius 3px
+    border 1px solid border_color
+    background #fff
 
     &.draft
       .image:before
@@ -848,10 +851,10 @@ a.icon-link
         opacity 0.25
 
     .image
-      width thing_width - 2px
-      height thing_height - 2px
-      border-radius 6px
-      border 1px solid border_color
+      width thing_width
+      height thing_height
+      border-top 1px solid #fff
+      border-bottom 1px solid #fff
       background header_color
       background-image url('/images/spinner.gif')
       background-repeat no-repeat
@@ -860,13 +863,13 @@ a.icon-link
 
       img
         background text_bg_color
-        max-width thing_width - 2px
-        height thing_height - 2px
+        max-width thing_width
+        height thing_height
         margin auto
         display block
 
         &.stretch
-          width thing_width - 2px
+          width thing_width
 
       .missing
         background-color #eee
@@ -877,11 +880,12 @@ a.icon-link
           line-height thing_height
 
     a:hover .image
-      border 1px solid #aaa
+      border-top 1px solid border_color
+      border-bottom 1px solid border_color
       opacity 0.8
 
     .info
-      margin 0 0.2em
+      margin 0 4px
 
     .owner
       white-space nowrap
@@ -895,15 +899,16 @@ a.icon-link
       &:hover span
         color link_hover_color
 
-    .title, .owner, .stars, .comments
+    .title, .owner, .stars, .comments, .views, .downloads
       display block
       white-space nowrap
+      padding 4px 0
 
     .title
       text-overflow ellipsis
       overflow hidden
-      font-size 18pt
-      margin 0 0.2em
+      font-size 16pt
+      margin 0 4px
       clear both
       color text_color
 
