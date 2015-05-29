@@ -4,11 +4,11 @@ script#file-manager-template(type="text/x-template")
       div(v-class="dropzone:canEdit")
         table.table.table-striped
           tr
-            th.preview Preview
-            th.name Name
+            th.name File
+            th.caption Caption
             th.size Size
             th.downloads Downloads
-            th.actions Actions
+            th.actions(v-if="canEdit") Actions
 
           tr(v-repeat="file:files" v-component="bb-file")
 

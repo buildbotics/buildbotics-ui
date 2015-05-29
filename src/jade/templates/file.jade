@@ -1,18 +1,13 @@
 script#file-template(type="text/x-template")
-  td.preview
-    a(v-attr="href:file.url ? file.url + '?count=1' : '#'" target="_blank"
-      title="Download {{file.name}}." v-on="click:download()")
-      img(v-if="showThumb()"
-        v-attr="src:file.src || (file.url + '?size=thumb')")
-      .fa(v-if="!showThumb()" v-class="util.getIcon(file.type)")
-
   td.name
+    .fa(v-class="util.getIcon(file.type)")
     span(v-show="!file.url") {{file.name}}
     a(v-show="file.url" href="{{file.url}}?count=1" target="_blank"
       title="Download {{file.name}}." v-on="click:download()") {{file.name}}
-    .caption {{file.caption}}
 
-  td.size
+  td.caption {{file.caption}}
+
+  td.size(title="{{file.size}} bytes")
     div(v-progressbar="file.percent" v-show="file.uploading"
       v-class="waiting:!file.percent")
       span(v-show="file.percent") {{file.percent}}%
@@ -23,23 +18,19 @@ script#file-template(type="text/x-template")
   td.downloads(title="{{file.downloads}} downloads")
     | {{file.downloads | humanNumber}}
 
-  td.actions
+  td.actions(v-if="canEdit")
     .delete
-      a.fa.fa-trash-o(v-on="click:askDelete()" v-show="canEdit"
-        title="Delete file.")
+      a.fa.fa-trash-o(v-on="click:askDelete()" title="Delete file.")
 
       bb-modal(ref="delete" buttons="cancel delete" callout="top-right")
         .modal-header Delete this file?
 
-    a.fa.fa-arrow-up(v-show="canEdit" v-class="disabled:!canUp()"
-      v-on="click:up()" title="Move up.")
+    a.fa.fa-arrow-up(v-class="disabled:!canUp()" v-on="click:up()"
+      title="Move up.")
 
-    a.fa.fa-arrow-down(v-show="canEdit" v-class="disabled:!canDown()"
+    a.fa.fa-arrow-down(v-class="disabled:!canDown()"
       v-on="click:down()" title="Move down.")
 
     .edit
-      a.fa.fa-edit(v-show="canEdit" v-on="click:edit()" title="Edit details.")
+      a.fa.fa-edit(v-on="click:edit()" title="Edit details.")
       file-editor
-
-    a.fa.fa-download(v-show="!canEdit" v-on="click:download()" target="_blank"
-      href="{{file.url}}?count=1" title="Download file")

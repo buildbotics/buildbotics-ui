@@ -63,7 +63,6 @@ module.exports = new Vue({
     'bb-icon-link': require('./icon-link'),
 
     'file-manager': require('./file-manager'),
-    'file-viewer': require('./file-viewer'),
     'markdown-editor': require('./markdown'),
     'tag-editor': require('./tag-editor'),
     'subsection-menu': require('./subsection-menu'),
