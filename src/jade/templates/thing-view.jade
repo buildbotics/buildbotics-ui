@@ -5,7 +5,7 @@ script#thing-view-template(type="text/x-template")
 
     .stats
       div
-        a.value(href="#downloads") {{thing.downloads | humanNumber}}
+        a.value(href="#files") {{thing.downloads | humanNumber}}
         .label Files
 
       div
@@ -62,8 +62,8 @@ script#thing-view-template(type="text/x-template")
       .weak(v-show="!thing.instructions") (No instructions)
 
     .subsection(v-if="downloads.length")
-      h1#downloads Downloads
-      file-manager(files="{{downloads}}")
+      h1#files Files
+      file-viewer(files="{{downloads}}")
       thing-license
 
     .subsection

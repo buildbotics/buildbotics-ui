@@ -1832,6 +1832,45 @@ iframe.youtube
     left 12px
 
 
+// File viewer
+.file-viewer
+  border 1px solid border_color
+  border-radius 3px
+  background-color text_bg_color
+  width 100%
+
+  td, th
+    font-size 10pt
+    padding 0.5em 0.75em
+
+  th
+    color medium_text_color
+    text-align left
+
+  td
+    overflow hidden
+    text-overflow ellipsis
+
+    .fa
+      width 1.5em
+      font-size 12pt
+      color light_text_color
+      text-align center
+
+  th.name
+    padding-left 2.5em
+
+  td.name
+    white-space nowrap
+
+  td.caption
+    width 90%
+    color text_color
+
+  td.downloads
+    text-align center
+
+
 // File manager
 .file-manager
   border 1px solid border_color

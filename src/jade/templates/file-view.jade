@@ -1,0 +1,10 @@
+script#file-view-template(type="text/x-template")
+  td.name
+    .fa(v-class="util.getIcon(file.type)")
+    a(v-show="file.url" href="{{file.url}}?count=1" target="_blank"
+      title="Download {{file.name}}.") {{file.name}}
+
+  td.caption {{file.caption}}
+
+  td.downloads(title="{{file.downloads}} downloads.")
+    | {{file.downloads | humanNumber}}

@@ -1,0 +1,8 @@
+script#file-viewer-template(type="text/x-template")
+  table.file-viewer.table.table-striped
+    tr
+      th.name File
+      th.caption Caption
+      th.downloads Downloads
+
+    tr(v-repeat="file:files" v-component="file-view")
