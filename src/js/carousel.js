@@ -7,10 +7,14 @@ module.exports = {
   replace: true,
   template: '#carousel-template',
   paramAttributes: ['media', 'dots'],
+  components: {'bb-media': require('./media')},
 
 
   data: function () {
-    return {dots: true}
+    return {
+      dots: true,
+      isFullscreen: false
+    }
   },
 
 
@@ -29,9 +33,10 @@ module.exports = {
       // Changing class
       this.slick = element.slick({
         dots: this.dots !== 'false',
+        infinite: false,
 
         onBeforeChange: function () {
-          element.addClass('changing');
+          //element.addClass('changing');
         },
 
         onAfterChange: function () {
@@ -82,11 +87,15 @@ module.exports = {
 
 
     fullscreen: function (enable) {
-      if (typeof enable == 'undefined') $(this.$el).toggleClass('fullscreen');
-      else if (enable) $(this.$el).addClass('fullscreen');
+      if (typeof enable == 'undefined')
+        enable = !$(this.$el).hasClass('fullscreen');
+
+      if (enable) $(this.$el).addClass('fullscreen');
       else $(this.$el).removeClass('fullscreen');
 
       $(this.$el).slickSetOption('dots', this.dots !== 'false', true);
+
+      this.isFullscreen = enable;
     }
   }
 }

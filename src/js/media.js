@@ -1,14 +1,15 @@
 'use strict'
 
-var util = require('./util');
-
 
 module.exports = {
+  inherit: true,
   replace: true,
   template: '#media-template',
 
-  computed: {
-    isImage: function () {return util.isImage(this.type);},
-    isVideo: function () {return util.isVideo(this.type);}
+
+  data: function () {
+    return {
+      util: require('./util'),
+    }
   }
 }

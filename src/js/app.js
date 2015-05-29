@@ -58,7 +58,6 @@ module.exports = new Vue({
     'bb-user-status': require('./user-status'),
     'bb-modal': require('./modal'),
     'bb-carousel': require('./carousel'),
-    'bb-media': require('./media'),
     'bb-avatar': require('./avatar'),
     'bb-icon-link': require('./icon-link'),
 

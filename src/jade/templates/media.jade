@@ -1,6 +1,7 @@
 script#media-template(type="text/x-template")
   .carousel-media
     // Note data-lazy attribute could be used to lazy load images
-    img(v-if="isImage" v-attr="src:url + '?size=large'")
-    video(v-if="isVideo" controls)
+    img(v-if="util.isImage(type)"
+      v-attr="src:url + '?size=' + (isFullscreen ? 'xlarge' : 'small')")
+    video(v-if="util.isVideo(type)" controls)
       source(v-attr="src:url" type="{{type}}")
