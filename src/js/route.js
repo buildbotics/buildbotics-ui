@@ -139,6 +139,7 @@ module.exports = {
     //page('*', page_debug);
     page('*', page_callback);
     page('/', function () {app.currentPage = 'landing'});
+    page('/controller', function () {app.currentPage = 'controller'});
     page('/dashboard', function () {app.currentPage = 'dashboard'});
     page('/docs/(.*)', docs_page);
     page('/explore/:type', explore_page);

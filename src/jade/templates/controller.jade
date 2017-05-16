@@ -1,0 +1,235 @@
+script#controller-template(type="text/x-template")
+  bb-page-layout
+    .header-content
+      .breadcrumbs
+        .fa.fa-puzzle-piece(title="Buildbotics CNC Controller")
+        | The Buildbotics CNC Controller
+
+    .page-content
+      center
+        img(src="/controller/buildbotics_controller_front_left.png")
+
+      p
+        | Consumer grade desktop CNCs, 3D printers and LASER cutters are
+        | becoming more and more prevalent, yet most of these systems come with
+        | low quality, feature poor electronics or high price tags.  We have
+        | created an Open-Source CNC controller with an advanced stepper motor
+        | drive system comparable to much more expensive commercial systems, for
+        | a fraction of the price and way more hackability.
+
+      p
+        | The Buildbotics CNC controller is built into a rugged, fanless,
+        | aluminum enclosure making it safe and reliable in harsh environments.
+        | The accompanying wiring system makes the usual headache of connecting
+        | all of the components of CNC, 3D printer or LASER systems a breeze.
+        | Configuration and control from a smartphone or laptop is a piece of
+        | cake using the built-in Web app. and our Open-Source CNC project
+        | design software provides a complete software toolchain for CNC
+        | projects.
+
+      p
+        | Whether upgrading an existing system, building your own machine from
+        | scratch or designing a new CNC product, the Buildbotics CNC controller
+        | offers easy integration, high-end performance, a complete software
+        | system and a community of users right out of the box.
+
+      p
+        | The next few paragraphs will go over the key features of the
+        | Buildbotics CNC controller and why you should consider using it
+        | for your next CNC build or retrofit.
+
+      center
+        img(src="/controller/buildbotics_anatomy-wo_banner.png")
+
+      h2 Physical Characteristics
+      p
+        | The Buildbotics CNC controller comes in a 190x157x70mm
+        | (7 1/2 x 6 3/16 x 2 3/4in) anodized aluminum case which can be
+        | easily attached to a CNC cabinet using four screws.  Its fanless
+        | operation means you don't have to worry about mechanical failure
+        | or cleaning air filters.
+
+      h2 Stepper Motor Drive
+      p
+        | Four separate channels drive most common NEMA 17 or 23 stepper motors
+        | at up to 30v at up to 6A each.  128 microstepping provides smooth
+        | operation and high accuracy and repeatability.  With step rates in
+        | excess of 200k/sec, very high speeds are achievable with.  S-curve
+        | acceleration smooths out starts and stops, reducing mechanical wear
+        | and further increases achievable motor speeds.
+
+      p
+        | The first three drive channels are ideal for 3-axis Cartesian systems.
+        | The forth channel can be used in parallel to drive axes with multiple
+        | motors, as a fourth rotary axis or as a filament feeder in a 3D
+        | printer.
+
+      h2 User Interfaces
+      p
+        | The Buildbotics CNC controller can be controlled using several
+        | different software interfaces.  These include the Web interface,
+        | USB gamepad and LCD screen and CAMotics CNC simulator.
+
+      h3 Web Interface
+      center
+        img(width=400, src="/controller/controller_web_interface.png")
+
+      p
+        | Using the Web interface the controller can be configured and commanded
+        | over WiFi or wired Ethernet from any computer or smartphone with a
+        | browser.  The machine can be operated completely from this interface.
+        | Configuration tabs provide access to motors, spindles and switch
+        | settings.  Controller configurations can be backed up and restored or
+        | copied to other controllers.  The admin tab allows you to check for
+        | software upgrades containing bug fixes and new features that can be
+        | loaded over the network with the click of a button.
+
+      h3 Gamepad & LCD Interface
+      center
+        img(width=300, src="/controller/gamepad.png")
+        img(width=400, src="/controller/lcd.png")
+
+      p
+        | For a more hands on approach, a USB gamepad can be plugged in to one
+        | of four USB ports to provide highly sensitive and accurate tool head
+        | positioning and machine zeroing.  In combination with front panel LCD
+        | screen, GCode jobs can be selected, started and stopped.  Position,
+        | speed, feed, tool and status information are displayed on the LCD.
+
+      h3 CAMotics
+      center
+        img(width=400, src="/controller/camotics.png")
+
+      p
+        | Running CNC programs is especially easy using the Open-Source CNC
+        | simulation software CAMotics.  After designing, simulating and
+        | configuring your CNC project for your machine, the
+        | resulting GCode can be sent directly to the CNC controller for
+        | execution.  CNC movement is synchronized in the simulator to provide
+        | useful feedback about the machine position in the project and
+        | how much longer it should take to complete.
+
+      h2 Power system
+      p
+        | Some special attention must be given to the power system as a lot of
+        | engineering went in to making the Buildbotics CNC controller safe to
+        | operate, reliable and compatible with a wide range of power sources.
+        | Some of the safety features include: active current limiting,
+        | short-circuit protection, reverse voltage protection, over-temperature
+        | shutdown, ESD protection, and isolation between the USB &amp;
+        | Ethernet ports and the high-voltage, high-current motor drive system.
+
+      center
+        img(width=400, src="/controller/meanwell_c6p_adapter.png")
+        img(width=400, src="/controller/meanwell_enclosed_power_supply.png")
+
+      p
+        | Power supplies from 12-30v can be used to supply up to 25A of current
+        | to motors and external loads such as vacuum tables, heated beds or
+        | coolant systems.  The controller uses a standard C6P plug making it
+        | pin compatible with convenient high watt wall adapters from Mean Well.
+        | Our premade power cables also make it easy to attach to other power
+        | supplies.
+
+      p
+        | The 25A current budget is actively monitored and controlled to make
+        | sure the system is never loaded to dangerous levels.  As an added
+        | precaution the controller's internal temperature is monitored to
+        | shutdown the system in case temperatures become unsafe.
+
+      p
+        | You can rest assured that devices attached to the USB or Ethernet
+        | ports are isolated from short-circuits, reversed wiring or inductive
+        | kickbacks caused by accidentaly disconnecting powered motors.
+
+      h2 Spindle Control
+
+      center
+        img(width=400, src="/controller/pwm_spindle.png")
+        img(width=400, src="/controller/vfd_and_spindle.png")
+
+      p
+        | Two types of common spindle drivers can be used to regulate spindle
+        | speeds.  These are PWM spindles drivers and RS485 controlled VFD
+        | drivers.
+
+      h3 PWM Spindles
+      p
+        | The PWM interface provides spindle enable, direction and
+        | speed control outputs to drive many common drivers for small to
+        | medium sized spindles.  Timing parameters can be configured through
+        | the Web interface to match most drivers needs.
+
+      h3 RS485 VFD Spindles
+      p
+        | The RS485 interface allows
+        | for direct control of VFDs for high power, low runout, water or air
+        | cooled spindles.  A twisted pair of wires is all it takes to connect
+        | this type of spindle.  Water cooling systems can be switched on via
+        | the load switches.
+
+      h2 Load Switches
+
+      p
+        | Two high current MOSFET switches allow driving external loads such as
+        | coolant systems, 3D printer heated beds or hot-ends, Vacuum tables,
+        | dust collection systems, etc. from the same power supply the motors
+        | use.  These switches are protected from short-circuits and over
+        | current.  If you need to control AC voltages, inexpensive SCRs can be
+        | attached to the low-voltage switch outputs on the I/O connector.
+        | The load switches can be controlled on-the-fly via GCode commands.
+
+      h2 25-pin I/O Connector
+
+      center
+        img(width=400, src="/controller/DB25-M2_breakout.png")
+        img(width=400, src="/controller/backpanel.png")
+
+      p
+        | The backpanel sports a 25-pin DSub I/O connector which mates with
+        | a screw-terminal I/O expander for easy wiring.
+        | This connector provides inputs for emergency stop,
+        | up to eight limit switches and extern probes for measuring tool
+        | length or z-axis surface mapping.  A fault output signal can be used
+        | to alert other equipment about emergency stop conditions.
+
+      h2 Integrated wiring system
+
+      center
+        img(width=400, src="/controller/cables_labeled.png")
+
+      p
+        | One of the most convenient features of the Buildbotics CNC controller
+        | is that it comes with it's own premade cables for the motors, load
+        | switches and power supply.  This greatly reduces wiring complexity and
+        | cuts down on assembly time and additional cost.
+
+      p
+        | These cables have a Molex connector on one end, that snaps in to the
+        | back of the controller, and bare wires on the other end, which can be
+        | easily attached to external devices with butt connectors, wire nuts
+        | or other connectors.  Cables range in length from 1.5m (5ft) to 4.5m
+        | (15ft).
+
+      h2 Summary
+
+      p
+        | The Buildbotics CNC controller offers advanced stepper motor drivers,
+        | backed by a safety conscious and reliable power system, in a
+        | compact anodized aluminum enclosure.  It is supported by a suite of
+        | free and Open-Source software for designing, simulating and running
+        | CNC programs and is easy to command and control from any smartphone,
+        | laptop or desktop computer.  Through its various backpanel
+        | connections, it integrates a wide range of CNC components that can
+        | be connected with the provided preassembled cables enabling
+        | you to build 3D printers, LASER cutters, water jets, plasma torches
+        | or whatever CNC systems you dream up.  By purchasing this controller
+        | you will not only be buying a great product but you will be supporting
+        | continued development of projects like the CAMotics CNC simulator and
+        | further development of the Buildbotics controller itself.
+
+      h2 Availability
+
+      p
+        | The Buildbotics CNC controller is currently in pre-production beta
+        | testing.  It will be available for pre-sale in the fall of 2017.

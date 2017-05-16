@@ -38,6 +38,7 @@ module.exports = new Vue({
     'profile-page': require('./profile'),
     'tag-page': require('./tag'),
     'not-found-page': {template: '#not-found-template'},
+    'controller-page': require('./controller'),
 
     'bb-page-layout': {replace: true, template: '#page-layout-template'},
 
