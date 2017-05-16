@@ -3,7 +3,6 @@ DIR := $(shell dirname $(lastword $(MAKEFILE_LIST)))
 NODE_MODS  := $(DIR)/node_modules
 JADE       := $(NODE_MODS)/jade/bin/jade.js
 STYLUS     := $(NODE_MODS)/stylus/bin/stylus
-AP         := $(NODE_MODS)/autoprefixer/autoprefixer
 BROWSERIFY := $(NODE_MODS)/browserify/bin/cmd.js
 MARKED     := $(NODE_MODS)/marked/bin/marked
 
@@ -72,7 +71,8 @@ http/%.html: src/jade/%.jade $(wildcard src/jade/*.jade) node_modules
 
 build/css/%.css: src/stylus/%.styl node_modules
 	@mkdir -p $(shell dirname $@)
-	$(STYLUS) -I styles < $< | $(AP) -b "> 1%" >$@ || (rm -f $@; exit 1)
+	$(STYLUS) -I styles --use ./node_modules/autoprefixer-stylus < $< >$@ || \
+	  (rm -f $@; exit 1)
 
 watch:
 	@clear
