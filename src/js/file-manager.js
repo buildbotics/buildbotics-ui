@@ -57,7 +57,7 @@ module.exports = {
     canEdit: function (newValue, oldValue) {
       if (newValue) this.initUploader({
         filters: {
-          max_file_size: '10mb',
+          max_file_size: '32mb',
           no_executables: true,
           prevent_duplicates: true
         }
