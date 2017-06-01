@@ -22,6 +22,7 @@ module.exports = new Vue({
 
     close: function () {
       this.dialog.remove();
+      this.dialog = undefined;
       this.removeOverlay();
     },
 
@@ -49,8 +50,8 @@ module.exports = new Vue({
         config.buttons || [{label: 'Ok', klass: 'success', response: 'ok'}];
       var btns = buttons.create(config.buttons, this.response);
 
-      this.dialog = $('<div>')
-        .addClass('notify-dialog');
+      if (typeof this.dialog == 'undefined')
+        this.dialog = $('<div>').addClass('notify-dialog');
 
       $('<div>')
         .addClass('notify-dialog-header')
