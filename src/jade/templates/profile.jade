@@ -19,7 +19,7 @@ script#profile-template(type="text/x-template")
 
     .page-content
       .edit-menu(v-show="subsection != 'view'")
-        a(v-repeat="getEditSubsections()" href="#{{$value}}"
+        a(v-repeat="getEditSubsections()" href="{{'#' + $value}}"
           v-class="'subsection-item-' + $value, active:$value == subsection")
           | {{getSubsectionTitle($value)}}
 
