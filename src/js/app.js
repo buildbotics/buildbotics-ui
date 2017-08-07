@@ -7,7 +7,7 @@ var debounce = require('./debounce');
 
 
 module.exports = new Vue({
-  el: 'body',
+  el: 'html',
 
 
   data: {
