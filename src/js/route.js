@@ -32,6 +32,10 @@ function page_callback(ctx, next) {
         backingOut = false;
       })
     })
+
+  // Set title
+  document.title = 'Buildbotics' +
+    (ctx.pathname == '/' ? '' : ctx.pathname.replace(/\//g, ' - '));
 }
 
 
@@ -50,20 +54,20 @@ function docs_page(ctx, next) {
       app.$set('docContent', '');
 
     }).always(function () {
-      app.currentPage = 'docs';
+      app.setPage('docs');
       window.scrollTo(0, 0);
     })
 }
 
 
 function explore_page(ctx) {
-  app.currentPage = 'explore';
+  app.setPage('explore');
   app.$set('exploreType', ctx.params.type);
 }
 
 
 function tag_page(ctx) {
-  app.currentPage = 'tag';
+  app.setPage('tag');
   app.tag = ctx.params.tag;
 }
 
@@ -80,19 +84,19 @@ function profile_page(ctx) {
     return;
   }
 
-  app.currentPage = 'loading';
+  app.setPage('loading');
 
   $bb.get('profiles/' + profile)
     .done(function (data) {
       app.profileData = data;
-      app.currentPage = 'profile';
+      app.setPage('profile');
       app.subsection = ctx.hash;
 
       window.scrollTo(0, 0);
       util.scrollTo('#' + ctx.hash);
 
     }).fail(function () {
-      app.currentPage = 'not-found';
+      app.setPage('not-found');
     })
 }
 
@@ -110,12 +114,12 @@ function thing_page(ctx) {
     return;
   }
 
-  app.currentPage = 'loading';
+  app.setPage('loading');
 
   $bb.get('profiles/' + profile + '/things/' + thing)
     .done(function (data) {
       app.thingData = data;
-      app.currentPage = 'thing';
+      app.setPage('thing');
 
       if (/comment-\d+/.test(ctx.hash)) app.subsection = 'comments';
       else app.subsection = ctx.hash;
@@ -123,14 +127,14 @@ function thing_page(ctx) {
       util.scrollTo('#' + ctx.hash);
 
     }).fail(function () {
-      app.currentPage = 'not-found';
+      app.setPage('not-found');
     })
 }
 
 
 function login_page(ctx) {
   $.removeCookie('buildbotics.sid');
-  app.currentPage = 'login';
+  app.setPage('login');
 }
 
 
@@ -138,19 +142,19 @@ module.exports = {
   start: function () {
     //page('*', page_debug);
     page('*', page_callback);
-    page('/', function () {app.currentPage = 'landing'});
-    page('/controller', function () {app.currentPage = 'controller'});
-    page('/dashboard', function () {app.currentPage = 'dashboard'});
+    page('/', function () {app.setPage('landing')});
+    page('/controller', function () {app.setPage('controller')});
+    page('/dashboard', function () {app.setPage('dashboard')});
     page('/docs/(.*)', docs_page);
     page('/explore/:type', explore_page);
-    page('/learn', function () {app.currentPage = 'learn'});
-    page('/create', function () {app.currentPage = 'create'});
+    page('/learn', function () {app.setPage('learn')});
+    page('/create', function () {app.setPage('create')});
     page('/login', login_page);
-    page('/register', function () {app.currentPage = 'register'});
+    page('/register', function () {app.setPage('register')});
     page('/tags/:tag', tag_page);
     page('/:profile', profile_page);
     page('/:profile/:thing', thing_page);
-    page(function () {app.currentPage = 'not-found'});
+    page(function () {app.setPage('not-found')});
     page();
   },
 

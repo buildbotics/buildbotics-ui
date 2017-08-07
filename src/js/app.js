@@ -251,6 +251,9 @@ module.exports = new Vue({
 
 
   methods: {
+    setPage: function (current) {this.currentPage = current},
+
+
     loggedIn: function (user_data) {
       this.user_data = user_data;
       var user = user_data.profile;
@@ -347,11 +350,11 @@ module.exports = new Vue({
     logout: function () {
       var currentPage = this.currentPage;
       var subsection = this.subsection;
-      this.currentPage = 'loading';
+      this.setPage('loading');
 
       $bb.get('auth/logout').done(function () {
         this.loggedOut()
-        this.currentPage = currentPage;
+        this.setPage(currentPage);
         this.subsection = subsection;
       }.bind(this));
     },
