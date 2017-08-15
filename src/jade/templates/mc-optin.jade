@@ -9,22 +9,18 @@ script#mc-optin-template(type="text/x-template")
       novalidate)
 
       #mc_embed_signup_scroll
-        h2 Subscribe to the Buildbotics mailing list
+        h2 Subscribe our mailing list
 
        .mc-field-group
-         label(for="mce-EMAIL") Email Address
          input#mce-EMAIL.required.email(type="email", name="EMAIL")
-
-       #mce-responses.clear
-       #mce-error-response.response(style="display: none")
-       #mce-success-response.response(style="display: none")
-
-       div(style="position: absolute; left: -5000px;", aria-hidden="true")
-         input(type="text", name="b_aa50c8cda80a6ed2405c3e499_d319ecab7c",
-               value="", tabindex="-1")
-       .clear
          input#mc-embedded-subscribe.button(type="submit", value="Subscribe",
            name="subscribe")
+
+       #mce-responses.clear
+         #mce-error-response.response(style="display: none")
+         #mce-success-response.response(style="display: none")
+
+       input(type="hidden", name="b_aa50c8cda80a6ed2405c3e499_d319ecab7c")
 
   script(type='text/javascript',
     src='//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js')
