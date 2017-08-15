@@ -1,9 +1,7 @@
 script#mc-optin-template(type="text/x-template")
   #mc_embed_signup
-    form(
-      action="//buildbotics.us16.list-manage.com/subscribe/post?u=aa50c8cda80a6ed2405c3e499&amp;id=d319ecab7c",
-      method="post", name="mc-embedded-subscribe-form" target="_blank",
-      novalidate)
+    form(action="//buildbotics.us16.list-manage.com/subscribe/post",
+      method="post", target="_blank")
 
       h3 Subscribe to the Buildbotics mailing list
 
@@ -11,3 +9,5 @@ script#mc-optin-template(type="text/x-template")
       input.required.email(type="email", name="EMAIL")
       input.button(type="submit", value="Subscribe", name="subscribe")
       input(type="hidden", name="b_aa50c8cda80a6ed2405c3e499_d319ecab7c")
+      input(type="hidden", name="u", value="aa50c8cda80a6ed2405c3e499")
+      input(type="hidden", name="id", value="d319ecab7c")
