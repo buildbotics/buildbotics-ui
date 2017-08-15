@@ -1,0 +1,43 @@
+script#mc-optin-template(type="text/x-template")
+  link(href="//cdn-images.mailchimp.com/embedcode/classic-10_7.css",
+    rel="stylesheet", type="text/css")
+
+  #mc_embed_signup
+    form#mc-embedded-subscribe-form.validate(
+      action="//buildbotics.us16.list-manage.com/subscribe/post?u=aa50c8cda80a6ed2405c3e499&amp;id=d319ecab7c",
+      method="post", name="mc-embedded-subscribe-form" target="_blank",
+      novalidate)
+
+      #mc_embed_signup_scroll
+        h2 Subscribe to the Buildbotics mailing list
+
+       .mc-field-group
+         label(for="mce-EMAIL") Email Address
+         input#mce-EMAIL.required.email(type="email", name="EMAIL")
+
+       #mce-responses.clear
+       #mce-error-response.response(style="display: none")
+       #mce-success-response.response(style="display: none")
+
+       div(style="position: absolute; left: -5000px;", aria-hidden="true")
+         input(type="text", name="b_aa50c8cda80a6ed2405c3e499_d319ecab7c",
+               value="", tabindex="-1")
+       .clear
+         input#mc-embedded-subscribe.button(type="submit", value="Subscribe",
+           name="subscribe")
+
+  script(type='text/javascript',
+    src='//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js')
+
+  script(type='text/javascript')
+    | (function($) {
+    |   window.fnames = new Array();
+    |   window.ftypes = new Array();
+    |   fnames[0] = 'EMAIL';
+    |   ftypes[0] = 'email';
+    |   fnames[1] = 'FNAME';
+    |   ftypes[1] = 'text';
+    |   fnames[2] = 'LNAME';
+    |   ftypes[2] = 'text';
+    |  }(jQuery));
+    | var $mcj = jQuery.noConflict(true);

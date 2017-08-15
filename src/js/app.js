@@ -66,7 +66,9 @@ module.exports = new Vue({
     'markdown-editor': require('./markdown'),
     'tag-editor': require('./tag-editor'),
     'subsection-menu': require('./subsection-menu'),
-    'thing-name-validator': require('./thing-name-validator')
+    'thing-name-validator': require('./thing-name-validator'),
+
+    'mailchimp-optin': {template: '#mc-optin-template'}
   },
 
 
