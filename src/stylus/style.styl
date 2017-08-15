@@ -2170,11 +2170,39 @@ iframe.youtube
   font 14px Helvetica, Arial, sans-serif
   max-width 500px
 
+  form
+    display block
+    position relative
+    text-align left
+    padding 10px 0 10px 3%
+
   input
     margin 1em
+    border 1px solid #abb0b2
+    border-radius 3px
 
-  input.button
-    vertical-align inherit
+    &:focus
+      border-color #333
+
+  .button
+    clear both
+    background-color #aaa
+    border 0 none
+    border-radius 4px
+    transition  all 0.23s ease-in-out 0s
+    color #ffffff
+    cursor pointer
+    display inline-block
+    font-size 15px
+    height 32px
+    line-height 32px
+    margin 0 5px 10px 0
+    padding 0 22px
+    text-align center
+    text-decoration none
+
+    &:hover
+      background-color #777
 
 // Responsive
 size_page_content(screen, content)
