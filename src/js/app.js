@@ -39,6 +39,7 @@ module.exports = new Vue({
     'tag-page': require('./tag'),
     'not-found-page': {template: '#not-found-template'},
     'controller-page': require('./controller'),
+    'mailing-list-page': {template: '#mailing-list-template'},
 
     'bb-page-layout': {replace: true, template: '#page-layout-template'},
 
