@@ -145,7 +145,7 @@ module.exports = {
     page('/', function () {app.setPage('landing')});
     page('/controller', function () {app.setPage('controller')});
     page('/kickstarter', function () {
-      location.href = 'http://www.kickstarter.com/projects/413381816/the-buildbotics-cnc-controller';
+      window.location = 'http://www.kickstarter.com/projects/413381816/the-buildbotics-cnc-controller';
       location.reload()
     });
     page('/mailing-list', function () {app.setPage('mailing-list')});
