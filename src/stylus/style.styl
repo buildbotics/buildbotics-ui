@@ -481,7 +481,7 @@ html, body
 
 
 // Controller
-#page #content.controller-page
+#page #content.controller-page, #page #content.comparison-page
   .header-content
     max-width 600px
 
@@ -513,73 +513,82 @@ html, body
       font-weight bold
 
     // Comparison table
-    .footnote
-      margin 0.25em 2em
-      font-size 8pt
+#page #content .page-content
+  .footnote
+    margin 0.25em 2em
+    font-size 8pt
 
-      > span
-        margin-left -1em
-        display inline-block
-        font-weight bold
+    > span
+      margin-left -1em
+      display inline-block
+      font-weight bold
 
-    table.comparison
-      border-collapse collapse
-      font-size 10pt
+  table.comparison
+    border-collapse collapse
+    font-size 10pt
+    margin 1em 0
 
-      .fa
-        color link_color
-        text-align center
-        width 2em
-        margin-left -1em
+    .tagline
+      font-weight bold
+      font-size 18pt
+
+    .logo
+      font-size 24pt
+
+    .fa
+      color link_color
+      text-align center
+      width 2em
+      margin-left -1em
+
+    img
+      margin 0
+
+    th
+      padding-left 1em
 
       img
-        margin 0
+        height 72px
 
-      th
-        padding-left 1em
+    td
+      text-align center
+      font-size 11pt
 
-        img
-          height 78px
+      &.yes, &.no
+        width 1em
+        background-repeat no-repeat
+        background-position center
 
-      td
-        text-align center
-        font-size 11pt
+      &.yes
+        background-image url(/controller/yes.png)
 
-        &.yes, &.no
-          width 1em
-          background-repeat no-repeat
-          background-position center
+      &.no
+        background-image url(/controller/no.png)
 
-        &.yes
-          background-image url(/controller/yes.png)
+    .none
+      display none
 
-        &.no
-          background-image url(/controller/no.png)
+    tr > *
+      border-bottom 1px solid #eaeaea
 
-      .none
+    tr > th:nth-child(1)
+      text-align left
+      white-space nowrap
+
+    tr:nth-child(2) > th
+      text-align center
+
+    tr:nth-child(odd)
+      > td, > th
+        background-color #fff
+
+    tr:nth-child(even)
+      > td, > th
+        background-color #f6f6f6
+
+    tr
+      th:nth-child(5), td:nth-child(5)
         display none
-
-      tr > *
-        border-bottom 1px solid #eaeaea
-
-      tr > th:nth-child(1)
-        text-align left
-        white-space nowrap
-
-      tr:nth-child(2) > th
-        text-align center
-
-      tr:nth-child(odd)
-        > td, > th
-          background-color #fff
-
-      tr:nth-child(even)
-        > td, > th
-          background-color #f6f6f6
-
-      tr
-        th:nth-child(5), td:nth-child(5)
-          display none
 
 
 // Landing

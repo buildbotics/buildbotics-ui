@@ -26,6 +26,16 @@ html
 
     link(rel='stylesheet' href='/css/style-' + css_hash + '.css')
 
+    meta(property="og:description" content="Buildbotics now on Kickstarter")
+    meta(property="og:image"
+      content="/controller/buildbotics_vs_competition-v1.png")
+    meta(property="og:url" content="http://buildbotics.com/kickstarter")
+
+    meta(property="twitter:description"
+      content="Buildbotics now on Kickstarter")
+    meta(property="twitter:image"
+      content="/controller/buildbotics_vs_competition-v1.png")
+
   body
     #page(v-show="!authenticating")
       include ./header.jade

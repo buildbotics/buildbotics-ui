@@ -39,6 +39,7 @@ module.exports = new Vue({
     'tag-page': require('./tag'),
     'not-found-page': {template: '#not-found-template'},
     'controller-page': require('./controller'),
+    'comparison-page': {template: '#comparison-page-template'},
     'mailing-list-page': {template: '#mailing-list-template'},
 
     'bb-page-layout': {replace: true, template: '#page-layout-template'},
@@ -69,7 +70,8 @@ module.exports = new Vue({
     'subsection-menu': require('./subsection-menu'),
     'thing-name-validator': require('./thing-name-validator'),
 
-    'mailchimp-optin': {template: '#mc-optin-template'}
+    'mailchimp-optin': {template: '#mc-optin-template'},
+    'bb-comparison': {template: '#comparison-template'}
   },
 
 

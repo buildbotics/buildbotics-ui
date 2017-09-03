@@ -34,8 +34,10 @@ function page_callback(ctx, next) {
     })
 
   // Set title
-  document.title = 'Buildbotics' +
+  var title = 'Buildbotics' +
     (ctx.pathname == '/' ? '' : ctx.pathname.replace(/\//g, ' - '));
+  document.title = title;
+  $('meta[name=description]').attr('content', title);
 }
 
 
@@ -144,6 +146,7 @@ module.exports = {
     page('*', page_callback);
     page('/', function () {app.setPage('landing')});
     page('/controller', function () {app.setPage('controller')});
+    page('/comparison', function () {app.setPage('comparison')});
     page('/kickstarter', function () {
       location.replace('http://www.kickstarter.com/projects/413381816/the-buildbotics-cnc-controller');
     });
