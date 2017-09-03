@@ -45,6 +45,7 @@ script#controller-template(type="text/x-template")
 
       a(name="comparison")
       h1 Comparison
+
       table.comparison
         tr
           th &nbsp;
@@ -66,140 +67,287 @@ script#controller-template(type="text/x-template")
           th TinyG
 
         tr
-          th Cost
-          td $450
-          td $299
-          td $135
+          th
+            .fa.fa-usd
+            | Assembled board
+          td $250
+          td N/A
+          td $135 <sup>(1)</sup>
           td $130
 
         tr
-          th Max Current
+          th
+            .fa.fa-usd
+            | Complete with enclosure
+          td $450 <sup>(2)</sup>
+          td $299
+          td N/A
+          td N/A
+
+        tr
+          th
+            .fa.fa-code-fork
+            | Open-Source
+          td.yes
+          td.no
+          td.yes
+          td.yes
+
+        tr
+          th
+            .fa.fa-bolt
+            | SD card storage
+          td 16GiB
+          td.no
+          td Not included
+          td
+
+        tr
+          th
+            .fa.fa-bolt
+            | Max current
           td 6A
           td 3.5A
           td 2A
           td 2.5A
 
         tr
-          th Max Voltage
+          th
+            .fa.fa-bolt
+            | Max voltage
           td 36V
           td 50V
           td 24V
           td 30V
 
         tr
-          th Max microstepping
+          th
+            .fa.fa-microchip
+            | Max microstepping
           td 128
           td 10
           td 32
           td 8
 
         tr
-          th Max step rate
+          th
+            .fa.fa-heartbeat
+            | Max step rate
           td 250k/sec
-          td 200k/sec <sup>1</sup>
+          td 200k/sec <sup>(3)</sup>
           td 100k/sec
           td 50k/sec
 
         tr
-          th Driver chip
-          td DRV8711
-          td Custom
-          td A5984
-          td DRV8818
+          th
+            .fa.fa-usb
+            | USB ports
+          td 4
+          td.no
+          td 1 <sup>(4)</sup>
+          td 1 <sup>(4)</sup>
 
         tr
-          th Open-Source
-          td.yes
-          td.no
-          td.yes
-          td.yes
+          th
+            .fa.fa-arrow-circle-left
+            | Digital inputs
+          td 10
+          td 4
+          td 6
+          td ?
 
         tr
-          th Enclosure
-          td.yes
-          td.yes
+          th
+            .fa.fa-arrow-circle-left
+            | Analog inputs
+          td 1
           td.no
+          td 4
+          td ?
+
+        tr
+          th
+            .fa.fa-arrow-circle-right
+            | Switched load outputs
+          td 2@15A <sup>(5)</sup>
+          td 2@1A
+          td 3@12.5A <br/> 3@3A <sup>(6)</sup>
+          td ?
+
+        tr
+          th
+            .fa.fa-cogs
+            | Control interface
+          td Web/JSON
+          td Parallel port
+          td Serial over USB or Ethernet
+          td USB
+
+        tr
+          th
+            .fa.fa-cog
+            | VFD spindle control
+          td Full <sup>(7)</sup>
+          td Voltage <sup>(8)</sup>
+          td PWM <sup>(9)</sup>
           td.no
 
         tr
-          th Ethernet
+          th
+            .fa.fa-cog
+            | PWM spindle control
           td.yes
           td.no
           td.yes
-          td.no
-
-        tr
-          th USB ports
-          td 4 host
-          td 0
-          td 1 device
-          td 1 device
+          td.yes
 
         tr.none
-          th S-Curve Accel
-          td.yes
-          td.no
-          td.no
-          td.yes
+          th
+            .fa.fa-compress
+            | Bus interfaces
+          td RS232, RS485, I2C, SPI, HDMI
+          td none
+          td RS232, I2C, SPI
+          td ?
 
         tr
-          th Short-circuit protection
-          td.yes
-          td.yes
-          td.no
-
-        tr
-          th Reverse voltage protection
+          th
+            .fa.fa-random
+            | Ethernet
           td.yes
           td.no
-          td.no
-          td.no
-
-        tr
-          th Over current protection
           td.yes
-          td.no
-          td.no
           td.no
 
         tr
-          th Over temperature shutdown
+          th
+            .fa.fa-bolt
+            | Electrical isolation
           td.yes
-          td.no
+          td.yes
           td.no
           td.no
 
         tr
-          th Under voltage lockout
+          th
+            .fa.fa-bolt
+            | Short-circuit protection
           td.yes
-          td.no
+          td.yes
           td.no
           td.no
 
         tr
-          th 1kV isolation between high & low voltage electronics
+          th
+            .fa.fa-bolt
+            | Reverse voltage protection
           td.yes
           td.no
           td.no
           td.no
 
         tr
-          th USB Gamepad
+          th
+            .fa.fa-bolt
+            | Over-current protection
           td.yes
           td.no
           td.no
           td.no
 
         tr
-          th USB Camera
+          th
+            .fa.fa-thermometer-full
+            | Over-temp shutdown
+          td.yes
+          td.no
+          td.no
+          td.no
+
+        tr
+          th
+            .fa.fa-download
+            | Upgradable over network
+          td.yes
+          td.no
+          td.no
+          td.no
+
+        tr
+          th
+            .fa.fa-gamepad
+            | USB gamepad support
+          td.yes
+          td.no
+          td.no
+          td.no
+
+        tr
+          th
+            .fa.fa-camera
+            | USB camera support
+          td.yes
+          td.no
+          td.no
+          td.no
+
+        tr
+          th
+            .fa.fa-wifi
+            | USB wifi support
+          td.yes
+          td.no
+          td.no
+          td.no
+
+        tr
+          th
+            .fa.fa-line-chart
+            | S-Curve acceleration
+          td.yes
+          td.no
+          td.no
+          td.yes
+
+        tr
+          th
+            .fa.fa-star
+            | Pre-made cabling
           td.yes
           td.no
           td.no
           td.no
 
       div.footnote
-        | <sup>1</sup> This is the maximum input rate only.  Steps must be
-        | generated by the connected PC.
+        | <span>1</span> Approximate price of pre-assembled 4x board.
+
+      div.footnote
+        | <span>2</span> Pre-assembled controller with RaspberryPi 3, 16GiB
+        | micro SD card, LCD screen and internal cabling.
+
+      div.footnote
+        | <span>3</span> Refers to maximum step input rate.  Does not produce
+        | step pulses.
+
+      div.footnote
+        | <span>4</span> USB device mode supports mass-storage, serial
+        | and DFU programming.  Cannot host other USB devices.
+
+      div.footnote
+        | <span>5</span> Self-protected VNQ5027AK-E MOSFETs.
+        | Total controler current draw auto limited to 25A.
+
+      div.footnote
+        | <span>6</span> Unprotected AOT240L and ZXMN4A06GTA MOSFETs.
+
+      div.footnote
+        | <span>7</span> Configure and control VFD over built-in two-wire RS485.
+
+      div.footnote
+        | <span>8</span> 0-10v output for VFD speed control.
+
+      div.footnote
+        | <span>9</span> Requires <a href="https://raw.githubusercontent.com/Bouni/smoothieboard-doku/master/analog-vfd-board-pcb.png">additional circuits</a> to control VFDs.
 
       center
         mailchimp-optin

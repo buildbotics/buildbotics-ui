@@ -514,24 +514,36 @@ html, body
 
     // Comparison table
     .footnote
-      margin 1em
+      margin 0.25em 2em
+      font-size 8pt
+
+      > span
+        margin-left -1em
+        display inline-block
+        font-weight bold
 
     table.comparison
       border-collapse collapse
-      font-size 11pt
+      font-size 10pt
+
+      .fa
+        color link_color
+        text-align center
+        width 2em
+        margin-left -1em
 
       img
         margin 0
 
       th
-        text-align left
         padding-left 1em
 
         img
-          width 100px
+          height 78px
 
       td
         text-align center
+        font-size 11pt
 
         &.yes, &.no
           width 1em
@@ -549,6 +561,13 @@ html, body
 
       tr > *
         border-bottom 1px solid #eaeaea
+
+      tr > th:nth-child(1)
+        text-align left
+        white-space nowrap
+
+      tr:nth-child(2) > th
+        text-align center
 
       tr:nth-child(odd)
         > td, > th
