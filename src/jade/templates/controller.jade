@@ -7,11 +7,10 @@ script#controller-template(type="text/x-template")
 
     .page-content
       center
-        a.kickstarter(href="/kickstarter")
-          img(src="/images/buildbotics_now_on_kickstarter.png")
-        img.header-image(
-          src="/controller/buildbotics_controller_front_right_lit-520.png")
-        mailchimp-optin
+        a.kickstarter(href="/kickstarter", style="position:relative")
+          img.header-image(
+            src="/controller/buildbotics_controller_front_right_lit-520.png")
+          img(src="/images/buildbotics_now_on_kickstarter.png", width=128)
 
       h1 Intro
 
@@ -44,7 +43,112 @@ script#controller-template(type="text/x-template")
         | Buildbotics CNC controller and why you should consider using it
         | for your next CNC build or retrofit.
 
+      h1 Comparison
+      table.comparison
+        tr
+          th &nbsp;
+          th
+            img(
+              src="/controller/buildbotics_controller_front_right_lit-520.png")
+          th
+            img(src="/controller/G540.png")
+          th
+            img(src="/controller/smoothieboard.png")
+          th
+            img(src="/controller/tinyg.png")
+        tr
+          th
+          th Buildbotics
+          th Gecko 540
+          th Smoothieboard
+          th TinyG
+
+        tr
+          th Cost
+          td $450
+          td $299
+          td $135
+          td $130
+
+        tr
+          th Max Current
+          td 6A
+          td 3.5A
+          td 2A
+          td 2.5A
+
+        tr
+          th Max Voltage
+          td 36V
+          td 50V
+          td 24V
+          td 30V
+
+        tr
+          th Max Microstepping
+          td 128
+          td 10
+          td 32
+          td 8
+
+        tr
+          th Driver Chip
+          td DRV8711
+          td Custom
+          td A5984
+          td DRV8818
+
+        tr
+          th Open-Source
+          td.yes
+          td.no
+          td.yes
+          td.yes
+
+        tr
+          th Enclosure
+          td.yes
+          td.yes
+          td.no
+          td.no
+
+        tr
+          th Ethernet
+          td.yes
+          td.no
+          td.yes
+          td.no
+
+        tr
+          th USB Ports
+          td 4 host
+          td 0
+          td 1 device
+          td 1 device
+
+        tr.none
+          th S-Curve Accel
+          td.yes
+          td.no
+          td.no
+          td.yes
+
+        tr
+          th Short-Circuit Protection
+          td.yes
+          td.yes
+          td.no
+
+        tr
+          th Reverse Voltage Protection
+          td.yes
+          td.no
+          td.no
+          td.no
+
+
       center
+        mailchimp-optin
         img(src="/controller/buildbotics_anatomy-wo_banner.png")
 
       h1 Physical Characteristics
@@ -238,5 +342,5 @@ script#controller-template(type="text/x-template")
 
       p
         | The Buildbotics CNC controller is currently in pre-production beta
-        | testing.  It is available
-        a(href="/kickstarter") on our Kickstarter through September, 2017.
+        | testing.  It is available&nbsp;
+        a(href="/kickstarter") on Kickstarter through September, 2017.

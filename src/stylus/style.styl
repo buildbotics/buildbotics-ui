@@ -512,6 +512,54 @@ html, body
     .announce
       font-weight bold
 
+    // Comparison table
+    table.comparison
+      border-collapse collapse
+      font-size 11pt
+
+      img
+        margin 0
+
+      th
+        text-align left
+        padding-left 1em
+
+        img
+          width 100px
+
+      td
+        text-align center
+
+        &.yes, &.no
+          width 1em
+          background-repeat no-repeat
+          background-position center
+
+        &.yes
+          background-image url(/controller/yes.png)
+
+        &.no
+          background-image url(/controller/no.png)
+
+      .none
+        display none
+
+      tr > *
+        border-bottom 1px solid #eaeaea
+
+      tr:nth-child(odd)
+        > td, > th
+          background-color #fff
+
+      tr:nth-child(even)
+        > td, > th
+          background-color #f6f6f6
+
+      tr
+        th:nth-child(5), td:nth-child(5)
+          display none
+
+
 // Landing
 .landing-page
   text-align center
@@ -2187,7 +2235,7 @@ iframe.youtube
 
 // Kickstarter
 a.kickstarter:hover > img
-  opacity 0.8
+  opacity 0.9
 
 
 // Mailchimp signup
