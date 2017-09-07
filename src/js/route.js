@@ -37,7 +37,6 @@ function page_callback(ctx, next) {
   var title = 'Buildbotics' +
     (ctx.pathname == '/' ? '' : ctx.pathname.replace(/\//g, ' - '));
   document.title = title;
-  $('meta[name=description]').attr('content', title);
 }
 
 
