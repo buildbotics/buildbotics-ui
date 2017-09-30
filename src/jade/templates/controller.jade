@@ -7,10 +7,18 @@ script#controller-template(type="text/x-template")
 
     .page-content
       center
-        a.kickstarter(href="/kickstarter", style="position:relative")
-          img.header-image(
-            src="/controller/buildbotics_controller_front_right_lit-520.png")
-          img(src="/images/buildbotics_now_on_kickstarter.png", width=128)
+        img.header-image(
+          src="/controller/buildbotics_controller_front_right_lit-520.png")
+
+      h1 Availability
+
+      p
+        | We are currently working on a small production run of about 50 units.
+        | These will be avaialbe for direct sale in January, 2018.
+        | <a href="/mailing-list">Sign up for our mailing list</a> to keep
+        | informed.
+
+      mailchimp-optin
 
       h1 Intro
 
@@ -235,10 +243,3 @@ script#controller-template(type="text/x-template")
         | you will not only be buying a great product but you will be supporting
         | continued development of projects like the CAMotics CNC simulator and
         | further development of the Buildbotics controller itself.
-
-      h1 Availability
-
-      p
-        | The Buildbotics CNC controller is currently in pre-production beta
-        | testing.  It is available&nbsp;
-        a(href="/kickstarter") on Kickstarter through September, 2017.
