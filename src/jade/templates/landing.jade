@@ -8,17 +8,18 @@ script#landing-template(type="text/x-template")
         .right botics
       .byline Desktop manufacturing for everyone.
 
-    center
-      mailchimp-optin
+    br
 
+    a(href="/controller")
+      img(src="/controller/buildbotics_controller_front_right_lit-small.png")
+
+    h1(style="max-width:20em;margin:auto")
       a(href="/controller")
-        img(width=200, src="/controller/buildbotics_controller_front_left.png")
+        | Learn about the Buildbotics CNC controller and how to get one.
 
-    h2
-      a(href="/controller")
-        | Find out about the Buildbotics CNC controller and how to get one.
+    br
 
-    a.down.fa.fa-chevron-down(v-on="click:smoothScroll" href="#landing-info")
+    center: mailchimp-optin
 
   #landing-info
     h1.expand

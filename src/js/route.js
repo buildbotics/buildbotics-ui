@@ -144,7 +144,10 @@ module.exports = {
     //page('*', page_debug);
     page('*', page_callback);
     page('/', function () {app.setPage('landing')});
-    page('/controller', function () {app.setPage('controller')});
+    page('/controller', function () {
+      app.setPage('controller');
+      util.scrollTo('#page');
+    });
     page('/comparison', function () {app.setPage('comparison')});
     page('/kickstarter', function () {page.redirect('/controller')});
     page('/mailing-list', function () {app.setPage('mailing-list')});

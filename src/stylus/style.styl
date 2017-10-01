@@ -81,6 +81,10 @@ a.disabled, a:hover.disabled
 .help
   color medium_text_color
 
+blockquote
+  margin-right 4em
+  margin-left 4em
+
 
 // Buttons
 button
@@ -480,7 +484,7 @@ html, body
     color medium_text_color
 
 
-// Controller
+// Controller & comparison pages
 #page #content.controller-page, #page #content.comparison-page
   .header-content
     max-width 600px
@@ -501,18 +505,23 @@ html, body
     h1, h2, h3, h4
       color link_color
 
-    img
-      max-width 260px
+    img, video
+      text-align center
+      max-width 100%
       display inline-block
-      margin 1em
+      margin 1em auto
 
-      &.header-image
-        max-width 100%
+    .caption
+      text-align center
+      font-style italic
+      font-size 90%
 
     .announce
       font-weight bold
 
-    // Comparison table
+    .comparison img
+      max-width inherit
+
 #page #content .page-content
   .footnote
     margin 0.25em 2em
@@ -523,6 +532,7 @@ html, body
       display inline-block
       font-weight bold
 
+  // Comparison table
   table.comparison
     border-collapse collapse
     font-size 10pt
