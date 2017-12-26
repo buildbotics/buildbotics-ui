@@ -118,6 +118,30 @@ script#controller-template(type="text/x-template")
       h1 Comparison
       bb-comparison
 
+      h1 Documented
+
+      - var docver = "-draft-20171226";
+      - var docbase = "buildbotics_cnc_controller-";
+      ul
+        li
+          a(href=docbase + "quick_start_guide" + docver + ".pdf")
+            Buildbotics CNC Controller - Quick Start Guide
+          | (Draft)
+        li
+          a(href=docbase + "datasheet" + docver + ".pdf")
+            Buildbotics CNC Controller - Datasheet
+          | (Draft)
+        li
+          a(href=docbase + "user_manual" + docver + ".pdf")
+            Buildbotics CNC Controller - User Manual
+          | (Draft)
+
+      p
+        | We are still working on perfecting our documentation but we realize
+        | how essential good documentation is.  The above links provide early
+        | access for those interested in getting a headstart on working with
+        | the Buildbotics CNC controller.
+
       h1 Tested
 
       p
