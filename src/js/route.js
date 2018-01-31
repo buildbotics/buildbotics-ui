@@ -151,6 +151,7 @@ module.exports = {
     page('/comparison', function () {app.setPage('comparison')});
     page('/kickstarter', function () {page.redirect('/controller')});
     page('/mailing-list', function () {app.setPage('mailing-list')});
+    page('/store', function () {app.setPage('store')});
     page('/dashboard', function () {app.setPage('dashboard')});
     page('/docs/(.*)', docs_page);
     page('/explore/:type', explore_page);

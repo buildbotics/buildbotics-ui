@@ -41,6 +41,7 @@ module.exports = new Vue({
     'controller-page': require('./controller'),
     'comparison-page': {template: '#comparison-page-template'},
     'mailing-list-page': {template: '#mailing-list-template'},
+    'store-page': {template: '#store-template'},
 
     'bb-page-layout': {replace: true, template: '#page-layout-template'},
 
