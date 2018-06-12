@@ -11,7 +11,8 @@ believe desktop manufacturing is for everyone.
 ## The Company
 Buildbotics LLC is located in Petaluma, CA.  It’s founders Joe and
 Doug Coffland are related as Nephew and Uncle. They founded the company
-in 2014 and began work on the [Buildbotics CNC controller](/controller) in 2015.
+in 2014 and began work on the
+[Buildbotics CNC controller](https://buildbotics.com/) in 2015.
 Both have extensive engineering experience.
 
 ### Joseph Coffland
@@ -19,8 +20,8 @@ Both have extensive engineering experience.
 ![](/images/Joseph_Coffland-Buildbotics-tiny-oval.jpg)
 Creator of both [CAMotics](http://camotics.org/), a CNC simulation and CAM
 software, and [TPL](http://tplang.org/), a system in Javascript for creating
-machine tool paths, [Joe Coffland](https://buildbotics.com/joseph) earned a
-bachelor’s degree in Computer Science from Boise State
+machine tool paths, [Joe Coffland](/joseph)
+earned a bachelor’s degree in Computer Science from Boise State
 University in 2000. In 2002, he founded the software consulting
 company [Cauldron Development LLC](http://cauldrondevelopment.com/) through
 which he has developed embedded systems under contract with companies such as
@@ -37,9 +38,9 @@ more than ten years.
 ### Doug Coffland
 <div class="company-man">
 ![](/images/Doug_Coffland-Buildbotics-tiny-oval.jpg)
-[Doug Coffland](https://buildbotics.com/doug) earned a bachelor’s degree in
-Electronics Engineering from the University of Idaho, graduating cum laude in
-1979. He recently retired from more than thirty years service at Lawrence
-Livermore National Laboratory where he earned five patents and managed
+[Doug Coffland](/doug) earned a bachelor’s
+degree in Electronics Engineering from the University of Idaho, graduating cum
+laude in 1979. He recently retired from more than thirty years service at
+Lawrence Livermore National Laboratory where he earned five patents and managed
 approximately 100 scientists, engineers, and technicians.
 </div>

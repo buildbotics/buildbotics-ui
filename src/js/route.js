@@ -145,13 +145,11 @@ module.exports = {
     page('*', page_callback);
     page('/', function () {app.setPage('landing')});
     page('/controller', function () {
-      app.setPage('controller');
-      util.scrollTo('#page');
+      page.redirect('https://buildbotics.com/')
     });
-    page('/comparison', function () {app.setPage('comparison')});
-    page('/kickstarter', function () {page.redirect('/controller')});
-    page('/mailing-list', function () {app.setPage('mailing-list')});
-    page('/store', function () {app.setPage('store')});
+    page('/kickstarter', function () {
+      page.redirect('https://buildbotics.com/')
+    });
     page('/dashboard', function () {app.setPage('dashboard')});
     page('/docs/(.*)', docs_page);
     page('/explore/:type', explore_page);

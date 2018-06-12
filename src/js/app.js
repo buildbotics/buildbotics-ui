@@ -38,9 +38,6 @@ module.exports = new Vue({
     'profile-page': require('./profile'),
     'tag-page': require('./tag'),
     'not-found-page': {template: '#not-found-template'},
-    'controller-page': require('./controller'),
-    'comparison-page': {template: '#comparison-page-template'},
-    'mailing-list-page': {template: '#mailing-list-template'},
     'store-page': {template: '#store-template'},
 
     'bb-page-layout': {replace: true, template: '#page-layout-template'},
@@ -69,10 +66,7 @@ module.exports = new Vue({
     'markdown-editor': require('./markdown'),
     'tag-editor': require('./tag-editor'),
     'subsection-menu': require('./subsection-menu'),
-    'thing-name-validator': require('./thing-name-validator'),
-
-    'mailchimp-optin': {template: '#mc-optin-template'},
-    'bb-comparison': {template: '#comparison-template'}
+    'thing-name-validator': require('./thing-name-validator')
   },
 
 

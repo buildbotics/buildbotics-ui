@@ -2,13 +2,13 @@
 
 # Effective as of February 13th, 2015
 
-Welcome to the Buldbotics LLC website (the Service).  The following Terms of Use apply when you view or use the Service provided by our website, which is  located at www.buildbotics.com. Please review the following terms carefully. By accessing or using the Service, you signify your agreement to these Terms of Use. If you do not agree to these Terms of Use, you may not access or use the Service.
+Welcome to the Buldbotics LLC website (the Service).  The following Terms of Use apply when you view or use the Service provided by our website, which is  located at projects.buildbotics.com. Please review the following terms carefully. By accessing or using the Service, you signify your agreement to these Terms of Use. If you do not agree to these Terms of Use, you may not access or use the Service.
 
 ## Privacy Policy
 Buildbotics LLC (the Company) respects the privacy of its Service users. Please refer to the [Buildbotics Privacy Policy](/docs/privacy) which explains how we collect, use, and disclose information that pertains to your privacy. When you access or use the Service, you signify your agreement to this Privacy Policy.
 
 ## About the Service
-The Company provides the following services through its web site at www.buildbotics.com:
+The Company provides the following services through its web site at projects.buildbotics.com:
 * Project sharing - Users are encouraged to post their projects on the web site so that other users can view and possibly reproduce those projects.  Users sharing projects may select from several licensing agreements for sharing their work.
 * Learning - The Company periodically posts information believed to be of interest to the CNC routing and small scale manufacturing community and encourages its users to do the same.
 * The Company also provides its users with the ability to comment on and rate the work of other users.
